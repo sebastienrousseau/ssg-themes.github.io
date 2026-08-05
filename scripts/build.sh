@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Build script for SSG Themes Monorepo
+# Build script for SSG Themes Showcase (ssg-themes.github.io)
 # Usage: ./scripts/build.sh [theme-name]
 
 THEME="${1:-portfolio}"
 THEME_DIR="themes/${THEME}"
-OUTPUT_DIR="dist/${THEME}"
+OUTPUT_DIR="public/${THEME}"
 
 if [[ ! -d "${THEME_DIR}" ]]; then
   echo "Error: Theme '${THEME}' not found in ${THEME_DIR}"
@@ -35,10 +35,10 @@ if [[ -d "${THEME_DIR}/assets" ]]; then
   cp -R "${THEME_DIR}/assets/"* "${OUTPUT_DIR}/assets/"
 fi
 
-# Copy standalone JS files if present
-for jsfile in main.js theme-init.js search.js search.css; do
-  if [[ -f "${THEME_DIR}/_layouts/${jsfile}" ]]; then
-    cp -f "${THEME_DIR}/_layouts/${jsfile}" "${OUTPUT_DIR}/${jsfile}"
+# Copy standalone JS/CSS files if present
+for file in main.js theme-init.js search.js search.css; do
+  if [[ -f "${THEME_DIR}/_layouts/${file}" ]]; then
+    cp -f "${THEME_DIR}/_layouts/${file}" "${OUTPUT_DIR}/${file}"
   fi
 done
 

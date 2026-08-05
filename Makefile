@@ -1,10 +1,10 @@
 .PHONY: help build build-portfolio dev-portfolio check clean
 
 help:
-	@echo "Static Site Generator Themes Monorepo (ssg-themes)"
+	@echo "Static Site Generator Themes & Showcase (ssg-themes.github.io)"
 	@echo ""
 	@echo "Commands:"
-	@echo "  make build          Build all themes using SSG"
+	@echo "  make build          Build all themes and demo showcase into public/"
 	@echo "  make build-portfolio Build the executive portfolio theme"
 	@echo "  make dev-portfolio  Start dev server for portfolio theme"
 	@echo "  make check          Run validation check across themes"
@@ -22,4 +22,4 @@ check:
 	@python3 scripts/validate.py
 
 clean:
-	@rm -rf dist/ public/
+	@rm -rf public/ dist/

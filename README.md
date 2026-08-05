@@ -1,15 +1,15 @@
-# Static Site Generator Themes (`ssg-themes`)
+# Static Site Generator Themes (`ssg-themes.github.io`)
 
-A monorepo for building, testing, and maintaining high-performance, WCAG AAA accessible, SEO-optimized static site generator themes for clients and executive portfolios.
+A monorepo and live theme showcase site for building, testing, and demoing high-performance, WCAG AAA accessible, SEO-optimized static site generator themes.
 
-Benchmarked against [sebastienrousseau.github.io](https://github.com/sebastienrousseau/sebastienrousseau.github.io) and built for compilation with `ssg` (Static Site Generator).
+Benchmarked against [sebastienrousseau.github.io](https://github.com/sebastienrousseau/sebastienrousseau.github.io) and compiled with `ssg` (Static Site Generator).
 
 ---
 
-## Monorepo Structure
+## Monorepo Architecture
 
 ```
-ssg-themes/
+ssg-themes.github.io/
 ├── Makefile               # Universal build & validation tasks
 ├── scripts/
 │   ├── build.sh           # Theme compiler wrapper for `ssg`
@@ -22,14 +22,17 @@ ssg-themes/
 │       ├── _layouts/      # SSG HTML templates & core assets
 │       ├── content/       # Content-first Markdown templates (.md)
 │       └── assets/        # CSS design tokens, images, and fonts
-└── dist/                  # Static HTML output directory (git-ignored)
+└── public/                # Live GitHub Pages build output with theme demos
+    ├── index.html         # Live SSG Theme Gallery & Showcase Hub
+    └── portfolio/         # Live Demo: Executive Portfolio Theme
 ```
 
 ---
 
-## Themes Available
+## Themes Showcase & Demos
 
 ### 1. `portfolio` (Executive Portfolio Theme)
+- **Live Demo:** [https://ssg-themes.github.io/portfolio/](https://ssg-themes.github.io/portfolio/)
 - **Use Case:** Executive portfolios, PMO directors, C-suite advisors, management consultants.
 - **Features:** ROI metrics dashboard, 2026 Recruiter Assessment Matrix, case study layouts, framework playbooks, dark/light theme toggle.
 - **Language & Accessibility:** 100% British English (`en-GB`), WCAG 2.1 AAA contrast compliance.
