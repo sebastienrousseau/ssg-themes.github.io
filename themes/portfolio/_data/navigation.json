@@ -1,0 +1,7 @@
+[
+  {"title": "Home", "url": "index.html"},
+  {"title": "Portfolio & Case Studies", "url": "projects.html"},
+  {"title": "Frameworks", "url": "frameworks.html"},
+  {"title": "About & Experience", "url": "about.html"},
+  {"title": "Executive Contact", "url": "contact.html"}
+]

@@ -1,0 +1,17 @@
+{
+  "name": "portfolio",
+  "title": "Executive Portfolio & Leadership Theme",
+  "version": "1.0.0",
+  "description": "High-impact SSG portfolio theme for executives, leaders, and consultants inspired by top recruiter magnet blueprints.",
+  "author": "Sébastien Rousseau",
+  "license": "MIT",
+  "layouts": [
+    "index",
+    "page",
+    "project",
+    "frameworks",
+    "about",
+    "contact",
+    "404"
+  ]
+}

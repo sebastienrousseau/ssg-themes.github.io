@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} | Case Study</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{url}}">
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">SSG</span><span class="brand-text">Portfolio</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link active" href="projects.html">Portfolio &amp; Case Studies</a></li>
+          <li><a class="nav-link" href="frameworks.html">Frameworks</a></li>
+          <li><a class="nav-link" href="about.html">About &amp; Experience</a></li>
+          <li><a class="nav-link" href="contact.html">Executive Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" style="padding-block:3rem; background:var(--surface-soft);">
+      <div class="container narrow">
+        <p class="section-eyebrow">CASE STUDY / PROJECT</p>
+        <h1>{{title}}</h1>
+        <p class="hero-subhead">{{description}}</p>
+      </div>
+    </section>
+
+    <section class="container narrow" style="padding-block:3rem;">
+      {{content}}
+    </section>
+  </main>
+
+  <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
+    <div class="container text-center"><p>&copy; 2026 {{author}}. Built with SSG.</p></div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>
