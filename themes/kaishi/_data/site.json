@@ -1,10 +1,10 @@
 {
-  "title": "Kaishi Starter Theme",
-  "author": "Sébastien Rousseau",
-  "tagline": "Modern SSG Starter Template",
-  "description": "Clean, fast, and accessible static site starter template.",
+  "title": "Kaishi Starter & Product Theme",
+  "author": "Kura Technology Solutions",
+  "tagline": "Lightweight, Ultra-Fast Static Site Starter",
+  "description": "Clean, accessible static site starter template for Shokunin SSG.",
   "language": "en-GB",
   "locale": "en_GB",
-  "url": "https://kaishi.one",
-  "email": "contact@kaishi.one"
+  "url": "https://example.com",
+  "email": "contact@example.com"
 }

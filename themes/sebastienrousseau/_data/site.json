@@ -1,11 +1,11 @@
 {
-  "title": "Sebastien Rousseau",
-  "author": "Sebastien Rousseau",
-  "tagline": "AI, Banking & Payments Leadership",
-  "description": "Applied AI, ISO 20022 migration, wholesale payments, and post-quantum cryptography.",
+  "title": "Editorial & Knowledge Hub",
+  "author": "Editorial Research Group",
+  "tagline": "Insightful Research, Technology &amp; Industry Analysis",
+  "description": "Applied research, messaging standards, financial technology architecture, and technical whitepapers.",
   "language": "en-GB",
   "locale": "en_GB",
-  "url": "https://sebastienrousseau.com",
-  "email": "contact@sebastienrousseau.com",
+  "url": "https://example.com",
+  "email": "editorial@example.com",
   "location": "London, United Kingdom"
 }

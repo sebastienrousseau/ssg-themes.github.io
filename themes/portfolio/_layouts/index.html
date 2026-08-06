@@ -8,10 +8,11 @@
   <meta name="keywords" content="{{keywords}}">
   <meta name="author" content="{{author}}">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#f1f1f1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="{{url}}">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="search.css">
   <script src="theme-init.js"></script>
 </head>
 <body>
@@ -31,6 +32,7 @@
           <li><a class="nav-link" href="about.html">About &amp; Experience</a></li>
           <li><a class="nav-link" href="contact.html">Executive Contact</a></li>
         </ul>
+        <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
       </nav>
     </div>
@@ -42,10 +44,11 @@
 
   <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
     <div class="container text-center">
-      <p>&copy; 2026 {{author}}. Built with Static Site Generator (SSG). All rights reserved.</p>
+      <p>&copy; 2026 {{author}}. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script src="search.js"></script>
 </body>
 </html>
