@@ -22,11 +22,17 @@ jobs:
       - name: Checkout Monorepo Source
         uses: actions/checkout@v4
 
-      - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - name: Cache Cargo Binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin
+          key: ${{ runner.os }}-cargo-bin-ssg
 
-      - name: Install ssg (Shokunin)
-        run: cargo install ssg
+      - name: Install ssg (Fast)
+        run: |
+          if ! command -v ssg &> /dev/null; then
+            cargo install ssg --no-default-features --quiet || cargo install ssg --quiet
+          fi
 
       - name: Build All Themes & Gallery Hub
         run: make build-all
