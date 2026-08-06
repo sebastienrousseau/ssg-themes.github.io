@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSG Themes | Live Showcase &amp; Monorepo Hub</title>
+  <meta name="description" content="High-performance, WCAG 2.1 AAA compliant static site generator themes built for client websites, executive portfolios, and editorial knowledge hubs.">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background: #fbfbfd;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #000000; color: #f5f5f7; }
+    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { padding-block: 4rem 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); text-align: center; }
+    @media (prefers-color-scheme: dark) { header { border-bottom-color: rgba(255,255,255,0.1); } }
+    .badge { background: #0050a4; color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.03em; margin: 0 0 1rem; }
+    p.lead { font-size: 1.25rem; opacity: 0.8; max-width: 760px; margin: 0 auto 2rem; }
+    .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .theme-card {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (prefers-color-scheme: dark) {
+      .theme-card { background: #1d1d1f; border-color: rgba(255,255,255,0.1); }
+    }
+    .theme-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .theme-tag { font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#0050a4; margin-bottom:0.5rem; }
+    .theme-title { font-size: 1.5rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .theme-desc { opacity: 0.85; font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+    .btn {
+      display: inline-block;
+      background: #0050a4;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+    }
+    .btn:hover { opacity: 0.9; }
+    footer { margin-top: 5rem; text-align: center; opacity: 0.7; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <span class="badge">Static Site Generator Themes</span>
+      <h1>ssg-themes.github.io</h1>
+      <p class="lead">A monorepo and live showcase of production-ready, WCAG AAA accessible, SEO-optimized static site generator themes for client websites, executive portfolios, and knowledge hubs.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 style="font-size: 1.8rem; letter-spacing: -0.02em;">Live Themes Showcase</h2>
+    <div class="theme-grid">
+      <!-- Theme 1 -->
+      <article class="theme-card">
+        <div class="theme-tag">Theme 01 · Executive</div>
+        <h3 class="theme-title">Portfolio</h3>
+        <p class="theme-desc">High-impact executive portfolio theme with ROI metrics dashboard, 2026 Recruiter Assessment Matrix, stage-gate case study layouts, and dark/light modes.</p>
+        <div>
+          <a class="btn" href="portfolio/">View Live Demo →</a>
+        </div>
+      </article>
+
+      <!-- Theme 2 -->
+      <article class="theme-card">
+        <div class="theme-tag">Theme 02 · Editorial &amp; Knowledge Hub</div>
+        <h3 class="theme-title">Sebastien Rousseau</h3>
+        <p class="theme-desc">Benchmarked against sebastienrousseau.com. Features Newsreader serif typography, research paper layouts, ISO 20022/AI articles, and CSP/SRI security hardening.</p>
+        <div>
+          <a class="btn" href="sebastienrousseau/">View Live Demo →</a>
+        </div>
+      </article>
+
+      <!-- Theme 3 -->
+      <article class="theme-card">
+        <div class="theme-tag">Theme 03 · Starter &amp; Product</div>
+        <h3 class="theme-title">Kaishi</h3>
+        <p class="theme-desc">The iconic Shokunin starter template. Ultra-fast, minimal CSS footprint, clean hero landing, features grid, and contact form layouts.</p>
+        <div>
+          <a class="btn" href="kaishi/">View Live Demo →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Sébastien Rousseau. Built with Static Site Generator (SSG). Benchmarked against sebastienrousseau.github.io.</p>
+    </div>
+  </footer>
+</body>
+</html>

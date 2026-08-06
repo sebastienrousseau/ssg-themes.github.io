@@ -44,6 +44,8 @@ build_single_theme() {
   echo "✅ Build complete for theme '${THEME}' -> ${OUTPUT_DIR}"
 }
 
+mkdir -p public
+
 if [[ "${TARGET}" == "all" ]]; then
   echo "Building all themes in monorepo..."
   for tdir in themes/*; do
@@ -55,3 +57,14 @@ if [[ "${TARGET}" == "all" ]]; then
 else
   build_single_theme "${TARGET}"
 fi
+
+# Stage root Theme Gallery Showcase index.html
+if [[ -f "public_index.html" ]]; then
+  cp -f "public_index.html" "public/index.html"
+elif [[ -f "index.html" ]]; then
+  cp -f "index.html" "public/index.html"
+fi
+
+echo "========================================================"
+echo " Showcase build complete in public/"
+echo "========================================================"
