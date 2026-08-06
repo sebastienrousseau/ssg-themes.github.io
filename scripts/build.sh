@@ -34,7 +34,7 @@ build_single_theme() {
     cp -R "${THEME_DIR}/assets/"* "${OUTPUT_DIR}/assets/" 2>/dev/null || true
   fi
 
-  # Copy standalone layout CSS/JS files into output
+  # Copy standalone layout CSS/JS files into output AFTER ssg build finishes
   for file in styles.css main.js theme-init.js search.js search.css sw.js; do
     if [[ -f "${THEME_DIR}/_layouts/${file}" ]]; then
       cp -f "${THEME_DIR}/_layouts/${file}" "${OUTPUT_DIR}/${file}"
@@ -65,11 +65,11 @@ elif [[ -f "index.html" ]]; then
   cp -f "index.html" "public/index.html"
 fi
 
-# Fix leading slashes in _csp asset references for subpath domain compatibility
+# Fix subpath URLs and remove SRI integrity attributes for CSP compatibility
 if [[ "$(uname)" == "Darwin" ]]; then
-  find public -type f -name "*.html" -exec sed -i '' -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' {} + 2>/dev/null || true
+  find public -type f -name "*.html" -exec sed -i '' -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' -e 's| integrity="[^"]*"||g' {} + 2>/dev/null || true
 else
-  find public -type f -name "*.html" -exec sed -i -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' {} + 2>/dev/null || true
+  find public -type f -name "*.html" -exec sed -i -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' -e 's| integrity="[^"]*"||g' {} + 2>/dev/null || true
 fi
 
 echo "========================================================"
