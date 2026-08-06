@@ -7,7 +7,7 @@ keywords: "Portfolio, Case Studies, Enterprise Transformation, PMO"
 author: "Executive Leader"
 date: "2026-08-05"
 language: "en-GB"
-layout: "page"
+layout: "project"
 permalink: "https://example.com/projects.html"
 ---
 
