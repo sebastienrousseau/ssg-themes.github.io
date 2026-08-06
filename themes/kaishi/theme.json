@@ -1,0 +1,15 @@
+{
+  "name": "kaishi",
+  "title": "Kaishi Starter & Product Theme",
+  "version": "1.0.0",
+  "description": "Clean, modern starter template for Shokunin SSG featuring landing pages, product features, and contact forms.",
+  "author": "Sébastien Rousseau",
+  "license": "MIT",
+  "layouts": [
+    "index",
+    "features",
+    "contact",
+    "link",
+    "thank-you"
+  ]
+}
