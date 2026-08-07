@@ -6,22 +6,22 @@
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../search.css">
-  <script src="../theme-init.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="search.css">
+  <script src="theme-init.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">SSG</span><span class="brand-text">Portfolio</span></a>
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">SSG</span><span class="brand-text">Portfolio</span></a>
       <nav class="site-nav" aria-label="Primary navigation">
         <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="../index.html">Home</a></li>
-          <li><a class="nav-link active" href="../projects/">Portfolio &amp; Case Studies</a></li>
-          <li><a class="nav-link" href="../frameworks/">Frameworks</a></li>
-          <li><a class="nav-link" href="../about/">About &amp; Experience</a></li>
-          <li><a class="nav-link" href="../contact/">Executive Contact</a></li>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link active" href="projects.html">Portfolio &amp; Case Studies</a></li>
+          <li><a class="nav-link" href="frameworks.html">Frameworks</a></li>
+          <li><a class="nav-link" href="about.html">About &amp; Experience</a></li>
+          <li><a class="nav-link" href="contact.html">Executive Contact</a></li>
         </ul>
         <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
@@ -30,15 +30,28 @@
   </header>
 
   <main id="main">
-    <section class="hero" style="padding-block:3rem; background:var(--surface-soft);">
-      <div class="container narrow">
-        <p class="section-eyebrow">CASE STUDY / PROJECT</p>
-        <h1>{{title}}</h1>
-        <p class="hero-subhead">{{description}}</p>
-      </div>
-    </section>
+    <section class="container narrow" style="padding-block:3.5rem;">
+      <p class="section-eyebrow">PORTFOLIO &amp; CASE STUDIES</p>
+      <h1>Portfolio &amp; Case Studies</h1>
+      <p class="hero-subhead">Detailed case studies of enterprise technology transformations, portfolio governance, and operational scaling.</p>
+      <hr style="border:0; border-top:1px solid var(--line-soft); margin-block:2rem;">
 
-    <section class="container narrow" style="padding-block:3rem;">
+      <article style="margin-bottom:2.5rem; padding:2rem; background:var(--surface-soft); border-radius:12px; border:1px solid var(--line-soft);">
+        <h2>Case Study 01: Enterprise Technology Portfolio Transformation</h2>
+        <ul>
+          <li><strong>Scope:</strong> £35M+ annual investment across 50+ concurrent projects.</li>
+          <li><strong>Outcome:</strong> Established Investment Board and Risk &amp; Dependency Forums. Improved forecasting accuracy and reduced delivery risk through stage-gate controls.</li>
+        </ul>
+      </article>
+
+      <article style="margin-bottom:2.5rem; padding:2rem; background:var(--surface-soft); border-radius:12px; border:1px solid var(--line-soft);">
+        <h2>Case Study 02: National Banking Transformation</h2>
+        <ul>
+          <li><strong>Scope:</strong> Migration of 700 UK government departments onto new banking suppliers.</li>
+          <li><strong>Outcome:</strong> Award-winning execution with zero operational downtime and robust stakeholder management.</li>
+        </ul>
+      </article>
+
       {{content}}
     </section>
   </main>
@@ -46,7 +59,7 @@
   <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
     <div class="container text-center"><p>&copy; 2026 {{author}}. Built with SSG.</p></div>
   </footer>
-  <script src="../main.js"></script>
-  <script src="../search.js"></script>
+  <script src="main.js"></script>
+  <script src="search.js"></script>
 </body>
 </html>
