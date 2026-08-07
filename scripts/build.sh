@@ -70,6 +70,18 @@ find public -type f -name "index.html" | while read -r idx; do
   dir="$(dirname "$idx")"
   if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" ]]; then
     cp -f "$idx" "${dir}.html" 2>/dev/null || true
+
+    # Stage assets into subdirectory so relative asset references (e.g. theme-init.js, main.js, styles.css, _csp/) return 200 OK
+    parent="$(dirname "$dir")"
+    for asset in styles.css main.js theme-init.js search.js search.css; do
+      if [[ -f "${parent}/${asset}" ]]; then
+        cp -f "${parent}/${asset}" "${dir}/${asset}" 2>/dev/null || true
+      fi
+    done
+    if [[ -d "${parent}/_csp" ]]; then
+      mkdir -p "${dir}/_csp"
+      cp -R "${parent}/_csp/"* "${dir}/_csp/" 2>/dev/null || true
+    fi
   fi
 done
 
