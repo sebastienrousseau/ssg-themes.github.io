@@ -1,383 +1,67 @@
 <!DOCTYPE html>
 <html lang="{{language}}">
-  <head>
-    <meta charset="{{charset}}" />
-    <meta itemprop="datePublished" content="{{item_pub_date}}" id="date">
-    <meta itemprop="dateModified" content="{{last_build_date}}" id="last-modified">
-    <title>{{title}}</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Velocity Air | Developer Support &amp; Contact Template</title>
+  <meta name="description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support. Fast, accessible, zero-JS templates.">
+  <meta name="keywords" content="Velocity Air, Developer Contact, SSG Support, Static Site Generator, Minimalist Templates">
+  <meta property="og:title" content="Velocity Air | Developer Support &amp; Contact Template">
+  <meta property="og:description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Velocity Air | Developer Support &amp; Contact Template">
+  <meta name="twitter:description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support.">
+  <link rel="canonical" href="{{url}}">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="search.css">
+  <script src="theme-init.js"></script>
+</head>
+<body style="background:#090d16; color:#f3f4f6; font-family:system-ui, -apple-system, sans-serif;">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">VA</span><span class="brand-text">Velocity Air</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="about.html">Features</a></li>
+          <li><a class="nav-link active" href="contact.html">Support</a></li>
+        </ul>
+        <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
+      </nav>
+    </div>
+  </header>
 
-    <!-- # Start Primary Meta Tags -->
-    {{primary}}
-    <!-- # End Primary Meta Tags -->
+  <main id="main" class="container narrow" style="padding-block:4rem; max-width:640px; margin-inline:auto;">
+    <p style="color:#d97706; font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · DEVELOPER SUPPORT</p>
+    <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem;">Developer Support &amp; Feedback</h1>
+    <p style="font-size:1.1rem; color:#9ca3af; margin-bottom:2.5rem;">Get in touch regarding Velocity Air theme customization and SSG site deployment.</p>
 
-    <!-- # Start Open Graph / Facebook Meta Tags -->
-    {{opengraph}}
-    <!-- # End Open Graph / Facebook Meta Tags -->
-
-    <!-- # Start Accessibility Meta Tags -->
-    <meta name="accessibility" content="ARIA, fullKeyboardControl, noFlashingHazard" />
-    <!-- # End Accessibility Meta Tags -->
-
-    <!-- # Start Apple Meta Tags -->
-    {{apple}}
-    <!-- # End Apple Meta Tags -->
-
-<!-- # Start Content Security Policy Meta Tags -->
-<meta http-equiv="Content-Security-Policy"
-content="default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google-analytics.com https://cdn.jsdelivr.net unpkg.com www.googletagmanager.com x.clarity.ms https://www.googletagmanager.com;
-  connect-src 'self' www.googletagmanager.com https://region1.google-analytics.com;
-  img-src 'self' data: https: kura.pro www.googletagmanager.com;
-  style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com;
-  media-src 'self';" />
-<!-- # End Content Security Policy Meta Tags -->
-
-
-
-    <!-- # Start Microsoft Meta Tags -->
-    {{microsoft}}
-    <!-- # End Microsoft Meta Tags -->
-
-    <!-- # Start Twitter Meta Tags -->
-    {{twitter}}
-    <!-- # End Twitter Meta Tags -->
-
-    <!-- # Start Links -->
-    <link rel="alternate" href="{{url}}" hreflang="{{hreflang}}" />
-    <link rel="preload" as="image" href="{{banner}}">
-    <link rel="canonical" href="{{url}}" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{{cdn}}/{{short_name}}/images/favicon.ico"
-      sizes="16x16 32x32"
-    />
-    <link
-      as="style"
-      crossorigin="anonymous"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      onload="this.onload=null;this.rel='stylesheet'"
-      rel="preload"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="{{cdn}}/{{short_name}}/images/icons/{{apple_touch_icon_sizes}}.png"
-      sizes="{{apple_touch_icon_sizes}}"
-    />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
-    <!-- # End Links -->
-
-    <!-- # Start Styles -->
-    <style>
-      @keyframes dropDown{from{transform:translateY(-.618rem)}to{transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.active,h1,h2,h3,h4,h5,h6,strong{font-weight:400}.article-info{color:var(--theme-color);font-weight:400}.blur-light{backdrop-filter:saturate(180%) blur(20px);background-color:rgba(255,255,255,.618)}.card{overflow:hidden}.drop-down,.fade-in{animation-fill-mode:forwards}.drop-down{animation:dropDown 1.618s ease}.fade-in{animation:fadeIn 3s ease}h1,h2,h3,h4,h5,h6{color:var(--theme-color)}:root{--theme-color:{{theme_color}}}*{font-weight:300}a{color:var(--theme-color);text-decoration:none}a:hover{text-decoration:underline}pre{background:#f9f9f9;border:1px solid #ddd;border-left:3px solid var(--theme-color);color:#666;display:block;font-family:monospace;font-size:15px;line-height:1.618;margin-bottom:1.618em;max-width:100%;overflow:auto;padding:1em 1.618em;page-break-inside:avoid;word-wrap:break-word}.zoom-in{transition:transform .618s cubic-bezier(.618,1,.618,1)}.zoom-in:hover{transform:scale(1.0618)}.zoom-out{transition:transform .618s cubic-bezier(.618,1,.618,1)}.zoom-out:hover{transform:scale(.618)}.text-shadow{text-shadow:1px 1px 2px black}
-    </style>
-    <!-- # End Styles -->
-  </head>
-  <body
-    id="page-top"
-    itemscope
-    itemtype="http://schema.org/WebPage"
-    class="fw-light text-center bg-black text-white text-start fs-6"
-  >
-    <!-- # Start Responsive navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-brand bg-transparent fixed-top"
-      id="mainNav"
-      itemscope
-      itemtype="http://schema.org/SiteNavigationElement"
-      style="background-color: transparent;"
-    >
-    <div class="container-xxl p-3">
-      <button
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler bg-white"
-          data-bs-target="#navbarSupportedContent"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item rounded-start blur-light">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="/index.html">Home</a>
-            </li>
-            <li class="nav-item blur-light">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="/features/index.html">Features</a>
-            </li>
-            <li class="nav-item dropdown blur-light {{menu}}">
-              <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >Resources</a>
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="supportDropdown"
-              >
-                <li>
-                  <a class="dropdown-item" href="/contact/index.html">Contact</a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="dropdown-item"
-                    target="_blank"
-                    href="https://github.com/sebastienrousseau/kaishi.github.io">GitHub ⧉</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/privacy/index.html">Privacy & Cookie Policy</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/tags/index.html">Tags</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/terms/index.html">Terms of Use</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item blur-light rounded-end">
-              <a
-                aria-pressed="false"
-                class="btn btn-success m-1"
-                href="/contact/index.html"
-                >Get in touch
-              </a>
-            </li>
-          </ul>
-        </div>
+    <form action="#" method="POST" style="background:#111827; padding:2rem; border-radius:12px; border:1px solid #1f2937;">
+      <div style="margin-bottom:1rem;">
+        <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Developer Name</label>
+        <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;">
       </div>
-    </nav>
-    <!-- # End Responsive navbar -->
-
-    <!-- Header-->
-    <header class="w-100 py-5 position-relative">
-      <img
-        alt="{{banner_alt}}"
-        aria-hidden="false"
-        class="fade-in position-absolute top-0 start-0 w-100 h-100"
-        data-has-animated="true"
-        data-show-type="fade-in"
-        height="{{banner_height}}"
-        loading="lazy"
-        src="{{banner}}"
-        style="object-fit: cover; z-index: -1;"
-        title="{{banner_alt}}"
-        width="{{banner_width}}"
-      />
-        <div class="text-center text-white mx-auto p-5"
-        style="
-          margin-top:50px;
-          width: 50vw;
-          height: auto;
-          z-index: 1;">
-          <p class="display-3 text-shadow">{{short_name}}</p>
-          <p class="fs-3 text-shadow">{{subtitle}}</p>
-        </div>
-    </header>
-
-    <!-- Main content-->
-    <main id="main" class="bg-black text-white bd-masthead fs-5 p-5" aria-label="main">
-      <div
-        class="align-items-md-stretch text-start justify-content-between rounded rounded-3"
-      >
-      <form action="https://formspree.io/f/{{form-id}}" method="POST" class="bg-black text-white form-control border-0">
-          <div class="row g-3">
-            <div class="row">{{content}}</div>
-            <div class="col-12">
-              <label for="sender" class="form-label">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="sender"
-                autocomplete="name"
-                placeholder=""
-                value=""
-                required=""
-              />
-              <div class="invalid-feedback">A valid name is required.</div>
-            </div>
-            <div class="col-12">
-              <label for="email" class="form-label">Email</label>
-              <input
-                autocomplete="email"
-                name="email"
-                type="email"
-                id="email"
-                class="form-control"
-                placeholder=""
-                required=""
-              />
-              <div class="invalid-feedback">
-                A valid email address is required.
-              </div>
-            </div>
-            <div class="col-12">
-              <label for="subject" class="form-label">Subject</label><br />
-              <select
-                name="subject"
-                id="subject"
-                class="form-select"
-                required
-                aria-label="General Questions"
-              >
-                <option value="">Select a subject</option>
-                <option value="press">Advertising / Press Enquiries</option>
-                <option value="business">Business Enquiries</option>
-                <option value="feedback">Feedback / Feature Request</option>
-                <option value="general">General Questions</option>
-                <option value="product">Product Questions</option>
-                <option value="support">Product Support</option>
-              </select>
-            </div>
-            <div class="col-12">
-              <label for="message" class="form-label">Message</label>
-              <textarea
-                cols="47"
-                rows="8"
-                class="form-control"
-                id="message"
-                name="message"
-                placeholder="Message"
-                required=""
-                style="height: 168px"
-              ></textarea>
-              <div class="invalid-feedback">Please enter your message.</div>
-            </div>
-            <div class="col-12">
-              <button
-                title="Send Message"
-                type="submit"
-                class="btn btn-lg btn-danger end-50"
-              >
-                Send Message
-              </button>
-            </div>
-          </div>
-        </form>
+      <div style="margin-bottom:1rem;">
+        <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Email Address</label>
+        <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;">
       </div>
-    </main>
+      <div style="margin-bottom:1.5rem;">
+        <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Inquiry / Feedback</label>
+        <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;"></textarea>
+      </div>
+      <button type="submit" style="background:#d97706; color:#fff; padding:0.75rem 1.75rem; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Send Support Request</button>
+    </form>
 
-    <!-- Footer-->
-    <footer id="footer" aria-label="footer" class="footer border-top border-success border-3 mt-auto py-3">
-      <img
-        alt="{{image_alt}}"
-        height="33"
-        src="{{image}}"
-        title="{{image_alt}}"
-        width="33"
-      />
-      <span class="px-2">{{copyright}}</span>
-      <p class="mb-0">
-        <span class="px-2"><a href="/contact/index.html">Contact</a></span>
-        <span class="px-2"><a href="/privacy/index.html">Privacy & Cookie Policy</a></span>
-        <span class="px-2"><a href="/terms/index.html">Terms of Use</a></span>
-      </p>
-    </footer>
-    <!-- # End Footer -->
-    <!-- # Start Scripts -->
-    <script
-      async
-      crossorigin="anonymous"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      defer
-    ></script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org/",
-        "@type": "WebPage",
-        "author": {
-          "@type": "Person",
-          "@id": "{{author}}"
-        },
-        "copyrightHolder": {
-          "@type": "Person",
-          "@id": "{{author}}"
-        },
-        "copyrightYear": "{{copyright}}",
-        "creator": {
-          "@type": "Person",
-          "@id": "{{author}}"
-        },
-        "dateModified": "{{last_build_date}}",
-        "datePublished": "{{item_pub_date}}",
-        "description": "{{description}}",
-        "headline": "{{subtitle}}",
-        "image": {
-          "@type": "ImageObject",
-          "url": "{{image}}"
-        },
-        "inLanguage": "{{language}}",
-        "mainEntityOfPage": "{{permalink}}",
-        "name": "{{name}}",
-        "publisher": {
-          "@type": "Person",
-          "@id": "{{author}}"
-        }
-      }
-    </script>
-    <script type="module" defer>
-      // This is an Immediately Invoked Function Expression (IIFE) which helps
-      // to avoid declaring any globals.
-      (function () {
-        // Create a new script element
-        var script = document.createElement("script");
+    {{content}}
+  </main>
 
-        // Set the source of the script element to "/main.js".
-        // A timestamp is appended as a query string to ensure the browser
-        // always fetches the latest version of the script, bypassing the
-        // cache.
-        script.src = "/main.js";
-
-        // The script is of type "text/javascript"
-
-        // The script is set to execute asynchronously as soon as it's
-        //available
-
-        // Append the script element to the head of the document
-        document.head.appendChild(script);
-      })(); // The function is immediately invoked
-    </script>
-    <script>
-      // JavaScript code
-      var dropDownElements = document.querySelectorAll('.drop-down');
-      dropDownElements.forEach(function(element) {
-        element.classList.add('animate');
-      });
-      window.addEventListener('scroll', function() {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        dropDownElements.forEach(function(element) {
-          if (scrollTop === 0) {
-            element.classList.add('animate');
-          } else {
-            element.classList.remove('animate');
-          }
-        });
-      });
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{measurementID}}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', '{{measurementID}}');
-    </script>
-    <!-- # End Scripts -->
-  </body>
+  <footer class="site-footer" style="border-top:1px solid #1f2937; padding:3rem 0; margin-top:4rem;">
+    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% Accessible.</p></div>
+  </footer>
+  <script src="main.js"></script>
+  <script src="search.js"></script>
+</body>
 </html>
