@@ -85,11 +85,27 @@ find public -type f -name "index.html" | while read -r idx; do
   fi
 done
 
-# Fix subpath URLs and remove SRI integrity attributes for CSP compatibility
+# Fix subpath URLs, remove SRI integrity attributes, and strip auto-injected <div lang="en"> metadata fallbacks
 if [[ "$(uname)" == "Darwin" ]]; then
-  find public -type f -name "*.html" -exec sed -i '' -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' -e 's| integrity="[^"]*"||g' {} + 2>/dev/null || true
+  find public -type f -name "*.html" -exec sed -i '' \
+    -e 's|href="/_csp/|href="_csp/|g' \
+    -e 's|src="/_csp/|src="_csp/|g' \
+    -e 's| integrity="[^"]*"||g' \
+    -e 's|<meta name="description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|&lt;div lang="en">&lt;/div>||g' \
+    {} + 2>/dev/null || true
 else
-  find public -type f -name "*.html" -exec sed -i -e 's|href="/_csp/|href="_csp/|g' -e 's|src="/_csp/|src="_csp/|g' -e 's| integrity="[^"]*"||g' {} + 2>/dev/null || true
+  find public -type f -name "*.html" -exec sed -i \
+    -e 's|href="/_csp/|href="_csp/|g' \
+    -e 's|src="/_csp/|src="_csp/|g' \
+    -e 's| integrity="[^"]*"||g' \
+    -e 's|<meta name="description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
+    -e 's|&lt;div lang="en">&lt;/div>||g' \
+    {} + 2>/dev/null || true
 fi
 
 echo "========================================================"

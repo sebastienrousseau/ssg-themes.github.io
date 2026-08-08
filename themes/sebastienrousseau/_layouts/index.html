@@ -7,32 +7,18 @@
     <meta itemprop="dateModified" content="{{last_build_date}}" id="last-modified" />
     <title>{{title}}</title>
 
-    {{primary}}
-    {{opengraph}}
+    <meta name="description" content="{{description}}" />
+    <meta name="keywords" content="{{keywords}}" />
+    <meta name="author" content="{{author}}" />
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{description}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{url}}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{title}}" />
+    <meta name="twitter:description" content="{{description}}" />
     <meta name="accessibility" content="ARIA, fullKeyboardControl, noFlashingHazard" />
     {{apple}}
-
-    <!-- Strict security headers. The headers below that can be set via
-         <meta http-equiv> are emitted here; HSTS / COOP / COEP / CORP /
-         X-Frame-Options must come from the CDN (Cloudflare Transform
-         Rules — see DEPLOY.md for the canonical configuration). -->
-    <meta http-equiv="Permissions-Policy" content="accelerometer=(), ambient-light-sensor=(), attribution-reporting=(), autoplay=(self), battery=(), browsing-topics=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), identity-credentials-get=(), idle-detection=(), interest-cohort=(), join-ad-interest-group=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), publickey-credentials-create=(), publickey-credentials-get=(), run-ad-auction=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), unload=(), usb=(), web-share=(), window-management=(), xr-spatial-tracking=()" />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-
-    <!-- Strict CSP. Inline <script type="application/ld+json"> JSON-LD blocks
-         are allowed *by hash only* — scripts/postbuild.py computes the SHA-256
-         of each block at build time and injects the 'sha256-<base64>' tokens
-         into script-src below before the file is served. Browsers will then
-         allow that exact byte-for-byte content and nothing else.
-         'inline-speculation-rules' (hyphens! W3C spec) permits the
-         Speculation Rules API hover prerender script. frame-ancestors
-         is set via Cloudflare Transform Rules — meta CSP doesn't honour
-         it (see DEPLOY.md). -->
-
-
-    {{microsoft}}
-    {{twitter}}
 
     <link rel="alternate" href="{{url}}" hreflang="{{hreflang}}" />
     <!-- Banner image stays in frontmatter for og:image / Twitter Card use,
@@ -2226,133 +2212,19 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Person",
-      "@id": "https://sebastienrousseau.com/#person",
-      "name": "Sebastien Rousseau",
-      "givenName": "Sebastien",
-      "familyName": "Rousseau",
-      "url": "https://sebastienrousseau.com/",
-      "image": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
-      "jobTitle": "Senior Product Manager, Wholesale Payments & API",
-      "description": "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services.",
-      "identifier": {
-        "@type": "PropertyValue",
-        "propertyID": "ORCID",
-        "value": "0009-0005-1434-284X",
-        "url": "https://orcid.org/0009-0005-1434-284X"
-      },
-      "worksFor": {
-        "@type": "Organization",
-        "@id": "https://www.hsbc.com/#organization",
-        "name": "HSBC Commercial & Investment Bank",
-        "url": "https://www.hsbc.com/"
-      },
-      "alumniOf": [
-        {"@type": "Organization", "name": "PayPal", "url": "https://www.paypal.com/"},
-        {"@type": "Organization", "name": "Barclays", "url": "https://www.barclays.com/"},
-        {"@type": "Organization", "name": "Shazam Entertainment", "url": "https://www.shazam.com/"},
-        {"@type": "Organization", "name": "AKQA", "url": "https://www.akqa.com/"},
-        {"@type": "Organization", "name": "Virgin Group", "url": "https://www.virgin.com/"}
-      ],
-      "memberOf": {
-        "@type": "ProgramMembership",
-        "programName": "Quantum-Safe Cryptography Working Group",
-        "hostingOrganization": {
-          "@type": "Organization",
-          "name": "Emerging Payments Association Asia",
-          "url": "https://emergingpaymentsasia.org/"
-        }
-      },
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "professional experience",
-          "name": "Nearly two decades across Tier-1 banks and global payments infrastructure",
-          "recognizedBy": {"@type": "Organization", "name": "HSBC Commercial & Investment Bank", "url": "https://www.hsbc.com/"}
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "domain expertise",
-          "name": "ISO 20022 migration and wholesale payments architecture",
-          "recognizedBy": {"@type": "Organization", "name": "SWIFT", "url": "https://www.swift.com/"}
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "domain expertise",
-          "name": "Post-Quantum Cryptography for financial services",
-          "recognizedBy": {"@type": "Organization", "name": "NIST Post-Quantum Cryptography Project", "url": "https://csrc.nist.gov/projects/post-quantum-cryptography"}
-        }
-      ],
-      "knowsAbout": [
-        {"@type": "DefinedTerm", "name": "Post-Quantum Cryptography", "sameAs": "https://en.wikipedia.org/wiki/Post-quantum_cryptography"},
-        {"@type": "DefinedTerm", "name": "ML-KEM (FIPS 203)", "sameAs": "https://csrc.nist.gov/pubs/fips/203/final"},
-        {"@type": "DefinedTerm", "name": "ML-DSA (FIPS 204)", "sameAs": "https://csrc.nist.gov/pubs/fips/204/final"},
-        {"@type": "DefinedTerm", "name": "ISO 20022", "sameAs": "https://en.wikipedia.org/wiki/ISO_20022"},
-        {"@type": "DefinedTerm", "name": "SWIFT gpi", "sameAs": "https://www.swift.com/our-solutions/swift-gpi"},
-        {"@type": "DefinedTerm", "name": "SEPA Instant Payments", "sameAs": "https://www.ecb.europa.eu/paym/integration/retail/instant_payments/html/index.en.html"},
-        {"@type": "DefinedTerm", "name": "FedNow Service", "sameAs": "https://www.federalreserve.gov/paymentsystems/fednow_about.htm"},
-        {"@type": "DefinedTerm", "name": "Real-Time Payments (RTP)", "sameAs": "https://www.theclearinghouse.org/payment-systems/rtp"},
-        {"@type": "DefinedTerm", "name": "Cross-border payments", "sameAs": "https://en.wikipedia.org/wiki/Cross-border_payments"},
-        {"@type": "DefinedTerm", "name": "Wholesale banking", "sameAs": "https://en.wikipedia.org/wiki/Wholesale_banking"},
-        {"@type": "DefinedTerm", "name": "Applied artificial intelligence in banking", "sameAs": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence"},
-        {"@type": "DefinedTerm", "name": "Generative artificial intelligence", "sameAs": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence"}
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "London",
-        "addressCountry": "United Kingdom"
-      },
-      "sameAs": [
-        "https://orcid.org/0009-0005-1434-284X",
-        "https://x.com/wwdseb",
-        "https://www.linkedin.com/in/sebastienrousseau/",
-        "https://medium.com/@BankingOnQuantum",
-        "https://www.youtube.com/@BankingOnQuantum",
-        "https://github.com/sebastienrousseau"
-      ]
-    },
-    {
-      "@type": ["Organization", "Brand"],
-      "@id": "https://sebastienrousseau.com/#organization",
-      "name": "Sebastien Rousseau",
-      "alternateName": "Banking on Quantum",
-      "url": "https://sebastienrousseau.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "@id": "https://sebastienrousseau.com/#logo",
-        "url": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
-        "width": "512",
-        "height": "512",
-        "caption": "Sebastien Rousseau"
-      },
-      "founder": {"@id": "https://sebastienrousseau.com/#person"},
-      "editorialPolicy": "https://sebastienrousseau.com/editorial/",
-      "correctionsPolicy": "https://sebastienrousseau.com/editorial/#corrections",
-      "ethicsPolicy": "https://sebastienrousseau.com/editorial/",
-      "diversityPolicy": "https://sebastienrousseau.com/editorial/",
-      "sameAs": [
-        "https://github.com/sebastienrousseau",
-        "https://x.com/wwdseb",
-        "https://www.linkedin.com/in/sebastienrousseau/",
-        "https://medium.com/@BankingOnQuantum"
-      ]
+      "@type": "Organization",
+      "@id": "https://ssg-themes.github.io/sebastienrousseau/#organization",
+      "name": "Editorial Knowledge Hub",
+      "url": "https://ssg-themes.github.io/sebastienrousseau/",
+      "description": "Technical research, open engineering standards, applied AI models, and software performance architecture."
     },
     {
       "@type": "WebSite",
-      "@id": "https://sebastienrousseau.com/#website",
-      "url": "https://sebastienrousseau.com/",
-      "name": "Sebastien Rousseau",
-      "description": "AI, banking and financial services expert. Senior payments leader at HSBC Commercial & Investment Bank.",
-      "publisher": {"@id": "https://sebastienrousseau.com/#organization"},
-      "author": {"@id": "https://sebastienrousseau.com/#person"},
-      "inLanguage": "en-GB"
-    },
-    {
-      "@type": "ProfilePage",
-      "@id": "https://sebastienrousseau.com/#profile",
-      "mainEntity": {"@id": "https://sebastienrousseau.com/#person"},
-      "name": "Sebastien Rousseau: AI, Banking & Financial Services Expert",
-      "url": "https://sebastienrousseau.com/",
+      "@id": "https://ssg-themes.github.io/sebastienrousseau/#website",
+      "url": "https://ssg-themes.github.io/sebastienrousseau/",
+      "name": "Editorial Knowledge Hub",
+      "description": "Applied research, messaging standards, financial technology architecture, and technical whitepapers.",
+      "publisher": {"@id": "https://ssg-themes.github.io/sebastienrousseau/#organization"},
       "inLanguage": "en-GB"
     }
   ]
