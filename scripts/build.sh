@@ -65,22 +65,25 @@ elif [[ -f "index.html" ]]; then
   cp -f "index.html" "public/index.html"
 fi
 
-# Generate .html file fallbacks for directory outputs (e.g. projects/index.html -> projects.html)
+# Generate .html file fallbacks for directory outputs and stage ALL asset dependencies into subdirectories
 find public -type f -name "index.html" | while read -r idx; do
   dir="$(dirname "$idx")"
   if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" ]]; then
     cp -f "$idx" "${dir}.html" 2>/dev/null || true
 
-    # Stage assets into subdirectory so relative asset references (e.g. theme-init.js, main.js, styles.css, _csp/) return 200 OK
+    # Stage ALL JS, CSS, search index, and _csp assets into subdirectories for 100% 200 OK resolution
     parent="$(dirname "$dir")"
-    for asset in styles.css main.js theme-init.js search.js search.css; do
-      if [[ -f "${parent}/${asset}" ]]; then
-        cp -f "${parent}/${asset}" "${dir}/${asset}" 2>/dev/null || true
-      fi
-    done
+    cp -f "${parent}"/*.js "${dir}/" 2>/dev/null || true
+    cp -f "${parent}"/*.css "${dir}/" 2>/dev/null || true
+    cp -f "${parent}"/search-index*.json "${dir}/" 2>/dev/null || true
+
     if [[ -d "${parent}/_csp" ]]; then
       mkdir -p "${dir}/_csp"
       cp -R "${parent}/_csp/"* "${dir}/_csp/" 2>/dev/null || true
+    fi
+    if [[ -d "${parent}/assets" ]]; then
+      mkdir -p "${dir}/assets"
+      cp -R "${parent}/assets/"* "${dir}/assets/" 2>/dev/null || true
     fi
   fi
 done
