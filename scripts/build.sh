@@ -42,6 +42,13 @@ build_single_theme() {
     fi
   done
 
+  # Copy theme favicon.ico
+  if [[ -f "${THEME_DIR}/assets/favicon.ico" ]]; then
+    cp -f "${THEME_DIR}/assets/favicon.ico" "${OUTPUT_DIR}/favicon.ico"
+  elif [[ -f "favicon.ico" ]]; then
+    cp -f "favicon.ico" "${OUTPUT_DIR}/favicon.ico"
+  fi
+
   echo "✅ Build complete for theme '${THEME}' -> ${OUTPUT_DIR}"
 }
 
@@ -59,6 +66,11 @@ else
   build_single_theme "${TARGET}"
 fi
 
+# Copy root favicon.ico to public/
+if [[ -f "favicon.ico" ]]; then
+  cp -f "favicon.ico" "public/favicon.ico"
+fi
+
 # Stage root Theme Gallery Showcase index.html
 if [[ -f "public_index.html" ]]; then
   cp -f "public_index.html" "public/index.html"
@@ -72,11 +84,14 @@ find public -type f -name "index.html" | while read -r idx; do
   if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" ]]; then
     cp -f "$idx" "${dir}.html" 2>/dev/null || true
 
-    # Stage ALL JS, CSS, search index, and _csp assets into subdirectories for 100% 200 OK resolution
+    # Stage ALL JS, CSS, favicon, search index, and _csp assets into subdirectories for 100% 200 OK resolution
     parent="$(dirname "$dir")"
     cp -f "${parent}"/*.js "${dir}/" 2>/dev/null || true
     cp -f "${parent}"/*.css "${dir}/" 2>/dev/null || true
     cp -f "${parent}"/search-index*.json "${dir}/" 2>/dev/null || true
+    if [[ -f "${parent}/favicon.ico" ]]; then
+      cp -f "${parent}/favicon.ico" "${dir}/favicon.ico" 2>/dev/null || true
+    fi
 
     if [[ -d "${parent}/_csp" ]]; then
       mkdir -p "${dir}/_csp"
@@ -89,7 +104,7 @@ find public -type f -name "index.html" | while read -r idx; do
   fi
 done
 
-# Apply cache buster to script/link tags and strip auto-injected <div lang="en"> fallbacks
+# Inject favicon link tag, apply cache buster to script/link tags and strip auto-injected <div lang="en"> fallbacks
 if [[ "$(uname)" == "Darwin" ]]; then
   find public -type f -name "*.html" -exec sed -i '' \
     -e 's|href="/_csp/|href="_csp/|g' \
@@ -101,6 +116,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     -e 's|&lt;div lang="en">&lt;/div>||g' \
     -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
     -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
+    -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \
     {} + 2>/dev/null || true
 else
   find public -type f -name "*.html" -exec sed -i \
@@ -113,6 +129,7 @@ else
     -e 's|&lt;div lang="en">&lt;/div>||g' \
     -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
     -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
+    -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \
     {} + 2>/dev/null || true
 fi
 
