@@ -1,12 +1,12 @@
 {
-  "title": "Alexander Wright | Head of PMO & Enterprise Portfolio Leader",
-  "author": "Alexander Wright",
-  "tagline": "Driving Enterprise Transformation through Strategic Portfolio Governance",
-  "description": "Enterprise portfolio management, £35M+ tech transformation, stage-gate governance, and AI risk models.",
+  "title": "Apex Executive Pro | Premium Static Site Generator Theme",
+  "author": "SSG Theme Suite",
+  "tagline": "Powered by Static Site Generator (SSG)",
+  "description": "High-performance, WCAG AAA compliant static site generator theme with 100/100 Lighthouse benchmark scores.",
   "language": "en-GB",
   "locale": "en_GB",
-  "url": "https://example.com",
-  "email": "contact@alexanderwright.executive",
-  "location": "London, United Kingdom",
+  "url": "https://ssg-themes.github.io/portfolio/",
+  "email": "contact@ssg-themes.github.io",
+  "location": "Global Edge CDN",
   "theme_color": "0, 80, 164"
 }
