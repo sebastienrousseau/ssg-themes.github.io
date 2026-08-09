@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{title}}</title>
-  <meta name="description" content="{{description}}">
-  <meta name="keywords" content="{{keywords}}">
-  <meta name="author" content="{{author}}">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
+  <title>Apex Executive Pro | Premium Static Site Generator Theme</title>
+  <meta name="description" content="Apex Executive Pro is the flagship executive showcase theme built for Static Site Generator (SSG). Featuring 100/100 Lighthouse performance, WCAG AAA accessibility, and zero-JS layout grids.">
+  <meta name="keywords" content="Apex Executive Pro, SSG Theme, Static Site Generator, Lighthouse 100, WCAG AAA, Executive Portfolio">
+  <meta property="og:title" content="Apex Executive Pro | Premium Static Site Generator Theme">
+  <meta property="og:description" content="The ultimate flagship executive theme engineered for Static Site Generator (SSG).">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apex Executive Pro | Premium Static Site Generator Theme">
+  <meta name="twitter:description" content="The ultimate flagship executive theme engineered for Static Site Generator (SSG).">
   <link rel="canonical" href="{{url}}">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="search.css">
@@ -17,20 +19,19 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
-
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true">SSG</span>
-        <span class="brand-text">Portfolio Theme</span>
+        <span class="brand-mark" aria-hidden="true">Apex</span>
+        <span class="brand-text">Executive Pro</span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <ul class="nav-menu" id="navMenu">
           <li><a class="nav-link active" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="projects/">Portfolio &amp; Case Studies</a></li>
+          <li><a class="nav-link" href="projects/">Showcase</a></li>
           <li><a class="nav-link" href="frameworks/">Frameworks</a></li>
-          <li><a class="nav-link" href="about/">About &amp; Experience</a></li>
-          <li><a class="nav-link" href="contact/">Executive Contact</a></li>
+          <li><a class="nav-link" href="about/">Specifications</a></li>
+          <li><a class="nav-link" href="contact/">Inquiries</a></li>
         </ul>
         <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
@@ -39,33 +40,32 @@
   </header>
 
   <main id="main">
-    <!-- HERO PROMOTION SECTION -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container grid grid-cols-12 hero-grid">
         <div class="col-span-5 hero-image-wrap">
           <div class="hero-image shadow-lg">
-            <img src="assets/images/portrait.jpg?v=20260808" alt="Executive Leadership Portrait" width="512" height="512" loading="eager" fetchpriority="high">
+            <img src="assets/images/portrait.jpg?v=20260808" alt="Apex Theme Showcase Hero" width="512" height="512" fetchpriority="high">
           </div>
         </div>
         <div class="col-span-7 hero-content">
-          <p class="section-eyebrow">HIGH-IMPACT EXECUTIVE SITE TEMPLATE</p>
-          <h1 id="hero-heading">The Ultimate Portfolio Theme for Static Site Generator (SSG)</h1>
+          <p class="section-eyebrow">FLAGSHIP EXECUTIVE SITE TEMPLATE</p>
+          <h1 id="hero-heading">Apex Executive Pro | Powered by Static Site Generator</h1>
           <p class="hero-subhead">Engineered for executive leaders, portfolio directors, and advisory consultants who demand lightning speed, 100/100 Lighthouse scores, and WCAG AAA compliance.</p>
           <ul class="hero-list">
-            <li><strong>Sub-10ms Build Speed:</strong> Instant compilation with Static Site Generator (SSG)</li>
+            <li><strong>Sub-10ms Build Speed:</strong> Instant static compilation with Static Site Generator (SSG)</li>
             <li><strong>100% WCAG AAA Compliant:</strong> Engineered contrast ratios, ARIA landmarks, zero layout shift</li>
             <li><strong>Complete Design Control:</strong> Full dark/light mode toggle, modular token styling, zero JavaScript overhead</li>
           </ul>
           <div class="cta-row">
-            <a class="btn-primary" href="projects/">View Case Studies</a>
-            <a class="btn-secondary" href="frameworks/">Explore Playbooks</a>
-            <a class="btn-outline" href="contact/">Get Theme</a>
+            <a href="projects/" class="btn-primary">Explore Showcase</a>
+            <a href="frameworks/" class="btn-secondary">Design Tokens</a>
+            <a href="contact/" class="btn-outline">Theme Inquiries</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- METRICS & PERFORMANCE DASHBOARD -->
+    <!-- METRICS DASHBOARD -->
     <section class="metrics-dashboard">
       <div class="container">
         <div class="metrics-header text-center">
@@ -97,25 +97,24 @@
       </div>
     </section>
 
-    <!-- FEATURE SHOWCASE GRID (STUFF-N-MATTERS STYLE) -->
-    <section style="padding-block:4rem; background:var(--surface-soft);">
+    <!-- PROMOTIONAL FEATURE GRID -->
+    <section style="background:var(--surface-soft); padding-block:4rem;">
       <div class="container">
         <div class="text-center" style="max-width:700px; margin-inline:auto; margin-bottom:3rem;">
-          <p class="section-eyebrow">WHY CHOOSE THIS THEME</p>
-          <h2>Everything You Need to Showcase Executive Impact</h2>
-          <p>Portfolio Theme gives you complete control over layout styles, metrics cards, assessment matrices, and dark mode controls.</p>
+          <p class="section-eyebrow">WHY CHOOSE APEX EXECUTIVE PRO</p>
+          <h2>Everything You Need to Build High-Impact Websites</h2>
+          <p>Apex Executive Pro gives you complete control over layout styles, metrics dashboards, performance benchmarks, and dark mode controls.</p>
         </div>
-
-        <div class="grid grid-cols-3" style="gap:2rem; display:grid;">
-          <div class="card" style="padding:2rem; background:var(--card); border:1px solid var(--line-soft); border-radius:12px;">
+        <div class="grid grid-cols-3" style="display:grid; gap:2rem;">
+          <div class="card" style="padding:2rem; background:var(--card); border-radius:12px; border:1px solid var(--line-soft);">
             <h3>⚡ Blazing Fast SSG Core</h3>
             <p>Built directly for Static Site Generator (SSG). Compiles hundreds of pages in milliseconds without heavy JavaScript bundlers.</p>
           </div>
-          <div class="card" style="padding:2rem; background:var(--card); border:1px solid var(--line-soft); border-radius:12px;">
-            <h3>🎨 Maximize Control</h3>
-            <p>Tailor your brand colors, executive metrics, case studies, and call-to-action buttons with clean CSS design tokens.</p>
+          <div class="card" style="padding:2rem; background:var(--card); border-radius:12px; border:1px solid var(--line-soft);">
+            <h3>🎨 Maximize Design Control</h3>
+            <p>Tailor your brand colors, metric cards, showcase grids, and call-to-action buttons with clean CSS design tokens.</p>
           </div>
-          <div class="card" style="padding:2rem; background:var(--card); border:1px solid var(--line-soft); border-radius:12px;">
+          <div class="card" style="padding:2rem; background:var(--card); border-radius:12px; border:1px solid var(--line-soft);">
             <h3>🛡️ Safe &amp; Self-Contained</h3>
             <p>100% self-contained layout. Zero third-party tracker scripts or external CDN dependencies for maximum privacy and security.</p>
           </div>
@@ -123,32 +122,32 @@
       </div>
     </section>
 
-    <!-- ASSESSMENT MATRIX -->
+    <!-- PLATFORM COMPARISON MATRIX -->
     <section class="assessment-section">
       <div class="container">
         <div class="section-intro">
-          <p class="section-eyebrow">THE RECRUITER’S LENS</p>
-          <h2>Assessing Leadership Excellence</h2>
+          <p class="section-eyebrow">TECHNICAL BENCHMARKS</p>
+          <h2>Comparing SSG Against Legacy Systems</h2>
         </div>
         <div class="matrix-table-wrap">
           <table class="assessment-table">
             <thead>
               <tr>
-                <th scope="col">Criteria</th>
-                <th scope="col">Average Execution</th>
-                <th class="highlight-header" scope="col">Executive Leadership Standard</th>
+                <th scope="col">Evaluation Metric</th>
+                <th scope="col">Legacy CMS Platforms</th>
+                <th scope="col" class="highlight-header">Apex SSG Standard</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Scope of Influence</strong></td>
-                <td>Tactical delivery, milestone tracking, schedule updates.</td>
-                <td class="highlight-cell"><span class="badge-excellence">Strategic Impact</span><br>Establishes Investment Boards, maps projects to corporate OKRs, and defunds low-value initiatives.</td>
+                <td><strong>Page Render Latency</strong></td>
+                <td>2,000ms+ database hydration and server queries.</td>
+                <td class="highlight-cell"><span class="badge-excellence">Sub-10ms SSG Engine</span><br>Pre-compiled static HTML served directly from global edge CDN.</td>
               </tr>
               <tr>
-                <td><strong>Methodology</strong></td>
-                <td>Lists tools and certifications without business context.</td>
-                <td class="highlight-cell"><span class="badge-excellence">Stage-Gate Lifecycle</span><br>Architects hybrid Agile-Waterfall governance frameworks and automated workflow assurance.</td>
+                <td><strong>Security Vulnerabilities</strong></td>
+                <td>Frequent plugin security patches &amp; SQL injection risks.</td>
+                <td class="highlight-cell"><span class="badge-excellence">Zero Server Exposure</span><br>100% immutable static output with strict Content Security Policy.</td>
               </tr>
             </tbody>
           </table>
@@ -159,11 +158,10 @@
 
   <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3.5rem 0; margin-top:4rem;">
     <div class="container text-center">
-      <p style="font-weight:600; margin-bottom:0.5rem;">Built with Static Site Generator (SSG) &amp; Portfolio Theme.</p>
-      <p style="font-size:0.9rem; color:var(--ink-mute);">&copy; 2026 Anonymised Executive Showcase. 100% WCAG AAA Compliant.</p>
+      <p style="font-weight:600; margin-bottom:0.5rem;">Built with Static Site Generator (SSG) &amp; Apex Executive Pro Theme.</p>
+      <p style="color:var(--ink-mute); font-size:0.9rem;">&copy; 2026 Apex Executive Pro. 100% WCAG AAA Compliant.</p>
     </div>
   </footer>
-
   <script src="main.js"></script>
   <script src="search.js"></script>
 </body>
