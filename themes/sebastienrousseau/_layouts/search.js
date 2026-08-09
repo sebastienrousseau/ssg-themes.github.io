@@ -34,9 +34,20 @@
 
   function fetchSearchData() {
     fetch('search-index.json')
-      .then(function(res) { return res.json(); })
+      .then(function(res) {
+        if (!res.ok) throw new Error('Local search index not found');
+        return res.json();
+      })
       .then(function(data) { searchData = data; })
-      .catch(function() { searchData = []; });
+      .catch(function() {
+        fetch('../search-index.json')
+          .then(function(res) {
+            if (!res.ok) throw new Error('Parent search index not found');
+            return res.json();
+          })
+          .then(function(data) { searchData = data; })
+          .catch(function() { searchData = []; });
+      });
   }
 
   function bindEvents() {
