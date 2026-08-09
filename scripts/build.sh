@@ -5,6 +5,7 @@ set -euo pipefail
 # Usage: ./scripts/build.sh [theme-name|all]
 
 TARGET="${1:-all}"
+BUILD_VERSION="$(date +%s)"
 
 build_single_theme() {
   local THEME="$1"
@@ -88,7 +89,7 @@ find public -type f -name "index.html" | while read -r idx; do
   fi
 done
 
-# Fix subpath URLs, remove SRI integrity attributes, and strip auto-injected <div lang="en"> metadata fallbacks
+# Apply cache buster to script/link tags and strip auto-injected <div lang="en"> fallbacks
 if [[ "$(uname)" == "Darwin" ]]; then
   find public -type f -name "*.html" -exec sed -i '' \
     -e 's|href="/_csp/|href="_csp/|g' \
@@ -98,6 +99,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
     -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
     -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
     -e 's|&lt;div lang="en">&lt;/div>||g' \
+    -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
+    -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
     {} + 2>/dev/null || true
 else
   find public -type f -name "*.html" -exec sed -i \
@@ -108,6 +111,8 @@ else
     -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
     -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
     -e 's|&lt;div lang="en">&lt;/div>||g' \
+    -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
+    -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
     {} + 2>/dev/null || true
 fi
 
