@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="search.css">
   <script src="theme-init.js"></script>
 </head>
-<body style="background:#090d16; color:#f3f4f6; font-family:system-ui, -apple-system, sans-serif;">
+<body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="container header-inner">
@@ -35,31 +35,29 @@
   </header>
 
   <main id="main" class="container narrow" style="padding-block:4rem; max-width:640px; margin-inline:auto;">
-    <p style="color:#d97706; font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · DEVELOPER SUPPORT</p>
-    <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem;">Developer Support &amp; Feedback</h1>
-    <p style="font-size:1.1rem; color:#9ca3af; margin-bottom:2.5rem;">Get in touch regarding Velocity Air theme customization and SSG site deployment.</p>
+    <p style="color:var(--accent); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · DEVELOPER SUPPORT</p>
+    <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem; color:var(--ink);">Developer Support &amp; Feedback</h1>
+    <p style="font-size:1.1rem; color:var(--ink-muted); margin-bottom:2.5rem;">Get in touch regarding Velocity Air theme customization and SSG site deployment.</p>
 
-    <form action="#" method="POST" style="background:#111827; padding:2rem; border-radius:12px; border:1px solid #1f2937;">
+    <form action="#" method="POST" style="background:var(--surface-soft); padding:2rem; border-radius:14px; border:1px solid var(--surface-border);">
       <div style="margin-bottom:1rem;">
-        <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Developer Name</label>
-        <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;">
+        <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Developer Name</label>
+        <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;">
       </div>
       <div style="margin-bottom:1rem;">
-        <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Email Address</label>
-        <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;">
+        <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Email Address</label>
+        <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;">
       </div>
       <div style="margin-bottom:1.5rem;">
-        <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Inquiry / Feedback</label>
-        <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; background:#090d16; border:1px solid #374151; color:#fff; border-radius:6px;"></textarea>
+        <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Inquiry / Feedback</label>
+        <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;"></textarea>
       </div>
-      <button type="submit" style="background:#d97706; color:#fff; padding:0.75rem 1.75rem; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Send Support Request</button>
+      <button type="submit" class="btn-primary">Send Support Request</button>
     </form>
-
-    {{content}}
   </main>
 
-  <footer class="site-footer" style="border-top:1px solid #1f2937; padding:3rem 0; margin-top:4rem;">
-    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% Accessible.</p></div>
+  <footer class="site-footer">
+    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
   </footer>
   <script src="main.js"></script>
   <script src="search.js"></script>

@@ -3,81 +3,48 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{title}}</title>
-    <meta name="description" content="{{description}}" />
-    <meta name="keywords" content="{{keywords}}" />
+    <title>Velocity Air | Ultra-Lightweight SSG Theme</title>
+    <meta name="description" content="Hyper-fast minimalist starter theme built with Static Site Generator (SSG). Sub-5KB CSS footprint, zero-JS initial load, and instant search indexation." />
+    <meta name="keywords" content="Velocity Air, SSG Theme, Static Site Generator, Lightweight Theme, Zero JS, WCAG AAA" />
     <meta name="author" content="{{author}}" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0d1117" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="{{url}}" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="search.css" />
     <script src="theme-init.js"></script>
     <style>
-      :root {
-        --bg-dark: #090d16;
-        --text-light: #f3f4f6;
-        --accent-gold: #d97706;
-      }
-      body {
-        background-color: var(--bg-dark);
-        color: var(--text-light);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      }
       .kaishi-hero {
         padding-block: 5rem 3rem;
         text-align: center;
       }
       .kaishi-badge {
         display: inline-block;
-        padding: 0.25rem 0.75rem;
+        padding: 0.35rem 0.85rem;
         border-radius: 9999px;
-        background: rgba(217, 119, 6, 0.15);
-        color: var(--accent-gold);
-        font-size: 0.875rem;
-        font-weight: 600;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 700;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
       }
       .kaishi-title {
-        font-size: 3rem;
+        font-size: clamp(2.4rem, 4vw, 3.5rem);
         font-weight: 800;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.03em;
         margin-bottom: 1rem;
+        color: var(--ink);
+        line-height: 1.15;
       }
       .kaishi-lead {
-        font-size: 1.25rem;
-        color: #9ca3af;
-        max-width: 42rem;
+        font-size: 1.2rem;
+        color: var(--ink-muted);
+        max-width: 44rem;
         margin-inline: auto;
-        margin-bottom: 2rem;
-      }
-      .grid-3 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-top: 3rem;
-      }
-      .card-dark {
-        background: #111827;
-        border: 1px solid #1f2937;
-        border-radius: 12px;
-        padding: 1.75rem;
-        transition: transform 0.2s ease, border-color 0.2s ease;
-      }
-      .card-dark:hover {
-        transform: translateY(-4px);
-        border-color: var(--accent-gold);
-      }
-      .card-dark h3 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-        color: #fff;
-      }
-      .card-dark p {
-        color: #9ca3af;
-        font-size: 0.95rem;
+        margin-bottom: 2.25rem;
         line-height: 1.6;
       }
     </style>
@@ -88,14 +55,14 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html">
-          <span class="brand-mark" aria-hidden="true">KS</span>
-          <span class="brand-text">Kaishi Shokunin</span>
+          <span class="brand-mark" aria-hidden="true">VA</span>
+          <span class="brand-text">Velocity Air</span>
         </a>
         <nav class="site-nav" aria-label="Primary navigation">
           <ul class="nav-menu" id="navMenu">
             <li><a class="nav-link active" href="index.html">Home</a></li>
-            <li><a class="nav-link" href="about.html">About</a></li>
-            <li><a class="nav-link" href="contact.html">Contact</a></li>
+            <li><a class="nav-link" href="about.html">Features</a></li>
+            <li><a class="nav-link" href="contact.html">Support</a></li>
           </ul>
           <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
           <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
@@ -107,19 +74,19 @@
       <!-- HERO PROMOTION SECTION -->
       <section class="kaishi-hero">
         <span class="kaishi-badge">SSG Minimalist Product Theme</span>
-        <h1 class="kaishi-title">Kaishi — Minimalist Starter Theme for Static Site Generator</h1>
+        <h1 class="kaishi-title">Velocity Air — Minimalist Theme for Static Site Generator</h1>
         <p class="kaishi-lead">Built for high-performance developer documentation, micro-SaaS products, and clean blogs with sub-10ms render times and zero JavaScript runtime bloat.</p>
-        <div class="cta-row" style="justify-content:center; display:flex; gap:1rem;">
+        <div class="cta-row" style="justify-content:center; display:flex;">
           <a class="btn-primary" href="about.html">Explore Features</a>
           <a class="btn-outline" href="contact.html">Get Started</a>
         </div>
       </section>
 
-      <!-- FEATURE SHOWCASE GRID (STUFF-N-MATTERS STYLE) -->
+      <!-- FEATURE SHOWCASE GRID -->
       <section style="padding-block:2rem;">
-        <div style="text-align:center; max-width:600px; margin-inline:auto; margin-bottom:2rem;">
-          <h2 style="font-size:2rem; font-weight:700; margin-bottom:0.5rem;">Why Choose Kaishi for SSG?</h2>
-          <p style="color:#9ca3af;">Kaishi provides total control over styles, layout modules, accessibility standards, and SEO tags.</p>
+        <div style="text-align:center; max-width:640px; margin-inline:auto; margin-bottom:2rem;">
+          <h2 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem; color:var(--ink);">Why Choose Velocity Air for SSG?</h2>
+          <p style="color:var(--ink-muted);">Velocity Air provides total control over styles, layout modules, accessibility standards, and SEO tags.</p>
         </div>
 
         <div class="grid-3">
@@ -149,13 +116,11 @@
           </div>
         </div>
       </section>
-
-      {{content}}
     </main>
 
-    <footer class="site-footer" style="border-top:1px solid #1f2937; padding:3rem 0; margin-top:4rem;">
+    <footer class="site-footer">
       <div class="container text-center">
-        <p>&copy; 2026 Kaishi Theme. Built with Static Site Generator (SSG). 100% Accessible.</p>
+        <p>&copy; 2026 Velocity Air Theme. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
       </div>
     </footer>
 

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="search.css">
   <script src="theme-init.js"></script>
 </head>
-<body style="background:#090d16; color:#f3f4f6; font-family:system-ui, -apple-system, sans-serif;">
+<body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="container header-inner">
@@ -35,36 +35,34 @@
   </header>
 
   <main id="main" class="container" style="padding-block:4rem;">
-    <p style="color:#d97706; font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · TEMPLATE FEATURES</p>
-    <h1 style="font-size:2.8rem; font-weight:800; margin-bottom:1rem;">Features &amp; Performance Specifications</h1>
-    <p style="font-size:1.25rem; color:#9ca3af; max-width:700px; margin-bottom:2.5rem;">Built specifically for micro-SaaS products, developer documentation hubs, and lightning-fast blogs.</p>
+    <p style="color:var(--accent); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · TEMPLATE FEATURES</p>
+    <h1 style="font-size:2.8rem; font-weight:800; margin-bottom:1rem; color:var(--ink);">Features &amp; Performance Specifications</h1>
+    <p style="font-size:1.25rem; color:var(--ink-muted); max-width:700px; margin-bottom:2.5rem;">Built specifically for micro-SaaS products, developer documentation hubs, and lightning-fast blogs.</p>
 
     <!-- TEMPLATE OPPORTUNITY BANNER -->
-    <div style="background:#111827; padding:2rem; border-radius:12px; border:1px solid #1f2937; margin-bottom:3rem;">
-      <h2 style="font-size:1.5rem; color:#fff; margin-bottom:0.75rem;">💡 Template Opportunity: Hyper-Fast Delivery</h2>
-      <p style="color:#9ca3af; font-size:1rem; line-height:1.6;">Velocity Air removes all runtime JavaScript frameworks, delivering instant edge CDN response times under 10ms. Ideal for developer tools and micro-SaaS products where speed is the #1 acquisition metric.</p>
+    <div style="background:var(--surface-soft); padding:2rem; border-radius:14px; border:1px solid var(--surface-border); margin-bottom:3rem;">
+      <h2 style="font-size:1.5rem; color:var(--ink); margin-bottom:0.75rem;">💡 Template Opportunity: Hyper-Fast Delivery</h2>
+      <p style="color:var(--ink-muted); font-size:1rem; line-height:1.6;">Velocity Air removes all runtime JavaScript frameworks, delivering instant edge CDN response times under 10ms. Ideal for developer tools and micro-SaaS products where speed is the #1 acquisition metric.</p>
     </div>
 
-    <div class="grid-3" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
-      <div style="background:#111827; padding:1.75rem; border-radius:12px; border:1px solid #1f2937;">
-        <h3 style="color:#fff; margin-bottom:0.5rem;">⚡ Zero JavaScript Overhead</h3>
-        <p style="color:#9ca3af; font-size:0.95rem;">Pre-rendered HTML pages with instant first contentful paint (FCP &lt; 0.2s).</p>
+    <div class="grid-3">
+      <div class="card-dark">
+        <h3>⚡ Zero JavaScript Overhead</h3>
+        <p>Pre-rendered HTML pages with instant first contentful paint (FCP &lt; 0.2s).</p>
       </div>
-      <div style="background:#111827; padding:1.75rem; border-radius:12px; border:1px solid #1f2937;">
-        <h3 style="color:#fff; margin-bottom:0.5rem;">📱 Mobile &amp; 3G Optimized</h3>
-        <p style="color:#9ca3af; font-size:0.95rem;">Extremely compact asset bundle under 5KB total CSS footprint.</p>
+      <div class="card-dark">
+        <h3>📱 Mobile &amp; 3G Optimized</h3>
+        <p>Extremely compact asset bundle under 5KB total CSS footprint.</p>
       </div>
-      <div style="background:#111827; padding:1.75rem; border-radius:12px; border:1px solid #1f2937;">
-        <h3 style="color:#fff; margin-bottom:0.5rem;">🔍 Instant Client Search</h3>
-        <p style="color:#9ca3af; font-size:0.95rem;">Pre-compiled client-side search index for documentation browsing.</p>
+      <div class="card-dark">
+        <h3>🔍 Instant Client Search</h3>
+        <p>Pre-compiled client-side search index for documentation browsing.</p>
       </div>
     </div>
-
-    {{content}}
   </main>
 
-  <footer class="site-footer" style="border-top:1px solid #1f2937; padding:3rem 0; margin-top:4rem;">
-    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% Accessible.</p></div>
+  <footer class="site-footer">
+    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
   </footer>
   <script src="main.js"></script>
   <script src="search.js"></script>
