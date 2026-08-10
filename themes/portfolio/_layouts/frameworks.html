@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apex Executive Pro | Theme Architecture &amp; Design Token Frameworks</title>
-  <meta name="description" content="Discover the theme architecture, modular layout grids, and CSS design token frameworks built into Apex Executive Pro for Static Site Generator (SSG).">
-  <meta name="keywords" content="Apex Executive Pro, Theme Architecture, Design Tokens, SSG Frameworks, CSS Grid Layouts, WCAG AAA">
-  <meta property="og:title" content="Apex Executive Pro | Theme Architecture &amp; Design Token Frameworks">
-  <meta property="og:description" content="Discover the theme architecture, modular layout grids, and CSS design token frameworks built into Apex Executive Pro.">
+  <title>Apex Executive Pro | Theme Architecture &amp; Token Frameworks</title>
+  <meta name="description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex Executive Pro built for Static Site Generator (SSG).">
+  <meta name="keywords" content="Apex Executive Pro, Theme Architecture, Design Tokens, SSG Frameworks, Static Site Generator">
+  <meta property="og:title" content="Apex Executive Pro | Theme Architecture &amp; Token Frameworks">
+  <meta property="og:description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex Executive Pro built for Static Site Generator (SSG).">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Apex Executive Pro | Theme Architecture &amp; Design Token Frameworks">
-  <meta name="twitter:description" content="Discover the theme architecture, modular layout grids, and CSS design token frameworks built into Apex Executive Pro.">
+  <meta name="twitter:title" content="Apex Executive Pro | Theme Architecture &amp; Token Frameworks">
+  <meta name="twitter:description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex Executive Pro built for Static Site Generator (SSG).">
   <link rel="canonical" href="{{url}}">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="search.css">
   <script src="theme-init.js"></script>
 </head>
 <body>
@@ -30,7 +29,6 @@
           <li><a class="nav-link" href="../about/">Specifications</a></li>
           <li><a class="nav-link" href="../contact/">Inquiries</a></li>
         </ul>
-        <button class="search-trigger btn-secondary" type="button" aria-label="Open search modal">🔍 Search</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
       </nav>
     </div>
@@ -49,26 +47,26 @@
         <p style="color:var(--ink-mute); font-size:1rem; line-height:1.6;">Apex Executive Pro relies on a 100% tokenized CSS design system. Color palettes, fluid typography scales, layout spacing, and dark/light theme variables are managed centrally via native CSS custom properties, allowing instant customization without compiling heavy JavaScript bundles.</p>
       </div>
 
-      <div class="grid grid-cols-2" style="gap:2rem; display:grid;">
-        <article style="padding:2rem; background:var(--card); border-radius:16px; border:1px solid var(--line-soft);">
-          <h2 style="font-size:1.5rem; margin-bottom:0.5rem;">⚡ Zero-JS Layout Grid System</h2>
-          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.6;">Flexible 12-column responsive CSS grid system pre-rendered at compile time. Adapts seamlessly across desktop, tablet, and mobile screens with zero cumulative layout shift (CLS 0.00).</p>
-        </article>
+      <div class="grid grid-cols-2" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.75rem;">
+        <div class="card" style="padding:2rem; background:var(--card, #0d1117); border:1px solid var(--line-soft); border-radius:12px;">
+          <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">📐 12-Column Responsive Layout Grid</h3>
+          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.5;">Flexible CSS grid framework adapting cleanly across mobile smartphones, tablets, high-DPI laptops, and ultra-wide desktop displays.</p>
+        </div>
 
-        <article style="padding:2rem; background:var(--card); border-radius:16px; border:1px solid var(--line-soft);">
-          <h2 style="font-size:1.5rem; margin-bottom:0.5rem;">🎨 Dynamic Theme Token Pipeline</h2>
-          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.6;">Native dark and light mode color mapping via standard CSS custom properties (`var(--surface)`, `var(--ink)`). Works with browser system preferences and client theme toggles.</p>
-        </article>
+        <div class="card" style="padding:2rem; background:var(--card, #0d1117); border:1px solid var(--line-soft); border-radius:12px;">
+          <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">🎨 Zero-CLS Dark/Light Palette</h3>
+          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.5;">Theme tokens switch dynamically with zero layout shift (CLS 0.00) using native <code>data-theme</code> attribute observers.</p>
+        </div>
 
-        <article style="padding:2rem; background:var(--card); border-radius:16px; border:1px solid var(--line-soft);">
-          <h2 style="font-size:1.5rem; margin-bottom:0.5rem;">♿ WCAG AAA Contrast Framework</h2>
-          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.6;">Strictly calibrated color contrast ratios (7:1+) across all text and UI elements, validated against W3C WCAG 2.1 AAA accessibility benchmarks.</p>
-        </article>
+        <div class="card" style="padding:2rem; background:var(--card, #0d1117); border:1px solid var(--line-soft); border-radius:12px;">
+          <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">♿ WCAG AAA Contrast Ratios</h3>
+          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.5;">Engineered accessibility standards ensuring 7:1+ contrast ratios for all primary headers, body copy, and UI controls.</p>
+        </div>
 
-        <article style="padding:2rem; background:var(--card); border-radius:16px; border:1px solid var(--line-soft);">
-          <h2 style="font-size:1.5rem; margin-bottom:0.5rem;">🔍 Instant Client Search Architecture</h2>
-          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.6;">Pre-indexed JSON content pipeline with fuzzy search resolution. Enables instant client-side content filtering without server-side database lookups.</p>
-        </article>
+        <div class="card" style="padding:2rem; background:var(--card, #0d1117); border:1px solid var(--line-soft); border-radius:12px;">
+          <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">⚡ Sub-10ms SSG Pre-rendering</h3>
+          <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.5;">Built directly for Static Site Generator (SSG). Pre-renders semantic HTML with zero runtime JavaScript dependency.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -77,6 +75,5 @@
     <div class="container text-center"><p>&copy; 2026 Apex Executive Pro. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
   </footer>
   <script src="main.js"></script>
-  <script src="search.js"></script>
 </body>
 </html>
