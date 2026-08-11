@@ -129,30 +129,32 @@ a:hover { text-decoration: underline; }
 h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -0.02em; margin-block: 0 1rem; color: var(--ink); }
 .hero-subhead { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
 
-/* Horizontally Aligned Buttons */
+/* Single-Row Horizontally Aligned Buttons */
 .cta-row {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 0.75rem !important;
+  flex-wrap: nowrap !important;
+  gap: 0.6rem !important;
   margin-top: 1.5rem !important;
+  overflow-x: auto !important;
 }
 
 .btn-primary, .btn-secondary, .btn-outline {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  height: 2.75rem !important;
-  padding: 0 1.25rem !important;
+  height: 2.6rem !important;
+  padding: 0 1rem !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
-  font-size: 0.925rem !important;
+  font-size: 0.9rem !important;
   white-space: nowrap !important;
   box-sizing: border-box !important;
   vertical-align: middle !important;
   margin: 0 !important;
   text-decoration: none !important;
+  flex: 0 0 auto !important;
 }
 .btn-primary { background: var(--accent) !important; color: var(--accent-ink) !important; border: 1px solid var(--accent) !important; }
 .btn-secondary { background: var(--surface-soft) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; }
@@ -207,4 +209,5 @@ h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -
   .hero-image-wrap, .hero-content { grid-column: span 12; }
   .nav-menu { display: none; }
   .nav-toggle { display: block; }
+  .cta-row { flex-wrap: wrap !important; }
 }
