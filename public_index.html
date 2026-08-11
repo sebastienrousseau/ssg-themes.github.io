@@ -12,128 +12,163 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SSG Theme Suite | Apple-Grade Static Site Generator Templates">
   <meta name="twitter:description" content="Discover Apple-grade static site generator themes built for speed, accessibility, and high-conversion publishing.">
-  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = saved || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {}
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
+    :root, :root[data-theme="light"] {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f5f5f7;
+      --ink: #1d1d1f;
+      --ink-soft: #3a3a3c;
+      --ink-muted: #6e6e73;
+      --line: #e8e8ed;
+      --accent: #0050a4;
+      --accent-ink: #ffffff;
+      --accent-soft: #e8f1fd;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #000000;
+      --surface: #1d1d1f;
+      --surface-soft: #161617;
+      --ink: #f5f5f7;
+      --ink-soft: #e5e5ea;
+      --ink-muted: #a8a8ae;
+      --line: #2c2c2e;
+      --accent: #4db0ff;
+      --accent-ink: #000000;
+      --accent-soft: rgba(77,176,255,0.15);
+      color-scheme: dark;
+    }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      background: #fbfbfd;
-      color: #1d1d1f;
+      background: var(--bg);
+      color: var(--ink);
       line-height: 1.6;
     }
-    @media (prefers-color-scheme: dark) {
-      body { background: #000000; color: #f5f5f7; }
-    }
     .container { max-width: 1140px; margin: 0 auto; padding: 2rem 1.5rem; }
-    header { padding-block: 5rem 3rem; border-bottom: 1px solid rgba(0,0,0,0.1); text-align: center; }
-    @media (prefers-color-scheme: dark) { header { border-bottom-color: rgba(255,255,255,0.1); } }
-    .badge { background: #0050a4; color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 999px; display: inline-block; margin-bottom: 1.25rem; letter-spacing: 0.05em; }
-    h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.035em; margin: 0 0 1rem; line-height: 1.1; }
-    p.lead { font-size: 1.25rem; opacity: 0.85; max-width: 780px; margin: 0 auto 2.5rem; }
+    header { padding-block: 4rem 2.5rem; border-bottom: 1px solid var(--line); text-align: center; position: relative; }
+    .badge { background: var(--accent); color: var(--accent-ink); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 999px; display: inline-block; margin-bottom: 1.25rem; letter-spacing: 0.05em; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.035em; margin: 0 0 1rem; line-height: 1.1; color: var(--ink); }
+    p.lead { font-size: 1.25rem; color: var(--ink-soft); max-width: 780px; margin: 0 auto 2.5rem; }
+    .theme-toggle { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); font-size: 1.1rem; }
     .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
     .theme-card {
-      background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 20px;
       padding: 2.25rem;
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       display: flex;
       flex-direction: column;
     }
-    @media (prefers-color-scheme: dark) {
-      .theme-card { background: #1c1c1e; border-color: rgba(255,255,255,0.1); }
-    }
-    .theme-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: #0050a4; }
-    .theme-tag { font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#0050a4; margin-bottom:0.75rem; letter-spacing: 0.05em; }
-    .theme-title { font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem; letter-spacing: -0.02em; }
-    .theme-desc { opacity: 0.85; font-size: 0.98rem; margin-bottom: 1.75rem; flex-grow: 1; line-height: 1.6; }
+    .theme-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); border-color: var(--accent); }
+    .theme-tag { font-size:0.8rem; font-weight:700; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem; letter-spacing: 0.05em; }
+    .theme-title { font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem; letter-spacing: -0.02em; color: var(--ink); }
+    .theme-desc { color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 1.75rem; flex-grow: 1; line-height: 1.6; }
     .btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
     .btn {
       display: inline-block;
-      background: #0050a4;
-      color: #fff;
+      background: var(--accent);
+      color: var(--accent-ink);
       padding: 0.75rem 1.25rem;
       border-radius: 980px;
       text-decoration: none;
       font-weight: 600;
       text-align: center;
       font-size: 0.9rem;
-      transition: opacity 0.2s ease;
     }
     .btn-download {
-      background: rgba(0,80,164,0.1);
-      color: #0050a4;
+      background: var(--surface-soft);
+      color: var(--accent);
+      border: 1px solid var(--line);
       padding: 0.5rem 0.9rem;
       border-radius: 6px;
       font-size: 0.825rem;
       font-weight: 700;
       text-decoration: none;
     }
-    @media (prefers-color-scheme: dark) {
-      .btn-download { background: rgba(56,189,248,0.15); color: #38bdf8; }
-    }
     .btn:hover, .btn-download:hover { opacity: 0.9; text-decoration: underline; }
-    footer { margin-top: 6rem; text-align: center; opacity: 0.75; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2.5rem; padding-bottom: 3rem; }
+    footer { margin-top: 6rem; text-align: center; color: var(--ink-muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 2.5rem; padding-bottom: 3rem; }
   </style>
 </head>
 <body>
   <header>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
     <div class="container">
-      <span class="badge">Apple-Grade SSG Theme Suite</span>
-      <h1>Apex. Atlas. Velocity. Vanguard.</h1>
-      <p class="lead">Engineered specifically for Static Site Generator (SSG). Sub-10ms build times, 100/100 Lighthouse benchmark guarantees, WCAG AAA accessibility compliance, zero runtime JavaScript overhead, and instant theme download packages.</p>
+      <span class="badge">100% WCAG AAA Compliant · SSG Theme Suite 2026</span>
+      <h1>Production-Ready SSG Themes</h1>
+      <p class="lead">Engineered for Static Site Generator (SSG). Featuring Apple-grade design standards, 100/100 Lighthouse performance, zero-JS layout grids, and instant theme release packages.</p>
     </div>
   </header>
 
   <main class="container">
-    <div style="text-align:center; max-width:700px; margin-inline:auto; margin-bottom:1rem;">
-      <h2 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;">The Theme Lineup</h2>
-      <p style="opacity:0.8; font-size:1.1rem;">Choose the ideal template designed for executive portfolios, research publishing, or micro-SaaS products.</p>
-    </div>
-
     <div class="theme-grid">
-      <!-- Theme 1: Apex -->
+      <!-- APEX THEME -->
       <article class="theme-card">
-        <div class="theme-tag">Executive Flagship Theme</div>
-        <h3 class="theme-title">Apex</h3>
-        <p class="theme-desc">The ultimate executive showcase template. Engineered for C-suite leaders, board advisors, and portfolio directors requiring high-impact ROI dashboards, Recruiter Assessment Matrices, and stage-gate case study layouts.</p>
-        <div>
-          <a class="btn" href="portfolio/">Explore Apex Live →</a>
-          <div class="btn-row">
-            <a class="btn-download" href="downloads/apex.zip" download>📦 Download .ZIP</a>
-            <a class="btn-download" href="downloads/apex.tar.gz" download>📦 Download .TAR.GZ</a>
-          </div>
+        <span class="theme-tag">Executive Showcase Theme</span>
+        <h2 class="theme-title">Apex</h2>
+        <p class="theme-desc">Flagship executive portfolio layout for C-suite directors, management consultants, and advisory partners featuring interactive assessment frameworks and metric scorecards.</p>
+        <div class="btn-row">
+          <a class="btn" href="portfolio/index.html">Explore Apex Demo</a>
+        </div>
+        <div class="btn-row" style="margin-top: 0.5rem;">
+          <a class="btn-download" href="downloads/apex.zip" download>📦 Download Apex (.zip)</a>
+          <a class="btn-download" href="downloads/apex.tar.gz" download>📦 Download Apex (.tar.gz)</a>
         </div>
       </article>
 
-      <!-- Theme 2: Atlas -->
+      <!-- ATLAS THEME -->
       <article class="theme-card">
-        <div class="theme-tag">Publishing &amp; Research Hub</div>
-        <h3 class="theme-title">Atlas</h3>
-        <p class="theme-desc">Premium academic and technical research publishing theme. Built with Newsreader display serif typography, multi-language support, whitepaper archives, citation formatting, and strict CSP/SRI security hardening.</p>
-        <div>
-          <a class="btn" href="sebastienrousseau/">Explore Atlas Live →</a>
-          <div class="btn-row">
-            <a class="btn-download" href="downloads/atlas.zip" download>📦 Download .ZIP</a>
-            <a class="btn-download" href="downloads/atlas.tar.gz" download>📦 Download .TAR.GZ</a>
-          </div>
+        <span class="theme-tag">Editorial &amp; Research Theme</span>
+        <h2 class="theme-title">Atlas</h2>
+        <p class="theme-desc">Academic research and editorial publication theme engineered for technical whitepapers, financial messaging specifications, and open engineering standards.</p>
+        <div class="btn-row">
+          <a class="btn" href="sebastienrousseau/index.html">Explore Atlas Demo</a>
+        </div>
+        <div class="btn-row" style="margin-top: 0.5rem;">
+          <a class="btn-download" href="downloads/atlas.zip" download>📦 Download Atlas (.zip)</a>
+          <a class="btn-download" href="downloads/atlas.tar.gz" download>📦 Download Atlas (.tar.gz)</a>
         </div>
       </article>
 
-      <!-- Theme 3: Velocity -->
+      <!-- VELOCITY THEME -->
       <article class="theme-card">
-        <div class="theme-tag">Ultra-Lightweight Tech Theme</div>
-        <h3 class="theme-title">Velocity</h3>
-        <p class="theme-desc">Hyper-fast minimalist starter and developer documentation theme. Zero-JS initial load, sub-5KB CSS footprint, responsive feature grids, and client-side instant search.</p>
-        <div>
-          <a class="btn" href="kaishi/">Explore Velocity Live →</a>
-          <div class="btn-row">
-            <a class="btn-download" href="downloads/velocity.zip" download>📦 Download .ZIP</a>
-            <a class="btn-download" href="downloads/velocity.tar.gz" download>📦 Download .TAR.GZ</a>
-          </div>
+        <span class="theme-tag">Minimalist Product Theme</span>
+        <h2 class="theme-title">Velocity</h2>
+        <p class="theme-desc">High-performance minimalist theme built for micro-SaaS products, developer documentation hubs, and tech blogs with sub-10ms build speeds.</p>
+        <div class="btn-row">
+          <a class="btn" href="kaishi/index.html">Explore Velocity Demo</a>
+        </div>
+        <div class="btn-row" style="margin-top: 0.5rem;">
+          <a class="btn-download" href="downloads/velocity.zip" download>📦 Download Velocity (.zip)</a>
+          <a class="btn-download" href="downloads/velocity.tar.gz" download>📦 Download Velocity (.tar.gz)</a>
+        </div>
+      </article>
+
+      <!-- VANGUARD THEME -->
+      <article class="theme-card">
+        <span class="theme-tag">High-Impact Operations Theme</span>
+        <h2 class="theme-title">Vanguard</h2>
+        <p class="theme-desc">Operational excellence portfolio layout engineered for technical directors, enterprise architects, and system integration leads.</p>
+        <div class="btn-row">
+          <a class="btn" href="https://amandakaye.github.io/" target="_blank" rel="noopener">Explore Vanguard Demo</a>
+        </div>
+        <div class="btn-row" style="margin-top: 0.5rem;">
+          <a class="btn-download" href="downloads/vanguard.zip" download>📦 Download Vanguard (.zip)</a>
+          <a class="btn-download" href="downloads/vanguard.tar.gz" download>📦 Download Vanguard (.tar.gz)</a>
         </div>
       </article>
     </div>
@@ -144,5 +179,14 @@
       <p>&copy; 2026 SSG Theme Suite. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
     </div>
   </footer>
+
+  <script>
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+  </script>
 </body>
 </html>

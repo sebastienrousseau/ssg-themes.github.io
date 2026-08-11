@@ -15,15 +15,14 @@
     <link rel="stylesheet" href="../styles.css" />
     <script src="../theme-init.js"></script>
     <style>
-      body { font-family: "Inter", system-ui, sans-serif; background: #ffffff; color: #1d1d1f; line-height: 1.6; }
-      @media (prefers-color-scheme: dark) { body { background: #000000; color: #f5f5f7; } }
+      body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; }
       .container { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
-      header { padding-block: 2rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); }
-      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: inherit; }
-      .nav-link { color: inherit; text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
-      .nav-link.active { color: #0050a4; }
-      .article-card { padding: 1.75rem; background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; margin-bottom: 1.5rem; }
-      @media (prefers-color-scheme: dark) { .article-card { background: #1c1c1e; border-color: rgba(255,255,255,0.1); } }
+      header { padding-block: 2rem 1rem; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .nav-link { color: var(--ink-soft); text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
+      .nav-link:hover, .nav-link.active { color: var(--accent); }
+      .theme-toggle { background: transparent; border: 1px solid var(--line); border-radius: 50%; width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
+      .article-card { padding: 1.75rem; background: var(--surface-soft); border: 1px solid var(--line-soft); border-radius: 12px; margin-bottom: 1.5rem; }
     </style>
   </head>
   <body>
@@ -31,43 +30,44 @@
     <header>
       <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
         <a class="brand" href="../index.html">Atlas Editorial Studio</a>
-        <nav aria-label="Primary navigation">
+        <nav aria-label="Primary navigation" style="display:flex; align-items:center;">
           <a class="nav-link" href="../index.html">Home</a>
           <a class="nav-link active" href="../articles/">Articles</a>
           <a class="nav-link" href="../papers/">Papers</a>
           <a class="nav-link" href="../about/">About</a>
           <a class="nav-link" href="../contact/">Contact</a>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" style="margin-left:1.5rem;">🌓</button>
         </nav>
       </div>
     </header>
 
     <main id="main" class="container" style="padding-block:3rem;">
-      <p style="color:#0050a4; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · TECHNICAL PUBLISHING</p>
-      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em;">Articles &amp; Research Archive</h1>
-      <p style="font-size:1.2rem; opacity:0.8; max-width:700px; margin-bottom:2.5rem;">Technical commentary, software architecture specifications, and open engineering playbooks.</p>
+      <p style="color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · TECHNICAL PUBLISHING</p>
+      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em; color:var(--ink);">Articles &amp; Research Archive</h1>
+      <p style="font-size:1.2rem; color:var(--ink-soft); max-width:700px; margin-bottom:2.5rem;">Technical commentary, software architecture specifications, and open engineering playbooks.</p>
 
       <!-- TEMPLATE OPPORTUNITY BANNER -->
-      <div style="background:rgba(0,80,164,0.06); padding:2rem; border-radius:16px; border:1px solid rgba(0,80,164,0.2); margin-bottom:3rem;">
-        <h2 style="font-size:1.4rem; margin-bottom:0.75rem;">💡 Template Opportunity: Academic &amp; Editorial Publishing</h2>
-        <p style="opacity:0.85; font-size:1rem; line-height:1.6;">Academic journals and technical engineering blogs require high-contrast typography and instant search accessibility. <strong>Atlas Editorial Studio</strong> uses Newsreader serif headers paired with Inter body text, formatted specifically for long-form readability and citation integrity.</p>
+      <div style="background:var(--surface-soft); padding:2rem; border-radius:16px; border:1px solid var(--line-soft); margin-bottom:3rem;">
+        <h2 style="font-size:1.4rem; margin-bottom:0.75rem; color:var(--ink);">💡 Template Opportunity: Academic &amp; Editorial Publishing</h2>
+        <p style="color:var(--ink-soft); font-size:1rem; line-height:1.6;">Academic journals and technical engineering blogs require high-contrast typography and instant search accessibility. <strong>Atlas Editorial Studio</strong> uses Newsreader serif headers paired with Inter body text, formatted specifically for long-form readability and citation integrity.</p>
       </div>
 
       <div class="article-card">
-        <span style="font-size:0.8rem; font-weight:700; color:#0050a4; text-transform:uppercase;">RESEARCH PAPER 01</span>
-        <h2 style="font-size:1.5rem; margin-top:0.35rem;">Post-Quantum Cryptography in Financial Payment Rails</h2>
-        <p style="opacity:0.85;">Preparing core payment messaging infrastructure for quantum-resistant signature schemes and hybrid ML-KEM encryption standards.</p>
+        <span style="font-size:0.8rem; font-weight:700; color:var(--accent); text-transform:uppercase;">RESEARCH PAPER 01</span>
+        <h2 style="font-size:1.5rem; margin-top:0.35rem; color:var(--ink);">Post-Quantum Cryptography in Financial Payment Rails</h2>
+        <p style="color:var(--ink-soft);">Preparing core payment messaging infrastructure for quantum-resistant signature schemes and hybrid ML-KEM encryption standards.</p>
       </div>
 
       <div class="article-card">
-        <span style="font-size:0.8rem; font-weight:700; color:#0050a4; text-transform:uppercase;">SPECIFICATION 02</span>
-        <h2 style="font-size:1.5rem; margin-top:0.35rem;">API Governance &amp; Schema Standardization at Enterprise Scale</h2>
-        <p style="opacity:0.85;">Standardising REST and gRPC API contracts across hybrid multi-cloud environments with automated OpenAPI contract validation.</p>
+        <span style="font-size:0.8rem; font-weight:700; color:var(--accent); text-transform:uppercase;">SPECIFICATION 02</span>
+        <h2 style="font-size:1.5rem; margin-top:0.35rem; color:var(--ink);">API Governance &amp; Schema Standardization at Enterprise Scale</h2>
+        <p style="color:var(--ink-soft);">Standardising REST and gRPC API contracts across hybrid multi-cloud environments with automated OpenAPI contract validation.</p>
       </div>
     </main>
 
-    <footer style="border-top:1px solid rgba(0,0,0,0.1); padding:3rem 0; margin-top:4rem; text-align:center;">
+    <footer style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem; text-align:center;">
       <div class="container">
-        <p>&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
+        <p style="color:var(--ink-soft);">&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
       </div>
     </footer>
     <script src="../main.js" defer></script>

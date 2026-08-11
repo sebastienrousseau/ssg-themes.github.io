@@ -1342,24 +1342,21 @@
          44×44 px hit-area minimum for mobile touch (17px text + 14px×2 padding
          + 1px×2 border = ~46px). Horizontal kept at 22px for Apple-typical
          proportions. */
-      .pill,a.pill,button.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:var(--accent);color:#fff !important;font-size:17px;font-weight:400;line-height:1;padding:14px 22px;border-radius:980px;border:1px solid transparent;text-decoration:none !important;cursor:pointer;transition:opacity .15s ease,background .15s ease,transform .15s ease;font-family:inherit;box-sizing:border-box}
-      [data-theme="dark"] .pill:not(.ghost),html:not([data-theme="light"]) .pill:not(.ghost){color:var(--cl-white) !important}
-      @media (prefers-color-scheme: dark){html:not([data-theme="light"]) .pill:not(.ghost){color:var(--cl-white) !important}}
+      .pill,a.pill,button.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:var(--accent);color:var(--accent-ink, #ffffff) !important;font-size:17px;font-weight:500;line-height:1;padding:14px 22px;border-radius:980px;border:1px solid var(--accent);text-decoration:none !important;cursor:pointer;transition:opacity .15s ease,background .15s ease,transform .15s ease;font-family:inherit;box-sizing:border-box}
+      [data-theme="light"] .pill:not(.ghost):not(.outline){background:#0050a4 !important;color:#ffffff !important;border-color:#0050a4 !important}
+      [data-theme="dark"] .pill:not(.ghost):not(.outline){background:#4db0ff !important;color:#000000 !important;border-color:#4db0ff !important}
       .pill:hover{opacity:.92}
-      /* Explicit .pill.primary so authors can opt-in to the solid accent style
-         even in contexts where a more specific colour rule might otherwise win. */
-      .pill.primary,a.pill.primary,button.pill.primary{background:var(--accent) !important;color:#fff !important;border-color:transparent}
-      .pill.primary:hover{background:var(--accent);color:#fff;opacity:.92}
-      .pill.ghost{background:transparent;color:var(--accent) !important;border-color:currentColor}
-      .pill.ghost:hover{background:rgba(var(--accent-rgb),.08);opacity:1}
-      /* On dark hero sections, the ghost pill text needs to be white for
-         AAA contrast against the black background — the accent blue is only
-         ~2.6:1 on black. */
-      .feat.dark .pill.ghost,.feat-finale .pill.ghost{color:#fff !important;border-color:#fff}
-      .feat.dark .pill.ghost:hover,.feat-finale .pill.ghost:hover{background:rgba(255,255,255,.1)}
-      .pill.dark{background:#1d1d1f;color:#fff}
-      .pill.dark:hover{background:#000}
-      .pill.light{background:#fff;color:#1d1d1f}
+      .pill.primary,a.pill.primary,button.pill.primary{background:var(--accent) !important;color:var(--accent-ink, #ffffff) !important;border-color:transparent}
+      .pill.primary:hover{opacity:.92}
+      .pill.ghost, .pill.outline{background:transparent !important;border-color:currentColor}
+      [data-theme="light"] .pill.ghost,[data-theme="light"] .pill.outline{color:#0050a4 !important;border-color:#0050a4 !important}
+      [data-theme="dark"] .pill.ghost,[data-theme="dark"] .pill.outline{color:#8cc0ff !important;border-color:#8cc0ff !important}
+      .pill.ghost:hover,.pill.outline:hover{background:rgba(140,192,255,0.12) !important;opacity:1}
+      .feat.dark .pill.ghost,.feat-finale .pill.ghost{color:#ffffff !important;border-color:#ffffff !important}
+      .feat.dark .pill.ghost:hover,.feat-finale .pill.ghost:hover{background:rgba(255,255,255,.15) !important}
+      .pill.dark{background:var(--ink) !important;color:var(--bg) !important;border:1px solid var(--line-soft) !important}
+      .pill.dark:hover{opacity:.9}
+      .pill.light{background:var(--bg) !important;color:var(--ink) !important;border:1px solid var(--line-soft) !important}
       .pill.lg{padding:15px 28px;font-size:18px}
       .pill::after{content:"\203A";margin-inline-start:.4em}
       .pill.no-chev::after{content:""}

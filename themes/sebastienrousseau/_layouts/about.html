@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="../styles.css" />
     <script src="../theme-init.js"></script>
     <style>
-      body { font-family: "Inter", system-ui, sans-serif; background: #ffffff; color: #1d1d1f; line-height: 1.6; }
-      @media (prefers-color-scheme: dark) { body { background: #000000; color: #f5f5f7; } }
+      body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; }
       .container { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
-      header { padding-block: 2rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); }
-      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: inherit; }
-      .nav-link { color: inherit; text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
-      .nav-link.active { color: #0050a4; }
+      header { padding-block: 2rem 1rem; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .nav-link { color: var(--ink-soft); text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
+      .nav-link:hover, .nav-link.active { color: var(--accent); }
+      .theme-toggle { background: transparent; border: 1px solid var(--line); border-radius: 50%; width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
     </style>
   </head>
   <body>
@@ -29,31 +29,32 @@
     <header>
       <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
         <a class="brand" href="../index.html">Atlas Editorial Studio</a>
-        <nav aria-label="Primary navigation">
+        <nav aria-label="Primary navigation" style="display:flex; align-items:center;">
           <a class="nav-link" href="../index.html">Home</a>
           <a class="nav-link" href="../articles/">Articles</a>
           <a class="nav-link" href="../papers/">Papers</a>
           <a class="nav-link active" href="../about/">About</a>
           <a class="nav-link" href="../contact/">Contact</a>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" style="margin-left:1.5rem;">🌓</button>
         </nav>
       </div>
     </header>
 
     <main id="main" class="container" style="padding-block:3rem;">
-      <p style="color:#0050a4; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · ABOUT THE TEMPLATE</p>
-      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em;">About Atlas Editorial Studio</h1>
-      <p style="font-size:1.2rem; opacity:0.8; max-width:700px; margin-bottom:2.5rem;">A state-of-the-art static site theme engineered specifically for technical whitepapers, research repositories, and architectural standards.</p>
+      <p style="color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · ABOUT THE TEMPLATE</p>
+      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em; color:var(--ink);">About Atlas Editorial Studio</h1>
+      <p style="font-size:1.2rem; color:var(--ink-soft); max-width:700px; margin-bottom:2.5rem;">A state-of-the-art static site theme engineered specifically for technical whitepapers, research repositories, and architectural standards.</p>
 
       <!-- TEMPLATE OPPORTUNITY BANNER -->
-      <div style="background:rgba(0,80,164,0.06); padding:2rem; border-radius:16px; border:1px solid rgba(0,80,164,0.2); margin-bottom:3rem;">
-        <h2 style="font-size:1.4rem; margin-bottom:0.75rem;">💡 Template Opportunity: Maximum Security &amp; Provenance</h2>
-        <p style="opacity:0.85; font-size:1rem; line-height:1.6;">Atlas Editorial Studio features strict Content Security Policy (CSP) headers, Subresource Integrity (SRI) fingerprinting, CycloneDX SBOM metadata, and zero third-party script dependencies. Published papers remain tamper-proof and accessible forever.</p>
+      <div style="background:var(--surface-soft); padding:2rem; border-radius:16px; border:1px solid var(--line-soft); margin-bottom:3rem;">
+        <h2 style="font-size:1.4rem; margin-bottom:0.75rem; color:var(--ink);">💡 Template Opportunity: Maximum Security &amp; Provenance</h2>
+        <p style="color:var(--ink-soft); font-size:1rem; line-height:1.6;">Atlas Editorial Studio features strict Content Security Policy (CSP) headers, Subresource Integrity (SRI) fingerprinting, CycloneDX SBOM metadata, and zero third-party script dependencies. Published papers remain tamper-proof and accessible forever.</p>
       </div>
     </main>
 
-    <footer style="border-top:1px solid rgba(0,0,0,0.1); padding:3rem 0; margin-top:4rem; text-align:center;">
+    <footer style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem; text-align:center;">
       <div class="container">
-        <p>&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
+        <p style="color:var(--ink-soft);">&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
       </div>
     </footer>
     <script src="../main.js" defer></script>

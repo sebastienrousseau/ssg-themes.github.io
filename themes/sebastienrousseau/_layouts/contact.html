@@ -16,13 +16,15 @@
     <link rel="stylesheet" href="../search.css" />
     <script src="../theme-init.js"></script>
     <style>
-      body { font-family: "Inter", system-ui, sans-serif; background: #ffffff; color: #1d1d1f; line-height: 1.6; }
-      @media (prefers-color-scheme: dark) { body { background: #000000; color: #f5f5f7; } }
+      body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; }
       .container { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
-      header { padding-block: 2rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); }
-      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: inherit; }
-      .nav-link { color: inherit; text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
-      .nav-link.active { color: #0050a4; }
+      header { padding-block: 2rem 1rem; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .nav-link { color: var(--ink-soft); text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
+      .nav-link:hover, .nav-link.active { color: var(--accent); }
+      .theme-toggle { background: transparent; border: 1px solid var(--line); border-radius: 50%; width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
+      input, textarea { background: var(--surface); color: var(--ink); border: 1px solid var(--line); font-family: inherit; font-size: 1rem; }
+      input:focus, textarea:focus { outline: 2px solid var(--focus); border-color: var(--focus); }
     </style>
   </head>
   <body>
@@ -30,43 +32,42 @@
     <header>
       <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
         <a class="brand" href="../index.html">Atlas Editorial Studio</a>
-        <nav aria-label="Primary navigation">
+        <nav aria-label="Primary navigation" style="display:flex; align-items:center;">
           <a class="nav-link" href="../index.html">Home</a>
           <a class="nav-link" href="../articles/">Articles</a>
           <a class="nav-link" href="../papers/">Papers</a>
           <a class="nav-link" href="../about/">About</a>
           <a class="nav-link active" href="../contact/">Contact</a>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" style="margin-left:1.5rem;">🌓</button>
         </nav>
       </div>
     </header>
 
     <main id="main" class="container narrow" style="padding-block:3rem; max-width:640px; margin-inline:auto;">
-      <p style="color:#0050a4; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · EDITORIAL CONTACT</p>
-      <h1 style="font-size:2.5rem; font-weight:800; letter-spacing:-0.03em;">Editorial &amp; Research Inquiries</h1>
-      <p style="font-size:1.1rem; opacity:0.8; margin-bottom:2.5rem;">Get in touch for technical whitepaper reviews, architectural research, and theme licensing.</p>
+      <p style="color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · EDITORIAL CONTACT</p>
+      <h1 style="font-size:2.5rem; font-weight:800; letter-spacing:-0.03em; color:var(--ink);">Editorial &amp; Research Inquiries</h1>
+      <p style="font-size:1.1rem; color:var(--ink-soft); margin-bottom:2.5rem;">Get in touch for technical whitepaper reviews, architectural research, and theme licensing.</p>
 
-      <form action="#" method="POST" style="background:rgba(0,0,0,0.02); padding:2rem; border-radius:12px; border:1px solid rgba(0,0,0,0.08);">
+      <form action="#" method="POST" style="background:var(--surface-soft); padding:2rem; border-radius:12px; border:1px solid var(--line-soft);">
         <div style="margin-bottom:1rem;">
-          <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Full Name</label>
-          <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:6px;">
+          <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Full Name</label>
+          <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; border-radius:6px;">
         </div>
         <div style="margin-bottom:1rem;">
-          <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Email Address</label>
-          <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:6px;">
+          <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Email Address</label>
+          <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border-radius:6px;">
         </div>
         <div style="margin-bottom:1.5rem;">
-          <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Research / Publication Details</label>
-          <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:6px;"></textarea>
+          <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Research / Publication Details</label>
+          <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; border-radius:6px;"></textarea>
         </div>
-        <button type="submit" style="background:#0050a4; color:#fff; padding:0.75rem 1.75rem; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Submit Editorial Inquiry</button>
+        <button type="submit" style="background:var(--accent); color:var(--accent-ink); padding:0.75rem 1.75rem; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Submit Editorial Inquiry</button>
       </form>
-
-      {{content}}
     </main>
 
-    <footer style="border-top:1px solid rgba(0,0,0,0.1); padding:3rem 0; margin-top:4rem; text-align:center;">
+    <footer style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem; text-align:center;">
       <div class="container">
-        <p>&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
+        <p style="color:var(--ink-soft);">&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
       </div>
     </footer>
     <script src="../main.js" defer></script>
