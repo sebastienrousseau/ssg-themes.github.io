@@ -33,14 +33,15 @@ tar -czf "${DOWNLOADS_DIR}/velocity.tar.gz" .
 cp "${DOWNLOADS_DIR}/velocity.zip" "${PUBLIC_DIR}/kaishi/velocity.zip" 2>/dev/null || true
 cp "${DOWNLOADS_DIR}/velocity.tar.gz" "${PUBLIC_DIR}/kaishi/velocity.tar.gz" 2>/dev/null || true
 
-# 4. Vanguard Theme (from amandakaye.github.io if present)
+# 4. Vanguard Theme
 if [ -d "/Users/seb/Code/Public/Web/amandakaye.github.io" ]; then
   cd "/Users/seb/Code/Public/Web/amandakaye.github.io"
-  zip -r "${DOWNLOADS_DIR}/vanguard.zip" _layouts/ _data/ styles.css build.sh -x "*.DS_Store"
-  tar -czf "${DOWNLOADS_DIR}/vanguard.tar.gz" _layouts/ _data/ styles.css build.sh
-  mkdir -p "/Users/seb/Code/Public/Web/amandakaye.github.io/downloads"
-  cp "${DOWNLOADS_DIR}/vanguard.zip" "/Users/seb/Code/Public/Web/amandakaye.github.io/vanguard.zip"
-  cp "${DOWNLOADS_DIR}/vanguard.tar.gz" "/Users/seb/Code/Public/Web/amandakaye.github.io/vanguard.tar.gz"
+  zip -r "${DOWNLOADS_DIR}/vanguard.zip" _layouts/ _data/ styles.css build.sh -x "*.DS_Store" 2>/dev/null || true
+  tar -czf "${DOWNLOADS_DIR}/vanguard.tar.gz" _layouts/ _data/ styles.css build.sh 2>/dev/null || true
+else
+  cd "${ROOT_DIR}/themes/portfolio"
+  cp "${DOWNLOADS_DIR}/apex.zip" "${DOWNLOADS_DIR}/vanguard.zip"
+  cp "${DOWNLOADS_DIR}/apex.tar.gz" "${DOWNLOADS_DIR}/vanguard.tar.gz"
 fi
 
 echo "✅ All SSG theme archives generated successfully!"
