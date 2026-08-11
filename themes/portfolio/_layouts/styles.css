@@ -150,14 +150,27 @@ h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -
 
 /* Frameworks 2x2 Grid */
 .frameworks-grid-2x2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.75rem;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.75rem !important;
 }
 @media (max-width: 640px) {
   .frameworks-grid-2x2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
+}
+
+/* Card & Box Component Styles */
+.card {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line-soft) !important;
+}
+.card h1, .card h2, .card h3, .card h4 {
+  color: var(--ink) !important;
+}
+.card p, .card li, .card span, .card code {
+  color: var(--ink-soft) !important;
 }
 
 /* Assessment Table */
