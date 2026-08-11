@@ -110,16 +110,26 @@ find public -type f -name "index.html" | while read -r idx; do
   fi
 done
 
-# Inject favicon link tag, apply cache buster to script/link tags and strip auto-injected <div lang="en"> fallbacks
+# Python post-processing: strip any auto-injected <div lang="en"> bleeding blocks completely
+python3 -c '
+import glob, re
+for path in glob.glob("public/**/*.html", recursive=True):
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    cleaned = re.sub(r"<div lang=\"en\">.*?</div>", "", content, flags=re.DOTALL)
+    cleaned = re.sub(r"&lt;div lang=\"en\"&gt;.*?&lt;/div&gt;", "", cleaned, flags=re.DOTALL)
+    cleaned = re.sub(r"<meta [^>]*content=\"&amp;lt;div lang=&quot;en&quot; [^>]*>", "", cleaned)
+    if cleaned != content:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(cleaned)
+' 2>/dev/null || true
+
+# Inject favicon link tag, apply cache buster to script/link tags
 if [[ "$(uname)" == "Darwin" ]]; then
   find public -type f -name "*.html" -exec sed -i '' \
     -e 's|href="/_csp/|href="_csp/|g' \
     -e 's|src="/_csp/|src="_csp/|g' \
     -e 's| integrity="[^"]*"||g' \
-    -e 's|<meta name="description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|&lt;div lang="en">&lt;/div>||g' \
     -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
     -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
     -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \
@@ -129,10 +139,6 @@ else
     -e 's|href="/_csp/|href="_csp/|g' \
     -e 's|src="/_csp/|src="_csp/|g' \
     -e 's| integrity="[^"]*"||g' \
-    -e 's|<meta name="description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|<meta property="og:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|<meta name="twitter:description" content="&amp;lt;div lang=&quot;en&quot; &amp;lt;/div">||g' \
-    -e 's|&lt;div lang="en">&lt;/div>||g' \
     -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
     -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
     -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \

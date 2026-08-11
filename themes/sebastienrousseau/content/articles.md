@@ -1,20 +1,12 @@
 ---
-name: "Editorial Hub"
-short_name: "EH"
-title: "Articles & Industry Analysis | Editorial Hub"
-description: "In-depth technical analysis, architectural playbooks, and industry commentary."
-keywords: "Articles, Analysis, Technology, Architecture"
-author: "Editorial Research Group"
-date: "2026-08-05"
+name: "Atlas Editorial Studio"
+short_name: "Atlas"
+title: "Atlas Editorial Studio | Articles & Research Archive"
+description: "Explore technical articles, software architecture whitepapers, and research playbooks compiled with Atlas Editorial Studio and Static Site Generator (SSG)."
+keywords: "Atlas Editorial Studio, Articles Template, Research Archive, Technical Publishing, SSG"
+author: "SSG Theme Suite"
+date: "2026-08-08"
 language: "en-GB"
 layout: "articles"
-permalink: "https://example.com/articles.html"
+permalink: "https://ssg-themes.github.io/sebastienrousseau/articles.html"
 ---
-
-# Articles &amp; Technical Commentary
-
-## 1. Post-Quantum Cryptography in Financial Rails
-Preparing core payment messaging infrastructure for quantum-resistant signature schemes.
-
-## 2. API Governance at Enterprise Scale
-Standardising REST and gRPC API contracts across hybrid multi-cloud environments.

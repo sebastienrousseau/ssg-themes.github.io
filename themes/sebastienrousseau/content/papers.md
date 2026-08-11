@@ -1,22 +1,12 @@
 ---
-name: "Editorial Hub"
-short_name: "EH"
-title: "Research Papers & Technical Reports | Editorial Hub"
-description: "Peer-reviewed research papers and technical reports on software engineering and data systems."
-keywords: "Papers, Research, Technical Reports"
-author: "Editorial Research Group"
-date: "2026-08-05"
+name: "Atlas Editorial Studio"
+short_name: "Atlas"
+title: "Atlas Editorial Studio | Whitepapers & Research Reports"
+description: "Explore technical whitepapers and academic research reports in Atlas Editorial Studio. Compiled with Static Site Generator (SSG) for sub-10ms performance."
+keywords: "Atlas Editorial Studio, Whitepapers Template, Technical Papers, SSG Publishing"
+author: "SSG Theme Suite"
+date: "2026-08-08"
 language: "en-GB"
 layout: "papers"
-permalink: "https://example.com/papers.html"
+permalink: "https://ssg-themes.github.io/sebastienrousseau/papers.html"
 ---
-
-# Technical Papers &amp; Whitepapers
-
-## Paper 101: Zero-Latency Data Pipeline Architecture
-*Published: July 2026*
-An examination of streaming data pipelines and in-memory compilation techniques using Rust static analysis.
-
-## Paper 102: ISO 20022 Schema Validation Performance
-*Published: May 2026*
-Benchmarking XML and JSON payload validation throughput in high-volume transaction networks.
