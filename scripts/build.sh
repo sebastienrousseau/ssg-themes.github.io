@@ -66,6 +66,12 @@ else
   build_single_theme "${TARGET}"
 fi
 
+# Run theme packager to generate .zip and .tar.gz archives
+if [[ -f "scripts/package-themes.sh" ]]; then
+  chmod +x scripts/package-themes.sh
+  ./scripts/package-themes.sh
+fi
+
 # Copy root favicon.ico to public/
 if [[ -f "favicon.ico" ]]; then
   cp -f "favicon.ico" "public/favicon.ico"
@@ -81,7 +87,7 @@ fi
 # Generate .html file fallbacks for directory outputs and stage ALL asset dependencies into subdirectories
 find public -type f -name "index.html" | while read -r idx; do
   dir="$(dirname "$idx")"
-  if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" ]]; then
+  if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" && "$dir" != "public/downloads" ]]; then
     cp -f "$idx" "${dir}.html" 2>/dev/null || true
 
     # Stage ALL JS, CSS, favicon, search index, and _csp assets into subdirectories for 100% 200 OK resolution

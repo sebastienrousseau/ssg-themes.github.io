@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SSG Theme Suite | Apple-Grade Static Site Generator Templates</title>
-  <meta name="description" content="A monorepo and live showcase of production-ready, Apple-grade Static Site Generator (SSG) themes: Apex Executive Pro, Atlas Editorial Studio, and Velocity Air. 100% WCAG AAA compliant, SEO-optimized, sub-10ms build times.">
-  <meta name="keywords" content="Static Site Generator, SSG Themes, Apex Executive Pro, Atlas Editorial Studio, Velocity Air, WCAG AAA, Performance, SEO Templates">
+  <meta name="description" content="A monorepo and live showcase of production-ready, Apple-grade Static Site Generator (SSG) themes: Apex, Atlas, Velocity, and Vanguard. 100% WCAG AAA compliant, SEO-optimized, sub-10ms build times. Download theme zip and tar.gz release packages.">
+  <meta name="keywords" content="Static Site Generator, SSG Themes, Apex, Atlas, Velocity, Vanguard, WCAG AAA, Performance, SEO Templates, Download Theme ZIP">
   <meta property="og:title" content="SSG Theme Suite | Apple-Grade Static Site Generator Templates">
-  <meta property="og:description" content="Discover Apple-grade static site generator themes built for speed, accessibility, and high-conversion publishing.">
+  <meta property="og:description" content="Discover Apple-grade static site generator themes built for speed, accessibility, and high-conversion publishing. Download theme packages.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SSG Theme Suite | Apple-Grade Static Site Generator Templates">
@@ -50,18 +50,32 @@
     .theme-tag { font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#0050a4; margin-bottom:0.75rem; letter-spacing: 0.05em; }
     .theme-title { font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem; letter-spacing: -0.02em; }
     .theme-desc { opacity: 0.85; font-size: 0.98rem; margin-bottom: 1.75rem; flex-grow: 1; line-height: 1.6; }
+    .btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
     .btn {
       display: inline-block;
       background: #0050a4;
       color: #fff;
-      padding: 0.85rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       border-radius: 980px;
       text-decoration: none;
       font-weight: 600;
       text-align: center;
+      font-size: 0.9rem;
       transition: opacity 0.2s ease;
     }
-    .btn:hover { opacity: 0.9; }
+    .btn-download {
+      background: rgba(0,80,164,0.1);
+      color: #0050a4;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      .btn-download { background: rgba(56,189,248,0.15); color: #38bdf8; }
+    }
+    .btn:hover, .btn-download:hover { opacity: 0.9; text-decoration: underline; }
     footer { margin-top: 6rem; text-align: center; opacity: 0.75; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2.5rem; padding-bottom: 3rem; }
   </style>
 </head>
@@ -69,8 +83,8 @@
   <header>
     <div class="container">
       <span class="badge">Apple-Grade SSG Theme Suite</span>
-      <h1>Apex. Atlas. Velocity.</h1>
-      <p class="lead">Engineered specifically for Static Site Generator (SSG). Sub-10ms build times, 100/100 Lighthouse benchmark guarantees, WCAG AAA accessibility compliance, and zero runtime JavaScript overhead.</p>
+      <h1>Apex. Atlas. Velocity. Vanguard.</h1>
+      <p class="lead">Engineered specifically for Static Site Generator (SSG). Sub-10ms build times, 100/100 Lighthouse benchmark guarantees, WCAG AAA accessibility compliance, zero runtime JavaScript overhead, and instant theme download packages.</p>
     </div>
   </header>
 
@@ -81,33 +95,45 @@
     </div>
 
     <div class="theme-grid">
-      <!-- Theme 1: Apex Executive Pro -->
+      <!-- Theme 1: Apex -->
       <article class="theme-card">
         <div class="theme-tag">Executive Flagship Theme</div>
-        <h3 class="theme-title">Apex Executive Pro</h3>
-        <p class="theme-desc">The ultimate executive portfolio template. Engineered for C-suite leaders, board advisors, and portfolio directors requiring high-impact ROI dashboards, Recruiter Assessment Matrices, and stage-gate case study layouts.</p>
+        <h3 class="theme-title">Apex</h3>
+        <p class="theme-desc">The ultimate executive showcase template. Engineered for C-suite leaders, board advisors, and portfolio directors requiring high-impact ROI dashboards, Recruiter Assessment Matrices, and stage-gate case study layouts.</p>
         <div>
-          <a class="btn" href="portfolio/">Explore Apex Executive Pro →</a>
+          <a class="btn" href="portfolio/">Explore Apex Live →</a>
+          <div class="btn-row">
+            <a class="btn-download" href="downloads/apex.zip" download>📦 Download .ZIP</a>
+            <a class="btn-download" href="downloads/apex.tar.gz" download>📦 Download .TAR.GZ</a>
+          </div>
         </div>
       </article>
 
-      <!-- Theme 2: Atlas Editorial Studio -->
+      <!-- Theme 2: Atlas -->
       <article class="theme-card">
         <div class="theme-tag">Publishing &amp; Research Hub</div>
-        <h3 class="theme-title">Atlas Editorial Studio</h3>
+        <h3 class="theme-title">Atlas</h3>
         <p class="theme-desc">Premium academic and technical research publishing theme. Built with Newsreader display serif typography, multi-language support, whitepaper archives, citation formatting, and strict CSP/SRI security hardening.</p>
         <div>
-          <a class="btn" href="sebastienrousseau/">Explore Atlas Editorial Studio →</a>
+          <a class="btn" href="sebastienrousseau/">Explore Atlas Live →</a>
+          <div class="btn-row">
+            <a class="btn-download" href="downloads/atlas.zip" download>📦 Download .ZIP</a>
+            <a class="btn-download" href="downloads/atlas.tar.gz" download>📦 Download .TAR.GZ</a>
+          </div>
         </div>
       </article>
 
-      <!-- Theme 3: Velocity Air -->
+      <!-- Theme 3: Velocity -->
       <article class="theme-card">
-        <div class="theme-tag">Ultra-Lightweight Starter</div>
-        <h3 class="theme-title">Velocity Air</h3>
+        <div class="theme-tag">Ultra-Lightweight Tech Theme</div>
+        <h3 class="theme-title">Velocity</h3>
         <p class="theme-desc">Hyper-fast minimalist starter and developer documentation theme. Zero-JS initial load, sub-5KB CSS footprint, responsive feature grids, and client-side instant search.</p>
         <div>
-          <a class="btn" href="kaishi/">Explore Velocity Air →</a>
+          <a class="btn" href="kaishi/">Explore Velocity Live →</a>
+          <div class="btn-row">
+            <a class="btn-download" href="downloads/velocity.zip" download>📦 Download .ZIP</a>
+            <a class="btn-download" href="downloads/velocity.tar.gz" download>📦 Download .TAR.GZ</a>
+          </div>
         </div>
       </article>
     </div>
