@@ -4,8 +4,16 @@ set -euo pipefail
 # Build script for SSG Themes Showcase (ssg-themes.github.io)
 # Usage: ./scripts/build.sh [theme-name|all]
 
-TARGET="${1:-all}"
+RAW_TARGET="${1:-all}"
 BUILD_VERSION="$(date +%s)"
+
+# Map legacy target names to renamed theme folder names
+case "${RAW_TARGET}" in
+  portfolio) TARGET="apex" ;;
+  sebastienrousseau) TARGET="atlas" ;;
+  kaishi) TARGET="velocity" ;;
+  *) TARGET="${RAW_TARGET}" ;;
+esac
 
 build_single_theme() {
   local THEME="$1"
@@ -49,6 +57,18 @@ build_single_theme() {
     cp -f "favicon.ico" "${OUTPUT_DIR}/favicon.ico"
   fi
 
+  # Mirror output to legacy folder paths for 100% backward compatibility
+  if [[ "${THEME}" == "apex" ]]; then
+    mkdir -p public/portfolio
+    cp -R "${OUTPUT_DIR}/"* public/portfolio/ 2>/dev/null || true
+  elif [[ "${THEME}" == "atlas" ]]; then
+    mkdir -p public/sebastienrousseau
+    cp -R "${OUTPUT_DIR}/"* public/sebastienrousseau/ 2>/dev/null || true
+  elif [[ "${THEME}" == "velocity" ]]; then
+    mkdir -p public/kaishi
+    cp -R "${OUTPUT_DIR}/"* public/kaishi/ 2>/dev/null || true
+  fi
+
   echo "✅ Build complete for theme '${THEME}' -> ${OUTPUT_DIR}"
 }
 
@@ -87,7 +107,7 @@ fi
 # Generate .html file fallbacks for directory outputs and stage ALL asset dependencies into subdirectories
 find public -type f -name "index.html" | while read -r idx; do
   dir="$(dirname "$idx")"
-  if [[ "$dir" != "public" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" && "$dir" != "public/downloads" ]]; then
+  if [[ "$dir" != "public" && "$dir" != "public/apex" && "$dir" != "public/atlas" && "$dir" != "public/velocity" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" && "$dir" != "public/downloads" ]]; then
     cp -f "$idx" "${dir}.html" 2>/dev/null || true
 
     # Stage ALL JS, CSS, favicon, search index, and _csp assets into subdirectories for 100% 200 OK resolution
