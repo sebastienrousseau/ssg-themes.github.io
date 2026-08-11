@@ -123,24 +123,40 @@ a:hover { text-decoration: underline; }
 .hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2.5rem; align-items: center; }
 .hero-image-wrap { grid-column: span 5; }
 .hero-content { grid-column: span 7; }
-.hero-image img { width: 100%; height: auto; border-radius: 16px; object-fit: cover; box-shadow: var(--shadow-md); }
+.hero-image img { width: 100%; height: auto; border-radius: 16px; object-fit: cover; box-shadow: var(--shadow-md); display: block; }
 
 .section-eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
 h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -0.02em; margin-block: 0 1rem; color: var(--ink); }
 .hero-subhead { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
 
-.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-.btn-primary, .btn-secondary, .btn-outline {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.4rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
+/* Horizontally Aligned Buttons */
+.cta-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem !important;
+  margin-top: 1.5rem !important;
 }
-.btn-primary { background: var(--accent); color: var(--accent-ink); }
-.btn-secondary { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); }
-.btn-outline { border: 1px solid var(--accent); color: var(--accent); }
+
+.btn-primary, .btn-secondary, .btn-outline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 2.75rem !important;
+  padding: 0 1.25rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.925rem !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+}
+.btn-primary { background: var(--accent) !important; color: var(--accent-ink) !important; border: 1px solid var(--accent) !important; }
+.btn-secondary { background: var(--surface-soft) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; }
+.btn-outline { background: transparent !important; border: 1px solid var(--accent) !important; color: var(--accent) !important; }
 
 /* Metrics Dashboard */
 .metrics-dashboard { padding-block: 3.5rem; background: var(--surface-soft); border-block: 1px solid var(--line-soft); }
