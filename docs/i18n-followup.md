@@ -1,8 +1,15 @@
 # i18n follow-up: translated slugs and a root-hosted default locale
 
-Multi-locale support is **not shipped**. Two independent limits in
-`I18nPlugin` block it, and the second is a design limit rather than a bug.
-This records both precisely so the next attempt starts from the finding.
+> **Status: shipped.** All three blockers below are resolved and Atlas
+> serves `/atlas/` + `/atlas/fr/` with translated slugs. See
+> [Resolution](#resolution) at the foot of this file for what each fix
+> turned out to be — the analysis above it is kept as written, because
+> it is what made the fixes tractable.
+
+Multi-locale support was **not shipped**. Two independent limits in
+`I18nPlugin` blocked it, and the second was a design limit rather than a
+bug. This records both precisely so the next attempt starts from the
+finding.
 
 ## Requirement
 
@@ -168,3 +175,66 @@ Nothing is left half-wired — the first attempt was reverted cleanly.
 - extend `scripts/validate.py` to assert that every `translation_key`
   resolves in all configured locales, so a missing translation fails the
   build instead of silently dropping the alternates
+
+---
+
+## Resolution
+
+### Blocker 3 — fixed by a workaround; the bug is upstream
+
+The output-path mapping is **not** in this repo. It is
+`staticdatagen::utilities::write::write_files_to_build_directory`
+(`staticdatagen 0.0.11`), which compares the whole processed file name
+against `"index"`, so only a content-root `index.md` reaches the
+root-index branch. `staticdatagen` is a published external dependency and
+was not vendored.
+
+The side-step lives in `content_stager::flatten_nested_index_pages`: the
+compiler writes `foo.md` to `foo/index.html`, so a nested `fr/index.md`
+is *staged* under the name `fr.md` and lands at `fr/index.html`. This
+restores the mapping `urls::derive_output_rel_path` already documented
+and asserted (`about/index.md → about/index.html`). A collision — both
+`fr.md` and `fr/index.md` authored — leaves the nested file alone rather
+than dropping a page.
+
+### Blocker 2 — fixed
+
+`detect_locale_dirs` became `detect_locales`, returning
+`(present_locales, root_locale)`. The default locale counts as present
+without a directory when the site root holds HTML outside the other
+locale directories, and is reported as the `root_locale`; `build_url`
+then omits its segment entirely under either URL strategy. The
+locale-redirect `index.html` is no longer written when a locale is
+root-hosted — the site root already *is* that locale's home page.
+
+### Blocker 1 — fixed
+
+The matrix inverted exactly as sketched: `key -> {locale -> rel_path}`,
+with a `(locale, rel_path) -> key` reverse index. Keys come from the
+`translation_key` front-matter field read out of the `.meta/*.meta.json`
+sidecars, and fall back to the locale-relative path when a page declares
+none — so single- and multi-locale sites with no `translation_key`
+behave exactly as before.
+
+One thing the analysis did not anticipate: **alternate `hreflang` labels
+had to become per-target as well.** Each alternate names a *different*
+document, so it now carries that document's resolved language rather
+than its bare locale directory name. Without it `/atlas/` labels itself
+`en-GB` while `/atlas/fr/` calls it `en`, the two sides disagree, and the
+`hreflang` audit gate reports `HREFLANG-NO-RECIPROCAL` for every pair.
+
+### What the themes needed beyond the original list
+
+- `asset_path` / `asset_url` front matter. Feeds, manifest, icon,
+  stylesheet and scripts are published once per *site*; under
+  `base_path` a French page asked for `/atlas/fr/styles.css`, which is
+  never written.
+- Localised navigation slugs and labels in front matter
+  (`slug_papers: "publications/"`, `label_papers: "Publications"`, …).
+  A layout cannot hard-code `papers/` once the French slug is
+  `publications/`.
+- A caution learned the hard way: the comment that replaced the
+  hand-written `<link rel="alternate" hreflang=…>` tags in `base.html`
+  originally *quoted* them, which contains the injector's idempotency
+  marker verbatim and silently disabled every alternate on every page.
+  The marker check does not care that the match sits inside a comment.
