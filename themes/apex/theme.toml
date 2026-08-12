@@ -8,9 +8,10 @@ description = "Executive portfolio theme: template inheritance, AAA-gated colour
 homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
 demosite = "https://ssg-themes.github.io/apex/"
 
-# Minimum generator version. Below this the build still succeeds but
-# renders without the layout resolved from front matter.
-min_version = "0.0.49"
+# Minimum generator version. Below this the build does not merely degrade:
+# the layout named in front matter is ignored, the bundled content schema
+# aborts the compile, and extracted CSS 404s under a sub-path.
+min_version = "0.0.50"
 
 tags = ["portfolio","business","consulting","accessibility","dark-mode"]
 features = ["dark-mode","search","rss","json-ld","wcag-aa","no-javascript-required","contact-form"]

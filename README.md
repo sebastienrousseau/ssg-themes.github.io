@@ -27,8 +27,11 @@ $EDITOR ssg.toml
 ssg build -f ssg.toml
 ```
 
-Requires **ssg 0.0.49 or later**. On earlier versions the layout named in
-front matter is never resolved and every page renders through `page.html`.
+Requires **ssg 0.0.50 or later**. Earlier versions do not resolve the layout
+named in front matter — every page renders through `page.html` — reject the
+`content/content.schema.toml` these themes ship, and drop the extracted
+stylesheet on any site published under a sub-path. Atlas additionally needs
+0.0.50 for translated slugs, and Velocity for its pricing island.
 
 Each theme's own README documents its layouts, front-matter contract and
 token system: [Apex](themes/apex/README.md) ·

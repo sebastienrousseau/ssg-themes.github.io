@@ -8,7 +8,7 @@
   "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
   "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
   "demosite": "https://ssg-themes.github.io/velocity/",
-  "min_ssg_version": "0.0.49",
+  "min_ssg_version": "0.0.50",
   "screenshot": "images/screenshot.png",
   "thumbnail": "images/tn.png"
 }

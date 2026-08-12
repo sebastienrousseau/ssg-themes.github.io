@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 import tomllib
 from pathlib import Path
@@ -183,6 +184,35 @@ def check_translations(theme: Path, name: str) -> list[str]:
     return errors
 
 
+# OS and editor droppings that must not enter history. Checked against the
+# git index rather than the filesystem: `.DS_Store` is gitignored and macOS
+# recreates it whenever Finder touches a directory, so testing for mere
+# presence failed this gate on every macOS working copy while the repository
+# itself was perfectly clean.
+JUNK_NAMES = (".DS_Store", "Thumbs.db", ".AppleDouble")
+
+
+def tracked_junk(root: Path) -> list[str]:
+    """Returns an error for each junk file actually tracked by git."""
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", "-z"],
+            cwd=root,
+            capture_output=True,
+            check=True,
+            text=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        # Not a git checkout (a release tarball, say) — nothing to assert.
+        return []
+
+    return [
+        f"repo: {path} is tracked by git and should not be"
+        for path in out.split("\0")
+        if path and Path(path).name in JUNK_NAMES
+    ]
+
+
 def check_theme(root: Path, name: str) -> list[str]:
     errors: list[str] = []
     theme = root / "themes" / name
@@ -308,10 +338,7 @@ def main() -> int:
     for name in THEMES:
         all_errors.extend(check_theme(root, name))
 
-    stray = sorted(root.rglob(".DS_Store"))
-    for s in stray:
-        if ".git/" not in str(s):
-            all_errors.append(f"repo: {s.relative_to(root)} is committed")
+    all_errors.extend(tracked_junk(root))
 
     if all_errors:
         print(f"validate: {len(all_errors)} failure(s)\n")

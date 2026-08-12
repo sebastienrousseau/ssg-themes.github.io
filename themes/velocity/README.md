@@ -6,7 +6,7 @@ The smallest useful theme in the suite: a product landing page, a features page,
 
 - **Demo:** <https://ssg-themes.github.io/velocity/>
 - **Licence:** MIT
-- **Requires:** ssg 0.0.49+
+- **Requires:** ssg 0.0.50+ — the pricing island does not hydrate on earlier versions
 
 ## Install
 
@@ -23,8 +23,10 @@ content/template/output paths. **Change `base_url` and `site_url` before you
 deploy** — leaving the defaults is how a site ends up publishing an
 `llms.txt` reading `MySsgSite` and JSON-LD pointing at `127.0.0.1`.
 
-Requires **ssg 0.0.49 or later**. On earlier versions the layout named in
-front matter is not resolved, and every page renders through `page.html`.
+Requires **ssg 0.0.50 or later**. Earlier versions do not resolve the layout
+named in front matter — every page renders through `page.html` — reject the
+`content/content.schema.toml` this theme ships, and drop the extracted
+stylesheet on any site published under a sub-path.
 
 ## Layouts
 
