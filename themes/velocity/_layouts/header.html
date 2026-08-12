@@ -1,0 +1,63 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{base_path}}">
+      <span class="brand-mark" aria-hidden="true">{{short_name}}</span>
+      <span class="brand-text">{{name}}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <!-- Always present; CSS hides it above 48rem. -->
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span class="visually-hidden">Menu</span>
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li>
+          <a class="nav-link" href="{{base_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{base_path}}features/" {{#if nav_features}}aria-current="page"{{/if}}>Features</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{base_path}}pricing/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{base_path}}about/" {{#if nav_about}}aria-current="page"{{/if}}>About</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{base_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+        </li>
+      </ul>
+
+      <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+        <span class="visually-hidden">Dark theme</span>
+        <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="5" />
+          <line x1="12" y1="19" x2="12" y2="22" />
+          <line x1="2" y1="12" x2="5" y2="12" />
+          <line x1="19" y1="12" x2="22" y2="12" />
+        </svg>
+        <svg class="icon-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>

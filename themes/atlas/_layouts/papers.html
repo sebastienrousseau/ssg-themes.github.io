@@ -1,69 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Atlas Editorial Studio | Whitepapers &amp; Research Reports Template</title>
-    <meta name="description" content="Explore technical whitepapers and academic research reports in Atlas Editorial Studio. Compiled with Static Site Generator (SSG) for sub-10ms performance." />
-    <meta name="keywords" content="Atlas Editorial Studio, Whitepapers Template, Technical Papers, SSG Publishing" />
-    <meta property="og:title" content="Atlas Editorial Studio | Whitepapers &amp; Research Reports Template" />
-    <meta property="og:description" content="Explore technical whitepapers and academic research reports in Atlas Editorial Studio." />
-    <meta property="og:type" content="article" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Atlas Editorial Studio | Whitepapers &amp; Research Reports Template" />
-    <meta name="twitter:description" content="Explore technical whitepapers and academic research reports in Atlas Editorial Studio." />
-    <link rel="stylesheet" href="../styles.css" />
-    <script src="../theme-init.js"></script>
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; }
-      .container { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
-      header { padding-block: 2rem 1rem; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
-      .brand { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--ink); }
-      .nav-link { color: var(--ink-soft); text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
-      .nav-link:hover, .nav-link.active { color: var(--accent); }
-      .theme-toggle { background: transparent; border: 1px solid var(--line); border-radius: 50%; width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
-      .paper-card { padding: 1.75rem; background: var(--surface-soft); border: 1px solid var(--line-soft); border-radius: 12px; margin-bottom: 1.5rem; }
-    </style>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to main content</a>
-    <header>
-      <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-        <a class="brand" href="../index.html">Atlas Editorial Studio</a>
-        <nav aria-label="Primary navigation" style="display:flex; align-items:center;">
-          <a class="nav-link" href="../index.html">Home</a>
-          <a class="nav-link" href="../articles/">Articles</a>
-          <a class="nav-link active" href="../papers/">Papers</a>
-          <a class="nav-link" href="../about/">About</a>
-          <a class="nav-link" href="../contact/">Contact</a>
-          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" style="margin-left:1.5rem;">🌓</button>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main" class="container" style="padding-block:3rem;">
-      <p style="color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.85rem; margin-bottom:0.5rem;">ATLAS EDITORIAL STUDIO · WHITEPAPER ARCHIVE</p>
-      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em; color:var(--ink);">Whitepapers &amp; Technical Reports</h1>
-      <p style="font-size:1.2rem; color:var(--ink-soft); max-width:700px; margin-bottom:2.5rem;">Peer-reviewed whitepapers, security audits, and financial systems architecture specifications.</p>
-
-      <!-- TEMPLATE OPPORTUNITY BANNER -->
-      <div style="background:var(--surface-soft); padding:2rem; border-radius:16px; border:1px solid var(--line-soft); margin-bottom:3rem;">
-        <h2 style="font-size:1.4rem; margin-bottom:0.75rem; color:var(--ink);">💡 Template Opportunity: Technical Whitepaper Distribution</h2>
-        <p style="color:var(--ink-soft); font-size:1rem; line-height:1.6;">Whitepapers compiled with SSG benefit from zero cumulative layout shift (CLS 0.00), automatic RSS/Atom feed generation, and CycloneDX SBOM provenance signing, guaranteeing reader trust and search engine indexation.</p>
-      </div>
-
-      <div class="paper-card">
-        <span style="font-size:0.8rem; font-weight:700; color:var(--accent); text-transform:uppercase;">WHITEPAPER 01</span>
-        <h2 style="font-size:1.5rem; margin-top:0.35rem; color:var(--ink);">Post-Quantum Cryptographic Readiness for Wholesale Payments</h2>
-        <p style="color:var(--ink-soft);">A comprehensive architectural assessment of FIPS 203 (ML-KEM) and FIPS 204 (ML-DSA) implementation strategies within ISO 20022 messaging networks.</p>
-      </div>
-    </main>
-
-    <footer style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem; text-align:center;">
-      <div class="container">
-        <p style="color:var(--ink-soft);">&copy; 2026 Atlas Editorial Studio. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
-      </div>
-    </footer>
-    <script src="../main.js" defer></script>
-  </body>
-</html>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container prose stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+    {{!content}}
+  </div>
+</article>
+{{/block}}

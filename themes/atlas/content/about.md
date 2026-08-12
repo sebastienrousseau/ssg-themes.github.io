@@ -1,12 +1,51 @@
 ---
-name: "Atlas Editorial Studio"
-short_name: "Atlas"
-title: "Atlas Editorial Studio | About & Specifications"
-description: "Learn about Atlas Editorial Studio and the capabilities of Static Site Generator (SSG) for academic and engineering publishing."
-keywords: "Atlas Editorial Studio, About Template, Publishing Capabilities, SSG Benefits"
+name: "Atlas"
+short_name: "AT"
+title: "About — Atlas"
+description: "Editorial standards, corrections policy, and how the Atlas theme is built."
+keywords: "atlas about, editorial standards, corrections policy"
 author: "SSG Theme Suite"
-date: "2026-08-08"
-language: "en-GB"
+date: "2026-08-11"
+news_publication_date: "2026-08-11"
 layout: "about"
-permalink: "https://ssg-themes.github.io/sebastienrousseau/about.html"
+language: "en-GB"
+schema: "page"
+changefreq: "monthly"
+permalink: "https://ssg-themes.github.io/atlas/about/"
+copyright_year: "2026"
+form_origin: "https://example.com"
+base_path: "/atlas/"
+site_url: "https://ssg-themes.github.io/atlas/"
+nav_about: "true"
+eyebrow: "About"
+headline: "Standards and structure"
+lead: "What this theme assumes about how you publish, and how it is put together."
 ---
+
+## Editorial standards, as a template
+
+Replace this section with your own. It exists because a knowledge hub that
+does not state its standards is asking readers to trust it on nothing.
+
+- **Sourcing.** Claims of fact carry a link to a primary source.
+- **Corrections.** Material errors get a dated note at the head of the page.
+- **Updates.** Non-material changes are silent; anything that changes a
+  conclusion gets a note.
+- **Disclosure.** Commercial relationships relevant to a piece appear in it.
+
+## How the theme is built
+
+`base.html` holds the document shell and declares a `main` block. Every
+page layout opens with `{{#extends "base"}}` and fills that block; the
+header and footer are partials. Page copy is Markdown injected with
+`{{!content}}`.
+
+Earlier releases of this theme inlined a 183 KB stylesheet into each of
+eight layouts — 1.9 MB of duplicated CSS that had already drifted into five
+different versions. There is now one stylesheet.
+
+## Verifying a change
+
+`make check` parses the token blocks in `_layouts/styles.css` and asserts
+every declared pair against its WCAG target in both light and dark: 7:1 for
+text, 3:1 for borders and the focus ring. A failing token fails the build.

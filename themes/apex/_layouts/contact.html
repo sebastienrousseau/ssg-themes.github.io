@@ -1,77 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apex Executive Pro | Theme Inquiries &amp; Support Template</title>
-  <meta name="description" content="Inquire about theme licensing, developer customization, and SSG static site deployment in Apex Executive Pro. Built with Static Site Generator (SSG).">
-  <meta name="keywords" content="Apex Executive Pro, Theme Contact, SSG Support, Static Site Generator, Customization">
-  <meta property="og:title" content="Apex Executive Pro | Theme Inquiries &amp; Support Template">
-  <meta property="og:description" content="Inquire about theme licensing, developer customization, and SSG static site deployment in Apex Executive Pro.">
-  <meta property="og:type" content="article">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Apex Executive Pro | Theme Inquiries &amp; Support Template">
-  <meta name="twitter:description" content="Inquire about theme licensing, developer customization, and SSG static site deployment in Apex Executive Pro.">
-  <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="styles.css">
-  <script src="theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">Apex</span><span class="brand-text">Executive Pro</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="../index.html">Home</a></li>
-          <li><a class="nav-link" href="../projects/">Showcase</a></li>
-          <li><a class="nav-link" href="../frameworks/">Frameworks</a></li>
-          <li><a class="nav-link" href="../about/">Specifications</a></li>
-          <li><a class="nav-link active" href="../contact/">Inquiries</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
-    </div>
-  </header>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container narrow stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
 
-  <main id="main">
-    <section class="container narrow" style="padding-block:3.5rem;">
-      <p class="section-eyebrow">APEX EXECUTIVE PRO · THEME INQUIRIES</p>
-      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em;">Theme Inquiries &amp; Support</h1>
-      <p class="hero-subhead" style="max-width:750px;">Get in touch for theme customization, static site generator integration, and enterprise licensing.</p>
-      <hr style="border:0; border-top:1px solid var(--line-soft); margin-block:2rem;">
+    <div class="prose">{{!content}}</div>
 
-      <!-- TEMPLATE OPPORTUNITY BANNER -->
-      <div style="background:var(--surface-soft); padding:1.75rem; border-radius:16px; border:1px solid var(--line-soft); margin-bottom:2.5rem;">
-        <h2 style="font-size:1.35rem; margin-bottom:0.5rem;">💡 Template Opportunity: Frictionless Recruiter Contact</h2>
-        <p style="color:var(--ink-mute); font-size:0.95rem; line-height:1.5;">Designed with clean semantic form fields and WCAG AAA focus states, ensuring high response rates for theme inquiries.</p>
+    <!--
+      Posts to a real endpoint supplied by the site owner via the
+      `form_action` front-matter field. Shipping `action="#"` would
+      silently discard the submission on press.
+    -->
+    <form class="stack" action="{{form_action}}" method="post">
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required />
       </div>
-
-      <form class="contact-form" action="#" method="POST">
-        <div class="form-group" style="margin-bottom:1rem;">
-          <label for="name" style="display:block; font-weight:700; margin-bottom:0.35rem;">Your Name &amp; Title</label>
-          <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; border:1px solid var(--line); border-radius:8px;">
-        </div>
-        <div class="form-group" style="margin-bottom:1rem;">
-          <label for="email" style="display:block; font-weight:700; margin-bottom:0.35rem;">Work Email Address</label>
-          <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border:1px solid var(--line); border-radius:8px;">
-        </div>
-        <div class="form-group" style="margin-bottom:1rem;">
-          <label for="company" style="display:block; font-weight:700; margin-bottom:0.35rem;">Organization / Search Firm</label>
-          <input type="text" id="company" name="company" style="width:100%; padding:0.75rem; border:1px solid var(--line); border-radius:8px;">
-        </div>
-        <div class="form-group" style="margin-bottom:1.5rem;">
-          <label for="message" style="display:block; font-weight:700; margin-bottom:0.35rem;">Engagement Details</label>
-          <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; border:1px solid var(--line); border-radius:8px;"></textarea>
-        </div>
-        <button type="submit" class="btn-primary" style="padding:0.85rem 2rem; border:none; border-radius:980px; font-weight:700; cursor:pointer;">Submit Theme Inquiry</button>
-      </form>
-    </section>
-  </main>
-
-  <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
-    <div class="container text-center"><p>&copy; 2026 Apex Executive Pro. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
-  </footer>
-  <script src="main.js"></script>
-</body>
-</html>
+      <div class="field">
+        <label for="cf-email">Email address</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        <p class="hint" id="cf-email-hint">Used only to reply to this enquiry.</p>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" required></textarea>
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-primary" type="submit">Send enquiry</button>
+      </div>
+    </form>
+  </div>
+</article>
+{{/block}}

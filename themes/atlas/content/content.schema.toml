@@ -1,0 +1,81 @@
+# Typed front-matter contract for this theme.
+#
+# `ssg` validates every page carrying `schema = "page"` against this at
+# compile time, so a missing `permalink` or a mistyped `date` fails the
+# build rather than shipping a page with an empty canonical URL.
+#
+# This matters more than usual here: the template engine treats an
+# unresolved `{{tag}}` as a hard error, so a layout referencing a field no
+# content file defines will break the build anyway — this schema turns that
+# into a named, actionable message.
+
+[[schemas]]
+name = "page"
+
+[[schemas.fields]]
+name = "title"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "description"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "layout"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "permalink"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "date"
+type = "date"
+required = true
+
+[[schemas.fields]]
+name = "author"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "language"
+type = "string"
+required = true
+
+# Navigation and layout copy. Required because every layout references
+# them and an unresolved tag aborts the render.
+
+[[schemas.fields]]
+name = "base_path"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "site_url"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "eyebrow"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "headline"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "lead"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "copyright_year"
+type = "string"
+required = true

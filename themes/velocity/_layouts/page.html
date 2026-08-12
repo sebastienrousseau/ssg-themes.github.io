@@ -1,35 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{title}}</title>
-  <meta name="description" content="{{description}}">
-  <link rel="stylesheet" href="styles.css">
-  <script src="theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">VA</span><span class="brand-text">Velocity Air</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="about.html">Features</a></li>
-          <li><a class="nav-link" href="contact.html">Support</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
-    </div>
-  </header>
-  <main id="main" class="container" style="max-width:800px; margin:0 auto; padding:3.5rem 1.5rem;">
-    <h1>{{title}}</h1>
-    {{content}}
-  </main>
-  <footer class="site-footer">
-    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% Accessible.</p></div>
-  </footer>
-  <script src="main.js"></script>
-</body>
-</html>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container prose stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+    {{!content}}
+  </div>
+</article>
+{{/block}}

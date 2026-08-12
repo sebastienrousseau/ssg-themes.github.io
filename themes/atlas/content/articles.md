@@ -1,12 +1,54 @@
 ---
-name: "Atlas Editorial Studio"
-short_name: "Atlas"
-title: "Atlas Editorial Studio | Articles & Research Archive"
-description: "Explore technical articles, software architecture whitepapers, and research playbooks compiled with Atlas Editorial Studio and Static Site Generator (SSG)."
-keywords: "Atlas Editorial Studio, Articles Template, Research Archive, Technical Publishing, SSG"
+name: "Atlas"
+short_name: "AT"
+title: "Articles — Atlas"
+description: "Sample article index showing how Atlas presents a body of writing."
+keywords: "atlas articles, article index, editorial theme demo"
 author: "SSG Theme Suite"
-date: "2026-08-08"
-language: "en-GB"
+date: "2026-08-11"
+news_publication_date: "2026-08-11"
 layout: "articles"
-permalink: "https://ssg-themes.github.io/sebastienrousseau/articles.html"
+language: "en-GB"
+schema: "page"
+changefreq: "weekly"
+permalink: "https://ssg-themes.github.io/atlas/articles/"
+copyright_year: "2026"
+form_origin: "https://example.com"
+base_path: "/atlas/"
+site_url: "https://ssg-themes.github.io/atlas/"
+nav_articles: "true"
+eyebrow: "Articles"
+headline: "Writing"
+lead: "Sample entries demonstrating the index shape. Replace them with your own."
 ---
+
+## Structuring a knowledge hub
+
+Most hubs begin as a blog and stay one, which is why so many of them are
+unusable after year two. A stream is ordered by when you wrote something;
+a hub is ordered by what a reader needs. Those two orders diverge quickly.
+
+The practical fix is to separate durable pages from dated ones early, give
+the durable pages stable URLs, and let the dated ones link into them.
+
+## Writing for citation
+
+A page that gets cited is one a reader can quote precisely. That means
+stable headings, a visible publication date paired with a machine-readable
+`<time>` element, and a correction note when something material changes —
+not a silent edit.
+
+Atlas's `article` layout emits both date forms and leaves room above the
+prose for a standfirst that states the claim.
+
+## On updating rather than rewriting
+
+An update adds; a rewrite replaces. If a reader who bookmarked the page two
+years ago would be confused by what they now find, it was a rewrite, and it
+deserves a new URL and a pointer from the old one.
+
+## Adding your own
+
+Create a Markdown file in `content/` with `layout: "article"` and the front
+matter fields listed in `content.schema.toml`. The build validates those
+fields, so a mistyped date fails the build rather than the page.

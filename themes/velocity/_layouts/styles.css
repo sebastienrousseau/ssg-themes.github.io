@@ -1,225 +1,888 @@
-/* Velocity Air (Kaishi) SSG Theme Stylesheet — WCAG AAA Compliant */
-*, *::before, *::after { box-sizing: border-box; }
-[hidden] { display: none !important; }
+/*!
+ * Velocity — product and starter theme for Static Site Generator (SSG).
+ *
+ * Token contract
+ * --------------
+ * Every colour below is gated by `scripts/contrast.py`, which parses the
+ * two `:root` blocks and asserts the pairs it declares. Text tokens clear
+ * WCAG 1.4.6 (AAA, 7:1); borders and the focus ring clear WCAG 1.4.11
+ * (3:1). Change a value and the gate re-checks it — do not hand-tune a
+ * colour without running `make check`.
+ *
+ * Layers keep specificity flat so a site can override any component from
+ * its own stylesheet without `!important`.
+ */
+@layer reset, tokens, base, layout, components, utilities;
 
-:root, :root[data-theme="light"] {
-  --bg: #ffffff;
-  --bg-soft: #f8fafc;
-  --surface: #ffffff;
-  --surface-soft: #f1f5f9;
-  --surface-border: #e2e8f0;
-  --ink: #0f172a;
-  --ink-soft: #334155;
-  --ink-muted: #475569;
-  --line: #cbd5e1;
-  --line-soft: #e2e8f0;
-  --accent: #b45309;
-  --accent-hover: #92400e;
-  --accent-soft: #fef3c7;
-  --accent-ink: #ffffff;
-  --brand-mark-bg: #b45309;
-  --brand-mark-ink: #ffffff;
-  --focus: #2563eb;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
-  --radius: 12px;
-  color-scheme: light;
-}
+@layer tokens {
+  /* Light — the default, and what an unstamped `prefers-color-scheme:
+     light` viewer sees. */
+  :root,
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --surface: #ffffff;
+    --surface-soft: #f1f5f9;
 
-:root[data-theme="dark"] {
-  --bg: #090d16;
-  --bg-soft: #0e131f;
-  --surface: #111827;
-  --surface-soft: #1f2937;
-  --surface-border: #374151;
-  --ink: #f9fafb;
-  --ink-soft: #e5e7eb;
-  --ink-muted: #9ca3af;
-  --line: #374151;
-  --line-soft: #1f2937;
-  --accent: #fbbf24;
-  --accent-hover: #fcd34d;
-  --accent-soft: rgba(251, 191, 36, 0.15);
-  --accent-ink: #090d16;
-  --brand-mark-bg: #fbbf24;
-  --brand-mark-ink: #090d16;
-  --focus: #38bdf8;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 6px 18px rgba(0,0,0,0.5);
-  --radius: 12px;
-  color-scheme: dark;
-}
+    --ink: #0f172a;
+    --ink-soft: #334155;
+    --ink-muted: #434e5d;
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg);
-  color: var(--ink);
-  line-height: 1.6;
-  font-size: 1rem;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
+    --accent: #6d4605;
+    --accent-hover: #542f02;
+    --accent-ink: #ffffff;
+    --accent-soft: #fef3c7;
+    --on-accent-soft: #6b4405;
 
-.container {
-  width: 100%;
-  max-width: 1140px;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
-}
+    --line: #78849a;
+    --line-soft: #e2e8f0;
+    --focus: #1d4ed8;
 
-.container.narrow { max-width: 760px; }
+    --shadow-sm: 0 1px 3px rgb(15 23 42 / 7%);
+    --shadow-md: 0 8px 24px -10px rgb(15 23 42 / 18%);
 
-a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
-a:hover { text-decoration: underline; color: var(--accent-hover); }
+    color-scheme: light;
+  }
 
-.skip-link, .skip {
-  position: absolute !important;
-  left: -9999px !important;
-  top: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-}
-.skip-link:focus, .skip:focus {
-  position: absolute !important;
-  left: 1rem !important;
-  top: 1rem !important;
-  width: auto !important;
-  height: auto !important;
-  background: var(--accent) !important;
-  color: var(--accent-ink) !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 6px !important;
-  z-index: 1000 !important;
-  font-weight: 700 !important;
-}
+  /* Dark — redefine tokens only. Guarded so an explicit light choice
+     still wins on a dark OS. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #090d16;
+      --bg-soft: #0e131f;
+      --surface: #111827;
+      --surface-soft: #1f2937;
 
-/* Header & Navigation */
-.site-header {
-  border-bottom: 1px solid var(--line-soft);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4.5rem;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 800;
-  color: var(--ink);
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
-}
-.brand-mark {
-  background: var(--brand-mark-bg);
-  color: var(--brand-mark-ink);
-  padding: 0.3rem 0.65rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 800;
-}
+      --ink: #f9fafb;
+      --ink-soft: #e5e7eb;
+      --ink-muted: #adb4bf;
 
-.site-nav { display: flex; align-items: center; gap: 1.25rem; }
-.nav-menu { display: flex; list-style: none; margin: 0; padding: 0; gap: 1.5rem; }
-.nav-link { color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
-.nav-link.active, .nav-link:hover { color: var(--accent); }
+      --accent: #fbbf24;
+      --accent-hover: #fcd34d;
+      --accent-ink: #090d16;
+      --accent-soft: #2a2107;
+      --on-accent-soft: #fcd34d;
 
-.theme-toggle {
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  width: 2.35rem;
-  height: 2.35rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--ink);
-  font-size: 1rem;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.theme-toggle:hover { transform: scale(1.05); border-color: var(--accent); }
+      --line: #6b7688;
+      --line-soft: #1f2937;
+      --focus: #7dd3fc;
 
-.search-trigger {
-  cursor: pointer;
-  background: var(--surface-soft);
-  color: var(--ink);
-  border: 1px solid var(--line);
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.9rem;
+      --shadow-sm: 0 1px 3px rgb(0 0 0 / 45%);
+      --shadow-md: 0 8px 24px -10px rgb(0 0 0 / 70%);
+
+      color-scheme: dark;
+    }
+  }
+
+  /* Same tokens again so the in-page toggle wins in both directions. */
+  :root[data-theme="dark"] {
+    --bg: #090d16;
+    --bg-soft: #0e131f;
+    --surface: #111827;
+    --surface-soft: #1f2937;
+
+    --ink: #f9fafb;
+    --ink-soft: #e5e7eb;
+    --ink-muted: #adb4bf;
+
+    --accent: #fbbf24;
+    --accent-hover: #fcd34d;
+    --accent-ink: #090d16;
+    --accent-soft: #2a2107;
+    --on-accent-soft: #fcd34d;
+
+    --line: #6b7688;
+    --line-soft: #1f2937;
+    --focus: #7dd3fc;
+
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 45%);
+    --shadow-md: 0 8px 24px -10px rgb(0 0 0 / 70%);
+
+    color-scheme: dark;
+  }
+
+  :root {
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      monospace;
+
+    --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+    --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+    --step-1: clamp(1.2rem, 1.13rem + 0.36vw, 1.42rem);
+    --step-2: clamp(1.44rem, 1.32rem + 0.6vw, 1.85rem);
+    --step-3: clamp(1.73rem, 1.53rem + 0.98vw, 2.4rem);
+    --step-4: clamp(2.07rem, 1.75rem + 1.6vw, 3.13rem);
+
+    --space-2xs: 0.375rem;
+    --space-xs: 0.625rem;
+    --space-s: 1rem;
+    --space-m: 1.5rem;
+    --space-l: 2.5rem;
+    --space-xl: 4rem;
+    --space-2xl: 6rem;
+
+    --radius: 10px;
+    --radius-sm: 6px;
+    --measure: 68ch;
+  }
 }
 
-/* Feature Cards & Grid */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  figure {
+    margin: 0;
+  }
+
+  ul[class],
+  ol[class] {
+    list-style: none;
+    padding: 0;
+  }
+
+  img,
+  picture,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  /* WCAG 2.3.3 — honour a reduced-motion preference everywhere rather
+     than per-component. Transitions are decorative in this theme, so
+     removing them costs nothing. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-.card-dark, .card {
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: 14px;
-  padding: 2rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
-}
-.card-dark:hover, .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-md);
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.15;
+    letter-spacing: -0.021em;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: var(--step-3);
+    font-weight: 750;
+  }
+
+  h3 {
+    font-size: var(--step-1);
+    font-weight: 700;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover {
+    color: var(--accent-hover);
+  }
+
+  /* WCAG 2.4.13 — a focus indicator that is visible on every ground and
+     never clipped by an ancestor's overflow. */
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  code,
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
 }
 
-.card-dark h3, .card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-block: 0 0.5rem;
-  color: var(--ink);
+@layer layout {
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+
+  .container.narrow {
+    max-width: 780px;
+  }
+
+  .prose {
+    max-width: var(--measure);
+  }
+
+  .prose > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  .prose h2 {
+    margin-block-start: var(--space-l);
+  }
+
+  .prose h3 {
+    margin-block-start: var(--space-m);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-inline-start: 1.25rem;
+  }
+
+  .prose li + li {
+    margin-block-start: var(--space-2xs);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  .section {
+    padding-block: var(--space-xl);
+  }
+
+  .section-soft {
+    background: var(--surface-soft);
+    border-block: 1px solid var(--line-soft);
+  }
+
+  /* Auto-fitting grids: no breakpoint needed, and they reflow rather than
+     overflow at 320px (WCAG 1.4.10). */
+  .grid {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .grid-wide {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: -9999px;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .skip-link:focus {
+    inset-inline-start: var(--space-s);
+    top: var(--space-s);
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+  }
 }
 
-.card-dark p, .card p {
-  color: var(--ink-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0;
+@layer components {
+  /* ---------- header + navigation ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-block-end: 1px solid var(--line-soft);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    min-height: 4.25rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: var(--step--1);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: var(--step--1);
+    text-decoration: none;
+    padding-block: 0.5rem;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--accent);
+  }
+
+  .nav-link[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 2px;
+  }
+
+  /* WCAG 2.5.8 — every control clears the 24x24 CSS px minimum target. */
+  .nav-toggle,
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    background: var(--surface-soft);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-toggle:hover,
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-toggle svg,
+  .theme-toggle svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* The icon shown depends on state, so the toggle never needs its
+     accessible name rewritten by script. */
+  .theme-toggle .icon-dark,
+  :root[data-theme="dark"] .theme-toggle .icon-light {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .theme-toggle .icon-dark {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .icon-light {
+      display: none;
+    }
+
+    :root:not([data-theme="light"]) .theme-toggle .icon-dark {
+      display: block;
+    }
+  }
+
+  .nav-toggle[aria-expanded="true"] .icon-open,
+  .nav-toggle .icon-close {
+    display: none;
+  }
+
+  .nav-toggle[aria-expanded="true"] .icon-close {
+    display: block;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding-block: var(--space-xl);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: var(--space-l);
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-grid {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .hero-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+
+  .eyebrow {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent);
+  }
+
+  .lead {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-inline: 1.25rem;
+    border-radius: var(--radius-sm);
+    font-weight: 650;
+    font-size: var(--step--1);
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+  }
+
+  .btn-secondary {
+    background: var(--surface-soft);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn-secondary:hover,
+  .btn-outline:hover {
+    border-color: var(--accent-hover);
+    color: var(--accent-hover);
+  }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: var(--space-m);
+    box-shadow: var(--shadow-sm);
+    container-type: inline-size;
+  }
+
+  .card h3 {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .card p {
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+  }
+
+  /* Container query: a card laid out in a wide slot gets a roomier
+     interior without the page needing to know where it sits. */
+  @container (min-width: 26rem) {
+    .card {
+      padding: var(--space-l);
+    }
+  }
+
+  .metric {
+    text-align: center;
+  }
+
+  .metric-value {
+    font-size: var(--step-3);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric-title {
+    font-weight: 650;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
+    font-size: var(--step--1);
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- tables ---------- */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+
+  th,
+  td {
+    text-align: start;
+    padding: 0.9rem 1rem;
+    border-block-end: 1px solid var(--line-soft);
+    font-size: var(--step--1);
+  }
+
+  th {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  td {
+    color: var(--ink-soft);
+  }
+
+  tbody tr:last-child td {
+    border-block-end: none;
+  }
+
+  /* ---------- forms ---------- */
+  .field {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .field label {
+    font-weight: 650;
+    font-size: var(--step--1);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+
+  .field textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  .hint {
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+  }
+
+  /* ---------- footer ---------- */
+  .site-footer {
+    border-block-start: 1px solid var(--line-soft);
+    background: var(--surface);
+    padding-block: var(--space-l);
+    margin-block-start: var(--space-2xl);
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+  }
+
+  .footer-cols {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  }
+
+  .footer-cols h2 {
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .footer-cols ul {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .footer-legal {
+    margin-block-start: var(--space-m);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--line-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-m);
+    justify-content: space-between;
+  }
+
+
+  /* ---------- pricing island ---------- */
+  /* Rendered by islands/pricing-toggle.js after hydration. Styling it here
+     rather than in the module keeps the design system in one file. */
+  .billing-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0 0 var(--space-s);
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+  }
+
+  .billing-toggle legend {
+    padding-inline: 0.35rem;
+    font-weight: 650;
+    font-size: var(--step--1);
+  }
+
+  .billing-toggle input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .billing-toggle label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: var(--step--1);
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .billing-toggle input:checked + label {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+
+  /* The input is visually hidden, so its focus ring has to be drawn on the
+     label it controls or keyboard users lose the indicator entirely. */
+  .billing-toggle input:focus-visible + label {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .billing-note {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+  }
+
+  [data-pricing-table] .badge {
+    margin-inline-start: 0.4rem;
+  }
+
+  /* ---------- built-in search widget ---------- */
+  /* `ssg` injects #ssg-search-widget together with its own fingerprinted,
+     SRI-signed CSS and JS. That stylesheet owns the widget's layout and
+     positioning; overriding those here detaches the trigger from the
+     overlay it controls, so this block re-skins colour and border only. */
+  #ssg-search-btn {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    min-height: 2.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  #ssg-search-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 }
 
-/* CTA Buttons */
-.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.75rem; }
-.btn-primary, .btn-secondary, .btn-outline {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.btn-primary { background: var(--accent); color: var(--accent-ink); border: none; }
-.btn-secondary { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); }
-.btn-outline { border: 2px solid var(--accent); color: var(--accent); background: transparent; }
-.btn-primary:hover, .btn-secondary:hover, .btn-outline:hover { transform: translateY(-2px); opacity: 0.9; text-decoration: none; }
+@layer utilities {
+  .text-center {
+    text-align: center;
+  }
 
-/* Footer */
-.site-footer {
-  border-top: 1px solid var(--line-soft);
-  padding: 3.5rem 0;
-  margin-top: 5rem;
-  background: var(--surface);
-  color: var(--ink-muted);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  .mx-auto {
+    margin-inline: auto;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
-@media (max-width: 768px) {
-  .nav-menu { display: none; }
+/* ---------------------------------------------------------------------
+   Mobile navigation.
+
+   The menu collapses behind a disclosure button below 48rem. The button
+   is rendered in the markup unconditionally and hidden with CSS above the
+   breakpoint, so the control that the stylesheet reveals always exists —
+   the previous release hid `.nav-menu` here and revealed a `.nav-toggle`
+   that no layout emitted, leaving phones with no navigation at all.
+   --------------------------------------------------------------------- */
+@layer components {
+  @media (max-width: 47.999rem) {
+    .nav-toggle {
+      display: inline-flex;
+      order: 2;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--space-xs);
+      background: var(--surface);
+      border-block-end: 1px solid var(--line-soft);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-menu[data-open="true"] {
+      display: flex;
+    }
+
+    .nav-menu li {
+      border-block-end: 1px solid var(--line-soft);
+    }
+
+    .nav-menu li:last-child {
+      border-block-end: none;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.75rem 0.5rem;
+    }
+
+    .site-header {
+      position: relative;
+    }
+  }
 }

@@ -1,62 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Velocity Air | Developer Support &amp; Contact Template</title>
-  <meta name="description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support. Fast, accessible, zero-JS templates.">
-  <meta name="keywords" content="Velocity Air, Developer Contact, SSG Support, Static Site Generator, Minimalist Templates">
-  <meta property="og:title" content="Velocity Air | Developer Support &amp; Contact Template">
-  <meta property="og:description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support.">
-  <meta property="og:type" content="article">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Velocity Air | Developer Support &amp; Contact Template">
-  <meta name="twitter:description" content="Inquire about Velocity Air developer themes and Static Site Generator (SSG) implementation support.">
-  <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="styles.css">
-  <script src="theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">VA</span><span class="brand-text">Velocity Air</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="about.html">Features</a></li>
-          <li><a class="nav-link active" href="contact.html">Support</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
-    </div>
-  </header>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container narrow stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
 
-  <main id="main" class="container narrow" style="padding-block:4rem; max-width:640px; margin-inline:auto;">
-    <p style="color:var(--accent); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · DEVELOPER SUPPORT</p>
-    <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem; color:var(--ink);">Developer Support &amp; Feedback</h1>
-    <p style="font-size:1.1rem; color:var(--ink-muted); margin-bottom:2.5rem;">Get in touch regarding Velocity Air theme customization and SSG site deployment.</p>
+    <div class="prose">{{!content}}</div>
 
-    <form action="#" method="POST" style="background:var(--surface-soft); padding:2rem; border-radius:14px; border:1px solid var(--surface-border);">
-      <div style="margin-bottom:1rem;">
-        <label for="name" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Developer Name</label>
-        <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;">
+    <!--
+      Posts to a real endpoint supplied by the site owner via the
+      `form_action` front-matter field. Shipping `action="#"` would
+      silently discard the submission on press.
+    -->
+    <form class="stack" action="{{form_action}}" method="post">
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required />
       </div>
-      <div style="margin-bottom:1rem;">
-        <label for="email" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Email Address</label>
-        <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;">
+      <div class="field">
+        <label for="cf-email">Email address</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        <p class="hint" id="cf-email-hint">Used only to reply to this enquiry.</p>
       </div>
-      <div style="margin-bottom:1.5rem;">
-        <label for="message" style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem; color:var(--ink);">Inquiry / Feedback</label>
-        <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px;"></textarea>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" required></textarea>
       </div>
-      <button type="submit" class="btn-primary">Send Support Request</button>
+      <div class="cta-row">
+        <button class="btn btn-primary" type="submit">Send enquiry</button>
+      </div>
     </form>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
-  </footer>
-  <script src="main.js"></script>
-</body>
-</html>
+  </div>
+</article>
+{{/block}}
