@@ -11,12 +11,21 @@ specific regressions that shipped in 1.0.0:
   * the navigation disclosure button that the stylesheet reveals exists
   * no third-party host, tracker or CDN reference anywhere in the sources
   * no leftover personal identifiers from the 1.0.0 Atlas snapshot
+  * every `translation_key` resolves in every locale a theme declares
+
+The last check exists because a missing translation does not break a
+build: the generator's i18n plugin simply emits no `hreflang` alternates
+for a page it cannot pair, and the page ships looking fine while its
+alternates have silently vanished. That is the exact failure mode that
+made the first multi-locale attempt invisible, so it is a hard failure
+here.
 """
 from __future__ import annotations
 
 import json
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 THEMES = ("apex", "atlas", "velocity")
@@ -70,6 +79,108 @@ def png_size(path: Path) -> tuple[int, int] | None:
     if len(data) < 33 or data[:8] != b"\x89PNG\r\n\x1a\n":
         return None
     return int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+
+
+def front_matter(path: Path) -> dict[str, str] | None:
+    """Reads the scalar `key: value` pairs of a YAML front-matter block.
+
+    Deliberately not a YAML parser: the themes only ever use quoted or
+    bare scalars, and pulling in PyYAML for five keys would add a
+    dependency to a gate that must run anywhere `python3` does. Returns
+    None when the file carries no `---` fenced block.
+    """
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0].strip() != "---":
+        return None
+    out: dict[str, str] = {}
+    for line in lines[1:]:
+        if line.strip() == "---":
+            return out
+        if not line or line.lstrip().startswith("#"):
+            continue
+        key, sep, value = line.partition(":")
+        if not sep or key != key.strip() or " " in key.strip():
+            continue
+        out[key.strip()] = value.strip().strip('"').strip("'")
+    return None  # unterminated front matter
+
+
+def locales_of(theme: Path) -> tuple[str, list[str]] | None:
+    """Returns `(default_locale, locales)` from the theme's `[i18n]`
+    section, or None for a single-locale theme."""
+    config = theme / "ssg.toml"
+    if not config.is_file():
+        return None
+    try:
+        data = tomllib.loads(config.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return None
+    i18n = data.get("i18n")
+    if not isinstance(i18n, dict):
+        return None
+    locales = i18n.get("locales")
+    if not isinstance(locales, list) or len(locales) < 2:
+        return None
+    return str(i18n.get("default_locale", locales[0])), [str(l) for l in locales]
+
+
+def check_translations(theme: Path, name: str) -> list[str]:
+    """Fails when a `translation_key` does not resolve in every locale.
+
+    A page's locale is its first content-relative directory when that
+    directory names a declared locale, and the default locale otherwise
+    — the root-hosted-default-locale layout the generator expects.
+    """
+    errors: list[str] = []
+    config = locales_of(theme)
+    if config is None:
+        return errors
+    default_locale, locales = config
+
+    content = theme / "content"
+    # key -> locale -> [relative paths]
+    matrix: dict[str, dict[str, list[str]]] = {}
+
+    for md in sorted(content.rglob("*.md")):
+        rel = md.relative_to(content)
+        head = rel.parts[0] if len(rel.parts) > 1 else ""
+        locale = head if head in locales else default_locale
+
+        fm = front_matter(md)
+        if fm is None:
+            errors.append(f"{name}: content/{rel} has no YAML front matter")
+            continue
+        key = fm.get("translation_key", "").strip()
+        if not key:
+            errors.append(
+                f"{name}: content/{rel} declares no translation_key; "
+                f"with {len(locales)} locales configured every page needs "
+                "one or its hreflang alternates are dropped silently"
+            )
+            continue
+        matrix.setdefault(key, {}).setdefault(locale, []).append(str(rel))
+
+    for key in sorted(matrix):
+        by_locale = matrix[key]
+        missing = [loc for loc in locales if loc not in by_locale]
+        if missing:
+            have = ", ".join(
+                f"{loc}={by_locale[loc][0]}" for loc in sorted(by_locale)
+            )
+            errors.append(
+                f"{name}: translation_key {key!r} resolves in "
+                f"{len(by_locale)}/{len(locales)} locales — missing "
+                f"{', '.join(missing)} (have {have})"
+            )
+        for loc, paths in sorted(by_locale.items()):
+            if len(paths) > 1:
+                errors.append(
+                    f"{name}: translation_key {key!r} is claimed by "
+                    f"{len(paths)} pages in locale {loc}: "
+                    f"{', '.join(sorted(paths))}"
+                )
+
+    return errors
 
 
 def check_theme(root: Path, name: str) -> list[str]:
@@ -169,6 +280,8 @@ def check_theme(root: Path, name: str) -> list[str]:
             errors.append(
                 f"{name}: styles.css has no prefers-reduced-motion block"
             )
+
+    errors.extend(check_translations(theme, name))
 
     # --- no third-party or personal references anywhere in the theme ---
     for path in theme.rglob("*"):
