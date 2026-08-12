@@ -1,170 +1,116 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Build script for SSG Themes Showcase (ssg-themes.github.io)
-# Usage: ./scripts/build.sh [theme-name|all]
+# Build script for the SSG theme showcase.
+#
+#   ./scripts/build.sh [theme|all]
+#
+# Each theme is driven entirely by its own `ssg.toml`, which carries the
+# site name, description, base URL and the content/template/output paths.
+# Nothing here rewrites generated HTML.
+#
+# What this script deliberately no longer does, and why:
+#
+#   * It does not strip `integrity="..."` attributes. The previous version
+#     ran `sed -e 's| integrity="[^"]*"||g'` across every built file, which
+#     removed exactly the Subresource Integrity hashes the README claimed
+#     as a feature.
+#   * It does not cache-bust by string-replacing `.js"` and `.css"`. The
+#     generator already emits content-addressed filenames under `_csp/`,
+#     and the blind replacement also corrupted those strings wherever they
+#     appeared in prose or code samples.
+#   * It does not delete `<div lang="en">…</div>` with a DOTALL regex. That
+#     was a workaround for Markdown bodies rendering as escaped source; the
+#     real fix was `{{!content}}` (unescaped) in the layouts.
+#   * It does not copy every asset into every output subdirectory. Layouts
+#     now use a `{{base_path}}` root-relative prefix, so one copy resolves
+#     from any depth.
 
-RAW_TARGET="${1:-all}"
-BUILD_VERSION="$(date +%s)"
+cd "$(git rev-parse --show-toplevel)"
 
-# Map legacy target names to renamed theme folder names
-case "${RAW_TARGET}" in
-  portfolio) TARGET="apex" ;;
-  sebastienrousseau) TARGET="atlas" ;;
-  kaishi) TARGET="velocity" ;;
-  *) TARGET="${RAW_TARGET}" ;;
-esac
+THEMES=(apex atlas velocity)
+TARGET="${1:-all}"
 
-build_single_theme() {
-  local THEME="$1"
-  local THEME_DIR="themes/${THEME}"
-  local OUTPUT_DIR="public/${THEME}"
+# Prefer a locally built binary when present so the repo can be built
+# against an unreleased generator; otherwise use whatever is on PATH.
+if [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
+  SSG="/tmp/builds/cargo/release/ssg"
+elif command -v ssg >/dev/null 2>&1; then
+  SSG="ssg"
+else
+  echo "error: no \`ssg\` binary found on PATH" >&2
+  exit 1
+fi
 
-  if [[ ! -d "${THEME_DIR}" ]]; then
-    echo "Error: Theme '${THEME}' not found in ${THEME_DIR}"
+build_theme() {
+  local theme="$1"
+  local config="themes/${theme}/ssg.toml"
+
+  if [[ ! -f "${config}" ]]; then
+    echo "error: ${config} not found" >&2
     return 1
   fi
 
-  echo "========================================================"
-  echo " Building SSG Theme: ${THEME}"
-  echo "========================================================"
+  echo "==> building ${theme}"
+  "${SSG}" build -f "${config}"
 
-  mkdir -p "${OUTPUT_DIR}"
-
-  # Run SSG build
-  ssg build \
-    -c="${THEME_DIR}/content" \
-    -t="${THEME_DIR}/_layouts" \
-    -o="${OUTPUT_DIR}"
-
-  # Copy static assets if present
-  if [[ -d "${THEME_DIR}/assets" ]]; then
-    mkdir -p "${OUTPUT_DIR}/assets"
-    cp -R "${THEME_DIR}/assets/"* "${OUTPUT_DIR}/assets/" 2>/dev/null || true
-  fi
-
-  # Copy standalone layout CSS/JS files into output AFTER ssg build finishes
-  for file in styles.css main.js theme-init.js search.js search.css sw.js; do
-    if [[ -f "${THEME_DIR}/_layouts/${file}" ]]; then
-      cp -f "${THEME_DIR}/_layouts/${file}" "${OUTPUT_DIR}/${file}"
+  # Standalone stylesheet and scripts. These live in `_layouts/` beside the
+  # templates that reference them, but the generator only compiles `.html`
+  # from that directory — it never copies siblings — so without this step
+  # every page 404s on its stylesheet and renders unstyled.
+  for asset in styles.css main.js theme-init.js; do
+    if [[ -f "themes/${theme}/_layouts/${asset}" ]]; then
+      cp -f "themes/${theme}/_layouts/${asset}" "public/${theme}/${asset}"
     fi
   done
 
-  # Copy theme favicon.ico
-  if [[ -f "${THEME_DIR}/assets/favicon.ico" ]]; then
-    cp -f "${THEME_DIR}/assets/favicon.ico" "${OUTPUT_DIR}/favicon.ico"
+  # Screenshots, referenced by the gallery landing page.
+  if [[ -d "themes/${theme}/images" ]]; then
+    mkdir -p "public/${theme}/images"
+    cp -f "themes/${theme}/images/"*.png "themes/${theme}/images/"*.webp \
+       "public/${theme}/images/"
+  fi
+
+  # Static assets that are not generated: images, favicon, downloads.
+  if [[ -d "themes/${theme}/assets" ]]; then
+    mkdir -p "public/${theme}/assets"
+    cp -R "themes/${theme}/assets/." "public/${theme}/assets/"
+  fi
+  if [[ -f "themes/${theme}/assets/favicon.ico" ]]; then
+    cp -f "themes/${theme}/assets/favicon.ico" "public/${theme}/favicon.ico"
   elif [[ -f "favicon.ico" ]]; then
-    cp -f "favicon.ico" "${OUTPUT_DIR}/favicon.ico"
+    cp -f "favicon.ico" "public/${theme}/favicon.ico"
   fi
-
-  # Mirror output to legacy folder paths for 100% backward compatibility
-  if [[ "${THEME}" == "apex" ]]; then
-    mkdir -p public/portfolio
-    cp -R "${OUTPUT_DIR}/"* public/portfolio/ 2>/dev/null || true
-  elif [[ "${THEME}" == "atlas" ]]; then
-    mkdir -p public/sebastienrousseau
-    cp -R "${OUTPUT_DIR}/"* public/sebastienrousseau/ 2>/dev/null || true
-  elif [[ "${THEME}" == "velocity" ]]; then
-    mkdir -p public/kaishi
-    cp -R "${OUTPUT_DIR}/"* public/kaishi/ 2>/dev/null || true
-  fi
-
-  echo "✅ Build complete for theme '${THEME}' -> ${OUTPUT_DIR}"
 }
 
 mkdir -p public
 
 if [[ "${TARGET}" == "all" ]]; then
-  echo "Building all themes in monorepo..."
-  for tdir in themes/*; do
-    if [[ -d "${tdir}" ]]; then
-      tname="$(basename "${tdir}")"
-      build_single_theme "${tname}"
-    fi
+  for theme in "${THEMES[@]}"; do
+    build_theme "${theme}"
   done
 else
-  build_single_theme "${TARGET}"
+  build_theme "${TARGET}"
 fi
 
-# Run theme packager to generate .zip and .tar.gz archives
+# Release archives, built from the theme sources rather than the output so
+# what a visitor downloads is the theme, not a rendered copy of the demo.
 if [[ -f "scripts/package-themes.sh" ]]; then
-  chmod +x scripts/package-themes.sh
-  ./scripts/package-themes.sh
+  bash scripts/package-themes.sh
 fi
 
-# Copy root favicon.ico to public/
+# Gallery landing page.
+if [[ -f "public_index.html" ]]; then
+  cp -f "public_index.html" "public/index.html"
+fi
 if [[ -f "favicon.ico" ]]; then
   cp -f "favicon.ico" "public/favicon.ico"
 fi
 
-# Stage root Theme Gallery Showcase index.html
-if [[ -f "public_index.html" ]]; then
-  cp -f "public_index.html" "public/index.html"
-elif [[ -f "index.html" ]]; then
-  cp -f "index.html" "public/index.html"
+# Root-level agent discovery for the gallery. Each theme gets its own
+# generated llms.txt; this one describes the collection.
+if [[ -f "llms.txt" ]]; then
+  cp -f "llms.txt" "public/llms.txt"
 fi
 
-# Generate .html file fallbacks for directory outputs and stage ALL asset dependencies into subdirectories
-find public -type f -name "index.html" | while read -r idx; do
-  dir="$(dirname "$idx")"
-  if [[ "$dir" != "public" && "$dir" != "public/apex" && "$dir" != "public/atlas" && "$dir" != "public/velocity" && "$dir" != "public/portfolio" && "$dir" != "public/sebastienrousseau" && "$dir" != "public/kaishi" && "$dir" != "public/downloads" ]]; then
-    cp -f "$idx" "${dir}.html" 2>/dev/null || true
-
-    # Stage ALL JS, CSS, favicon, search index, and _csp assets into subdirectories for 100% 200 OK resolution
-    parent="$(dirname "$dir")"
-    cp -f "${parent}"/*.js "${dir}/" 2>/dev/null || true
-    cp -f "${parent}"/*.css "${dir}/" 2>/dev/null || true
-    cp -f "${parent}"/search-index*.json "${dir}/" 2>/dev/null || true
-    if [[ -f "${parent}/favicon.ico" ]]; then
-      cp -f "${parent}/favicon.ico" "${dir}/favicon.ico" 2>/dev/null || true
-    fi
-
-    if [[ -d "${parent}/_csp" ]]; then
-      mkdir -p "${dir}/_csp"
-      cp -R "${parent}/_csp/"* "${dir}/_csp/" 2>/dev/null || true
-    fi
-    if [[ -d "${parent}/assets" ]]; then
-      mkdir -p "${dir}/assets"
-      cp -R "${parent}/assets/"* "${dir}/assets/" 2>/dev/null || true
-    fi
-  fi
-done
-
-# Python post-processing: strip any auto-injected <div lang="en"> bleeding blocks completely
-python3 -c '
-import glob, re
-for path in glob.glob("public/**/*.html", recursive=True):
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-    cleaned = re.sub(r"<div lang=\"en\">.*?</div>", "", content, flags=re.DOTALL)
-    cleaned = re.sub(r"&lt;div lang=\"en\"&gt;.*?&lt;/div&gt;", "", cleaned, flags=re.DOTALL)
-    cleaned = re.sub(r"<meta [^>]*content=\"&amp;lt;div lang=&quot;en&quot; [^>]*>", "", cleaned)
-    if cleaned != content:
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(cleaned)
-' 2>/dev/null || true
-
-# Inject favicon link tag, apply cache buster to script/link tags
-if [[ "$(uname)" == "Darwin" ]]; then
-  find public -type f -name "*.html" -exec sed -i '' \
-    -e 's|href="/_csp/|href="_csp/|g' \
-    -e 's|src="/_csp/|src="_csp/|g' \
-    -e 's| integrity="[^"]*"||g' \
-    -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
-    -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
-    -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \
-    {} + 2>/dev/null || true
-else
-  find public -type f -name "*.html" -exec sed -i \
-    -e 's|href="/_csp/|href="_csp/|g' \
-    -e 's|src="/_csp/|src="_csp/|g' \
-    -e 's| integrity="[^"]*"||g' \
-    -e "s|\.js\"|.js?v=${BUILD_VERSION}\"|g" \
-    -e "s|\.css\"|.css?v=${BUILD_VERSION}\"|g" \
-    -e 's|</head>|<link rel="icon" type="image/x-icon" href="favicon.ico"></head>|g' \
-    {} + 2>/dev/null || true
-fi
-
-echo "========================================================"
-echo " Showcase build complete in public/"
-echo "========================================================"
+echo "==> showcase built into public/"

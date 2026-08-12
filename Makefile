@@ -1,19 +1,16 @@
-.PHONY: help build build-all build-apex build-atlas build-velocity build-portfolio build-sebastienrousseau build-kaishi check clean
+.PHONY: help build build-apex build-atlas build-velocity check check-contrast check-weight check-structure clean
 
 help:
-	@echo "Static Site Generator Themes & Showcase (ssg-themes.github.io)"
+	@echo "SSG theme showcase"
 	@echo ""
-	@echo "Commands:"
-	@echo "  make build               Build all themes into public/"
-	@echo "  make build-apex          Build the Apex theme (themes/apex)"
-	@echo "  make build-atlas         Build the Atlas theme (themes/atlas)"
-	@echo "  make build-velocity      Build the Velocity theme (themes/velocity)"
-	@echo "  make check               Run validation check across themes"
-	@echo "  make clean               Clean build output directory"
+	@echo "  make build            Build all themes into public/"
+	@echo "  make build-apex       Build the Apex theme"
+	@echo "  make build-atlas      Build the Atlas theme"
+	@echo "  make build-velocity   Build the Velocity theme"
+	@echo "  make check            Run every gate (structure, contrast, weight)"
+	@echo "  make clean            Remove build output"
 
-build: build-all
-
-build-all:
+build:
 	@bash scripts/build.sh all
 
 build-apex:
@@ -25,13 +22,19 @@ build-atlas:
 build-velocity:
 	@bash scripts/build.sh velocity
 
-# Backward-compatible target aliases
-build-portfolio: build-apex
-build-sebastienrousseau: build-atlas
-build-kaishi: build-velocity
+# `check-weight` needs a build to inspect, so it depends on one. The other
+# two gates read source and run standalone.
+check: check-structure check-contrast build check-weight
+	@echo "All gates passed."
 
-check:
+check-structure:
 	@python3 scripts/validate.py
 
+check-contrast:
+	@python3 scripts/contrast.py
+
+check-weight:
+	@python3 scripts/pageweight.py
+
 clean:
-	@rm -rf public/ dist/
+	@rm -rf public dist
