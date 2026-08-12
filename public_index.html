@@ -1,192 +1,382 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SSG Theme Suite | Apple-Grade Static Site Generator Templates</title>
-  <meta name="description" content="A monorepo and live showcase of production-ready, Apple-grade Static Site Generator (SSG) themes: Apex, Atlas, Velocity, and Vanguard. 100% WCAG AAA compliant, SEO-optimized, sub-10ms build times. Download theme zip and tar.gz release packages.">
-  <meta name="keywords" content="Static Site Generator, SSG Themes, Apex, Atlas, Velocity, Vanguard, WCAG AAA, Performance, SEO Templates, Download Theme ZIP">
-  <meta property="og:title" content="SSG Theme Suite | Apple-Grade Static Site Generator Templates">
-  <meta property="og:description" content="Discover Apple-grade static site generator themes built for speed, accessibility, and high-conversion publishing. Download theme packages.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SSG Theme Suite | Apple-Grade Static Site Generator Templates">
-  <meta name="twitter:description" content="Discover Apple-grade static site generator themes built for speed, accessibility, and high-conversion publishing.">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script>
-    (function() {
-      try {
-        var saved = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        var theme = saved || (prefersDark ? "dark" : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      } catch (e) {}
-    })();
-  </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    :root, :root[data-theme="light"] {
-      --bg: #ffffff;
-      --surface: #ffffff;
-      --surface-soft: #f5f5f7;
-      --ink: #1d1d1f;
-      --ink-soft: #3a3a3c;
-      --ink-muted: #6e6e73;
-      --line: #e8e8ed;
-      --accent: #0050a4;
-      --accent-ink: #ffffff;
-      --accent-soft: #e8f1fd;
-      color-scheme: light;
-    }
-    :root[data-theme="dark"] {
-      --bg: #000000;
-      --surface: #1d1d1f;
-      --surface-soft: #161617;
-      --ink: #f5f5f7;
-      --ink-soft: #e5e5ea;
-      --ink-muted: #a8a8ae;
-      --line: #2c2c2e;
-      --accent: #4db0ff;
-      --accent-ink: #000000;
-      --accent-soft: rgba(77,176,255,0.15);
-      color-scheme: dark;
-    }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-    .container { max-width: 1140px; margin: 0 auto; padding: 2rem 1.5rem; }
-    header { padding-block: 4rem 2.5rem; border-bottom: 1px solid var(--line); text-align: center; position: relative; }
-    .badge { background: var(--accent); color: var(--accent-ink); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 999px; display: inline-block; margin-bottom: 1.25rem; letter-spacing: 0.05em; }
-    h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.035em; margin: 0 0 1rem; line-height: 1.1; color: var(--ink); }
-    p.lead { font-size: 1.25rem; color: var(--ink-soft); max-width: 780px; margin: 0 auto 2.5rem; }
-    .theme-toggle { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); font-size: 1.1rem; }
-    .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .theme-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 2.25rem;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      display: flex;
-      flex-direction: column;
-    }
-    .theme-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); border-color: var(--accent); }
-    .theme-tag { font-size:0.8rem; font-weight:700; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem; letter-spacing: 0.05em; }
-    .theme-title { font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem; letter-spacing: -0.02em; color: var(--ink); }
-    .theme-desc { color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 1.75rem; flex-grow: 1; line-height: 1.6; }
-    .btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--accent-ink);
-      padding: 0.75rem 1.25rem;
-      border-radius: 980px;
-      text-decoration: none;
-      font-weight: 600;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    .btn-download {
-      background: var(--surface-soft);
-      color: var(--accent);
-      border: 1px solid var(--line);
-      padding: 0.5rem 0.9rem;
-      border-radius: 6px;
-      font-size: 0.825rem;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .btn:hover, .btn-download:hover { opacity: 0.9; text-decoration: underline; }
-    footer { margin-top: 6rem; text-align: center; color: var(--ink-muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 2.5rem; padding-bottom: 3rem; }
-  </style>
-</head>
-<body>
-  <header>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-    <div class="container">
-      <span class="badge">100% WCAG AAA Compliant · SSG Theme Suite 2026</span>
-      <h1>Production-Ready SSG Themes</h1>
-      <p class="lead">Engineered for Static Site Generator (SSG). Featuring Apple-grade design standards, 100/100 Lighthouse performance, zero-JS layout grids, and instant theme release packages.</p>
-    </div>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <main class="container">
-    <div class="theme-grid">
-      <!-- APEX THEME -->
-      <article class="theme-card">
-        <span class="theme-tag">Executive Showcase Theme</span>
-        <h2 class="theme-title">Apex</h2>
-        <p class="theme-desc">Flagship executive portfolio layout for C-suite directors, management consultants, and advisory partners featuring interactive assessment frameworks and metric scorecards.</p>
-        <div class="btn-row">
-          <a class="btn" href="portfolio/index.html">Explore Apex Demo</a>
-        </div>
-        <div class="btn-row" style="margin-top: 0.5rem;">
-          <a class="btn-download" href="downloads/apex.zip" download>📦 Download Apex (.zip)</a>
-          <a class="btn-download" href="downloads/apex.tar.gz" download>📦 Download Apex (.tar.gz)</a>
-        </div>
-      </article>
+    <title>SSG Themes — three gated themes for Static Site Generator</title>
+    <meta
+      name="description"
+      content="Apex, Atlas and Velocity: three themes for Static Site Generator. WCAG 2.2 AA verified in CI, colour tokens gated at AAA contrast, zero third-party requests, under 7 KB per page."
+    />
+    <meta name="keywords" content="ssg themes, static site generator, accessible themes, apex, atlas, velocity" />
+    <meta name="author" content="SSG Theme Suite" />
 
-      <!-- ATLAS THEME -->
-      <article class="theme-card">
-        <span class="theme-tag">Editorial &amp; Research Theme</span>
-        <h2 class="theme-title">Atlas</h2>
-        <p class="theme-desc">Academic research and editorial publication theme engineered for technical whitepapers, financial messaging specifications, and open engineering standards.</p>
-        <div class="btn-row">
-          <a class="btn" href="sebastienrousseau/index.html">Explore Atlas Demo</a>
-        </div>
-        <div class="btn-row" style="margin-top: 0.5rem;">
-          <a class="btn-download" href="downloads/atlas.zip" download>📦 Download Atlas (.zip)</a>
-          <a class="btn-download" href="downloads/atlas.tar.gz" download>📦 Download Atlas (.tar.gz)</a>
-        </div>
-      </article>
+    <!--
+      This page is hand-authored and not processed by the generator's
+      inline-extraction pass, so its single <style> block is still inline
+      and `style-src` must allow it. Every other directive stays strict.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               base-uri 'none';
+               object-src 'none';
+               script-src 'none';
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data:;
+               font-src 'self';
+               connect-src 'self';
+               form-action 'none'"
+    />
 
-      <!-- VELOCITY THEME -->
-      <article class="theme-card">
-        <span class="theme-tag">Minimalist Product Theme</span>
-        <h2 class="theme-title">Velocity</h2>
-        <p class="theme-desc">High-performance minimalist theme built for micro-SaaS products, developer documentation hubs, and tech blogs with sub-10ms build speeds.</p>
-        <div class="btn-row">
-          <a class="btn" href="kaishi/index.html">Explore Velocity Demo</a>
-        </div>
-        <div class="btn-row" style="margin-top: 0.5rem;">
-          <a class="btn-download" href="downloads/velocity.zip" download>📦 Download Velocity (.zip)</a>
-          <a class="btn-download" href="downloads/velocity.tar.gz" download>📦 Download Velocity (.tar.gz)</a>
-        </div>
-      </article>
+    <meta property="og:title" content="SSG Themes — three gated themes for Static Site Generator" />
+    <meta property="og:description" content="Three themes with their own design systems, sharing one architecture and one set of CI gates." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ssg-themes.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SSG Themes" />
+    <meta name="twitter:description" content="Three themes for Static Site Generator, each claim checked by a gate." />
+    <meta property="og:image" content="https://ssg-themes.github.io/apex/images/screenshot.png" />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:image:alt" content="The Apex theme home page" />
+    <meta name="twitter:image" content="https://ssg-themes.github.io/apex/images/screenshot.png" />
 
-      <!-- VANGUARD THEME -->
-      <article class="theme-card">
-        <span class="theme-tag">High-Impact Operations Theme</span>
-        <h2 class="theme-title">Vanguard</h2>
-        <p class="theme-desc">Operational excellence portfolio layout engineered for technical directors, enterprise architects, and system integration leads.</p>
-        <div class="btn-row">
-          <a class="btn" href="https://amandakaye.github.io/" target="_blank" rel="noopener">Explore Vanguard Demo</a>
-        </div>
-        <div class="btn-row" style="margin-top: 0.5rem;">
-          <a class="btn-download" href="downloads/vanguard.zip" download>📦 Download Vanguard (.zip)</a>
-          <a class="btn-download" href="downloads/vanguard.tar.gz" download>📦 Download Vanguard (.tar.gz)</a>
-        </div>
-      </article>
-    </div>
-  </main>
+    <link rel="canonical" href="https://ssg-themes.github.io/" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 SSG Theme Suite. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
-    </div>
-  </footer>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "SSG Themes",
+        "url": "https://ssg-themes.github.io/",
+        "description": "Three themes for Static Site Generator: Apex, Atlas and Velocity.",
+        "inLanguage": "en-GB",
+        "license": "https://opensource.org/licenses/MIT"
+      }
+    </script>
 
-  <script>
-    document.getElementById('themeToggle').addEventListener('click', function() {
-      var current = document.documentElement.getAttribute('data-theme') || 'light';
-      var next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch(e) {}
-    });
-  </script>
-</body>
+    <style>
+      /* Same three-state theming contract as the themes themselves: light on
+         bare :root, dark redefined under prefers-color-scheme guarded against
+         an explicit light choice, and again on [data-theme="dark"]. */
+      :root,
+      :root[data-theme="light"] {
+        --bg: #fbfbfd;
+        --surface: #ffffff;
+        --surface-soft: #f5f5f7;
+        --ink: #1d1d1f;
+        --ink-soft: #3a3a3c;
+        --ink-muted: #52525a;
+        --accent: #00458f;
+        --accent-hover: #003a78;
+        --accent-ink: #ffffff;
+        --line: #8e8e93;
+        --line-soft: #e8e8ed;
+        --focus: #0071e3;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #000000;
+          --surface: #1d1d1f;
+          --surface-soft: #161617;
+          --ink: #f5f5f7;
+          --ink-soft: #e5e5ea;
+          --ink-muted: #a8a8ae;
+          --accent: #4db0ff;
+          --accent-hover: #7ac4ff;
+          --accent-ink: #000000;
+          --line: #6e6e75;
+          --line-soft: #2c2c2e;
+          --focus: #4db0ff;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #000000;
+        --surface: #1d1d1f;
+        --surface-soft: #161617;
+        --ink: #f5f5f7;
+        --ink-soft: #e5e5ea;
+        --ink-muted: #a8a8ae;
+        --accent: #4db0ff;
+        --accent-hover: #7ac4ff;
+        --accent-ink: #000000;
+        --line: #6e6e75;
+        --line-soft: #2c2c2e;
+        --focus: #4db0ff;
+        color-scheme: dark;
+      }
+
+      *,
+      *::before,
+      *::after { box-sizing: border-box; }
+      body, h1, h2, h3, p, ul { margin: 0; }
+      ul[class] { list-style: none; padding: 0; }
+      img { display: block; max-width: 100%; height: auto; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1140px;
+        margin-inline: auto;
+        padding-inline: 1.5rem;
+      }
+
+      a { color: var(--accent); text-underline-offset: 0.18em; }
+      a:hover { color: var(--accent-hover); }
+      :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+
+      .skip-link { position: absolute; inset-inline-start: -9999px; top: 0; }
+      .skip-link:focus {
+        inset-inline-start: 1rem; top: 1rem; z-index: 10;
+        background: var(--accent); color: var(--accent-ink);
+        padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700;
+      }
+
+      header.masthead { padding-block: clamp(3rem, 8vw, 5.5rem) 2rem; }
+      .eyebrow {
+        font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.09em; color: var(--accent); margin-bottom: 0.5rem;
+      }
+      h1 {
+        font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 800;
+        letter-spacing: -0.022em; line-height: 1.12; text-wrap: balance;
+        margin-bottom: 0.75rem;
+      }
+      .lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 62ch; }
+
+      .facts {
+        display: grid; gap: 1rem; margin-top: 2.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+      }
+      .fact {
+        background: var(--surface); border: 1px solid var(--line-soft);
+        border-radius: 12px; padding: 1.25rem;
+      }
+      .fact b {
+        display: block; font-size: 1.6rem; font-weight: 800;
+        color: var(--accent); line-height: 1.1;
+        font-variant-numeric: tabular-nums;
+      }
+      .fact span { font-size: 0.9rem; color: var(--ink-muted); }
+
+      section { padding-block: 3rem; }
+      h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 750;
+        letter-spacing: -0.02em; margin-bottom: 1.5rem; text-wrap: balance;
+      }
+
+      .themes { display: grid; gap: 1.75rem; }
+      @media (min-width: 56rem) { .themes { grid-template-columns: repeat(3, 1fr); } }
+
+      .theme {
+        display: flex; flex-direction: column;
+        background: var(--surface); border: 1px solid var(--line-soft);
+        border-radius: 12px; overflow: hidden;
+      }
+      .theme img { border-bottom: 1px solid var(--line-soft); }
+      .theme-body { padding: 1.35rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+      .theme h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; }
+      .theme p { color: var(--ink-muted); font-size: 0.94rem; }
+      .theme dl {
+        margin: 0; display: grid; grid-template-columns: auto 1fr;
+        gap: 0.15rem 0.7rem; font-size: 0.82rem; color: var(--ink-muted);
+      }
+      .theme dt { font-weight: 600; color: var(--ink-soft); }
+      .theme dd { margin: 0; }
+      .links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; padding-top: 0.6rem; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 2.75rem; padding-inline: 1rem; border-radius: 8px;
+        font-weight: 650; font-size: 0.9rem; text-decoration: none;
+        border: 1px solid transparent;
+      }
+      .btn-primary { background: var(--accent); color: var(--accent-ink); }
+      .btn-primary:hover { background: var(--accent-hover); color: var(--accent-ink); }
+      .btn-secondary { background: var(--surface-soft); color: var(--ink); border-color: var(--line); }
+
+      .scroll { overflow-x: auto; border: 1px solid var(--line-soft); border-radius: 12px; }
+      table { width: 100%; border-collapse: collapse; background: var(--surface); min-width: 34rem; }
+      th, td { text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid var(--line-soft); font-size: 0.92rem; }
+      th { font-weight: 700; }
+      td { color: var(--ink-soft); }
+      tbody tr:last-child td { border-bottom: none; }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.86em; background: var(--surface-soft);
+        padding: 0.1em 0.35em; border-radius: 4px;
+      }
+
+      footer {
+        border-top: 1px solid var(--line-soft); background: var(--surface);
+        padding-block: 2.5rem; margin-top: 3rem;
+        color: var(--ink-muted); font-size: 0.9rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="masthead">
+      <div class="container">
+        <p class="eyebrow">Themes for Static Site Generator</p>
+        <h1>Three themes. One architecture. Every claim gated.</h1>
+        <p class="lead">
+          Apex, Atlas and Velocity each have their own design system and
+          layout set, built on a shared template architecture. The numbers
+          below are produced by gates that run on every commit — there are no
+          hardcoded score badges here.
+        </p>
+
+        <ul class="facts">
+          <li class="fact"><b>102</b><span>colour token pairs passing AAA contrast, light and dark</span></li>
+          <li class="fact"><b>0</b><span>accessibility issues across 15 pages</span></li>
+          <li class="fact"><b>0</b><span>third-party requests, on every page</span></li>
+          <li class="fact"><b>6.9 KB</b><span>heaviest page, gzipped, including CSS and JS</span></li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main">
+      <section>
+        <div class="container">
+          <h2>Choose a theme</h2>
+          <div class="themes">
+            <article class="theme">
+              <picture><source srcset="apex/images/screenshot.webp" type="image/webp" /><img src="apex/images/screenshot.png" alt="The Apex home page: a portrait beside a large headline, with a row of metric cards below." width="1500" height="1000" loading="lazy" /></picture>
+              <div class="theme-body">
+                <h3>Apex</h3>
+                <p>Portfolio and consulting. Cool neutrals with a deep blue accent, a portrait-led hero and a metric grid.</p>
+                <dl>
+                  <dt>Layouts</dt><dd>7</dd>
+                  <dt>Best for</dt><dd>Advisors, directors, consultants</dd>
+                </dl>
+                <div class="links">
+                  <a class="btn btn-primary" href="apex/">View demo</a>
+                  <a class="btn btn-secondary" href="downloads/apex.zip" download>.zip</a>
+                  <a class="btn btn-secondary" href="downloads/apex.tar.gz" download>.tar.gz</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="theme">
+              <picture><source srcset="atlas/images/screenshot.webp" type="image/webp" /><img src="atlas/images/screenshot.png" alt="The Atlas home page: a serif headline over a standfirst, with three article cards beneath." width="1500" height="1000" loading="lazy" /></picture>
+              <div class="theme-body">
+                <h3>Atlas</h3>
+                <p>Editorial and knowledge hubs. A serif reading column at a 72-character measure, with a forest-green accent.</p>
+                <dl>
+                  <dt>Layouts</dt><dd>8</dd>
+                  <dt>Best for</dt><dd>Research, essays, reference</dd>
+                </dl>
+                <div class="links">
+                  <a class="btn btn-primary" href="atlas/">View demo</a>
+                  <a class="btn btn-secondary" href="downloads/atlas.zip" download>.zip</a>
+                  <a class="btn btn-secondary" href="downloads/atlas.tar.gz" download>.tar.gz</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="theme">
+              <picture><source srcset="velocity/images/screenshot.webp" type="image/webp" /><img src="velocity/images/screenshot.png" alt="The Velocity home page: a centred product headline above a grid of six feature cards." width="1500" height="1000" loading="lazy" /></picture>
+              <div class="theme-body">
+                <h3>Velocity</h3>
+                <p>Product landings and starters. Slate with a bronze accent, tight radii, and the smallest layout set of the three.</p>
+                <dl>
+                  <dt>Layouts</dt><dd>7</dd>
+                  <dt>Best for</dt><dd>SaaS pages, project sites</dd>
+                </dl>
+                <div class="links">
+                  <a class="btn btn-primary" href="velocity/">View demo</a>
+                  <a class="btn btn-secondary" href="downloads/velocity.zip" download>.zip</a>
+                  <a class="btn btn-secondary" href="downloads/velocity.tar.gz" download>.tar.gz</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>What each gate checks</h2>
+          <div class="scroll">
+            <table>
+              <caption class="skip-link">Continuous integration gates and what each one asserts</caption>
+              <thead>
+                <tr><th scope="col">Gate</th><th scope="col">Asserts</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Contrast</th>
+                  <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11) — in both light and dark</td>
+                </tr>
+                <tr>
+                  <th scope="row">Structure</th>
+                  <td>Manifests agree, screenshots meet registry sizes, no third-party host appears in any theme source</td>
+                </tr>
+                <tr>
+                  <th scope="row">Page weight</th>
+                  <td>Every page under 20 KB gzipped including its CSS and JS; zero third-party subresources</td>
+                </tr>
+                <tr>
+                  <th scope="row">Accessibility</th>
+                  <td>The generator's report shows 0 issues, and axe-core passes <code>wcag22aa</code></td>
+                </tr>
+                <tr>
+                  <th scope="row">Generator audit</th>
+                  <td>JSON-LD, hreflang, CSP and SRI, HTML5, broken links, Open Graph, feeds, search index</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Getting started</h2>
+          <p class="lead">
+            Copy a theme, set your site name and base URL in
+            <code>ssg.toml</code>, and build. Requires ssg 0.0.49 or later.
+            Each theme's README documents its layouts, front-matter contract
+            and token system.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          MIT licensed ·
+          <a href="https://github.com/sebastienrousseau/ssg-themes.github.io">Source</a> ·
+          <a href="https://github.com/sebastienrousseau/static-site-generator">Static Site Generator</a>
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
