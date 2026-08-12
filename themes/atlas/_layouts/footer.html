@@ -2,41 +2,41 @@
   <div class="container">
     <div class="footer-cols">
       <div>
-        <h2>Writing</h2>
+        <h2>{{footer_writing}}</h2>
         <ul>
-          <li><a href="{{base_path}}articles/">Articles</a></li>
-          <li><a href="{{base_path}}papers/">Papers</a></li>
+          <li><a href="{{base_path}}{{slug_articles}}">{{label_articles}}</a></li>
+          <li><a href="{{base_path}}{{slug_papers}}">{{label_papers}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Hub</h2>
+        <h2>{{footer_hub}}</h2>
         <ul>
-          <li><a href="{{base_path}}about/">About</a></li>
-          <li><a href="{{base_path}}contact/">Contact</a></li>
+          <li><a href="{{base_path}}{{slug_about}}">{{label_about}}</a></li>
+          <li><a href="{{base_path}}{{slug_contact}}">{{label_contact}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Feeds</h2>
+        <h2>{{footer_feeds}}</h2>
         <ul>
-          <li><a href="{{base_path}}rss.xml">RSS</a></li>
-          <li><a href="{{base_path}}atom.xml">Atom</a></li>
-          <li><a href="{{base_path}}feed.json">JSON Feed</a></li>
+          <li><a href="{{asset_path}}rss.xml">RSS</a></li>
+          <li><a href="{{asset_path}}atom.xml">Atom</a></li>
+          <li><a href="{{asset_path}}feed.json">JSON Feed</a></li>
         </ul>
       </div>
       <div>
-        <h2>Built with</h2>
+        <h2>{{footer_built}}</h2>
         <ul>
           <li>
             <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
           </li>
-          <li><a href="{{base_path}}sitemap.xml">Sitemap</a></li>
+          <li><a href="{{asset_path}}sitemap.xml">{{footer_sitemap}}</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-legal">
-      <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
-      <span>Built with Static Site Generator (SSG). WCAG 2.2 AA verified in CI.</span>
+      <span>&copy; {{copyright_year}} {{name}}. {{footer_licence}}</span>
+      <span>{{footer_colophon}}</span>
     </div>
   </div>
 </footer>

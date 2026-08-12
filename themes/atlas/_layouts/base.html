@@ -29,22 +29,37 @@
     {{!apple}}
     {{!microsoft}}
 
-    <!-- Absolute URLs: Open Graph consumers do not resolve relative paths. -->
-    <meta property="og:image" content="{{site_url}}images/screenshot.png" />
+    <!-- Absolute URLs: Open Graph consumers do not resolve relative paths.
+         `asset_url` is the SITE root, not the locale root — one copy of
+         the screenshot is published, under `/atlas/images/`. -->
+    <meta property="og:image" content="{{asset_url}}images/screenshot.png" />
     <meta property="og:image:width" content="1500" />
     <meta property="og:image:height" content="1000" />
     <meta property="og:image:alt" content="{{title}}" />
-    <meta name="twitter:image" content="{{site_url}}images/screenshot.png" />
+    <meta name="twitter:image" content="{{asset_url}}images/screenshot.png" />
 
     <link rel="canonical" href="{{permalink}}" />
-    <link rel="alternate" hreflang="{{language}}" href="{{permalink}}" />
-    <link rel="alternate" hreflang="x-default" href="{{permalink}}" />
 
-    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{base_path}}rss.xml" />
-    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{base_path}}atom.xml" />
-    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{base_path}}feed.json" />
-    <link rel="manifest" href="{{base_path}}manifest.json" />
-    <link rel="icon" href="{{base_path}}favicon.ico" sizes="any" />
+    <!-- Alternate-language links are injected here by the generator's
+         i18n plugin, from the `translation_key` front-matter field —
+         that is what pairs /atlas/about/ with /atlas/fr/a-propos/.
+
+         Do not hand-write them. The injector is idempotent: it skips
+         any page whose source already contains its marker substring,
+         and an alternate-language link written by hand — even one
+         quoted inside a comment like this — trips that check and
+         silently disables every alternate on the page. -->
+
+    <!-- Feeds, manifest, icon, stylesheet and scripts are published
+         once per SITE, so they hang off `asset_path` (the site root)
+         rather than `base_path` (the locale root). Under `base_path` a
+         French page would ask for `/atlas/fr/styles.css`, which is
+         never written. The feeds cover every locale's content. -->
+    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{asset_path}}rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{asset_path}}atom.xml" />
+    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{asset_path}}feed.json" />
+    <link rel="manifest" href="{{asset_path}}manifest.json" />
+    <link rel="icon" href="{{asset_path}}favicon.ico" sizes="any" />
 
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
@@ -81,12 +96,12 @@
       }
     </script>
 
-    <link rel="stylesheet" href="{{base_path}}styles.css" />
-    <script src="{{base_path}}theme-init.js"></script>
+    <link rel="stylesheet" href="{{asset_path}}styles.css" />
+    <script src="{{asset_path}}theme-init.js"></script>
   </head>
 
   <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
+    <a class="skip-link" href="#main">{{label_skip}}</a>
 
     {{> header}}
 
@@ -96,6 +111,6 @@
 
     {{> footer}}
 
-    <script src="{{base_path}}main.js" defer></script>
+    <script src="{{asset_path}}main.js" defer></script>
   </body>
 </html>

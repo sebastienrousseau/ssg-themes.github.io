@@ -412,6 +412,60 @@
     text-decoration-thickness: 2px;
   }
 
+  /* ------------------------------------------------------------------
+     Language switcher.
+
+     Injected by the generator's i18n plugin in place of the
+     `<!-- ssg:lang-switcher -->` marker in `header.html`, so the markup
+     below is not authored in this theme:
+
+       <nav class="lang-switcher" aria-label="Language">
+         <ul><li><a href=… lang="fr" hreflang="fr">fr</a></li>…</ul>
+       </nav>
+
+     One locale per `<li>`; the current locale carries
+     `aria-current="page"`. Styled to read as a compact set of switches
+     rather than primary navigation — it is a fallback for readers whose
+     `Accept-Language` did not land them where they wanted.
+     ------------------------------------------------------------------ */
+  .lang-switcher ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lang-switcher a {
+    /* 24x24 CSS px minimum target (WCAG 2.5.8), same rule the nav and
+       theme toggles follow. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    min-height: 2rem;
+    padding-inline: 0.375rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .lang-switcher a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lang-switcher a[aria-current="page"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
+  }
+
   /* WCAG 2.5.8 — every control clears the 24x24 CSS px minimum target. */
   .nav-toggle,
   .theme-toggle {

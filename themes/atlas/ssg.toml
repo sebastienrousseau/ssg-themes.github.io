@@ -22,3 +22,17 @@ language = "en-GB"
 content_dir = "themes/atlas/content"
 template_dir = "themes/atlas/_layouts"
 output_dir = "public/atlas"
+
+# Multi-locale routing. English is served from the site root
+# (`/atlas/`) and French from `/atlas/fr/` — the root-hosted
+# default-locale convention Hugo, Astro and Next.js all default to.
+#
+# Slugs are translated, not prefixed: `/atlas/about/` pairs with
+# `/atlas/fr/a-propos/`. The pairing comes from the `translation_key`
+# front-matter field, not from the path, and `scripts/validate.py`
+# fails the build if any key does not resolve in every locale listed
+# here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"

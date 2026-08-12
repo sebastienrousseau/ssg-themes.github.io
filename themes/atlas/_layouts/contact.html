@@ -15,20 +15,20 @@
     -->
     <form class="stack" action="{{form_action}}" method="post">
       <div class="field">
-        <label for="cf-name">Your name</label>
+        <label for="cf-name">{{form_name}}</label>
         <input id="cf-name" name="name" type="text" autocomplete="name" required />
       </div>
       <div class="field">
-        <label for="cf-email">Email address</label>
+        <label for="cf-email">{{form_email}}</label>
         <input id="cf-email" name="email" type="email" autocomplete="email" required />
-        <p class="hint" id="cf-email-hint">Used only to reply to this enquiry.</p>
+        <p class="hint" id="cf-email-hint">{{form_email_hint}}</p>
       </div>
       <div class="field">
-        <label for="cf-message">Message</label>
+        <label for="cf-message">{{form_message}}</label>
         <textarea id="cf-message" name="message" required></textarea>
       </div>
       <div class="cta-row">
-        <button class="btn btn-primary" type="submit">Send enquiry</button>
+        <button class="btn btn-primary" type="submit">{{form_submit}}</button>
       </div>
     </form>
   </div>

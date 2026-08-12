@@ -27,22 +27,31 @@
       </button>
 
       <ul class="nav-menu" id="navMenu">
+        <!-- Labels and slugs both come from front matter: the French
+             pages are served from translated URLs (`publications/`,
+             `nous-contacter/`), so a hard-coded English slug here would
+             404 under `/atlas/fr/`. -->
         <li>
-          <a class="nav-link" href="{{base_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
+          <a class="nav-link" href="{{base_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{label_home}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}articles/" {{#if nav_articles}}aria-current="page"{{/if}}>Articles</a>
+          <a class="nav-link" href="{{base_path}}{{slug_articles}}" {{#if nav_articles}}aria-current="page"{{/if}}>{{label_articles}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}papers/" {{#if nav_papers}}aria-current="page"{{/if}}>Papers</a>
+          <a class="nav-link" href="{{base_path}}{{slug_papers}}" {{#if nav_papers}}aria-current="page"{{/if}}>{{label_papers}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}about/" {{#if nav_about}}aria-current="page"{{/if}}>About</a>
+          <a class="nav-link" href="{{base_path}}{{slug_about}}" {{#if nav_about}}aria-current="page"{{/if}}>{{label_about}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+          <a class="nav-link" href="{{base_path}}{{slug_contact}}" {{#if nav_contact}}aria-current="page"{{/if}}>{{label_contact}}</a>
         </li>
       </ul>
+
+      <!-- Replaced by the generator with a <nav class="lang-switcher">
+           listing every locale that serves this page. Left as an inert
+           comment on single-locale sites. -->
+      <!-- ssg:lang-switcher -->
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">

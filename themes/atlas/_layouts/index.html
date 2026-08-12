@@ -10,22 +10,22 @@
 
 <section class="section section-soft" aria-labelledby="latest-heading">
   <div class="container stack">
-    <h2 id="latest-heading">Recent writing</h2>
+    <h2 id="latest-heading">{{label_recent}}</h2>
     <div class="grid grid-wide">
       <article class="card">
-        <p class="eyebrow">Method</p>
-        <h3><a href="{{base_path}}articles/">Structuring a knowledge hub</a></h3>
-        <p>Why a hub needs a spine of durable pages before it needs a feed, and how to tell the two apart.</p>
+        <p class="eyebrow">{{card_one_eyebrow}}</p>
+        <h3><a href="{{base_path}}{{slug_articles}}">{{card_one_title}}</a></h3>
+        <p>{{card_one_blurb}}</p>
       </article>
       <article class="card">
-        <p class="eyebrow">Standards</p>
-        <h3><a href="{{base_path}}papers/">Writing for citation</a></h3>
-        <p>What a long-form technical page owes a reader who arrives from a search result three years later.</p>
+        <p class="eyebrow">{{card_two_eyebrow}}</p>
+        <h3><a href="{{base_path}}{{slug_papers}}">{{card_two_title}}</a></h3>
+        <p>{{card_two_blurb}}</p>
       </article>
       <article class="card">
-        <p class="eyebrow">Practice</p>
-        <h3><a href="{{base_path}}about/">Editorial standards</a></h3>
-        <p>Corrections policy, sourcing, and the difference between an update and a rewrite.</p>
+        <p class="eyebrow">{{card_three_eyebrow}}</p>
+        <h3><a href="{{base_path}}{{slug_about}}">{{card_three_title}}</a></h3>
+        <p>{{card_three_blurb}}</p>
       </article>
     </div>
   </div>
