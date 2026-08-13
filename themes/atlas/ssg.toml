@@ -36,3 +36,27 @@ output_dir = "public/atlas"
 default_locale = "en"
 locales = ["en", "fr"]
 url_prefix = "sub_path"
+
+# Agentic discovery (2026). Emits /agents.txt, /.well-known/ai-plugin.json
+# and /.well-known/mcp.json.
+#
+# `agents.txt` is a robots-shaped policy file for AI crawlers. The default
+# below is permissive: these are demo sites whose whole purpose is to be
+# read. A real site should decide deliberately — the same file is where you
+# would deny a crawler.
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+# Security headers for platforms that read `_headers`.
+#
+# GitHub Pages ignores this file, so it does nothing for the showcase — it
+# is here because the themes are distributable and a user deploying to
+# Netlify or Cloudflare gets the headers for free. It also carries
+# `frame-ancestors`, which a <meta> CSP cannot express, closing the one gap
+# the in-page policy leaves open.
+[edge_headers]
+targets = ["netlify", "cloudflare"]

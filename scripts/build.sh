@@ -155,11 +155,24 @@ emit_legacy_redirect() {
                script-src 'none';
                style-src 'self' 'unsafe-inline';
                img-src 'self' data:;
+               font-src 'self';
+               connect-src 'self';
                form-action 'none'"
     />
 
     <link rel="canonical" href="${SHOWCASE_BASE_URL}/${target}/" />
     <meta name="robots" content="noindex, follow" />
+
+    <!-- Social metadata describes the destination, not this stub: anything
+         that unfurls this URL should show the theme it redirects to. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${target} — SSG Themes" />
+    <meta property="og:description" content="The ${legacy} theme was renamed to ${target}." />
+    <meta property="og:url" content="${SHOWCASE_BASE_URL}/${target}/" />
+    <meta property="og:image" content="${SHOWCASE_BASE_URL}/${target}/images/screenshot.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${target} — SSG Themes" />
+    <meta name="twitter:image" content="${SHOWCASE_BASE_URL}/${target}/images/screenshot.png" />
     <meta http-equiv="refresh" content="0; url=${SHOWCASE_BASE_URL}/${target}/" />
     <style>
       body { font-family: system-ui, sans-serif; margin: 4rem auto; max-width: 40rem;
