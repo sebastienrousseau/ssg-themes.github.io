@@ -120,6 +120,56 @@ if [[ -f "scripts/package-themes.sh" ]]; then
   bash scripts/package-themes.sh
 fi
 
+# Legacy theme paths.
+#
+# The themes were renamed (portfolio -> apex, sebastienrousseau -> atlas,
+# kaishi -> velocity) and the old build mirrored the output into both. Those
+# paths are live and may have inbound links, so dropping the mirror without
+# a redirect would turn three working URLs into 404s.
+#
+# GitHub Pages serves no redirect rules, so this is the static equivalent:
+# a canonical pointing at the new home for crawlers, a meta refresh for
+# browsers, and a visible link for anyone with JavaScript and refresh
+# disabled. Deliberately not a copy of the site — two live copies of the
+# same content is what the canonical is there to prevent.
+emit_legacy_redirect() {
+  local legacy="$1" target="$2"
+  mkdir -p "public/${legacy}"
+  cat > "public/${legacy}/index.html" <<HTML
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moved to ${target} — SSG Themes</title>
+    <link rel="canonical" href="${SHOWCASE_BASE_URL}/${target}/" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content="0; url=${SHOWCASE_BASE_URL}/${target}/" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 4rem auto; max-width: 40rem;
+             padding-inline: 1.5rem; line-height: 1.6; color: #1d1d1f; background: #fbfbfd; }
+      a { color: #00458f; }
+      @media (prefers-color-scheme: dark) {
+        body { color: #f5f5f7; background: #000; } a { color: #4db0ff; }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>This theme was renamed</h1>
+    <p><code>${legacy}</code> is now <strong>${target}</strong>.</p>
+    <p><a href="${SHOWCASE_BASE_URL}/${target}/">Continue to ${target}</a></p>
+  </body>
+</html>
+HTML
+  echo "==> redirect ${legacy}/ -> ${target}/"
+}
+
+if [[ "${TARGET}" == "all" ]]; then
+  emit_legacy_redirect portfolio apex
+  emit_legacy_redirect sebastienrousseau atlas
+  emit_legacy_redirect kaishi velocity
+fi
+
 # Gallery landing page.
 if [[ -f "public_index.html" ]]; then
   cp -f "public_index.html" "public/index.html"

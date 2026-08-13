@@ -213,6 +213,46 @@ def tracked_junk(root: Path) -> list[str]:
     ]
 
 
+# Paths that were live before the themes were renamed. Each must keep
+# resolving — silently turning a working URL into a 404 is the failure this
+# guards against, and it is invisible without a check because the build
+# succeeds either way.
+LEGACY_PATHS = {
+    "portfolio": "apex",
+    "sebastienrousseau": "atlas",
+    "kaishi": "velocity",
+}
+
+
+def check_legacy_redirects(root: Path) -> list[str]:
+    """Fails when a renamed theme's old path stops resolving.
+
+    Only meaningful after a build; skipped when `public/` is absent so the
+    source-only gates stay runnable on a clean checkout.
+    """
+    public = root / "public"
+    if not public.is_dir():
+        return []
+
+    errors: list[str] = []
+    for legacy, target in sorted(LEGACY_PATHS.items()):
+        page = public / legacy / "index.html"
+        if not page.is_file():
+            errors.append(
+                f"repo: legacy path /{legacy}/ no longer resolves — it is "
+                f"live today and must redirect to /{target}/"
+            )
+            continue
+        html = page.read_text(encoding="utf-8", errors="replace")
+        if f"/{target}/" not in html:
+            errors.append(
+                f"repo: /{legacy}/ exists but does not point at /{target}/"
+            )
+        if "canonical" not in html:
+            errors.append(f"repo: /{legacy}/ redirect has no canonical link")
+    return errors
+
+
 def check_theme(root: Path, name: str) -> list[str]:
     errors: list[str] = []
     theme = root / "themes" / name
@@ -339,6 +379,7 @@ def main() -> int:
         all_errors.extend(check_theme(root, name))
 
     all_errors.extend(tracked_junk(root))
+    all_errors.extend(check_legacy_redirects(root))
 
     if all_errors:
         print(f"validate: {len(all_errors)} failure(s)\n")
