@@ -24,7 +24,7 @@ build-velocity:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-audit
+check: check-structure check-contrast build check-weight check-audit check-responsive
 	@echo "All gates passed."
 
 check-structure:
@@ -39,6 +39,10 @@ check-weight:
 # Mirrors the deployed URL prefix before auditing — see scripts/audit.sh.
 check-audit:
 	@bash scripts/audit.sh
+
+# 25 pages x 13 viewports x 2 colour schemes, measured not screenshotted.
+check-responsive:
+	@bash tests/responsive/run.sh
 
 clean:
 	@rm -rf public dist

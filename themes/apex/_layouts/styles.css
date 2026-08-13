@@ -190,6 +190,9 @@
 
 @layer base {
   body {
+    /* The generator pins a floating search trigger to the bottom-right on
+       phones; this keeps it from resting over the final control. */
+    padding-block-end: 4.5rem;
     background-color: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
@@ -254,6 +257,30 @@
   kbd {
     font-family: var(--font-mono);
     font-size: 0.9em;
+  }
+
+  /* A fenced block cannot reflow — its lines have a fixed width — so it
+     scrolls inside its own box rather than widening the page (WCAG 1.4.10).
+     Focusable for the same reason the table wrapper is: a scroll region a
+     keyboard user cannot reach holds unreachable content. */
+  pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-s);
+    background: var(--surface-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  pre:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    white-space: pre;
   }
 }
 
@@ -331,6 +358,9 @@
   .skip-link:focus {
     inset-inline-start: var(--space-s);
     top: var(--space-s);
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     background: var(--accent);
     color: var(--accent-ink);
     padding: 0.6rem 1rem;
@@ -351,15 +381,18 @@
 
   .header-inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-s);
+    gap: var(--space-2xs) var(--space-s);
     min-height: 4.25rem;
   }
 
   .brand {
     display: inline-flex;
     align-items: center;
+    min-width: 0;
+    min-height: 2.75rem;
     gap: 0.6rem;
     font-weight: 700;
     color: var(--ink);
@@ -379,7 +412,8 @@
   .site-nav {
     display: flex;
     align-items: center;
-    gap: var(--space-s);
+    gap: var(--space-2xs);
+    min-width: 0;
   }
 
   .nav-menu {
@@ -623,10 +657,19 @@
   }
 
   /* ---------- tables ---------- */
+  /* Emitted by the generator around every table. Focusable, because a
+     scrollable region a keyboard user cannot reach is not reachable
+     content — hence the visible ring when it takes focus. */
   .table-wrap {
     overflow-x: auto;
     border: 1px solid var(--line-soft);
     border-radius: var(--radius);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrap:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
   }
 
   table {
@@ -725,6 +768,39 @@
     flex-wrap: wrap;
     gap: var(--space-xs) var(--space-m);
     justify-content: space-between;
+  }
+
+  /* ---------- generated language switcher ---------- */
+  /* Emitted by the i18n plugin. Its links measured 32x32, under the 44px
+     this theme claims, so they are sized here rather than left to inherit. */
+  .ssg-lang-switcher,
+  [class*="lang-switcher"] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ssg-lang-switcher a,
+  [class*="lang-switcher"] a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--step--1);
+    font-weight: 650;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .ssg-lang-switcher a[aria-current] {
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
   }
 
   /* ---------- built-in search widget ---------- */

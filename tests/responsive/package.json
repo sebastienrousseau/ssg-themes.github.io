@@ -1,0 +1,9 @@
+{
+  "name": "ssg-themes-responsive",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Cross-viewport layout audit for the SSG themes",
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  }
+}

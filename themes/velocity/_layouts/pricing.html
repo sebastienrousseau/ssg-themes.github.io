@@ -12,8 +12,7 @@
       to annual, so no control is ever rendered that cannot work.
     -->
     <ssg-island component="pricing-toggle" hydrate="visible" props='{"saving":"Annual billing saves about 17%."}'>
-      <div class="table-wrap">
-        <table data-pricing-table data-period="monthly">
+      <table data-pricing-table data-period="monthly">
           <caption class="visually-hidden">
             Plan comparison. Prices are per month; use the billing period
             control to switch between monthly and annual rates.
@@ -59,8 +58,7 @@
               <td>Named contact</td>
             </tr>
           </tbody>
-        </table>
-      </div>
+      </table>
     </ssg-island>
 
     <div class="prose">{{!content}}</div>

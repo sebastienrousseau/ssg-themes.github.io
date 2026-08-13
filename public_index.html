@@ -235,6 +235,14 @@
         padding-block: 2.5rem; margin-top: 3rem;
         color: var(--ink-muted); font-size: 0.9rem;
       }
+      /* Inline links here wrap onto separate lines at 320px and their
+         padded boxes then overlapped; a flex row with gap keeps each tap
+         target its own. */
+      footer p {
+        display: flex; flex-wrap: wrap; align-items: center;
+        gap: 0.35rem 0.75rem;
+      }
+      footer a { display: inline-flex; align-items: center; min-height: 2.75rem; }
     </style>
   </head>
 
