@@ -52,12 +52,9 @@ jobs:
       # WCAG 2.2, JSON-LD, hreflang, CSP/SRI, HTML5, broken links, Open
       # Graph, RSS/Atom, image optimisation and search-index integrity.
       - name: Generator audit
-        run: |
-          for theme in apex atlas velocity; do
-            echo "::group::ssg audit $theme"
-            ssg audit --out text "public/$theme" || exit 1
-            echo "::endgroup::"
-          done
+        # Mirrors the deployed URL prefix first; auditing public/ directly
+        # reports hundreds of phantom broken links on a project site.
+        run: bash scripts/audit.sh
 
       - name: Accessibility report must be clean
         run: |

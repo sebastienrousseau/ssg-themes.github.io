@@ -31,6 +31,13 @@ cd "$(git rev-parse --show-toplevel)"
 THEMES=(apex atlas velocity)
 TARGET="${1:-all}"
 
+# Where GitHub Pages actually serves this repository. Confirm with:
+#   gh api repos/<owner>/<repo>/pages --jq .html_url
+SHOWCASE_BASE_URL="${SHOWCASE_BASE_URL:-https://sebastienrousseau.com/ssg-themes.github.io}"
+
+BUILD_TMP="$(mktemp -d)"
+trap 'rm -rf "${BUILD_TMP}"' EXIT
+
 # Prefer a locally built binary when present so the repo can be built
 # against an unreleased generator; otherwise use whatever is on PATH.
 if [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
@@ -52,7 +59,21 @@ build_theme() {
   fi
 
   echo "==> building ${theme}"
-  "${SSG}" build -f "${config}"
+
+  # Themes ship `base_url = "https://example.com"` because they are
+  # distributable artefacts — the showcase's deployment origin is not
+  # theirs to carry, and a user copying a theme must not inherit it.
+  #
+  # The showcase overrides it here. SHOWCASE_BASE_URL must match where
+  # GitHub Pages actually serves this repo: it is a *project* site, so the
+  # repository name is part of the path. Getting this wrong is silent —
+  # canonical URLs, hreflang, JSON-LD and the fingerprinted `_csp/` and
+  # `_islands/` prefixes are all derived from it.
+  local staged_config="${BUILD_TMP}/${theme}.ssg.toml"
+  sed "s|^base_url = .*|base_url = \"${SHOWCASE_BASE_URL}/${theme}\"|" \
+    "${config}" > "${staged_config}"
+
+  "${SSG}" build -f "${staged_config}"
 
   # Standalone stylesheet and scripts. These live in `_layouts/` beside the
   # templates that reference them, but the generator only compiles `.html`

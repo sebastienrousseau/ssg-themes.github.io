@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{base_path}}">
+    <a class="brand" href="{{locale_path}}">
       <span class="brand-mark" aria-hidden="true">{{short_name}}</span>
       <span class="brand-text">{{name}}</span>
     </a>
@@ -28,19 +28,19 @@
 
       <ul class="nav-menu" id="navMenu">
         <li>
-          <a class="nav-link" href="{{base_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
+          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}features/" {{#if nav_features}}aria-current="page"{{/if}}>Features</a>
+          <a class="nav-link" href="{{locale_path}}features/" {{#if nav_features}}aria-current="page"{{/if}}>Features</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}pricing/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
+          <a class="nav-link" href="{{locale_path}}pricing/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}about/" {{#if nav_about}}aria-current="page"{{/if}}>About</a>
+          <a class="nav-link" href="{{locale_path}}about/" {{#if nav_about}}aria-current="page"{{/if}}>About</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+          <a class="nav-link" href="{{locale_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
         </li>
       </ul>
 

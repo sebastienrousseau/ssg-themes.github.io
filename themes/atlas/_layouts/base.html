@@ -32,11 +32,11 @@
     <!-- Absolute URLs: Open Graph consumers do not resolve relative paths.
          `asset_url` is the SITE root, not the locale root — one copy of
          the screenshot is published, under `/atlas/images/`. -->
-    <meta property="og:image" content="{{asset_url}}images/screenshot.png" />
+    <meta property="og:image" content="{{site_url}}images/screenshot.png" />
     <meta property="og:image:width" content="1500" />
     <meta property="og:image:height" content="1000" />
     <meta property="og:image:alt" content="{{title}}" />
-    <meta name="twitter:image" content="{{asset_url}}images/screenshot.png" />
+    <meta name="twitter:image" content="{{site_url}}images/screenshot.png" />
 
     <link rel="canonical" href="{{permalink}}" />
 
@@ -55,11 +55,11 @@
          rather than `base_path` (the locale root). Under `base_path` a
          French page would ask for `/atlas/fr/styles.css`, which is
          never written. The feeds cover every locale's content. -->
-    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{asset_path}}rss.xml" />
-    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{asset_path}}atom.xml" />
-    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{asset_path}}feed.json" />
-    <link rel="manifest" href="{{asset_path}}manifest.json" />
-    <link rel="icon" href="{{asset_path}}favicon.ico" sizes="any" />
+    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{site_path}}rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{site_path}}atom.xml" />
+    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{site_path}}feed.json" />
+    <link rel="manifest" href="{{site_path}}manifest.json" />
+    <link rel="icon" href="{{site_path}}favicon.ico" sizes="any" />
 
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
@@ -96,8 +96,8 @@
       }
     </script>
 
-    <link rel="stylesheet" href="{{asset_path}}styles.css" />
-    <script src="{{asset_path}}theme-init.js"></script>
+    <link rel="stylesheet" href="{{site_path}}styles.css" />
+    <script src="{{site_path}}theme-init.js"></script>
   </head>
 
   <body>
@@ -111,6 +111,6 @@
 
     {{> footer}}
 
-    <script src="{{asset_path}}main.js" defer></script>
+    <script src="{{site_path}}main.js" defer></script>
   </body>
 </html>

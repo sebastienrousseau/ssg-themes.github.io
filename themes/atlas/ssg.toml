@@ -16,7 +16,7 @@
 site_name = "Atlas"
 site_title = "Atlas — editorial and knowledge-hub theme for SSG"
 site_description = "A long-form publishing theme for Static Site Generator: a serif reading column, citation-friendly structure, and a colour system gated at AAA for text."
-base_url = "https://ssg-themes.github.io/atlas"
+base_url = "https://example.com"
 language = "en-GB"
 
 content_dir = "themes/atlas/content"

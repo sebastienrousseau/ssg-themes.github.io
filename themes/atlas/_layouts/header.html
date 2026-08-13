@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{base_path}}">
+    <a class="brand" href="{{locale_path}}">
       <span class="brand-mark" aria-hidden="true">{{short_name}}</span>
       <span class="brand-text">{{name}}</span>
     </a>
@@ -32,19 +32,19 @@
              `nous-contacter/`), so a hard-coded English slug here would
              404 under `/atlas/fr/`. -->
         <li>
-          <a class="nav-link" href="{{base_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{label_home}}</a>
+          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{label_home}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}{{slug_articles}}" {{#if nav_articles}}aria-current="page"{{/if}}>{{label_articles}}</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_articles}}" {{#if nav_articles}}aria-current="page"{{/if}}>{{label_articles}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}{{slug_papers}}" {{#if nav_papers}}aria-current="page"{{/if}}>{{label_papers}}</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_papers}}" {{#if nav_papers}}aria-current="page"{{/if}}>{{label_papers}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}{{slug_about}}" {{#if nav_about}}aria-current="page"{{/if}}>{{label_about}}</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_about}}" {{#if nav_about}}aria-current="page"{{/if}}>{{label_about}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{base_path}}{{slug_contact}}" {{#if nav_contact}}aria-current="page"{{/if}}>{{label_contact}}</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_contact}}" {{#if nav_contact}}aria-current="page"{{/if}}>{{label_contact}}</a>
         </li>
       </ul>
 

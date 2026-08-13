@@ -16,7 +16,7 @@
 site_name = "Apex"
 site_title = "Apex — executive portfolio theme for SSG"
 site_description = "A production-ready portfolio theme for Static Site Generator: WCAG 2.2 AA verified in CI, zero third-party requests, and a token system you can re-skin without touching a layout."
-base_url = "https://ssg-themes.github.io/apex"
+base_url = "https://example.com"
 language = "en-GB"
 
 content_dir = "themes/apex/content"

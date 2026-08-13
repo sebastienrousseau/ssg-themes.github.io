@@ -24,7 +24,7 @@ build-velocity:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight
+check: check-structure check-contrast build check-weight check-audit
 	@echo "All gates passed."
 
 check-structure:
@@ -35,6 +35,10 @@ check-contrast:
 
 check-weight:
 	@python3 scripts/pageweight.py
+
+# Mirrors the deployed URL prefix before auditing — see scripts/audit.sh.
+check-audit:
+	@bash scripts/audit.sh
 
 clean:
 	@rm -rf public dist

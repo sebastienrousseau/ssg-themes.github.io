@@ -16,7 +16,7 @@
 site_name = "Velocity"
 site_title = "Velocity — product and starter theme for SSG"
 site_description = "A lightweight landing-page and documentation starter for Static Site Generator. No bundler, no third-party requests, and a colour system gated at AAA for text."
-base_url = "https://ssg-themes.github.io/velocity"
+base_url = "https://example.com"
 language = "en-GB"
 
 content_dir = "themes/velocity/content"

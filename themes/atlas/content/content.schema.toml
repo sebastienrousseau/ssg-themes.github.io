@@ -27,10 +27,6 @@ name = "layout"
 type = "string"
 required = true
 
-[[schemas.fields]]
-name = "permalink"
-type = "string"
-required = true
 
 [[schemas.fields]]
 name = "date"
@@ -49,16 +45,12 @@ required = true
 
 # Navigation and layout copy. Required because every layout references
 # them and an unresolved tag aborts the render.
+#
+# `site_path`, `site_url`, `locale_path` and `locale_url` are deliberately
+# absent: the generator derives them from `base_url` and the page's own
+# location. Declaring one in front matter still overrides the derived value.
 
-[[schemas.fields]]
-name = "base_path"
-type = "string"
-required = true
 
-[[schemas.fields]]
-name = "site_url"
-type = "string"
-required = true
 
 [[schemas.fields]]
 name = "eyebrow"
@@ -187,12 +179,4 @@ required = true
 # per locale: stylesheet, scripts, icon, manifest and the feeds. Distinct
 # from `base_path`, which is the LOCALE root and drives page navigation.
 
-[[schemas.fields]]
-name = "asset_path"
-type = "string"
-required = true
 
-[[schemas.fields]]
-name = "asset_url"
-type = "string"
-required = true

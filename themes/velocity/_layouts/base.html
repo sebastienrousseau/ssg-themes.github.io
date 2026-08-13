@@ -40,11 +40,11 @@
     <link rel="alternate" hreflang="{{language}}" href="{{permalink}}" />
     <link rel="alternate" hreflang="x-default" href="{{permalink}}" />
 
-    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{base_path}}rss.xml" />
-    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{base_path}}atom.xml" />
-    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{base_path}}feed.json" />
-    <link rel="manifest" href="{{base_path}}manifest.json" />
-    <link rel="icon" href="{{base_path}}favicon.ico" sizes="any" />
+    <link rel="alternate" type="application/rss+xml" title="{{name}} — RSS" href="{{site_path}}rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="{{name}} — Atom" href="{{site_path}}atom.xml" />
+    <link rel="alternate" type="application/feed+json" title="{{name}} — JSON Feed" href="{{site_path}}feed.json" />
+    <link rel="manifest" href="{{site_path}}manifest.json" />
+    <link rel="icon" href="{{site_path}}favicon.ico" sizes="any" />
 
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
@@ -81,8 +81,8 @@
       }
     </script>
 
-    <link rel="stylesheet" href="{{base_path}}styles.css" />
-    <script src="{{base_path}}theme-init.js"></script>
+    <link rel="stylesheet" href="{{site_path}}styles.css" />
+    <script src="{{site_path}}theme-init.js"></script>
   </head>
 
   <body>
@@ -96,6 +96,6 @@
 
     {{> footer}}
 
-    <script src="{{base_path}}main.js" defer></script>
+    <script src="{{site_path}}main.js" defer></script>
   </body>
 </html>
