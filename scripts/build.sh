@@ -142,6 +142,22 @@ emit_legacy_redirect() {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Moved to ${target} — SSG Themes</title>
+    <meta name="description" content="The ${legacy} theme was renamed to ${target}. This page redirects to its new home." />
+
+    <!-- Hand-authored, so the generator's inline-extraction pass never sees
+         it and the one <style> block below stays inline. Everything else
+         stays strict; there is no script on the page at all. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               base-uri 'none';
+               object-src 'none';
+               script-src 'none';
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data:;
+               form-action 'none'"
+    />
+
     <link rel="canonical" href="${SHOWCASE_BASE_URL}/${target}/" />
     <meta name="robots" content="noindex, follow" />
     <meta http-equiv="refresh" content="0; url=${SHOWCASE_BASE_URL}/${target}/" />
@@ -155,9 +171,11 @@ emit_legacy_redirect() {
     </style>
   </head>
   <body>
-    <h1>This theme was renamed</h1>
-    <p><code>${legacy}</code> is now <strong>${target}</strong>.</p>
-    <p><a href="${SHOWCASE_BASE_URL}/${target}/">Continue to ${target}</a></p>
+    <main>
+      <h1>This theme was renamed</h1>
+      <p><code>${legacy}</code> is now <strong>${target}</strong>.</p>
+      <p><a href="${SHOWCASE_BASE_URL}/${target}/">Continue to ${target}</a></p>
+    </main>
   </body>
 </html>
 HTML
