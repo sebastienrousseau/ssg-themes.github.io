@@ -126,11 +126,61 @@ function probe() {
   // --- interactive target sizes ---------------------------------------
   const INTERACTIVE = 'a[href], button, input, select, textarea, summary, [role="button"]';
   const controls = [...document.querySelectorAll(INTERACTIVE)].filter(visible);
-  for (const el of controls) {
-    const r = el.getBoundingClientRect();
+  // 2.5.8 is not a bare "every target is 24x24" rule — it carries two
+  // exceptions that are part of the criterion, not loopholes:
+  //
+  //   Inline   The target sits in a sentence, where its size is set by the
+  //            line-height of the text around it. Enlarging it would break
+  //            the line. A standalone link that merely computes to
+  //            `display: inline` is NOT covered — a nav item or a row in a
+  //            list of links is a target in its own right.
+  //   Spacing  An undersized target passes if a 24px-diameter circle
+  //            centred on it does not touch any other target's box, or the
+  //            circle of another undersized one. A sparse footer of small
+  //            text links is reachable; a tight stack of them is not.
+  //
+  // Both matter here. Implementing neither passed a page of 19px taxonomy
+  // links that axe correctly failed; implementing only the first then
+  // failed 88 well-spaced footer links that axe correctly passed. The
+  // criterion distinguishes them, so the audit has to as well.
+  const boxes = controls.map((el) => el.getBoundingClientRect());
+  const undersized = (r) => r.width < 24 || r.height < 24;
+  const circleOf = (r) => ({
+    cx: r.left + r.width / 2, cy: r.top + r.height / 2, rad: 12,
+  });
+  const circleHitsRect = (c, r) => {
+    const nx = Math.max(r.left, Math.min(c.cx, r.right));
+    const ny = Math.max(r.top, Math.min(c.cy, r.bottom));
+    return Math.hypot(c.cx - nx, c.cy - ny) < c.rad;
+  };
+  const hasClearSpacing = (i) => {
+    const c = circleOf(boxes[i]);
+    for (let j = 0; j < controls.length; j++) {
+      if (j === i || controls[i].contains(controls[j]) || controls[j].contains(controls[i]))
+        continue;
+      const other = boxes[j];
+      if (circleHitsRect(c, other)) return false;
+      if (undersized(other)) {
+        const c2 = circleOf(other);
+        if (Math.hypot(c.cx - c2.cx, c.cy - c2.cy) < c.rad + c2.rad) return false;
+      }
+    }
+    return true;
+  };
+
+  const inlineInSentence = (el, cs) => {
+    if (el.tagName !== 'A' || cs.display !== 'inline') return false;
+    const parent = el.parentElement;
+    if (!parent) return false;
+    const own = (el.textContent || '').trim();
+    const around = (parent.textContent || '').trim();
+    return around.length > own.length + 1;
+  };
+
+  for (let i = 0; i < controls.length; i++) {
+    const el = controls[i], r = boxes[i];
     const cs = getComputedStyle(el);
-    // Inline links inside a paragraph are explicitly exempt from 2.5.8.
-    if (el.tagName === 'A' && cs.display === 'inline') continue;
+    if (inlineInSentence(el, cs)) continue;
     // A skip link parks itself outside the viewport until focused; its
     // resting box is not a tap target, and measuring it reported a size no
     // user can ever hit. What matters is its size *when focused*, checked
@@ -140,9 +190,11 @@ function probe() {
       (r.right < 0 || r.bottom < 0 || r.left > vw || r.top > window.innerHeight);
     if (parked) continue;
     const w = Math.round(r.width), h = Math.round(r.height);
+    if (w >= 44 && h >= 44) continue;
+    if (hasClearSpacing(i)) continue;
     if (w < 24 || h < 24) {
-      out.push({ kind: 'target-size-aa', detail: `${label(el)} is ${w}x${h} (WCAG 2.5.8 needs 24x24)` });
-    } else if (w < 44 || h < 44) {
+      out.push({ kind: 'target-size-aa', detail: `${label(el)} is ${w}x${h} (WCAG 2.5.8 needs 24x24, and it is not clear of neighbours)` });
+    } else {
       out.push({ kind: 'target-size-aaa', detail: `${label(el)} is ${w}x${h} (theme claims 44x44)` });
     }
   }

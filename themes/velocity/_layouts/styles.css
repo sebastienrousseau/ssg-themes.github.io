@@ -425,7 +425,14 @@
     padding: 0;
   }
 
+  /* A nav link is a target in its own right, so it gets the same 44px box
+     as the toggles beside it. Padding alone left it 32px tall on tablets —
+     under the theme's own claim, and too close to the neighbouring control
+     to qualify for 2.5.8's spacing exception. */
   .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     color: var(--ink-soft);
     font-weight: 600;
     font-size: var(--step--1);

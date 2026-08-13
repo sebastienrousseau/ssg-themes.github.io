@@ -19,22 +19,46 @@ jobs:
   # kind behind the "100/100 Lighthouse" and "100% WCAG AAA" badges.
   gate:
     runs-on: ubuntu-latest
+    env:
+      # Bump when the themes need a newer generator. Pinned rather than
+      # floating so a generator commit cannot silently change what this
+      # gate means.
+      SSG_REF: fa361b81816acb9abec96f6d3a19d91196992186
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "22"
 
-      - name: Install cargo-binstall
-        uses: cargo-bins/cargo-binstall@main
+      # The themes depend on generator fixes that are in no crates.io
+      # release: latest published is 0.0.48, these need 0.0.50. Every run
+      # of this workflow so far failed at "Build all themes" with "No valid
+      # front matter found" — the published ssg still stages
+      # content.schema.toml as a page. Building the pinned ref is what makes
+      # CI test the combination that will actually ship. Once 0.0.50 is
+      # published this can go back to `cargo binstall ssg@0.0.50`.
+      - name: Cache the generator build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/ssg
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ssg-${{ env.SSG_REF }}-${{ runner.os }}
 
-      - name: Install ssg
-        run: cargo binstall --no-confirm ssg
+      - name: Install ssg (built from the pinned generator ref)
+        run: |
+          if [ ! -x "$HOME/.cargo/bin/ssg" ]; then
+            cargo install --locked --force \
+              --git https://github.com/sebastienrousseau/static-site-generator \
+              --rev "${SSG_REF}" ssg
+          fi
+          ssg --version
 
       - name: Structure gate
         run: python3 scripts/validate.py
@@ -82,20 +106,40 @@ jobs:
       - name: Install axe and link checker
         run: npm install --no-save @axe-core/cli linkinator
 
-      - name: axe-core (WCAG 2.2 AA)
+      # Both of these previously ran against `public/` served at the server
+      # root. The deployed site lives under /ssg-themes.github.io/, so every
+      # root-absolute URL 404'd: axe loaded pages whose stylesheet was
+      # missing and pronounced them accessible, and linkinator reported 57
+      # phantom broken links. Serving the mirrored root is what makes both
+      # tools see the site as it is actually published.
+      - name: Serve the site at its deployed path
         run: |
-          npx --yes http-server public -p 8080 --silent &
-          npx --yes wait-on http://127.0.0.1:8080 -t 30000
-          for theme in apex atlas velocity; do
-            npx axe "http://127.0.0.1:8080/$theme/" \
-              --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa \
-              --exit
-          done
+          MIRROR_ROOT=.ci-root bash scripts/mirror-root.sh
+          npx --yes http-server .ci-root -p 8080 --silent &
+          npx --yes wait-on http://127.0.0.1:8080/ssg-themes.github.io/ -t 60000
+
+      # Every page, not just the three theme home pages. Restricting it to
+      # the home pages is what hid four target-size failures on the
+      # generated taxonomy pages.
+      - name: axe-core (WCAG 2.2 AA) on every page
+        run: |
+          fail=0
+          while read -r page; do
+            echo "== $page"
+            npx axe "http://127.0.0.1:8080/ssg-themes.github.io${page}" \
+              --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa --exit || fail=1
+          done < tests/responsive/pages.txt
+          exit $fail
 
       - name: Broken link check
-        run: npx linkinator public --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
+        run: |
+          npx linkinator "http://127.0.0.1:8080/ssg-themes.github.io/" \
+            --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
 
-      - name: Lighthouse CI
+      # Informational only, and deliberately so: README.md states this
+      # project ships no Lighthouse score badge, so there is no claim here
+      # for a gate to defend. The report is uploaded for humans to read.
+      - name: Lighthouse CI (informational — no badge depends on it)
         run: |
           npm install --no-save @lhci/cli
           npx lhci autorun \
@@ -106,7 +150,7 @@ jobs:
             --assert.assertions.categories:performance=off \
             --assert.preset=lighthouse:recommended \
             --upload.target=filesystem \
-            --upload.outputDir=./lhci || true
+            --upload.outputDir=./lhci
         continue-on-error: true
 
       - name: Upload build
