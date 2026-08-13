@@ -854,7 +854,22 @@
    that no layout emitted, leaving phones with no navigation at all.
    --------------------------------------------------------------------- */
 @layer components {
+  /* Without JavaScript the disclosure button cannot open anything, so the
+     menu is shown expanded and the button withdrawn. The alternative is a
+     control that does nothing guarding navigation that cannot be reached —
+     which is how the previous release shipped a site with no mobile nav at
+     all, by a different route. */
+  html.no-js .nav-toggle {
+    display: none;
+  }
+
   @media (max-width: 47.999rem) {
+    html.no-js .nav-menu {
+      display: flex;
+      position: static;
+      box-shadow: none;
+    }
+
     .nav-toggle {
       display: inline-flex;
       order: 2;
@@ -894,5 +909,61 @@
     .site-header {
       position: relative;
     }
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Print.
+
+   A sticky header and a fixed search trigger repeat on every sheet, and
+   the dark surfaces are a full cartridge. Measured by rendering each page
+   under `@media print` rather than by eyeballing a preview.
+   --------------------------------------------------------------------- */
+@media print {
+  .site-header,
+  #ssg-search-widget,
+  .theme-toggle,
+  .nav-toggle,
+  .skip-link {
+    display: none !important;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    --bg: #ffffff;
+    --bg-soft: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #ffffff;
+    --ink: #000000;
+    --ink-soft: #1a1a1a;
+    --ink-muted: #333333;
+    --accent: #000000;
+    --line: #666666;
+    --line-soft: #999999;
+    color-scheme: light;
+  }
+
+  body {
+    padding-block-end: 0;
+    background: #fff;
+    color: #000;
+  }
+
+  /* A link reading "here" is useless once the href is gone. */
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+
+  .card,
+  .table-wrap,
+  pre {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .site-footer {
+    margin-block-start: var(--space-m);
   }
 }
