@@ -10,6 +10,7 @@ news_publication_date: "2026-08-11"
 layout: "about"
 language: "en-GB"
 schema: "page"
+tags: ["editorial"]
 changefreq: "monthly"
 copyright_year: "2026"
 form_origin: "https://example.com"
