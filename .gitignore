@@ -24,3 +24,6 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Local preview mirror (see `make preview`).
+.preview/

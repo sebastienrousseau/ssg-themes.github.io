@@ -1,4 +1,4 @@
-.PHONY: help build build-apex build-atlas build-velocity check check-contrast check-weight check-structure clean
+.PHONY: help build build-apex build-atlas build-velocity check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -46,3 +46,11 @@ check-responsive:
 
 clean:
 	@rm -rf public dist
+
+# Serve the built site at the path GitHub Pages actually publishes it under.
+# Opening public/ directly gives a page whose every root-absolute URL 404s,
+# because the deployed site lives under /ssg-themes.github.io/, not at /.
+preview: build ## Serve the built site at its deployed path on :8099
+	@MIRROR_ROOT=.preview bash scripts/mirror-root.sh > /dev/null
+	@echo "  http://127.0.0.1:8099/ssg-themes.github.io/"
+	@npx --yes http-server .preview -p 8099 --silent
