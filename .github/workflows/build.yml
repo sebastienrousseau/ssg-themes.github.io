@@ -23,7 +23,7 @@ jobs:
       # Bump when the themes need a newer generator. Pinned rather than
       # floating so a generator commit cannot silently change what this
       # gate means.
-      SSG_REF: fa361b81816acb9abec96f6d3a19d91196992186
+      SSG_REF: f502ee66225d7d88bcf38c366fba14bae0811264
     steps:
       - uses: actions/checkout@v5
 

@@ -51,7 +51,10 @@
       <!-- Replaced by the generator with a <nav class="lang-switcher">
            listing every locale that serves this page. Left as an inert
            comment on single-locale sites. -->
-      <!-- ssg:lang-switcher -->
+      <!-- An element, not a comment: html-generator minifies some pages
+           during generation and strips comments, which silently removed
+           the switcher from every minified page. -->
+      <div data-ssg-lang-switcher></div>
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
