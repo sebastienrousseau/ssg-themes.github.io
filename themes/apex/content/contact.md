@@ -1,12 +1,29 @@
 ---
-name: "Apex Executive Pro"
-short_name: "Apex"
-title: "Theme Inquiries & Support"
-description: "Inquire about theme licensing, developer customization, and SSG static site deployment in Apex Executive Pro."
-keywords: "Apex Executive Pro, Contact, SSG Support, Static Site Generator"
+name: "Apex"
+short_name: "AX"
+title: "Contact — Apex"
+description: "How to get in touch, and what happens to what you send."
+keywords: "apex contact, enquiries"
 author: "SSG Theme Suite"
-date: "2026-08-08"
-language: "en-GB"
+date: "2026-08-11"
 layout: "contact"
-permalink: "https://ssg-themes.github.io/portfolio/contact.html"
+language: "en-GB"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+news_publication_date: "2026-08-11"
+nav_contact: "true"
+eyebrow: "Contact"
+headline: "Start a conversation"
+lead: "Tell us what you are building and we will point you at the right starting configuration."
+form_action: "https://example.com/your-form-endpoint"
 ---
+
+Replace `form_action` in `content/contact.md` with your own endpoint before
+you deploy. Any service that accepts a standard `POST` will work — the
+theme ships no JavaScript for this form, so it degrades to a normal browser
+submission.
+
+Nothing you enter is stored by the theme, and no third-party script runs on
+this page.

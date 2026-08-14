@@ -1,0 +1,182 @@
+# Typed front-matter contract for this theme.
+#
+# `ssg` validates every page carrying `schema = "page"` against this at
+# compile time, so a missing `permalink` or a mistyped `date` fails the
+# build rather than shipping a page with an empty canonical URL.
+#
+# This matters more than usual here: the template engine treats an
+# unresolved `{{tag}}` as a hard error, so a layout referencing a field no
+# content file defines will break the build anyway — this schema turns that
+# into a named, actionable message.
+
+[[schemas]]
+name = "page"
+
+[[schemas.fields]]
+name = "title"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "description"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "layout"
+type = "string"
+required = true
+
+
+[[schemas.fields]]
+name = "date"
+type = "date"
+required = true
+
+[[schemas.fields]]
+name = "author"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "language"
+type = "string"
+required = true
+
+# Navigation and layout copy. Required because every layout references
+# them and an unresolved tag aborts the render.
+#
+# `site_path`, `site_url`, `locale_path` and `locale_url` are deliberately
+# absent: the generator derives them from `base_url` and the page's own
+# location. Declaring one in front matter still overrides the derived value.
+
+
+
+[[schemas.fields]]
+name = "eyebrow"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "headline"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "lead"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "copyright_year"
+type = "string"
+required = true
+
+# Multi-locale routing. `translation_key` is what pairs an English page
+# with its French counterpart: the slugs are translated
+# (`about/` ↔ `fr/a-propos/`), so path identity cannot do that job.
+# `scripts/validate.py` additionally fails the build when a key does not
+# resolve in every locale listed in `ssg.toml`.
+
+[[schemas.fields]]
+name = "translation_key"
+type = "string"
+required = true
+
+# Localised navigation. The slugs are per-locale, so the layouts cannot
+# hard-code `articles/` or `about/` — a French page would link to a
+# non-existent URL and the `broken_links` audit gate would fail.
+
+[[schemas.fields]]
+name = "slug_articles"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_papers"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_about"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_contact"
+type = "string"
+required = true
+
+# Localised interface copy referenced by base/header/footer, which every
+# page renders.
+
+[[schemas.fields]]
+name = "label_skip"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_home"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_articles"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_papers"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_about"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_contact"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_writing"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_hub"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_feeds"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_built"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_sitemap"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_licence"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_colophon"
+type = "string"
+required = true
+
+# Site-root paths for artefacts published once per site rather than once
+# per locale: stylesheet, scripts, icon, manifest and the feeds. Distinct
+# from `base_path`, which is the LOCALE root and drives page navigation.
+
+

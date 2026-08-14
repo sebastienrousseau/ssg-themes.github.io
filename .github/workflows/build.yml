@@ -1,41 +1,180 @@
-name: Build and Deploy SSG Themes Showcase
+name: Build, gate and deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  # Every claim the themes make on their own pages is checked here. The
+  # previous workflow ran `make build-all` and deployed, with no gate of any
+  # kind behind the "100/100 Lighthouse" and "100% WCAG AAA" badges.
+  gate:
     runs-on: ubuntu-latest
+    env:
+      # Bump when the themes need a newer generator. Pinned rather than
+      # floating so a generator commit cannot silently change what this
+      # gate means.
+      SSG_REF: fa361b81816acb9abec96f6d3a19d91196992186
     steps:
-      - name: Checkout Monorepo Source
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Install cargo-binstall
-        uses: cargo-bins/cargo-binstall@main
-
-      - name: Fast Install ssg CLI
-        run: cargo binstall --no-confirm ssg
-
-      - name: Build All Themes & Gallery Hub
-        run: make build-all
-
-      - name: Deploy to GitHub Pages Branch
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/setup-python@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-          force_orphan: true
-          exclude_assets: ''
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      # The themes depend on generator fixes that are in no crates.io
+      # release: latest published is 0.0.48, these need 0.0.50. Every run
+      # of this workflow so far failed at "Build all themes" with "No valid
+      # front matter found" — the published ssg still stages
+      # content.schema.toml as a page. Building the pinned ref is what makes
+      # CI test the combination that will actually ship. Once 0.0.50 is
+      # published this can go back to `cargo binstall ssg@0.0.50`.
+      - name: Cache the generator build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/ssg
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ssg-${{ env.SSG_REF }}-${{ runner.os }}
+
+      - name: Install ssg (built from the pinned generator ref)
+        run: |
+          if [ ! -x "$HOME/.cargo/bin/ssg" ]; then
+            cargo install --locked --force \
+              --git https://github.com/sebastienrousseau/static-site-generator \
+              --rev "${SSG_REF}" ssg
+          fi
+          ssg --version
+
+      - name: Structure gate
+        run: python3 scripts/validate.py
+
+      - name: Contrast gate (WCAG 1.4.6 AAA text, 1.4.11 non-text)
+        run: python3 scripts/contrast.py
+
+      - name: Build all themes
+        run: make build
+
+      - name: Page weight and third-party request gate
+        run: python3 scripts/pageweight.py
+
+      # `ssg audit` runs the generator's own gates against the built output:
+      # WCAG 2.2, JSON-LD, hreflang, CSP/SRI, HTML5, broken links, Open
+      # Graph, RSS/Atom, image optimisation and search-index integrity.
+      - name: Generator audit
+        # Mirrors the deployed URL prefix first; auditing public/ directly
+        # reports hundreds of phantom broken links on a project site.
+        run: bash scripts/audit.sh
+
+      - name: Accessibility report must be clean
+        run: |
+          python3 - <<'PY'
+          import json, sys, pathlib
+          failed = False
+          for theme in ("apex", "atlas", "velocity"):
+              p = pathlib.Path("public") / theme / "accessibility-report.json"
+              data = json.loads(p.read_text())
+              issues = data.get("total_issues", -1)
+              print(f"{theme}: {issues} issue(s) across {data.get('pages_scanned')} page(s)")
+              if issues != 0:
+                  failed = True
+                  for page in data.get("pages", []):
+                      print(f"  {page}")
+          sys.exit(1 if failed else 0)
+          PY
+
+      # Four suites, all through the same pinned Chromium: layout across 13
+      # viewports x 2 schemes, keyboard/zoom/reduced-motion/forced-colours,
+      # screen-reader + print + degraded delivery, and axe-core WCAG 2.2 AA.
+      # axe runs here rather than via @axe-core/cli because the CLI drives
+      # the runner's system Chrome through ChromeDriver, and the two drift:
+      # it failed all 25 pages with "This version of ChromeDriver only
+      # supports Chrome version 151".
+      - name: Browser gates (layout, interaction, semantics, axe)
+        run: |
+          npm --prefix tests/responsive install --no-audit --no-fund
+          npx --prefix tests/responsive playwright install --with-deps chromium
+          bash tests/responsive/run.sh
+
+      - name: Install link checker
+        run: npm install --no-save linkinator
+
+      # linkinator previously ran against `public/` served at the server
+      # root. The deployed site lives under /ssg-themes.github.io/, so every
+      # root-absolute URL 404'd and it reported 57 phantom broken links.
+      # Serving the mirrored root is what makes it see the site as it is
+      # actually published. (The browser suites above resolve the same
+      # prefix themselves, in run.sh.)
+      - name: Serve the site at its deployed path
+        run: |
+          MIRROR_ROOT=.ci-root bash scripts/mirror-root.sh
+          npx --yes http-server .ci-root -p 8080 --silent &
+          npx --yes wait-on http://127.0.0.1:8080/ssg-themes.github.io/ -t 60000
+
+      - name: Broken link check
+        run: |
+          npx linkinator "http://127.0.0.1:8080/ssg-themes.github.io/" \
+            --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
+
+      # Informational only, and deliberately so: README.md states this
+      # project ships no Lighthouse score badge, so there is no claim here
+      # for a gate to defend. The report is uploaded for humans to read.
+      - name: Lighthouse CI (informational — no badge depends on it)
+        run: |
+          npm install --no-save @lhci/cli
+          npx lhci autorun \
+            --collect.staticDistDir=public \
+            --collect.url=http://localhost/apex/index.html \
+            --collect.url=http://localhost/atlas/index.html \
+            --collect.url=http://localhost/velocity/index.html \
+            --assert.assertions.categories:performance=off \
+            --assert.preset=lighthouse:recommended \
+            --upload.target=filesystem \
+            --upload.outputDir=./lhci
+        continue-on-error: true
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
+
+  deploy:
+    needs: gate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

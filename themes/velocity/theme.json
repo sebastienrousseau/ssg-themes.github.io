@@ -1,15 +1,14 @@
 {
-  "name": "kaishi",
-  "title": "Kaishi Starter & Product Theme",
-  "version": "1.0.0",
-  "description": "Clean, modern starter template for Shokunin SSG featuring landing pages, product features, and contact forms.",
-  "author": "Sébastien Rousseau",
+  "name": "velocity",
+  "title": "Velocity",
+  "version": "2.0.0",
+  "description": "Product and starter theme: smallest useful layout set, no build toolchain, AAA-gated tokens.",
+  "author": "SSG Theme Suite",
   "license": "MIT",
-  "layouts": [
-    "index",
-    "features",
-    "contact",
-    "link",
-    "thank-you"
-  ]
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://ssg-themes.github.io/velocity/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
 }

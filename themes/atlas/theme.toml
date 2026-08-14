@@ -1,0 +1,21 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Atlas"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://ssg-themes.github.io/atlas/"
+
+# Minimum generator version. Below this the build does not merely degrade:
+# the layout named in front matter is ignored, the bundled content schema
+# aborts the compile, and extracted CSS 404s under a sub-path.
+min_version = "0.0.50"
+
+tags = ["blog","editorial","documentation","research","accessibility"]
+features = ["dark-mode","search","rss","atom","json-feed","json-ld","wcag-aa","serif-reading-column"]
+
+[[authors]]
+name = "SSG Theme Suite"
+homepage = "https://github.com/sebastienrousseau"

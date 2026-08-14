@@ -1,124 +1,134 @@
-# Static Site Generator (SSG) Themes Showcase & Monorepo
+# SSG Themes
 
-[![Build Status](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml/badge.svg)](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml)
-[![100% WCAG AAA](https://img.shields.io/badge/WCAG%20AAA-100%25-brightgreen)](https://sebastienrousseau.com/ssg-themes.github.io/)
-[![Lighthouse 100/100](https://img.shields.io/badge/Lighthouse-100%2F100-success)](https://sebastienrousseau.com/ssg-themes.github.io/)
+Three production themes for [Static Site Generator (SSG)](https://github.com/sebastienrousseau/static-site-generator), each with its own design system, all sharing the same architecture and the same set of CI gates.
 
-A curated monorepo of production-ready, Apple-grade themes engineered specifically for [Static Site Generator (SSG)](https://github.com/sebastienrousseau/ssg).
+[![Build and gates](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml/badge.svg)](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
 
-All themes in this repository achieve **100/100 Lighthouse scores**, **100% WCAG AAA accessibility compliance**, zero cumulative layout shift (CLS 0.00), and compile natively in sub-10 milliseconds with zero npm bundler dependencies.
-
----
-
-## 🚀 How to Use These Themes
-
-### Method 1: Using a Theme in a New Project (Recommended)
-
-To start a new client site or personal portfolio using a theme (e.g. `apex`):
-
-1. **Copy the theme files into your project repository:**
-   ```bash
-   # Create your project directory
-   mkdir my-client-site && cd my-client-site
-
-   # Copy layouts, data, and sample content from ssg-themes
-   cp -R /path/to/ssg-themes.github.io/themes/apex/_layouts ./_layouts
-   cp -R /path/to/ssg-themes.github.io/themes/apex/_data ./_data
-   cp -R /path/to/ssg-themes.github.io/themes/apex/content ./_posts
-   ```
-
-2. **Add your content in Markdown (`_posts/*.md`):**
-   Create or edit Markdown files in `_posts/` with YAML frontmatter specifying `layout` and meta fields.
-
-3. **Build your site using `ssg`:**
-   ```bash
-   ssg build -c=_posts -t=_layouts -o=public
-   ```
-   *Your compiled, minified static website will be emitted into `public/`.*
+| Theme | For | Look |
+| :-- | :-- | :-- |
+| **[Apex](themes/apex/)** | Portfolios, consulting, advisory | Cool neutrals, deep blue, interface sans |
+| **[Atlas](themes/atlas/)** | Long-form writing, research, reference | Warm-neutral ground, forest green, serif reading column |
+| **[Velocity](themes/velocity/)** | Product landing pages, starters | Slate and bronze, tight radii, smallest layout set |
 
 ---
 
-### Method 2: Pointing `ssg` Directly to Theme Layouts
-
-If you keep content in your project repo and reference themes directly from this monorepo:
+## Quick start
 
 ```bash
-ssg build \
-  -c=./my-content \
-  -t=/path/to/ssg-themes.github.io/themes/apex/_layouts \
-  -o=./public
+# Copy a theme into your project
+cp -R themes/apex my-site
+cd my-site
+
+# Set your own site name and base URL
+$EDITOR ssg.toml
+
+# Build
+ssg build -f ssg.toml
 ```
+
+Requires **ssg 0.0.50 or later**. Earlier versions do not resolve the layout
+named in front matter — every page renders through `page.html` — reject the
+`content/content.schema.toml` these themes ship, and drop the extracted
+stylesheet on any site published under a sub-path. Atlas additionally needs
+0.0.50 for translated slugs, and Velocity for its pricing island.
+
+Each theme's own README documents its layouts, front-matter contract and
+token system: [Apex](themes/apex/README.md) ·
+[Atlas](themes/atlas/README.md) · [Velocity](themes/velocity/README.md).
 
 ---
 
-## 🎨 Themes Available
+## What is actually verified
 
-| Theme Name | Directory | Target Use Case | Key Features |
-| :--- | :--- | :--- | :--- |
-| **`Apex`** | [`themes/apex`](themes/apex/) | Executive Portfolios & Leadership | ROI Metrics Dashboard, Recruiter Matrix, Case Studies, Dark/Light Mode, Release Packages |
-| **`Atlas`** | [`themes/atlas`](themes/atlas/) | Editorial & Knowledge Hubs | Newsreader Serif Typography, Research Papers, ISO 20022/AI Articles, CSP/SRI |
-| **`Velocity`** | [`themes/velocity`](themes/velocity/) | Starters & Product Landings | Lightweight footprint, Feature Grids, Modern Contact & Thank-You Forms |
-| **`Vanguard`** | Operational Excellence Portfolio | Technical Directors & Systems Leads | High-impact operational grids, case study metrics, release archives |
+Every claim below is produced by a gate that runs on each commit. There are
+no hardcoded score badges in this repository.
 
----
+| Gate | What it asserts | Command |
+| :-- | :-- | :-- |
+| Structure | Manifests, required layouts, screenshots at registry sizes, no third-party host or tracker reference, every layout extends `base.html`, `{{!content}}` never regresses to `{{content}}` | `scripts/validate.py` |
+| Contrast | Text token pairs ≥ 7:1 (WCAG 1.4.6, AAA); borders and focus ring ≥ 3:1 (WCAG 1.4.11) — in **both** light and dark | `scripts/contrast.py` |
+| Page weight | Every page ≤ 20 KB gzipped including its CSS and JS; zero third-party subresources | `scripts/pageweight.py` |
+| Accessibility | `accessibility-report.json` reports 0 issues; axe-core passes `wcag22aa` | `ssg build`, axe-core |
+| Generator audit | JSON-LD, hreflang, CSP/SRI, HTML5, broken links, Open Graph, feeds, search index | `ssg audit` |
 
-## ⚙️ Monorepo Directory Structure
-
-```
-ssg-themes.github.io/
-├── Makefile               # Build tasks for all themes
-├── README.md              # Documentation & usage guide
-├── scripts/
-│   ├── build.sh           # Universal theme compiler script
-│   └── package-themes.sh  # Release archive packager (.zip / .tar.gz)
-├── themes/
-│   ├── apex/              # Executive Portfolio Theme
-│   │   ├── theme.json     # Theme manifest
-│   │   ├── _data/         # Site metadata & navigation
-│   │   ├── _layouts/      # HTML layouts, JS, and CSS
-│   │   └── content/       # Sample Markdown files
-│   ├── atlas/             # Editorial & Knowledge Hub Theme
-│   └── velocity/          # Minimalist Product & Starter Theme
-└── public/                # Output compiled site for GitHub Pages
-```
-
----
-
-## 🛠️ Local Development & Testing
-
-Build all themes locally or target a specific theme:
+Run them all locally:
 
 ```bash
-# Build all themes into public/
-make build
-
-# Build specific themes
-make build-apex
-make build-atlas
-make build-velocity
-
-# Or invoke build.sh directly
-./scripts/build.sh apex
+make check
 ```
 
-To run a live local preview using `ssg dev`:
+**Measured, as of the current build:** 102 token pairs pass contrast, 16
+pages pass the weight budget with the heaviest at 6.9 KB gzipped, 0
+accessibility issues across 15 pages, and 0 third-party subresources.
+
+### What is *not* claimed
+
+- **Not AAA overall.** The colour tokens clear AAA contrast, and that is
+  gated. Full AAA conformance requires manual criteria (sign-language
+  alternatives, extended audio description, context-sensitive help) that no
+  theme can satisfy on its own. The themes target **WCAG 2.2 AA**.
+- **Not "sub-10 ms".** A three-theme build takes roughly 80–90 ms of
+  generator time each on a warm cache. It is fast; the old figure was wrong
+  by about an order of magnitude.
+- **No Lighthouse score badge.** Lighthouse runs in CI and its report is
+  uploaded as an artifact, but a score depends on the host and network, so
+  it is not asserted as a fixed number.
+
+---
+
+## Architecture
+
+All three themes share one structure:
+
+```
+themes/<name>/
+├── ssg.toml                  site name, description, base URL, paths
+├── theme.toml / theme.json   manifest (registry format + JSON mirror)
+├── README.md, CHANGELOG.md
+├── images/
+│   ├── screenshot.png        1500×1000
+│   └── tn.png                900×600
+├── content/
+│   ├── content.schema.toml   typed front-matter contract
+│   └── *.md                  page copy
+└── _layouts/
+    ├── base.html             document shell; declares the `main` block
+    ├── header.html           navigation partial
+    ├── footer.html           footer partial
+    ├── <layout>.html         {{#extends "base"}} + {{#block "main"}}
+    ├── styles.css            the whole design system
+    └── main.js, theme-init.js
+```
+
+Layouts use StaticWeaver's inheritance (`{{#extends}}` / `{{#block}}`),
+partials (`{{> header}}`) and conditionals (`{{#if}}`), so the document
+shell exists once per theme rather than once per layout.
+
+Two constraints are worth knowing before you edit a layout:
+
+- **An unresolved `{{tag}}` is a hard build error**, not an empty string.
+  Guard optional fields with `{{#if field}}…{{/if}}`.
+- **`{{#each}}` cannot iterate front-matter arrays.** The generator
+  stringifies metadata before the template engine sees it, so index pages
+  list entries in Markdown rather than looping.
+
+---
+
+## Development
 
 ```bash
-ssg dev -c=themes/apex/content -t=themes/apex/_layouts
+make build              # build all themes into public/
+make build-apex         # or a single theme
+make check              # structure + contrast + build + weight
+make clean
+ssg dev -f themes/apex/ssg.toml   # live preview
 ```
 
 ---
 
-## 🔒 Security & Performance Standards
+## Licence
 
-Every theme built with SSG enforces:
-- **Sub-10ms Compilation:** Pre-renders clean, minified HTML.
-- **Zero Third-Party Trackers:** Zero external tracking scripts or CDNs.
-- **100% WCAG AAA Accessibility:** Validated contrast ratios for light and dark modes across all controls.
-- **Subresource Integrity (SRI) & SBOM:** Built-in CycloneDX SBOM metadata.
-
----
-
-## 📄 License
-
-Open-source under the Apache-2.0 License.
+MIT — see [LICENSE](LICENSE). The same licence applies to every theme; each
+`theme.toml` and `theme.json` states it, and the structure gate fails if
+they disagree.

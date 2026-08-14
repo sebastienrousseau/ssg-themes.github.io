@@ -1,0 +1,67 @@
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+
+    <!--
+      The table below is the complete, correct answer without JavaScript: it
+      shows monthly pricing. The island only adds the control that switches
+      to annual, so no control is ever rendered that cannot work.
+    -->
+    <ssg-island component="pricing-toggle" hydrate="visible" props='{"saving":"Annual billing saves about 17%."}'>
+      <table data-pricing-table data-period="monthly">
+          <caption class="visually-hidden">
+            Plan comparison. Prices are per month; use the billing period
+            control to switch between monthly and annual rates.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Plan</th>
+              <th scope="col">Price</th>
+              <th scope="col">Sites</th>
+              <th scope="col">Contributors</th>
+              <th scope="col">Support</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Starter</th>
+              <td data-monthly="Free" data-annual="Free">
+                <span data-amount>Free</span>
+                <span data-suffix class="hint"></span>
+              </td>
+              <td>1</td>
+              <td>1</td>
+              <td>Community</td>
+            </tr>
+            <tr>
+              <th scope="row">Team <span class="badge">Popular</span></th>
+              <td data-monthly="£24" data-annual="£20">
+                <span data-amount>£24</span>
+                <span data-suffix class="hint">/month</span>
+              </td>
+              <td>10</td>
+              <td>15</td>
+              <td>Email, 2 working days</td>
+            </tr>
+            <tr>
+              <th scope="row">Enterprise</th>
+              <td data-monthly="£96" data-annual="£80">
+                <span data-amount>£96</span>
+                <span data-suffix class="hint">/month</span>
+              </td>
+              <td>Unlimited</td>
+              <td>Unlimited</td>
+              <td>Named contact</td>
+            </tr>
+          </tbody>
+      </table>
+    </ssg-island>
+
+    <div class="prose">{{!content}}</div>
+  </div>
+</article>
+{{/block}}

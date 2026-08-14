@@ -1,67 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Velocity Air | Ultra-Lightweight SSG Features Template</title>
-  <meta name="description" content="Discover the Velocity Air features and performance specifications template. Hyper-fast static site compilation, zero-JS initial load, and sub-5KB CSS footprint.">
-  <meta name="keywords" content="Velocity Air, SSG Features Template, Static Site Generator, Lightweight Theme, Zero JS, Performance">
-  <meta property="og:title" content="Velocity Air | Ultra-Lightweight SSG Features Template">
-  <meta property="og:description" content="Discover the Velocity Air features and performance specifications template.">
-  <meta property="og:type" content="article">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Velocity Air | Ultra-Lightweight SSG Features Template">
-  <meta name="twitter:description" content="Discover the Velocity Air features and performance specifications template.">
-  <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="styles.css">
-  <script src="theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">VA</span><span class="brand-text">Velocity Air</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link active" href="about.html">Features</a></li>
-          <li><a class="nav-link" href="contact.html">Support</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main" class="container" style="padding-block:4rem;">
-    <p style="color:var(--accent); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">VELOCITY AIR · TEMPLATE FEATURES</p>
-    <h1 style="font-size:2.8rem; font-weight:800; margin-bottom:1rem; color:var(--ink);">Features &amp; Performance Specifications</h1>
-    <p style="font-size:1.25rem; color:var(--ink-muted); max-width:700px; margin-bottom:2.5rem;">Built specifically for micro-SaaS products, developer documentation hubs, and lightning-fast blogs.</p>
-
-    <!-- TEMPLATE OPPORTUNITY BANNER -->
-    <div style="background:var(--surface-soft); padding:2rem; border-radius:14px; border:1px solid var(--surface-border); margin-bottom:3rem;">
-      <h2 style="font-size:1.5rem; color:var(--ink); margin-bottom:0.75rem;">💡 Template Opportunity: Hyper-Fast Delivery</h2>
-      <p style="color:var(--ink-muted); font-size:1rem; line-height:1.6;">Velocity Air removes all runtime JavaScript frameworks, delivering instant edge CDN response times under 10ms. Ideal for developer tools and micro-SaaS products where speed is the #1 acquisition metric.</p>
-    </div>
-
-    <div class="grid-3">
-      <div class="card-dark">
-        <h3>⚡ Zero JavaScript Overhead</h3>
-        <p>Pre-rendered HTML pages with instant first contentful paint (FCP &lt; 0.2s).</p>
-      </div>
-      <div class="card-dark">
-        <h3>📱 Mobile &amp; 3G Optimized</h3>
-        <p>Extremely compact asset bundle under 5KB total CSS footprint.</p>
-      </div>
-      <div class="card-dark">
-        <h3>🔍 Instant Client Search</h3>
-        <p>Pre-compiled client-side search index for documentation browsing.</p>
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container text-center"><p>&copy; 2026 Velocity Air. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
-  </footer>
-  <script src="main.js"></script>
-</body>
-</html>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container prose stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+    {{!content}}
+  </div>
+</article>
+{{/block}}

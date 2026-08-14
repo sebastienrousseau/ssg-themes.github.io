@@ -1,17 +1,14 @@
 {
-  "name": "portfolio",
-  "title": "Executive Portfolio & Leadership Theme",
-  "version": "1.0.0",
-  "description": "High-impact SSG portfolio theme for executives, leaders, and consultants inspired by top recruiter magnet blueprints.",
-  "author": "Sébastien Rousseau",
+  "name": "apex",
+  "title": "Apex",
+  "version": "2.0.0",
+  "description": "Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests.",
+  "author": "SSG Theme Suite",
   "license": "MIT",
-  "layouts": [
-    "index",
-    "page",
-    "project",
-    "frameworks",
-    "about",
-    "contact",
-    "404"
-  ]
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://ssg-themes.github.io/apex/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
 }

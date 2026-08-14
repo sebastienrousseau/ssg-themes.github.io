@@ -1,0 +1,48 @@
+# Site-level configuration for the Velocity theme.
+#
+# Passed to the generator with `ssg build -f themes/velocity/ssg.toml`. Without
+# it the build falls back to the compiled-in defaults, which is how earlier
+# releases shipped an `llms.txt` reading "MySsgSite — A site built with SSG"
+# and JSON-LD pointing at http://127.0.0.1:8000.
+#
+# Change `base_url` to your own origin before deploying.
+#
+# The path keys are required by the config schema and take precedence over
+# the `-c` / `-t` / `-o` flags, so the build is driven entirely from here.
+# They are relative to the directory you invoke `ssg` from — the repository
+# root in this monorepo. In your own project they are usually
+# `content`, `_layouts` and `public`.
+
+site_name = "Velocity"
+site_title = "Velocity — product and starter theme for SSG"
+site_description = "A lightweight landing-page and documentation starter for Static Site Generator. No bundler, no third-party requests, and a colour system gated at AAA for text."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/velocity/content"
+template_dir = "themes/velocity/_layouts"
+output_dir = "public/velocity"
+
+# Agentic discovery (2026). Emits /agents.txt, /.well-known/ai-plugin.json
+# and /.well-known/mcp.json.
+#
+# `agents.txt` is a robots-shaped policy file for AI crawlers. The default
+# below is permissive: these are demo sites whose whole purpose is to be
+# read. A real site should decide deliberately — the same file is where you
+# would deny a crawler.
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+# Security headers for platforms that read `_headers`.
+#
+# GitHub Pages ignores this file, so it does nothing for the showcase — it
+# is here because the themes are distributable and a user deploying to
+# Netlify or Cloudflare gets the headers for free. It also carries
+# `frame-ancestors`, which a <meta> CSP cannot express, closing the one gap
+# the in-page policy leaves open.
+[edge_headers]
+targets = ["netlify", "cloudflare"]

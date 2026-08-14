@@ -1,0 +1,51 @@
+---
+name: "Atlas"
+short_name: "AT"
+title: "Nous contacter — Atlas"
+description: "Comment joindre la rédaction et signaler une correction."
+keywords: "atlas contact, corrections"
+author: "SSG Theme Suite"
+date: "2026-08-11"
+news_publication_date: "2026-08-11"
+layout: "contact"
+language: "fr"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+nav_contact: "true"
+form_action: "https://example.com/your-form-endpoint"
+eyebrow: "Contact"
+headline: "Corrections et demandes"
+lead: "Les corrections sont bienvenues et sont suivies d'effet. Dites-nous ce qui est faux, et où."
+translation_key: "contact"
+slug_articles: "articles/"
+slug_papers: "publications/"
+slug_about: "a-propos/"
+slug_contact: "nous-contacter/"
+label_skip: "Aller au contenu principal"
+label_home: "Accueil"
+label_articles: "Articles"
+label_papers: "Publications"
+label_about: "À propos"
+label_contact: "Nous contacter"
+footer_writing: "Écrits"
+footer_hub: "Le site"
+footer_feeds: "Flux"
+footer_built: "Réalisé avec"
+footer_sitemap: "Plan du site"
+footer_licence: "Publié sous licence MIT."
+footer_colophon: "Réalisé avec Static Site Generator (SSG). Conformité WCAG 2.2 AA vérifiée en intégration continue."
+form_name: "Votre nom"
+form_email: "Adresse électronique"
+form_email_hint: "Utilisée uniquement pour répondre à cette demande."
+form_message: "Message"
+form_submit: "Envoyer la demande"
+---
+
+Renseignez `form_action` dans `content/fr/nous-contacter.md` avec votre propre
+point de collecte avant de mettre le site en ligne. Le formulaire ne livre
+aucun JavaScript : il se réduit à une soumission de navigateur ordinaire.
+
+Rien de ce que vous saisissez n'est conservé par le thème, et aucun script
+tiers ne s'exécute sur cette page.

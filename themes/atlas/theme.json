@@ -1,18 +1,14 @@
 {
-  "name": "sebastienrousseau",
-  "title": "Editorial & Knowledge Hub Theme",
-  "version": "1.0.0",
-  "description": "High-performance editorial, research paper, and knowledge hub SSG theme benchmarked against sebastienrousseau.com.",
-  "author": "Sébastien Rousseau",
+  "name": "atlas",
+  "title": "Atlas",
+  "version": "2.0.0",
+  "description": "Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens.",
+  "author": "SSG Theme Suite",
   "license": "MIT",
-  "layouts": [
-    "index",
-    "page",
-    "articles",
-    "project",
-    "papers",
-    "report",
-    "about",
-    "contact"
-  ]
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://ssg-themes.github.io/atlas/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
 }

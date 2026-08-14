@@ -1,133 +1,61 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apex | Premium Static Site Generator Theme</title>
-  <meta name="description" content="Apex is the flagship executive showcase theme built for Static Site Generator (SSG). Featuring 100/100 Lighthouse performance, WCAG AAA accessibility, and zero-JS layout grids. Download Apex theme zip and tar.gz.">
-  <meta name="keywords" content="Apex, SSG Theme, Static Site Generator, Lighthouse 100, WCAG AAA, Download Theme ZIP">
-  <meta property="og:title" content="Apex | Premium Static Site Generator Theme">
-  <meta property="og:description" content="Apex is the flagship executive showcase theme built for Static Site Generator (SSG). Download theme release package.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Apex | Premium Static Site Generator Theme">
-  <meta name="twitter:description" content="Apex is the flagship executive showcase theme built for Static Site Generator (SSG).">
-  <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="styles.css">
-  <script src="theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">Apex</span><span class="brand-text">Apex</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link active" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="projects/">Showcase</a></li>
-          <li><a class="nav-link" href="frameworks/">Frameworks</a></li>
-          <li><a class="nav-link" href="about/">Specifications</a></li>
-          <li><a class="nav-link" href="contact/">Inquiries</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
+{{#extends "base"}}
+{{#block "main"}}
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="container hero-grid">
+    <div class="hero-image">
+      <picture>
+        <source srcset="{{locale_path}}assets/images/portrait.webp" type="image/webp" />
+        <img src="{{locale_path}}assets/images/portrait.jpg" alt="{{hero_alt}}" width="512" height="512" loading="eager" fetchpriority="high" />
+      </picture>
     </div>
-  </header>
-
-  <main id="main">
-    <!-- HERO SECTION -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="container grid grid-cols-12 hero-grid">
-        <div class="col-span-5 hero-image-wrap">
-          <div class="hero-image shadow-lg">
-            <img src="assets/images/portrait.jpg" alt="Apex Theme Showcase Hero" width="512" height="512" loading="eager" fetchpriority="high">
-          </div>
-        </div>
-        <div class="col-span-7 hero-content">
-          <p class="section-eyebrow">FLAGSHIP EXECUTIVE SHOWCASE TEMPLATE</p>
-          <h1 id="hero-heading">Apex | Powered by Static Site Generator</h1>
-          <p class="hero-subhead">Engineered for executive leaders, portfolio directors, and advisory consultants who demand lightning speed, 100/100 Lighthouse scores, and WCAG AAA compliance.</p>
-
-          <ul class="hero-list">
-            <li><strong>Sub-10ms Build Speed:</strong> Instant compilation with Static Site Generator (SSG)</li>
-            <li><strong>100% WCAG AAA Compliant:</strong> Engineered contrast ratios, ARIA landmarks, zero layout shift</li>
-            <li><strong>Complete Design Control:</strong> Full dark/light mode toggle, modular token styling, zero JavaScript overhead</li>
-          </ul>
-
-          <div class="cta-row">
-            <a class="btn-primary" href="projects/">Explore Showcase</a>
-            <a class="btn-secondary" href="apex.zip" download>📦 Download .ZIP</a>
-            <a class="btn-outline" href="apex.tar.gz" download>📦 Download .TAR.GZ</a>
-          </div>
-        </div>
+    <div class="stack">
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1 id="hero-heading">{{headline}}</h1>
+      <p class="lead">{{lead}}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{locale_path}}projects/">View case studies</a>
+        <a class="btn btn-secondary" href="{{locale_path}}apex.zip" download>Download .zip</a>
+        <a class="btn btn-outline" href="{{locale_path}}apex.tar.gz" download>Download .tar.gz</a>
       </div>
-    </section>
-
-    <!-- METRICS DASHBOARD -->
-    <section class="metrics-dashboard" aria-label="Performance Metrics">
-      <div class="container">
-        <div class="metrics-header text-center">
-          <p class="section-eyebrow">UNMATCHED BENCHMARKS</p>
-          <h2>Theme Performance &amp; Technical Capabilities</h2>
-          <p class="subtitle-narrow">Pre-rendered static HTML delivering peak core web vitals and zero-latency user experience.</p>
-        </div>
-        <div class="grid grid-cols-4 metrics-grid">
-          <div class="metric-card">
-            <div class="metric-value">100/100</div>
-            <div class="metric-title">Lighthouse Score</div>
-            <div class="metric-desc">Perfect 100s in Performance, Accessibility, Best Practices &amp; SEO.</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">&lt; 10ms</div>
-            <div class="metric-title">SSG Build Time</div>
-            <div class="metric-desc">Compiled natively in Rust with Static Site Generator. Zero npm build bloat.</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">0.00</div>
-            <div class="metric-title">Cumulative Layout Shift</div>
-            <div class="metric-desc">Zero visual movement during page load. Instant edge CDN rendering.</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">AAA</div>
-            <div class="metric-title">WCAG Compliance</div>
-            <div class="metric-desc">Validated color contrast ratios for light and dark themes across all components.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROMOTIONAL FEATURE GRID -->
-    <section style="padding-block:4rem; background:var(--surface-soft);">
-      <div class="container">
-        <div class="text-center" style="max-width:700px; margin-inline:auto; margin-bottom:3rem; text-align:center;">
-          <p class="section-eyebrow">POWERED BY STATIC SITE GENERATOR (SSG)</p>
-          <h2 style="font-size:2rem; font-weight:800; margin-bottom:0.75rem; color:var(--ink);">Why Build Showcase Sites with SSG?</h2>
-          <p style="color:var(--ink-soft);">Apex gives you complete control over layout styles, design tokens, and zero-latency delivery.</p>
-        </div>
-
-        <div class="grid grid-cols-3" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
-          <div class="card" style="padding:1.75rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-            <h3 style="font-size:1.2rem; margin-bottom:0.5rem; color:var(--ink);">⚡ Blazing Fast Build Times</h3>
-            <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Compiles in under 10ms with Static Site Generator (SSG). Instant deployment to global edge CDNs.</p>
-          </div>
-          <div class="card" style="padding:1.75rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-            <h3 style="font-size:1.2rem; margin-bottom:0.5rem; color:var(--ink);">🎨 Maximized Style Control</h3>
-            <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Easily customize colors, executive matrices, and dark/light themes without complex npm build chains.</p>
-          </div>
-          <div class="card" style="padding:1.75rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-            <h3 style="font-size:1.2rem; margin-bottom:0.5rem; color:var(--ink);">🛡️ Safe &amp; Self-Contained</h3>
-            <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">100% self-contained layout. Zero third-party tracker scripts or external CDN dependencies for maximum privacy.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
-    <div class="container text-center">
-      <p>&copy; 2026 Apex. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p>
     </div>
-  </footer>
-  <script src="main.js"></script>
-</body>
-</html>
+  </div>
+</section>
+
+<section class="section section-soft" aria-labelledby="metrics-heading">
+  <div class="container stack">
+    <div class="text-center stack">
+      <h2 id="metrics-heading">Measured, not asserted</h2>
+      <p class="lead mx-auto text-center">Every figure below is produced by a CI gate on each commit. Nothing here is a static badge.</p>
+    </div>
+    <div class="grid">
+      <div class="card metric">
+        <p class="metric-value">AA</p>
+        <p class="metric-title">WCAG 2.2 conformance</p>
+        <p>Verified by axe-core and <code>ssg audit</code>. Colour tokens additionally clear AAA 7:1 for text.</p>
+      </div>
+      <div class="card metric">
+        <p class="metric-value">0</p>
+        <p class="metric-title">Third-party requests</p>
+        <p>No CDN, no webfont host, no analytics. Everything ships from your own origin.</p>
+      </div>
+      <div class="card metric">
+        <p class="metric-value">&lt;7&nbsp;KB</p>
+        <p class="metric-title">Heaviest page, compressed</p>
+        <p>HTML plus the fingerprinted CSS and JS it references. Enforced at 20&nbsp;KB by <code>scripts/pageweight.py</code>.</p>
+      </div>
+      <div class="card metric">
+        <p class="metric-value">0.00</p>
+        <p class="metric-title">Cumulative layout shift</p>
+        <p>Every image carries intrinsic dimensions; no late-loading webfont reflows the page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="body-heading">
+  <div class="container prose">
+    <h2 id="body-heading" class="visually-hidden">About this theme</h2>
+    {{!content}}
+  </div>
+</section>
+{{/block}}

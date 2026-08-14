@@ -1,79 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{language}}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apex | Theme Architecture &amp; Token Frameworks</title>
-  <meta name="description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex built for Static Site Generator (SSG).">
-  <meta name="keywords" content="Apex, Theme Architecture, Design Tokens, SSG Frameworks, Static Site Generator">
-  <meta property="og:title" content="Apex | Theme Architecture &amp; Token Frameworks">
-  <meta property="og:description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex built for Static Site Generator (SSG).">
-  <meta property="og:type" content="article">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Apex | Theme Architecture &amp; Token Frameworks">
-  <meta name="twitter:description" content="Discover theme architecture, modular CSS design tokens, and layout grids in Apex built for Static Site Generator (SSG).">
-  <link rel="canonical" href="{{url}}">
-  <link rel="stylesheet" href="../styles.css">
-  <script src="../theme-init.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">Apex</span><span class="brand-text">Apex</span></a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="../index.html">Home</a></li>
-          <li><a class="nav-link" href="../projects/">Showcase</a></li>
-          <li><a class="nav-link active" href="../frameworks/">Frameworks</a></li>
-          <li><a class="nav-link" href="../about/">Specifications</a></li>
-          <li><a class="nav-link" href="../contact/">Inquiries</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">🌓</button>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="container" style="padding-block:3.5rem;">
-      <p class="section-eyebrow">APEX · THEME ARCHITECTURE</p>
-      <h1 style="font-size:2.8rem; font-weight:800; letter-spacing:-0.03em;">Design Token &amp; Layout Frameworks</h1>
-      <p class="hero-subhead" style="max-width:750px;">Modular layout grids, CSS custom property tokens, and pre-rendered component systems engineered for Static Site Generator (SSG).</p>
-      <hr style="border:0; border-top:1px solid var(--line-soft); margin-block:2rem;">
-
-      <!-- TEMPLATE OPPORTUNITY BANNER -->
-      <div style="background:var(--surface-soft); padding:2rem; border-radius:16px; border:1px solid var(--line-soft); margin-bottom:3rem;">
-        <h2 style="font-size:1.5rem; margin-bottom:0.75rem; color:var(--ink);">💡 Architectural Advantage: Tokenized Design System</h2>
-        <p style="color:var(--ink-soft); font-size:1rem; line-height:1.6;">Apex relies on a 100% tokenized CSS design system. Color palettes, fluid typography scales, layout spacing, and dark/light theme variables are managed centrally via native CSS custom properties, allowing instant customization without compiling heavy JavaScript bundles.</p>
-      </div>
-
-      <div class="frameworks-grid-2x2">
-        <div class="card" style="padding:2rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-          <h3 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--ink);">📐 12-Column Responsive Layout Grid</h3>
-          <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Flexible CSS grid framework adapting cleanly across mobile smartphones, tablets, high-DPI laptops, and ultra-wide desktop displays.</p>
-        </div>
-
-        <div class="card" style="padding:2rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-          <h3 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--ink);">🎨 Zero-CLS Dark/Light Palette</h3>
-          <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Theme tokens switch dynamically with zero layout shift (CLS 0.00) using native <code>data-theme</code> attribute observers.</p>
-        </div>
-
-        <div class="card" style="padding:2rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-          <h3 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--ink);">♿ WCAG AAA Contrast Ratios</h3>
-          <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Engineered accessibility standards ensuring 7:1+ contrast ratios for all primary headers, body copy, and UI controls.</p>
-        </div>
-
-        <div class="card" style="padding:2rem; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; box-shadow:var(--shadow-sm);">
-          <h3 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--ink);">⚡ Sub-10ms SSG Pre-rendering</h3>
-          <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.5;">Built directly for Static Site Generator (SSG). Pre-renders semantic HTML with zero runtime JavaScript dependency.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" style="border-top:1px solid var(--line-soft); padding:3rem 0; margin-top:4rem;">
-    <div class="container text-center"><p>&copy; 2026 Apex. Built with Static Site Generator (SSG). 100% WCAG AAA Compliant.</p></div>
-  </footer>
-  <script src="../main.js"></script>
-</body>
-</html>
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section">
+  <div class="container prose stack">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+    {{!content}}
+  </div>
+</article>
+{{/block}}

@@ -1,174 +1,1044 @@
-/* Executive Portfolio SSG Theme Stylesheet */
-*, *::before, *::after { box-sizing: border-box; }
-[hidden] { display: none !important; }
+/*!
+ * Atlas — editorial and knowledge-hub theme for Static Site Generator (SSG).
+ *
+ * Token contract
+ * --------------
+ * Every colour below is gated by `scripts/contrast.py`, which parses the
+ * two `:root` blocks and asserts the pairs it declares. Text tokens clear
+ * WCAG 1.4.6 (AAA, 7:1); borders and the focus ring clear WCAG 1.4.11
+ * (3:1). Change a value and the gate re-checks it — do not hand-tune a
+ * colour without running `make check`.
+ *
+ * Layers keep specificity flat so a site can override any component from
+ * its own stylesheet without `!important`.
+ */
+@layer reset, tokens, base, layout, components, utilities;
 
-:root, :root[data-theme="light"] {
-  --bg: #fbfbfd;
-  --bg-soft: #f5f5f7;
-  --surface: #ffffff;
-  --surface-soft: #f5f5f7;
-  --ink: #1d1d1f;
-  --ink-soft: #3a3a3c;
-  --ink-muted: #6e6e73;
-  --line: #d2d2d7;
-  --line-soft: #e8e8ed;
-  --accent: #0050a4;
-  --accent-hover: #003f7d;
-  --accent-soft: #e8f1fd;
-  --accent-ink: #ffffff;
-  --focus: #0071e3;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --radius: 12px;
-  color-scheme: light;
+@layer tokens {
+  /* Light — the default, and what an unstamped `prefers-color-scheme:
+     light` viewer sees. */
+  :root,
+  :root[data-theme="light"] {
+    --bg: #fcfcfb;
+    --bg-soft: #f2f4f1;
+    --surface: #ffffff;
+    --surface-soft: #f2f4f1;
+
+    --ink: #141815;
+    --ink-soft: #363c38;
+    --ink-muted: #4a514c;
+
+    --accent: #145239;
+    --accent-hover: #0d3a28;
+    --accent-ink: #ffffff;
+    --accent-soft: #e3efe8;
+    --on-accent-soft: #0f3f2c;
+
+    --line: #79817b;
+    --line-soft: #e2e6e2;
+    --focus: #1f7a52;
+
+    --shadow-sm: 0 1px 2px rgb(20 24 21 / 6%);
+    --shadow-md: 0 6px 20px -8px rgb(20 24 21 / 16%);
+
+    color-scheme: light;
+  }
+
+  /* Dark — redefine tokens only. Guarded so an explicit light choice
+     still wins on a dark OS. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0e0c;
+      --bg-soft: #10140f;
+      --surface: #171b18;
+      --surface-soft: #1d221e;
+
+      --ink: #eef1ee;
+      --ink-soft: #d7dcd8;
+      --ink-muted: #abb4ae;
+
+      --accent: #6fd39f;
+      --accent-hover: #93e0b7;
+      --accent-ink: #06120c;
+      --accent-soft: #12251b;
+      --on-accent-soft: #8fdfb4;
+
+      --line: #6b756e;
+      --line-soft: #262c28;
+      --focus: #6fd39f;
+
+      --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+      --shadow-md: 0 6px 20px -8px rgb(0 0 0 / 65%);
+
+      color-scheme: dark;
+    }
+  }
+
+  /* Same tokens again so the in-page toggle wins in both directions. */
+  :root[data-theme="dark"] {
+    --bg: #0b0e0c;
+    --bg-soft: #10140f;
+    --surface: #171b18;
+    --surface-soft: #1d221e;
+
+    --ink: #eef1ee;
+    --ink-soft: #d7dcd8;
+    --ink-muted: #abb4ae;
+
+    --accent: #6fd39f;
+    --accent-hover: #93e0b7;
+    --accent-ink: #06120c;
+    --accent-soft: #12251b;
+    --on-accent-soft: #8fdfb4;
+
+    --line: #6b756e;
+    --line-soft: #262c28;
+    --focus: #6fd39f;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+    --shadow-md: 0 6px 20px -8px rgb(0 0 0 / 65%);
+
+    color-scheme: dark;
+  }
+
+  :root {
+    --font-sans: "Iowan Old Style", Charter, "Bitstream Charter", Georgia,
+      "Times New Roman", serif;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      monospace;
+
+    --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+    --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+    --step-1: clamp(1.2rem, 1.13rem + 0.36vw, 1.42rem);
+    --step-2: clamp(1.44rem, 1.32rem + 0.6vw, 1.85rem);
+    --step-3: clamp(1.73rem, 1.53rem + 0.98vw, 2.4rem);
+    --step-4: clamp(2.07rem, 1.75rem + 1.6vw, 3.13rem);
+
+    --space-2xs: 0.375rem;
+    --space-xs: 0.625rem;
+    --space-s: 1rem;
+    --space-m: 1.5rem;
+    --space-l: 2.5rem;
+    --space-xl: 4rem;
+    --space-2xl: 6rem;
+
+    --radius: 4px;
+    --radius-sm: 3px;
+    --measure: 72ch;
+  }
 }
 
-:root[data-theme="dark"] {
-  --bg: #000000;
-  --bg-soft: #0a0a0a;
-  --surface: #1d1d1f;
-  --surface-soft: #161617;
-  --ink: #f5f5f7;
-  --ink-soft: #e5e5ea;
-  --ink-muted: #a8a8ae;
-  --line: #3a3a3d;
-  --line-soft: #1f1f22;
-  --accent: #4db0ff;
-  --accent-hover: #61b8ff;
-  --accent-soft: rgba(77,176,255,0.12);
-  --accent-ink: #000000;
-  --focus: #4db0ff;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  color-scheme: dark;
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  figure {
+    margin: 0;
+  }
+
+  ul[class],
+  ol[class] {
+    list-style: none;
+    padding: 0;
+  }
+
+  img,
+  picture,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  /* WCAG 2.3.3 — honour a reduced-motion preference everywhere rather
+     than per-component. Transitions are decorative in this theme, so
+     removing them costs nothing. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--bg);
-  color: var(--ink);
-  line-height: 1.6;
-  font-size: 1rem;
+@layer base {
+  body {
+    /* The generator pins a floating search trigger to the bottom-right on
+       phones; this keeps it from resting over the final control. */
+    padding-block-end: 4.5rem;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.15;
+    letter-spacing: -0.021em;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: var(--step-3);
+    font-weight: 750;
+  }
+
+  h3 {
+    font-size: var(--step-1);
+    font-weight: 700;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover {
+    color: var(--accent-hover);
+  }
+
+  /* WCAG 2.4.13 — a focus indicator that is visible on every ground and
+     never clipped by an ancestor's overflow. */
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  code,
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  /* A fenced block cannot reflow — its lines have a fixed width — so it
+     scrolls inside its own box rather than widening the page (WCAG 1.4.10).
+     Focusable for the same reason the table wrapper is: a scroll region a
+     keyboard user cannot reach holds unreachable content. */
+  pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-s);
+    background: var(--surface-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  pre:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    white-space: pre;
+  }
 }
 
-.container {
-  width: 100%;
-  max-width: 1140px;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+@layer layout {
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+
+  .container.narrow {
+    max-width: 780px;
+  }
+
+  .prose {
+    max-width: var(--measure);
+  }
+
+  .prose > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  .prose h2 {
+    margin-block-start: var(--space-l);
+  }
+
+  .prose h3 {
+    margin-block-start: var(--space-m);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-inline-start: 1.25rem;
+  }
+
+  .prose li + li {
+    margin-block-start: var(--space-2xs);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  .section {
+    padding-block: var(--space-xl);
+  }
+
+  .section-soft {
+    background: var(--surface-soft);
+    border-block: 1px solid var(--line-soft);
+  }
+
+  /* Auto-fitting grids: no breakpoint needed, and they reflow rather than
+     overflow at 320px (WCAG 1.4.10). */
+  .grid {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .grid-wide {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: -9999px;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .skip-link:focus {
+    inset-inline-start: var(--space-s);
+    top: var(--space-s);
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+  }
 }
 
-.container.narrow { max-width: 800px; }
+@layer components {
+  /* ---------- header + navigation ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-block-end: 1px solid var(--line-soft);
+  }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-s);
+    min-height: 4.25rem;
+  }
 
-.skip-link, .skip {
-  position: absolute !important;
-  left: -9999px !important;
-  top: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    min-height: 2.75rem;
+    gap: 0.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: var(--step--1);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-width: 0;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* A nav link is a target in its own right, so it gets the same 44px box
+     as the toggles beside it. Padding alone left it 32px tall on tablets —
+     under the theme's own claim, and too close to the neighbouring control
+     to qualify for 2.5.8's spacing exception. */
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: var(--step--1);
+    text-decoration: none;
+    padding-block: 0.5rem;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--accent);
+  }
+
+  .nav-link[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 2px;
+  }
+
+  /* ------------------------------------------------------------------
+     Language switcher.
+
+     Injected by the generator's i18n plugin in place of the
+     `<!-- ssg:lang-switcher -->` marker in `header.html`, so the markup
+     below is not authored in this theme:
+
+       <nav class="lang-switcher" aria-label="Language">
+         <ul><li><a href=… lang="fr" hreflang="fr">fr</a></li>…</ul>
+       </nav>
+
+     One locale per `<li>`; the current locale carries
+     `aria-current="page"`. Styled to read as a compact set of switches
+     rather than primary navigation — it is a fallback for readers whose
+     `Accept-Language` did not land them where they wanted.
+     ------------------------------------------------------------------ */
+  .lang-switcher ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lang-switcher a {
+    /* 24x24 CSS px minimum target (WCAG 2.5.8), same rule the nav and
+       theme toggles follow. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    min-height: 2rem;
+    padding-inline: 0.375rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .lang-switcher a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lang-switcher a[aria-current="page"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
+  }
+
+  /* WCAG 2.5.8 — every control clears the 24x24 CSS px minimum target. */
+  .nav-toggle,
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    background: var(--surface-soft);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-toggle:hover,
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-toggle svg,
+  .theme-toggle svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* The icon shown depends on state, so the toggle never needs its
+     accessible name rewritten by script. */
+  .theme-toggle .icon-dark,
+  :root[data-theme="dark"] .theme-toggle .icon-light {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .theme-toggle .icon-dark {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .icon-light {
+      display: none;
+    }
+
+    :root:not([data-theme="light"]) .theme-toggle .icon-dark {
+      display: block;
+    }
+  }
+
+  .nav-toggle[aria-expanded="true"] .icon-open,
+  .nav-toggle .icon-close {
+    display: none;
+  }
+
+  .nav-toggle[aria-expanded="true"] .icon-close {
+    display: block;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding-block: var(--space-xl);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: var(--space-l);
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-grid {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .hero-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+
+  .eyebrow,
+  .nav-link,
+  .btn,
+  .badge,
+  .brand,
+  .site-footer,
+  th,
+  .field label,
+  .metric-title {
+    font-family: var(--font-ui);
+  }
+
+  .eyebrow {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent);
+  }
+
+  .lead {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-inline: 1.25rem;
+    border-radius: var(--radius-sm);
+    font-weight: 650;
+    font-size: var(--step--1);
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+  }
+
+  .btn-secondary {
+    background: var(--surface-soft);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn-secondary:hover,
+  .btn-outline:hover {
+    border-color: var(--accent-hover);
+    color: var(--accent-hover);
+  }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: var(--space-m);
+    box-shadow: var(--shadow-sm);
+    container-type: inline-size;
+  }
+
+  .card h3 {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .card p {
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+  }
+
+  /* Container query: a card laid out in a wide slot gets a roomier
+     interior without the page needing to know where it sits. */
+  @container (min-width: 26rem) {
+    .card {
+      padding: var(--space-l);
+    }
+  }
+
+  .metric {
+    text-align: center;
+  }
+
+  .metric-value {
+    font-size: var(--step-3);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric-title {
+    font-weight: 650;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
+    font-size: var(--step--1);
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- tables ---------- */
+  /* Emitted by the generator around every table. Focusable, because a
+     scrollable region a keyboard user cannot reach is not reachable
+     content — hence the visible ring when it takes focus. */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrap:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+
+  th,
+  td {
+    text-align: start;
+    padding: 0.9rem 1rem;
+    border-block-end: 1px solid var(--line-soft);
+    font-size: var(--step--1);
+  }
+
+  th {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  td {
+    color: var(--ink-soft);
+  }
+
+  tbody tr:last-child td {
+    border-block-end: none;
+  }
+
+  /* ---------- forms ---------- */
+  .field {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .field label {
+    font-weight: 650;
+    font-size: var(--step--1);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+
+  .field textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  .hint {
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+  }
+
+  /* ---------- footer ---------- */
+  .site-footer {
+    border-block-start: 1px solid var(--line-soft);
+    background: var(--surface);
+    padding-block: var(--space-l);
+    margin-block-start: var(--space-2xl);
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+  }
+
+  .footer-cols {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  }
+
+  .footer-cols h2 {
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .footer-cols ul {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .footer-legal {
+    margin-block-start: var(--space-m);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--line-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-m);
+    justify-content: space-between;
+  }
+
+  /* ---------- generated language switcher ---------- */
+  /* Emitted by the i18n plugin. Its links measured 32x32, under the 44px
+     this theme claims, so they are sized here rather than left to inherit. */
+  .ssg-lang-switcher,
+  [class*="lang-switcher"] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ssg-lang-switcher a,
+  [class*="lang-switcher"] a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--step--1);
+    font-weight: 650;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .ssg-lang-switcher a[aria-current] {
+    background: var(--accent-soft);
+    color: var(--on-accent-soft);
+  }
+
+  /* ---------- built-in search widget ---------- */
+  /* `ssg` injects #ssg-search-widget together with its own fingerprinted,
+     SRI-signed CSS and JS. That stylesheet owns the widget's layout and
+     positioning; overriding those here detaches the trigger from the
+     overlay it controls, so this block re-skins colour and border only. */
+  #ssg-search-btn {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    min-height: 2.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  #ssg-search-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 }
-.skip-link:focus, .skip:focus {
-  position: absolute !important;
-  left: 1rem !important;
-  top: 1rem !important;
-  width: auto !important;
-  height: auto !important;
-  background: var(--accent) !important;
-  color: #ffffff !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 6px !important;
-  z-index: 1000 !important;
+
+@layer utilities {
+  .text-center {
+    text-align: center;
+  }
+
+  .mx-auto {
+    margin-inline: auto;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
-/* Header & Navigation */
-.site-header {
-  border-bottom: 1px solid var(--line-soft);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* ---------------------------------------------------------------------
+   Mobile navigation.
+
+   The menu collapses behind a disclosure button below 48rem. The button
+   is rendered in the markup unconditionally and hidden with CSS above the
+   breakpoint, so the control that the stylesheet reveals always exists —
+   the previous release hid `.nav-menu` here and revealed a `.nav-toggle`
+   that no layout emitted, leaving phones with no navigation at all.
+   --------------------------------------------------------------------- */
+@layer components {
+  /* Without JavaScript the disclosure button cannot open anything, so the
+     menu is shown expanded and the button withdrawn. The alternative is a
+     control that does nothing guarding navigation that cannot be reached —
+     which is how the previous release shipped a site with no mobile nav at
+     all, by a different route. */
+  html.no-js .nav-toggle {
+    display: none;
+  }
+
+  @media (max-width: 47.999rem) {
+    html.no-js .nav-menu {
+      display: flex;
+      position: static;
+      box-shadow: none;
+    }
+
+    .nav-toggle {
+      display: inline-flex;
+      order: 2;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--space-xs);
+      background: var(--surface);
+      border-block-end: 1px solid var(--line-soft);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-menu[data-open="true"] {
+      display: flex;
+    }
+
+    .nav-menu li {
+      border-block-end: 1px solid var(--line-soft);
+    }
+
+    .nav-menu li:last-child {
+      border-block-end: none;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.75rem 0.5rem;
+    }
+
+    .site-header {
+      position: relative;
+    }
+  }
 }
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4.5rem;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 700;
-  color: var(--ink);
-  font-size: 1.15rem;
-}
-.brand-mark {
-  background: var(--accent);
-  color: var(--accent-ink);
-  padding: 0.25rem 0.6rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
 
-.site-nav { display: flex; align-items: center; gap: 1.5rem; }
-.nav-menu { display: flex; list-style: none; margin: 0; padding: 0; gap: 1.5rem; }
-.nav-link { color: var(--ink-soft); font-weight: 500; font-size: 0.95rem; }
-.nav-link.active, .nav-link:hover { color: var(--accent); }
+/* ---------------------------------------------------------------------
+   Print.
 
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-.theme-toggle { background: none; border: 1px solid var(--line); border-radius: 50%; width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
+   A sticky header and a fixed search trigger repeat on every sheet, and
+   the dark surfaces are a full cartridge. Measured by rendering each page
+   under `@media print` rather than by eyeballing a preview.
+   --------------------------------------------------------------------- */
+@media print {
+  .site-header,
+  #ssg-search-widget,
+  .theme-toggle,
+  .nav-toggle,
+  .skip-link {
+    display: none !important;
+  }
 
-/* Hero Section */
-.hero { padding-block: clamp(3rem, 6vw, 5rem); }
-.hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2.5rem; align-items: center; }
-.hero-image-wrap { grid-column: span 5; }
-.hero-content { grid-column: span 7; }
-.hero-image img { width: 100%; height: auto; border-radius: 16px; object-fit: cover; box-shadow: var(--shadow-md); }
+  :root,
+  :root[data-theme="dark"] {
+    --bg: #ffffff;
+    --bg-soft: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #ffffff;
+    --ink: #000000;
+    --ink-soft: #1a1a1a;
+    --ink-muted: #333333;
+    --accent: #000000;
+    --line: #666666;
+    --line-soft: #999999;
+    color-scheme: light;
+  }
 
-.section-eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
-h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -0.02em; margin-block: 0 1rem; }
-.hero-subhead { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  body {
+    padding-block-end: 0;
+    background: #fff;
+    color: #000;
+  }
 
-.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-.btn-primary, .btn-secondary, .btn-outline {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.4rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-.btn-primary { background: var(--accent); color: var(--accent-ink); }
-.btn-secondary { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); }
-.btn-outline { border: 1px solid var(--accent); color: var(--accent); }
+  /* A link reading "here" is useless once the href is gone. */
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
 
-/* Metrics Dashboard */
-.metrics-dashboard { padding-block: 3.5rem; background: var(--surface-soft); border-block: 1px solid var(--line-soft); }
-.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.metric-card { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; padding: 1.75rem; text-align: center; }
-.metric-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1.1; margin-bottom: 0.4rem; }
+  .card,
+  .table-wrap,
+  pre {
+    break-inside: avoid;
+    box-shadow: none;
+  }
 
-/* Assessment Table */
-.assessment-section { padding-block: 4rem; }
-.matrix-table-wrap { overflow-x: auto; margin-top: 2rem; border-radius: 12px; border: 1px solid var(--line); }
-.assessment-table { width: 100%; border-collapse: collapse; text-align: left; background: var(--surface); }
-.assessment-table th, .assessment-table td { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line-soft); font-size: 0.95rem; }
-.assessment-table th.highlight-header { background: var(--accent-soft); color: var(--accent); }
-.badge-excellence { display: inline-block; background: var(--accent); color: var(--accent-ink); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 4px; margin-bottom: 0.4rem; }
-
-/* Case Studies */
-.case-study-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 2rem; }
-.case-card { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; padding: 2rem; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-image-wrap, .hero-content { grid-column: span 12; }
-  .nav-menu { display: none; }
-  .nav-toggle { display: block; }
+  .site-footer {
+    margin-block-start: var(--space-m);
+  }
 }

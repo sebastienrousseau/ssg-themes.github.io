@@ -1,0 +1,42 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h2>{{footer_writing}}</h2>
+        <ul>
+          <li><a href="{{locale_path}}{{slug_articles}}">{{label_articles}}</a></li>
+          <li><a href="{{locale_path}}{{slug_papers}}">{{label_papers}}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{{footer_hub}}</h2>
+        <ul>
+          <li><a href="{{locale_path}}{{slug_about}}">{{label_about}}</a></li>
+          <li><a href="{{locale_path}}{{slug_contact}}">{{label_contact}}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{{footer_feeds}}</h2>
+        <ul>
+          <li><a href="{{site_path}}rss.xml">RSS</a></li>
+          <li><a href="{{site_path}}atom.xml">Atom</a></li>
+          <li><a href="{{site_path}}feed.json">JSON Feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{{footer_built}}</h2>
+        <ul>
+          <li>
+            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+          </li>
+          <li><a href="{{site_path}}sitemap.xml">{{footer_sitemap}}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <span>&copy; {{copyright_year}} {{name}}. {{footer_licence}}</span>
+      <span>{{footer_colophon}}</span>
+    </div>
+  </div>
+</footer>
