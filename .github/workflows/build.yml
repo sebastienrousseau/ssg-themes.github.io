@@ -97,39 +97,33 @@ jobs:
           sys.exit(1 if failed else 0)
           PY
 
-      - name: Responsive layout audit (13 viewports x 2 schemes)
+      # Four suites, all through the same pinned Chromium: layout across 13
+      # viewports x 2 schemes, keyboard/zoom/reduced-motion/forced-colours,
+      # screen-reader + print + degraded delivery, and axe-core WCAG 2.2 AA.
+      # axe runs here rather than via @axe-core/cli because the CLI drives
+      # the runner's system Chrome through ChromeDriver, and the two drift:
+      # it failed all 25 pages with "This version of ChromeDriver only
+      # supports Chrome version 151".
+      - name: Browser gates (layout, interaction, semantics, axe)
         run: |
           npm --prefix tests/responsive install --no-audit --no-fund
           npx --prefix tests/responsive playwright install --with-deps chromium
           bash tests/responsive/run.sh
 
-      - name: Install axe and link checker
-        run: npm install --no-save @axe-core/cli linkinator
+      - name: Install link checker
+        run: npm install --no-save linkinator
 
-      # Both of these previously ran against `public/` served at the server
+      # linkinator previously ran against `public/` served at the server
       # root. The deployed site lives under /ssg-themes.github.io/, so every
-      # root-absolute URL 404'd: axe loaded pages whose stylesheet was
-      # missing and pronounced them accessible, and linkinator reported 57
-      # phantom broken links. Serving the mirrored root is what makes both
-      # tools see the site as it is actually published.
+      # root-absolute URL 404'd and it reported 57 phantom broken links.
+      # Serving the mirrored root is what makes it see the site as it is
+      # actually published. (The browser suites above resolve the same
+      # prefix themselves, in run.sh.)
       - name: Serve the site at its deployed path
         run: |
           MIRROR_ROOT=.ci-root bash scripts/mirror-root.sh
           npx --yes http-server .ci-root -p 8080 --silent &
           npx --yes wait-on http://127.0.0.1:8080/ssg-themes.github.io/ -t 60000
-
-      # Every page, not just the three theme home pages. Restricting it to
-      # the home pages is what hid four target-size failures on the
-      # generated taxonomy pages.
-      - name: axe-core (WCAG 2.2 AA) on every page
-        run: |
-          fail=0
-          while read -r page; do
-            echo "== $page"
-            npx axe "http://127.0.0.1:8080/ssg-themes.github.io${page}" \
-              --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa --exit || fail=1
-          done < tests/responsive/pages.txt
-          exit $fail
 
       - name: Broken link check
         run: |

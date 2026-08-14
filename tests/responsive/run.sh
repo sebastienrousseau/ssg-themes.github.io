@@ -32,3 +32,4 @@ find public -name '*.html' ! -path '*_islands*' -print0 \
 node tests/responsive/audit.mjs --base "http://127.0.0.1:${PORT}/${PREFIX}"
 node tests/responsive/interaction.mjs --base "http://127.0.0.1:${PORT}/${PREFIX}"
 node tests/responsive/semantics.mjs   --base "http://127.0.0.1:${PORT}/${PREFIX}"
+node tests/responsive/axe.mjs         --base "http://127.0.0.1:${PORT}/${PREFIX}"
