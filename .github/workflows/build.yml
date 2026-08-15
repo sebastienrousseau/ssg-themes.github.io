@@ -20,10 +20,14 @@ jobs:
   gate:
     runs-on: ubuntu-latest
     env:
-      # Bump when the themes need a newer generator. Pinned rather than
-      # floating so a generator commit cannot silently change what this
-      # gate means.
-      SSG_REF: fa361b81816acb9abec96f6d3a19d91196992186
+      # Pinned rather than floating so a generator commit cannot silently
+      # change what this gate means. This is a commit on the generator's
+      # `main`: it previously pointed at a topic branch, which GitHub
+      # deleted on merge, leaving the pin an unreferenced commit that
+      # would break this workflow once garbage-collected.
+      # Switch to `cargo binstall ssg@0.0.50` once that version is
+      # published to crates.io (latest there is currently 0.0.48).
+      SSG_REF: 4fd1f8ed64842b63dc142f35a7d9c07d4bfa6512
     steps:
       - uses: actions/checkout@v5
 
