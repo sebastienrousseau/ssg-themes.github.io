@@ -9,7 +9,8 @@ Three production themes for [Static Site Generator (SSG)](https://github.com/seb
 | :-- | :-- | :-- |
 | **[Apex](themes/apex/)** | Portfolios, consulting, advisory | Cool neutrals, deep blue, interface sans |
 | **[Atlas](themes/atlas/)** | Long-form writing, research, reference | Warm-neutral ground, forest green, serif reading column |
-| **[Velocity](themes/velocity/)** | Product landing pages, starters | Slate and bronze, tight radii, smallest layout set |
+| **[Kinetic](themes/kinetic/)** | Multi-product SaaS, launch sites | Violet-to-cyan gradients as decoration, tabbed platform tour |
+| **[Velocity](themes/velocity/)** | Product landing pages, starters | Slate and bronze, tight radii, deliberately small layout set |
 
 ---
 
@@ -35,7 +36,8 @@ stylesheet on any site published under a sub-path. Atlas additionally needs
 
 Each theme's own README documents its layouts, front-matter contract and
 token system: [Apex](themes/apex/README.md) ·
-[Atlas](themes/atlas/README.md) · [Velocity](themes/velocity/README.md).
+[Atlas](themes/atlas/README.md) · [Kinetic](themes/kinetic/README.md) ·
+[Velocity](themes/velocity/README.md).
 
 ---
 
@@ -79,7 +81,7 @@ accessibility issues across 15 pages, and 0 third-party subresources.
 
 ## Architecture
 
-All three themes share one structure:
+All four themes share one structure:
 
 ```
 themes/<name>/
