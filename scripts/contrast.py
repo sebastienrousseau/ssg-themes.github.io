@@ -77,7 +77,7 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "velocity")
+THEMES = ("apex", "atlas", "kinetic", "velocity")
 MODES = (("light", ":root,"), ("dark", ':root[data-theme="dark"]'))
 
 

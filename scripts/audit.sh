@@ -29,7 +29,7 @@ trap 'rm -rf "${ROOT}"' EXIT
 # ai-plugin.json / _headers as absent when every one is present. Rather than
 # leave four permanent false findings, assert them here.
 missing=0
-for theme in apex atlas velocity; do
+for theme in apex atlas kinetic velocity; do
   for f in llms.txt agents.txt .well-known/ai-plugin.json .well-known/mcp.json _headers robots.txt sitemap.xml; do
     if [[ ! -f "public/${theme}/${f}" ]]; then
       echo "  FAIL  ${theme}/${f} missing" >&2

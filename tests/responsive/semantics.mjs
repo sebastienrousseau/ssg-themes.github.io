@@ -217,11 +217,21 @@ const browser = await chromium.launch();
         // A disclosure that cannot open is worse than no disclosure.
         if (!box(menu) && box(btn)) out.push('navigation is behind a control that needs JavaScript');
       }
-      // The island's static content must be present and complete.
-      const island = document.querySelector('ssg-island');
-      if (island) {
-        const rows = island.querySelectorAll('tbody tr').length;
-        if (rows === 0) out.push('island has no static fallback content');
+      // Every island's static content must be present and substantive.
+      //
+      // This used to assert `tbody tr`, which only described the one island
+      // that existed when it was written — a pricing table. A tabbed island
+      // with four sections of prose has no table, so a perfectly good
+      // fallback was reported as missing. What actually matters is not the
+      // shape of the fallback but that there is one: real elements, and
+      // enough text to be worth reading.
+      for (const island of document.querySelectorAll('ssg-island')) {
+        const children = island.querySelectorAll('*').length;
+        const text = (island.textContent || '').trim();
+        if (children === 0 || text.length < 40) {
+          const name = island.getAttribute('component') || 'island';
+          out.push(`island "${name}" has no static fallback content`);
+        }
       }
       return out;
     }, null).catch(() => []);
@@ -233,28 +243,39 @@ const browser = await chromium.launch();
   const blocked = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const p2 = await blocked.newPage();
   await p2.route('**/_islands/*.js', (r) => r.abort());
-  const islandPage = pages.find((p) => p.includes('pricing')) || pages[0];
-  await p2.goto(`${BASE}${islandPage}`, { waitUntil: 'domcontentloaded' });
-  await p2.waitForTimeout(400);
-  const survived = await p2.evaluate(() => {
-    const t = document.querySelector('[data-pricing-table]');
-    return {
-      table: !!t,
-      rows: t ? t.querySelectorAll('tbody tr').length : 0,
-      prices: t ? [...t.querySelectorAll('[data-amount]')].map((e) => e.textContent.trim()) : [],
-      // The control is added by the module; if the module never ran it must
-      // not be on the page, or it is a dead control.
-      strayControl: !!document.querySelector('.billing-toggle'),
-    };
-  });
-  if (!survived.table || survived.rows === 0) {
-    fail('degraded', islandPage, 'island-blocked', 'static table did not survive a blocked module');
-  }
-  if (survived.prices.some((p) => !p)) {
-    fail('degraded', islandPage, 'island-blocked', 'prices empty without the module');
-  }
-  if (survived.strayControl) {
-    fail('degraded', islandPage, 'island-blocked', 'billing control rendered although the module never loaded');
+  // Every page carrying an island, not just the first one found. Picking a
+  // single page silently stopped covering the second theme's pricing page
+  // the moment one existed.
+  const islandPages = pages.filter((p) => p.includes('pricing'));
+  for (const islandPage of islandPages.length ? islandPages : [pages[0]]) {
+    await p2.goto(`${BASE}${islandPage}`, { waitUntil: 'domcontentloaded' });
+    await p2.waitForTimeout(400);
+    const survived = await p2.evaluate(() => {
+      const t = document.querySelector('[data-pricing-table]');
+      return {
+        table: !!t,
+        rows: t ? t.querySelectorAll('tbody tr').length : 0,
+        prices: t ? [...t.querySelectorAll('[data-amount]')].map((e) => e.textContent.trim()) : [],
+        // The control is added by the module; if the module never ran it must
+        // not be on the page, or it is a dead control.
+        strayControl: !!document.querySelector('.billing-toggle'),
+        // Same rule for the tab strip: it promises arrow-key navigation that
+        // only the module delivers, so it must not exist without it.
+        strayTabs: !!document.querySelector('[role="tab"]'),
+      };
+    });
+    if (!survived.table || survived.rows === 0) {
+      fail('degraded', islandPage, 'island-blocked', 'static table did not survive a blocked module');
+    }
+    if (survived.prices.some((p) => !p)) {
+      fail('degraded', islandPage, 'island-blocked', 'prices empty without the module');
+    }
+    if (survived.strayControl) {
+      fail('degraded', islandPage, 'island-blocked', 'billing control rendered although the module never loaded');
+    }
+    if (survived.strayTabs) {
+      fail('degraded', islandPage, 'island-blocked', 'tab roles present although the module never loaded');
+    }
   }
   await blocked.close();
 

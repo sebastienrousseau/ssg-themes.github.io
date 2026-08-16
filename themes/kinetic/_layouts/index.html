@@ -1,0 +1,198 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="lead">{{lead}}</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
+      <a class="btn btn-secondary" href="{{locale_path}}platform/">{{cta_secondary}}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="visually-hidden">By the numbers</h2>
+    <!--
+      Illustrative figures for a fictional product. They are marked up as a
+      description list rather than headings so a screen-reader user gets the
+      figure and its label as a pair, not four orphaned numbers.
+    -->
+    <dl class="grid grid-4">
+      <div class="stat">
+        <dt class="stat-label">Teams onboarded</dt>
+        <dd><span class="stat-figure">1,200+</span></dd>
+      </div>
+      <div class="stat">
+        <dt class="stat-label">Median setup time</dt>
+        <dd><span class="stat-figure">18 min</span></dd>
+      </div>
+      <div class="stat">
+        <dt class="stat-label">Integrations</dt>
+        <dd><span class="stat-figure">60</span></dd>
+      </div>
+      <div class="stat">
+        <dt class="stat-label">Uptime, trailing year</dt>
+        <dd><span class="stat-figure">99.98%</span></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="platform">
+  <div class="container stack">
+    <h2>One workspace, four surfaces</h2>
+    <p class="lead">
+      Each surface is a full page of content on its own. The tab strip is an
+      enhancement, not the structure.
+    </p>
+
+    <!--
+      The complete, correct answer without JavaScript is the stack of
+      labelled sections below. The island adds a tab strip that shows one at
+      a time; it never renders a control it cannot wire up, so nothing here
+      is broken when the bundle fails to arrive.
+    -->
+    <ssg-island component="feature-tabs" hydrate="visible" props='{"label":"Platform surfaces"}'>
+      <div data-tabs>
+        <section class="tab-panel" id="panel-plan" data-tab-title="Plan">
+          <h3>Plan</h3>
+          <p>
+            Break an objective into work that fits in a week. Dependencies
+            are declared once and drawn everywhere, so a slipped date shows
+            up on the plan it affects rather than in someone's inbox.
+          </p>
+        </section>
+        <section class="tab-panel" id="panel-build" data-tab-title="Build">
+          <h3>Build</h3>
+          <p>
+            Boards, lists and a calendar over the same records. Changing the
+            view never changes the data, so two teams can look at one
+            backlog through the lens each prefers.
+          </p>
+        </section>
+        <section class="tab-panel" id="panel-review" data-tab-title="Review">
+          <h3>Review</h3>
+          <p>
+            Comments resolve against a revision rather than floating free,
+            and an approval records who approved what, not merely that
+            somebody did.
+          </p>
+        </section>
+        <section class="tab-panel" id="panel-report" data-tab-title="Report">
+          <h3>Report</h3>
+          <p>
+            Dashboards read from the same records the work lives in. There
+            is no export step, so a number on a dashboard is never a
+            fortnight behind the thing it describes.
+          </p>
+        </section>
+      </div>
+    </ssg-island>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg-soft)">
+  <div class="container stack">
+    <h2>What you get on day one</h2>
+    <div class="grid grid-3">
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7" /></svg>
+        </div>
+        <h3>Structured work</h3>
+        <p>
+          Tasks, docs and decisions in one record type, so a search returns
+          the decision as readily as the ticket that prompted it.
+        </p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" /></svg>
+        </div>
+        <h3>Views that compose</h3>
+        <p>
+          Filter, group and sort are independent. Any combination is a URL,
+          which means a view is something you can send to a colleague.
+        </p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h3>Automation you can read</h3>
+        <p>
+          Rules are stated as sentences and shown in full before they run.
+          An automation nobody can read is an outage waiting for a quiet
+          afternoon.
+        </p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+        </div>
+        <h3>History that survives</h3>
+        <p>
+          Every field keeps its previous values. Reverting is reading the
+          record, not restoring a backup.
+        </p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z" /></svg>
+        </div>
+        <h3>Permissions by default</h3>
+        <p>
+          A workspace starts closed. Sharing is a deliberate act with an
+          audit line attached to it.
+        </p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 17V7l8 5 8-5v10" /></svg>
+        </div>
+        <h3>Exports that round-trip</h3>
+        <p>
+          What you export imports again. Leaving is supported rather than
+          merely permitted.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container stack">
+    <h2>Built for the way teams actually split up</h2>
+    <div class="grid grid-3">
+      <article class="card">
+        <h3>Product</h3>
+        <p>Roadmaps that survive contact with a shipping date.</p>
+      </article>
+      <article class="card">
+        <h3>Marketing</h3>
+        <p>Campaign calendars with the assets attached to the dates.</p>
+      </article>
+      <article class="card">
+        <h3>Operations</h3>
+        <p>Recurring work that does not depend on anyone remembering it.</p>
+      </article>
+    </div>
+    <p>
+      <a href="{{locale_path}}solutions/">See all team templates</a>
+    </p>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg-soft)">
+  <div class="container stack">
+    <div class="prose">{{!content}}</div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
+      <a class="btn btn-secondary" href="{{locale_path}}pricing/">See pricing</a>
+    </div>
+  </div>
+</section>
+{{/block}}

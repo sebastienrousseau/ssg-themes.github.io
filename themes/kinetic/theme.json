@@ -1,0 +1,14 @@
+{
+  "name": "kinetic",
+  "title": "Kinetic",
+  "version": "1.0.0",
+  "description": "Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://ssg-themes.github.io/kinetic/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}
