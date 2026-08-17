@@ -1,0 +1,21 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Kinetic"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://ssg-themes.github.io/kinetic/"
+
+# Minimum generator version. Below this the build does not merely degrade:
+# the layout named in front matter is ignored, the bundled content schema
+# aborts the compile, and extracted CSS 404s under a sub-path.
+min_version = "0.0.50"
+
+tags = ["marketing","saas","product","landing-page","accessibility"]
+features = ["dark-mode","search","rss","json-ld","wcag-aa","no-build-step","contact-form","islands"]
+
+[[authors]]
+name = "SSG Theme Suite"
+homepage = "https://github.com/sebastienrousseau"

@@ -27,7 +27,7 @@ jobs:
       # would break this workflow once garbage-collected.
       # Switch to `cargo binstall ssg@0.0.50` once that version is
       # published to crates.io (latest there is currently 0.0.48).
-      SSG_REF: 4fd1f8ed64842b63dc142f35a7d9c07d4bfa6512
+      SSG_REF: eacb6135e8ac2ba35dc18f32ea7519409e96e997
     steps:
       - uses: actions/checkout@v5
 

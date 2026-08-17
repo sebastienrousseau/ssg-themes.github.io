@@ -1,4 +1,4 @@
-.PHONY: help build build-apex build-atlas build-velocity check check-contrast check-weight check-structure clean preview
+.PHONY: help build build-apex build-atlas build-kinetic build-velocity check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -6,6 +6,7 @@ help:
 	@echo "  make build            Build all themes into public/"
 	@echo "  make build-apex       Build the Apex theme"
 	@echo "  make build-atlas      Build the Atlas theme"
+	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make check            Run every gate (structure, contrast, weight)"
 	@echo "  make clean            Remove build output"
@@ -18,6 +19,9 @@ build-apex:
 
 build-atlas:
 	@bash scripts/build.sh atlas
+
+build-kinetic:
+	@bash scripts/build.sh kinetic
 
 build-velocity:
 	@bash scripts/build.sh velocity
