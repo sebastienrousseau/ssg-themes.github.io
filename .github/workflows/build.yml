@@ -20,14 +20,8 @@ jobs:
   gate:
     runs-on: ubuntu-latest
     env:
-      # Pinned rather than floating so a generator commit cannot silently
-      # change what this gate means. This is a commit on the generator's
-      # `main`: it previously pointed at a topic branch, which GitHub
-      # deleted on merge, leaving the pin an unreferenced commit that
-      # would break this workflow once garbage-collected.
-      # Switch to `cargo binstall ssg@0.0.50` once that version is
-      # published to crates.io (latest there is currently 0.0.48).
-      SSG_REF: eacb6135e8ac2ba35dc18f32ea7519409e96e997
+      # The released generator these themes are built and gated against.
+      SSG_VERSION: "0.0.51"
     steps:
       - uses: actions/checkout@v5
 
@@ -39,29 +33,16 @@ jobs:
         with:
           node-version: "22"
 
-      # The themes depend on generator fixes that are in no crates.io
-      # release: latest published is 0.0.48, these need 0.0.50. Every run
-      # of this workflow so far failed at "Build all themes" with "No valid
-      # front matter found" — the published ssg still stages
-      # content.schema.toml as a page. Building the pinned ref is what makes
-      # CI test the combination that will actually ship. Once 0.0.50 is
-      # published this can go back to `cargo binstall ssg@0.0.50`.
-      - name: Cache the generator build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/ssg
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ssg-${{ env.SSG_REF }}-${{ runner.os }}
+      # Pinned to a released version. Until v0.0.51 the themes needed
+      # fixes that were in no crates.io release, so this built the
+      # generator from a commit SHA; that pin had to be bumped by hand and
+      # pointed at a ref GitHub deletes when a branch merges.
+      - name: Install cargo-binstall
+        uses: cargo-bins/cargo-binstall@main
 
-      - name: Install ssg (built from the pinned generator ref)
+      - name: Install ssg
         run: |
-          if [ ! -x "$HOME/.cargo/bin/ssg" ]; then
-            cargo install --locked --force \
-              --git https://github.com/sebastienrousseau/static-site-generator \
-              --rev "${SSG_REF}" ssg
-          fi
+          cargo binstall --no-confirm ssg@${SSG_VERSION}
           ssg --version
 
       - name: Structure gate
