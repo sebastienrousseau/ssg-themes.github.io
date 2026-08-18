@@ -41,6 +41,13 @@
     --shadow-sm: 0 1px 3px rgb(15 23 42 / 7%);
     --shadow-md: 0 8px 24px -10px rgb(15 23 42 / 18%);
 
+
+    /* The generator's search trigger is `position: fixed` over the page,
+       not a child of the header, so it cannot inherit the header's
+       vertical centring — it sat 4px below every other header control.
+       Centre it against this theme's own header height. */
+    --ssg-search-top: calc((4.25rem - 2.75rem) / 2);
+
     color-scheme: light;
   }
 

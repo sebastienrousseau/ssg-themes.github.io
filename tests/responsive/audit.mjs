@@ -234,6 +234,31 @@ function probe() {
     }
   }
 
+  // --- the search trigger against the header it sits beside -------------
+  //
+  // The generator injects the trigger as `position: fixed` over the page,
+  // not as a child of the header, so it cannot inherit the header's
+  // vertical centring. It shipped 4-6px low on all four themes, which is
+  // small enough to read as sloppiness rather than a bug and never showed
+  // up in any existing check. Only meaningful while it is beside the
+  // header: below 48rem it deliberately moves to the bottom corner.
+  const trigger = document.querySelector('#ssg-search-btn');
+  const header = document.querySelector('.site-header');
+  if (trigger && header && vw >= 768) {
+    const tr = trigger.getBoundingClientRect();
+    const hr = header.getBoundingClientRect();
+    // Only when it is actually overlapping the header band.
+    if (tr.top < hr.bottom) {
+      const drift = Math.round((tr.top + tr.height / 2) - (hr.top + hr.height / 2));
+      if (Math.abs(drift) > 2) {
+        out.push({
+          kind: 'control-misaligned',
+          detail: `${label(trigger)} centre is ${drift}px off the header's`,
+        });
+      }
+    }
+  }
+
   // --- unreadably small text -------------------------------------------
   for (const el of document.querySelectorAll('p, li, td, th, dd, dt')) {
     if (!visible(el)) continue;
@@ -302,7 +327,7 @@ if (byKind.size === 0) {
 }
 
 console.log(`responsive: ${byKind.size} distinct defect(s) across ${checks} renders\n`);
-const order = ['http', 'overflow-x', 'element-escapes', 'element-wide', 'overlap', 'target-size-aa', 'target-size-aaa', 'tiny-text'];
+const order = ['http', 'overflow-x', 'element-escapes', 'element-wide', 'overlap', 'control-misaligned', 'target-size-aa', 'target-size-aaa', 'tiny-text'];
 for (const kind of order) {
   const rows = [...byKind.values()].filter((v) => v.kind === kind);
   if (!rows.length) continue;
