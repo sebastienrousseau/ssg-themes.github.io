@@ -8,19 +8,32 @@ set -euo pipefail
 # audit would measure unstyled pages.
 
 cd "$(git rev-parse --show-toplevel)"
-PREFIX="${SHOWCASE_PATH_PREFIX:-ssg-themes.github.io}"
+PREFIX="${SHOWCASE_PATH_PREFIX-}"
 PORT="${RESPONSIVE_PORT:-8765}"
 
 [[ -d public ]] || { echo "error: run \`make build\` first" >&2; exit 1; }
 
-ROOT="$(mktemp -d)"
-cp -R public "${ROOT}/${PREFIX}"
+# Served from the root of its own host, so `public/` is the document root
+# and there is no prefix to reproduce. `SHOWCASE_PATH_PREFIX` restores the
+# old project-path behaviour, where the segment had to exist on disk or
+# every root-absolute stylesheet 404'd and the suites measured unstyled
+# pages.
+if [[ -n "${PREFIX}" ]]; then
+  ROOT="$(mktemp -d)"
+  cp -R public "${ROOT}/${PREFIX}"
+  BASE="http://127.0.0.1:${PORT}/${PREFIX}"
+  trap 'kill "${SERVER}" 2>/dev/null || true; rm -rf "${ROOT}"' EXIT
+else
+  ROOT="public"
+  BASE="http://127.0.0.1:${PORT}"
+  trap 'kill "${SERVER}" 2>/dev/null || true' EXIT
+fi
+
 python3 -m http.server "${PORT}" --directory "${ROOT}" >/dev/null 2>&1 &
 SERVER=$!
-trap 'kill "${SERVER}" 2>/dev/null || true; rm -rf "${ROOT}"' EXIT
 
 for _ in $(seq 1 40); do
-  curl -sf -o /dev/null "http://127.0.0.1:${PORT}/${PREFIX}/" && break
+  curl -sf -o /dev/null "${BASE}/" && break
   sleep 0.25
 done
 
@@ -29,7 +42,7 @@ find public -name '*.html' ! -path '*_islands*' -print0 \
   | xargs -0 grep -L 'http-equiv="refresh"' \
   | sed 's|^public||' | sort > tests/responsive/pages.txt
 
-node tests/responsive/audit.mjs --base "http://127.0.0.1:${PORT}/${PREFIX}"
-node tests/responsive/interaction.mjs --base "http://127.0.0.1:${PORT}/${PREFIX}"
-node tests/responsive/semantics.mjs   --base "http://127.0.0.1:${PORT}/${PREFIX}"
-node tests/responsive/axe.mjs         --base "http://127.0.0.1:${PORT}/${PREFIX}"
+node tests/responsive/audit.mjs --base "${BASE}"
+node tests/responsive/interaction.mjs --base "${BASE}"
+node tests/responsive/semantics.mjs   --base "${BASE}"
+node tests/responsive/axe.mjs         --base "${BASE}"

@@ -98,21 +98,18 @@ jobs:
       - name: Install link checker
         run: npm install --no-save linkinator
 
-      # linkinator previously ran against `public/` served at the server
-      # root. The deployed site lives under /ssg-themes.github.io/, so every
-      # root-absolute URL 404'd and it reported 57 phantom broken links.
-      # Serving the mirrored root is what makes it see the site as it is
-      # actually published. (The browser suites above resolve the same
-      # prefix themselves, in run.sh.)
-      - name: Serve the site at its deployed path
+      # The site is served from the root of its own host, so `public/` is
+      # the document root. When it lived at a path, this had to serve a
+      # mirrored tree or every root-absolute URL 404'd and linkinator
+      # reported 57 phantom broken links.
+      - name: Serve the site
         run: |
-          MIRROR_ROOT=.ci-root bash scripts/mirror-root.sh
-          npx --yes http-server .ci-root -p 8080 --silent &
-          npx --yes wait-on http://127.0.0.1:8080/ssg-themes.github.io/ -t 60000
+          npx --yes http-server public -p 8080 --silent &
+          npx --yes wait-on http://127.0.0.1:8080/ -t 60000
 
       - name: Broken link check
         run: |
-          npx linkinator "http://127.0.0.1:8080/ssg-themes.github.io/" \
+          npx linkinator "http://127.0.0.1:8080/" \
             --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
 
       # Informational only, and deliberately so: README.md states this

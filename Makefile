@@ -51,10 +51,9 @@ check-responsive:
 clean:
 	@rm -rf public dist
 
-# Serve the built site at the path GitHub Pages actually publishes it under.
-# Opening public/ directly gives a page whose every root-absolute URL 404s,
-# because the deployed site lives under /ssg-themes.github.io/, not at /.
-preview: build ## Serve the built site at its deployed path on :8099
-	@MIRROR_ROOT=.preview bash scripts/mirror-root.sh > /dev/null
-	@echo "  http://127.0.0.1:8099/ssg-themes.github.io/"
-	@npx --yes http-server .preview -p 8099 --silent
+# Serve the built site the way it is published: at the root of its own
+# host. Previously the showcase lived under a path, so a preview had to
+# mirror that prefix or every root-absolute URL 404'd.
+preview: build ## Serve the built site as published, on :8099
+	@echo "  http://127.0.0.1:8099/"
+	@npx --yes http-server public -p 8099 --silent

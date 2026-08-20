@@ -6,7 +6,7 @@ license = "MIT"
 licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
 description = "Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens."
 homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
-demosite = "https://ssg-themes.github.io/kinetic/"
+demosite = "https://themes.static-site-generator.com/kinetic/"
 
 # Minimum generator version. Below this the build does not merely degrade:
 # the layout named in front matter is ignored, the bundled content schema
