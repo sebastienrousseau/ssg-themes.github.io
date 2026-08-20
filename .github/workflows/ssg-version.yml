@@ -1,0 +1,153 @@
+name: Track ssg releases
+
+# The generator pin in build.yml used to move only when someone noticed it
+# had gone stale. It sat at 0.0.51 through three releases, so the deployed
+# themes kept serving a search widget whose fix had already shipped — the
+# defect was invisible precisely because the build was green the whole time.
+#
+# This keeps the pin explicit and reviewable while removing the part that
+# depended on someone remembering: a new release is found, gated, and
+# proposed. Merging stays a human decision.
+
+on:
+  schedule:
+    # Daily, off the hour — GitHub drops scheduled runs at popular minutes.
+    - cron: "37 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      current: ${{ steps.compare.outputs.current }}
+      latest: ${{ steps.compare.outputs.latest }}
+      newer: ${{ steps.compare.outputs.newer }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - id: compare
+        name: Compare the pin against crates.io
+        run: |
+          set -euo pipefail
+
+          # crates.io rejects requests without a descriptive User-Agent.
+          latest="$(curl -sSf \
+            -H 'User-Agent: ssg-themes version tracker (github.com/${{ github.repository }})' \
+            https://crates.io/api/v1/crates/ssg \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["crate"]["max_stable_version"])')"
+
+          # The default in the `inputs.ssg_version || '...'` fallback is the
+          # pin; the override itself is never a literal version.
+          current="$(python3 - <<'PY'
+          import re, pathlib
+          text = pathlib.Path(".github/workflows/build.yml").read_text()
+          m = re.search(r"SSG_VERSION:.*?\|\|\s*'([0-9][^']*)'", text)
+          if not m:
+              raise SystemExit("could not read the pin out of build.yml")
+          print(m.group(1))
+          PY
+          )"
+
+          echo "current=${current}" >> "${GITHUB_OUTPUT}"
+          echo "latest=${latest}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${current}" == "${latest}" ]]; then
+            echo "pin ${current} is current"
+            echo "newer=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          # Only ever move forward. A yanked release can lower
+          # max_stable_version, and that must not silently downgrade the pin.
+          highest="$(printf '%s\n%s\n' "${current}" "${latest}" | sort -V | tail -1)"
+          if [[ "${highest}" == "${current}" ]]; then
+            echo "::warning::crates.io reports ${latest}, behind the pinned ${current}. Not downgrading."
+            echo "newer=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "pin ${current} is behind ${latest}"
+          echo "newer=true" >> "${GITHUB_OUTPUT}"
+
+  # The full gate — build, contrast, audit, axe, four browser suites, links —
+  # against the candidate. A release that breaks the themes stops here and
+  # never reaches a pull request.
+  gate:
+    needs: check
+    if: needs.check.outputs.newer == 'true'
+    uses: ./.github/workflows/build.yml
+    with:
+      ssg_version: ${{ needs.check.outputs.latest }}
+
+  propose:
+    needs: [check, gate]
+    if: needs.check.outputs.newer == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      CURRENT: ${{ needs.check.outputs.current }}
+      LATEST: ${{ needs.check.outputs.latest }}
+      GATE_RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Open the bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          branch="chore/ssg-${LATEST}"
+
+          # Named for the version, so a re-run reuses the branch rather than
+          # opening a second PR for the same release.
+          open_prs="$(gh pr list --head "${branch}" --state open --json number --jq 'length')"
+          if [[ "${open_prs}" != "0" ]]; then
+            echo "a PR for ${LATEST} is already open"
+            exit 0
+          fi
+
+          python3 - <<'PY'
+          import os, re, pathlib
+          p = pathlib.Path(".github/workflows/build.yml")
+          text = p.read_text()
+          new, count = re.subn(
+              r"(SSG_VERSION:.*?\|\|\s*')[0-9][^']*(')",
+              rf"\g<1>{os.environ['LATEST']}\g<2>",
+              text,
+          )
+          if count != 1:
+              raise SystemExit(f"expected to rewrite the pin once, rewrote {count}")
+          p.write_text(new)
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "${branch}"
+          git commit -am "chore(ci): build the themes against ssg ${LATEST}"
+          git push --force-with-lease origin "${branch}"
+
+          gh pr create --base main --head "${branch}" \
+            --title "chore(ci): build the themes against ssg ${LATEST}" \
+            --body "$(cat <<BODY
+          The generator pin moves from \`${CURRENT}\` to \`${LATEST}\`.
+
+          The whole gate already ran against \`${LATEST}\` before this PR
+          was opened — build, contrast, generator audit, accessibility
+          reports, the four browser suites and the link check: ${GATE_RUN}
+
+          That run is the evidence for this change. GitHub does not start
+          workflows on a PR opened with \`GITHUB_TOKEN\`, so the checks
+          below may stay empty; re-run the gate from the Actions tab if you
+          want them recorded here.
+
+          Review the generator's release notes before merging — a green
+          gate proves the themes still build and pass, not that the release
+          contains nothing you would want to know about.
+          BODY
+          )"

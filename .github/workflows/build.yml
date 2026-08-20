@@ -5,12 +5,24 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  # Called by ssg-version.yml to run this entire gate against a candidate
+  # generator release. A version that cannot pass the gate never becomes a
+  # pull request.
+  workflow_call:
+    inputs:
+      ssg_version:
+        description: Generator version to gate instead of the pinned one.
+        type: string
+        required: false
+        default: ""
 
 permissions:
   contents: read
 
 concurrency:
-  group: pages-${{ github.ref }}
+  # A called run shares the caller's ref, so without the workflow name in
+  # the key a version probe on main would cancel an in-flight deploy.
+  group: pages-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # The released generator these themes are built and gated against.
-      SSG_VERSION: "0.0.51"
+      # Bumped by ssg-version.yml, which gates a new release before opening
+      # the PR. This sat at 0.0.51 while 0.0.52, 0.0.53 and 0.0.54 shipped,
+      # and the deployed themes served a search widget whose fix was
+      # already released.
+      SSG_VERSION: ${{ inputs.ssg_version || '0.0.54' }}
     steps:
       - uses: actions/checkout@v5
 
@@ -69,9 +85,21 @@ jobs:
         run: |
           python3 - <<'PY'
           import json, sys, pathlib
+          # Derived from themes/ rather than named literally. Kinetic shipped
+          # and deployed while this list still read apex/atlas/velocity, so
+          # its report was generated and never once asserted on.
+          themes = sorted(p.name for p in pathlib.Path("themes").iterdir() if p.is_dir())
+          if not themes:
+              sys.exit("no themes found under themes/")
+          print(f"asserting on: {', '.join(themes)}")
           failed = False
-          for theme in ("apex", "atlas", "velocity"):
+          for theme in themes:
               p = pathlib.Path("public") / theme / "accessibility-report.json"
+              # A theme that produced no report is a hole, not a pass.
+              if not p.exists():
+                  print(f"{theme}: MISSING {p}")
+                  failed = True
+                  continue
               data = json.loads(p.read_text())
               issues = data.get("total_issues", -1)
               print(f"{theme}: {issues} issue(s) across {data.get('pages_scanned')} page(s)")
@@ -118,11 +146,14 @@ jobs:
       - name: Lighthouse CI (informational — no badge depends on it)
         run: |
           npm install --no-save @lhci/cli
+          # Same derivation as the accessibility gate, for the same reason.
+          urls=()
+          for theme in themes/*/; do
+            urls+=("--collect.url=http://localhost/$(basename "${theme}")/index.html")
+          done
           npx lhci autorun \
             --collect.staticDistDir=public \
-            --collect.url=http://localhost/apex/index.html \
-            --collect.url=http://localhost/atlas/index.html \
-            --collect.url=http://localhost/velocity/index.html \
+            "${urls[@]}" \
             --assert.assertions.categories:performance=off \
             --assert.preset=lighthouse:recommended \
             --upload.target=filesystem \
@@ -137,7 +168,9 @@ jobs:
 
   deploy:
     needs: gate
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    # `inputs.ssg_version` is empty for push and dispatch, and set only for
+    # a probe called by ssg-version.yml, which gates but must never publish.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && inputs.ssg_version == ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
