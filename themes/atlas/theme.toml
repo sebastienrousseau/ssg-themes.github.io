@@ -6,7 +6,7 @@ license = "MIT"
 licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
 description = "Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens."
 homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
-demosite = "https://ssg-themes.github.io/atlas/"
+demosite = "https://themes.static-site-generator.com/atlas/"
 
 # Minimum generator version. Below this the build does not merely degrade:
 # the layout named in front matter is ignored, the bundled content schema

@@ -33,7 +33,13 @@ TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:
 #   gh api repos/<owner>/<repo>/pages --jq .html_url
-SHOWCASE_BASE_URL="${SHOWCASE_BASE_URL:-https://sebastienrousseau.com/ssg-themes.github.io}"
+#
+# A dedicated subdomain, so the site is served from the root of its own
+# host. It used to be a project path under sebastienrousseau.com, which
+# is why so much of this repo's tooling had to mirror a path prefix
+# before it could audit the output — at the root there is no prefix to
+# mirror, and `SHOWCASE_PATH_PREFIX` is empty everywhere.
+SHOWCASE_BASE_URL="${SHOWCASE_BASE_URL:-https://themes.static-site-generator.com}"
 
 BUILD_TMP="$(mktemp -d)"
 trap 'rm -rf "${BUILD_TMP}"' EXIT
@@ -207,6 +213,20 @@ if [[ -f "public_index.html" ]]; then
 fi
 if [[ -f "favicon.ico" ]]; then
   cp -f "favicon.ico" "public/favicon.ico"
+fi
+
+# GitHub Pages reads the custom domain from this file in the published
+# artifact. Without it, a deploy silently reverts the site to the
+# *.github.io default and every canonical URL on the site points
+# somewhere that no longer serves it.
+# Only when the site owns the whole host. A base URL carrying a path is a
+# project site served under someone else's domain, where a CNAME would be
+# wrong.
+if [[ -z "${SHOWCASE_PATH_PREFIX:-}" ]]; then
+  SHOWCASE_HOST="${SHOWCASE_BASE_URL#https://}"
+  SHOWCASE_HOST="${SHOWCASE_HOST%%/*}"
+  printf '%s\n' "${SHOWCASE_HOST}" > "public/CNAME"
+  echo "==> CNAME -> ${SHOWCASE_HOST}"
 fi
 
 # Root-level agent discovery for the gallery. Each theme gets its own

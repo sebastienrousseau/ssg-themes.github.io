@@ -19,7 +19,14 @@ fi
 
 ROOT="$(bash scripts/mirror-root.sh)"
 
-trap 'rm -rf "${ROOT}"' EXIT
+# Only clean up a tree this script caused to be created. When the site is
+# served from the root of its own host there is no mirror: `mirror-root.sh`
+# returns `public` itself, and removing that would delete the build the
+# rest of `make check` still needs — which is exactly what happened the
+# first time this ran without the guard.
+if [[ "${ROOT}" != "public" ]]; then
+  trap 'rm -rf "${ROOT}"' EXIT
+fi
 
 "${SSG}" audit -o "${ROOT}"
 

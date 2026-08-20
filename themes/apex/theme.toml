@@ -6,7 +6,7 @@ license = "MIT"
 licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
 description = "Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests."
 homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
-demosite = "https://ssg-themes.github.io/apex/"
+demosite = "https://themes.static-site-generator.com/apex/"
 
 # Minimum generator version. Below this the build does not merely degrade:
 # the layout named in front matter is ignored, the bundled content schema
