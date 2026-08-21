@@ -235,4 +235,37 @@ if [[ -f "llms.txt" ]]; then
   cp -f "llms.txt" "public/llms.txt"
 fi
 
+# Root-level crawler discovery.
+#
+# Every theme generates its own robots.txt and sitemap.xml, and a crawler
+# reads neither: robots.txt is defined only at the host root, and nothing
+# linked the per-theme sitemaps. The domain root served a 404 for both, so
+# the four sitemaps the build produces were undiscoverable.
+#
+# Only when the site owns the host — under a path prefix the root belongs
+# to someone else and these files are not ours to write.
+if [[ "${TARGET}" == "all" && -z "${SHOWCASE_PATH_PREFIX:-}" ]]; then
+  cat > "public/robots.txt" <<EOF
+User-agent: *
+Allow: /
+
+Sitemap: ${SHOWCASE_BASE_URL}/sitemap.xml
+EOF
+  echo "==> robots.txt -> ${SHOWCASE_BASE_URL}/sitemap.xml"
+
+  # A sitemap index rather than a copy of one theme's sitemap: it points at
+  # each theme's own, which the generator already writes and keeps current.
+  {
+    printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>'
+    printf '%s\n' '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    for theme in "${THEMES[@]}"; do
+      [[ -f "public/${theme}/sitemap.xml" ]] || continue
+      printf '  <sitemap><loc>%s/%s/sitemap.xml</loc></sitemap>\n' \
+        "${SHOWCASE_BASE_URL}" "${theme}"
+    done
+    printf '%s\n' '</sitemapindex>'
+  } > "public/sitemap.xml"
+  echo "==> sitemap.xml indexes $(grep -c '<sitemap>' "public/sitemap.xml") theme sitemap(s)"
+fi
+
 echo "==> showcase built into public/"

@@ -31,13 +31,6 @@ jobs:
   # kind behind the "100/100 Lighthouse" and "100% WCAG AAA" badges.
   gate:
     runs-on: ubuntu-latest
-    env:
-      # The released generator these themes are built and gated against.
-      # Bumped by ssg-version.yml, which gates a new release before opening
-      # the PR. This sat at 0.0.51 while 0.0.52, 0.0.53 and 0.0.54 shipped,
-      # and the deployed themes served a search widget whose fix was
-      # already released.
-      SSG_VERSION: ${{ inputs.ssg_version || '0.0.54' }}
     steps:
       - uses: actions/checkout@v5
 
@@ -49,16 +42,34 @@ jobs:
         with:
           node-version: "22"
 
-      # Pinned to a released version. Until v0.0.51 the themes needed
-      # fixes that were in no crates.io release, so this built the
-      # generator from a commit SHA; that pin had to be bumped by hand and
-      # pointed at a ref GitHub deletes when a branch merges.
+      # The pin lives in `.github/ssg-version`, not in this file.
+      #
+      # ssg-version.yml bumps it, and GITHUB_TOKEN is categorically
+      # forbidden from pushing changes to anything under
+      # `.github/workflows/` — "refusing to allow a GitHub App to create or
+      # update workflow ... without `workflows` permission". No permissions
+      # setting lifts that; only a PAT would. A plain file the tracker can
+      # write keeps the automation credential-free.
+      - name: Resolve the generator version
+        id: ssg_version
+        run: |
+          version="${{ inputs.ssg_version }}"
+          if [[ -z "${version}" ]]; then
+            version="$(tr -d '[:space:]' < .github/ssg-version)"
+          fi
+          if [[ -z "${version}" ]]; then
+            echo "::error::no generator version in .github/ssg-version"
+            exit 1
+          fi
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          echo "building against ssg ${version}"
+
       - name: Install cargo-binstall
         uses: cargo-bins/cargo-binstall@main
 
       - name: Install ssg
         run: |
-          cargo binstall --no-confirm ssg@${SSG_VERSION}
+          cargo binstall --no-confirm ssg@${{ steps.ssg_version.outputs.version }}
           ssg --version
 
       - name: Structure gate
