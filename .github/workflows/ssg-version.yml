@@ -124,9 +124,32 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "${branch}"
           git commit -m "chore(ci): build the themes against ssg ${LATEST}" .github/ssg-version
-          git push --force-with-lease origin "${branch}"
+          # `--force-with-lease` needs a remote-tracking ref to compare
+          # against, and actions/checkout fetches only the ref being built.
+          # For a branch it has never seen, the lease has nothing to check
+          # and git refuses with "stale info" rather than pushing. So only
+          # force when the branch already exists — a leftover from a run
+          # that pushed and then failed downstream — and fetch it first so
+          # the lease is meaningful.
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null 2>&1; then
+            echo "branch exists; updating it"
+            git fetch origin "${branch}"
+            git push --force-with-lease origin "${branch}"
+          else
+            git push origin "${branch}"
+          fi
 
-          gh pr create --base main --head "${branch}" \
+          # Opening the PR needs "Allow GitHub Actions to create and approve
+          # pull requests" (Settings -> Actions -> General). Without it this
+          # fails with:
+          #
+          #   GitHub Actions is not permitted to create or approve pull
+          #   requests (createPullRequest)
+          #
+          # The branch is pushed and gated by that point, so the run must not
+          # be thrown away over the last step. Warn, hand over the compare
+          # link, and let the job succeed.
+          if ! gh pr create --base main --head "${branch}" \
             --title "chore(ci): build the themes against ssg ${LATEST}" \
             --body "$(cat <<BODY
           The generator pin moves from \`${CURRENT}\` to \`${LATEST}\`.
@@ -144,4 +167,7 @@ jobs:
           gate proves the themes still build and pass, not that the release
           contains nothing you would want to know about.
           BODY
-          )"
+          )"; then
+            echo "::warning::${branch} is pushed and gated, but the PR could not be opened. Enable 'Allow GitHub Actions to create and approve pull requests' in Settings -> Actions -> General, or open it by hand."
+            echo "Open it here: ${{ github.server_url }}/${{ github.repository }}/compare/main...${branch}?expand=1"
+          fi
