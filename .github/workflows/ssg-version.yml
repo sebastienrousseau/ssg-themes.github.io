@@ -78,6 +78,15 @@ jobs:
   gate:
     needs: check
     if: needs.check.outputs.newer == 'true'
+    # A called workflow inherits the caller's permissions and cannot ask
+    # for more, so these must cover every job in build.yml — including the
+    # deploy job's `pages`/`id-token`, which is skipped here but still
+    # validated when the run starts. Without them the whole run fails at
+    # startup, before any job is created.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     uses: ./.github/workflows/build.yml
     with:
       ssg_version: ${{ needs.check.outputs.latest }}
