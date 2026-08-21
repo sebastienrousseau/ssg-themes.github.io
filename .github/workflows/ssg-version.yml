@@ -39,17 +39,11 @@ jobs:
             https://crates.io/api/v1/crates/ssg \
             | python3 -c 'import json,sys; print(json.load(sys.stdin)["crate"]["max_stable_version"])')"
 
-          # The default in the `inputs.ssg_version || '...'` fallback is the
-          # pin; the override itself is never a literal version.
-          current="$(python3 - <<'PY'
-          import re, pathlib
-          text = pathlib.Path(".github/workflows/build.yml").read_text()
-          m = re.search(r"SSG_VERSION:.*?\|\|\s*'([0-9][^']*)'", text)
-          if not m:
-              raise SystemExit("could not read the pin out of build.yml")
-          print(m.group(1))
-          PY
-          )"
+          current="$(tr -d '[:space:]' < .github/ssg-version)"
+          if [[ -z "${current}" ]]; then
+            echo "::error::.github/ssg-version is empty"
+            exit 1
+          fi
 
           echo "current=${current}" >> "${GITHUB_OUTPUT}"
           echo "latest=${latest}" >> "${GITHUB_OUTPUT}"
@@ -121,24 +115,15 @@ jobs:
             exit 0
           fi
 
-          python3 - <<'PY'
-          import os, re, pathlib
-          p = pathlib.Path(".github/workflows/build.yml")
-          text = p.read_text()
-          new, count = re.subn(
-              r"(SSG_VERSION:.*?\|\|\s*')[0-9][^']*(')",
-              rf"\g<1>{os.environ['LATEST']}\g<2>",
-              text,
-          )
-          if count != 1:
-              raise SystemExit(f"expected to rewrite the pin once, rewrote {count}")
-          p.write_text(new)
-          PY
+          # A plain file, deliberately: GITHUB_TOKEN may not push changes
+          # under .github/workflows/, so a pin living in the workflow was
+          # unwritable by this job no matter its permissions.
+          printf '%s\n' "${LATEST}" > .github/ssg-version
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "${branch}"
-          git commit -am "chore(ci): build the themes against ssg ${LATEST}"
+          git commit -m "chore(ci): build the themes against ssg ${LATEST}" .github/ssg-version
           git push --force-with-lease origin "${branch}"
 
           gh pr create --base main --head "${branch}" \
