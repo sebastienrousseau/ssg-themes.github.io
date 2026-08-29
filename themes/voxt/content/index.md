@@ -62,51 +62,51 @@ make mosh</code></pre>
       <table>
         <thead>
           <tr>
-            <th>Container</th>
-            <th>Language Stack</th>
-            <th>Built-in Tooling</th>
-            <th>Version</th>
+            <th scope="col">Container</th>
+            <th scope="col">Language Stack</th>
+            <th scope="col">Built-in Tooling</th>
+            <th scope="col">Version</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>langdev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/langdev/" class="suite-link"><strong>langdev</strong></a></td>
             <td>Core Foundation</td>
             <td>TMUX IDE, MCP server, ai-pack, WebTTY, OSC 52</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>pythondev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/pythondev/" class="suite-link"><strong>pythondev</strong></a></td>
             <td>Python 3.12+</td>
             <td>uv, ruff, mypy, pytest, debugpy, Pyright</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>rustdev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/rustdev/" class="suite-link"><strong>rustdev</strong></a></td>
             <td>Rust 1.85+</td>
             <td>rustup, rust-analyzer, clippy, cargo-audit, sccache</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>godev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/godev/" class="suite-link"><strong>godev</strong></a></td>
             <td>Go 1.24+</td>
             <td>gopls, golangci-lint, delve, Go toolchain</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>javadev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/javadev/" class="suite-link"><strong>javadev</strong></a></td>
             <td>Java 21+</td>
             <td>OpenJDK 21, Maven, Gradle, JDTLS</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>kotlindev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/kotlindev/" class="suite-link"><strong>kotlindev</strong></a></td>
             <td>Kotlin 2.1+</td>
             <td>kotlinc, OpenJDK 21, Gradle, Maven, KLS</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
-            <td><strong>swiftdev</strong></td>
+            <td><a href="https://github.com/sebastienrousseau/swiftdev/" class="suite-link"><strong>swiftdev</strong></a></td>
             <td>Swift 6.0+</td>
             <td>Swift toolchain, SourceKit-LSP, swift-format</td>
             <td>v0.0.4</td>
