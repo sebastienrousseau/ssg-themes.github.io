@@ -142,7 +142,7 @@ make mosh</code></pre>
 <section id="faq" class="section">
   <div class="container narrow">
     <h2 class="section-title text-center">Frequently Asked Questions</h2>
-    <div class="stack" style="display:flex; flex-direction:column; gap:1.5rem; margin-top:2rem;">
+    <div class="faq-stack">
       <div class="card">
         <h3>What is the startup overhead?</h3>
         <p>Under 500 milliseconds. All dotfiles and plugins are pre-baked at image build time, ensuring immediate zero-network launch.</p>
