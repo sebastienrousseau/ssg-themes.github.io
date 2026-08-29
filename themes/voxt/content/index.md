@@ -41,14 +41,14 @@ date: 2026-08-29
   <div class="container narrow">
     <h2 class="section-title text-center">Quick Start in 30 Seconds</h2>
     <p class="section-desc text-center">Disposable development environments running on Docker or Podman.</p>
-    <pre><code># 1. Clone the repository
+    <pre><code># 1. #35; 1. Clone the repository
 git clone https://github.com/sebastienrousseau/langdev.git
 cd langdev
 
-# 2. Build and launch 4-pane TMUX IDE
+# 2. #35; 2. Build and launch 4-pane TMUX IDE
 make up
 
-# 3. Mobile WebTTY (port 7681) & Mosh roaming
+# 3. #35; 3. Mobile WebTTY (port 7681) & Mosh roaming
 make web
 make mosh</code></pre>
   </div>
