@@ -1,6 +1,6 @@
 # SSG Themes
 
-Three production themes for [Static Site Generator (SSG)](https://github.com/sebastienrousseau/static-site-generator), each with its own design system, all sharing the same architecture and the same set of CI gates.
+Five production themes for [Static Site Generator (SSG)](https://github.com/sebastienrousseau/static-site-generator), each with its own design system, all sharing the same architecture and the same set of CI gates.
 
 [![Build and gates](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml/badge.svg)](https://github.com/sebastienrousseau/ssg-themes.github.io/actions/workflows/build.yml)
 [![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
@@ -11,6 +11,7 @@ Three production themes for [Static Site Generator (SSG)](https://github.com/seb
 | **[Atlas](themes/atlas/)** | Long-form writing, research, reference | Warm-neutral ground, forest green, serif reading column |
 | **[Kinetic](themes/kinetic/)** | Multi-product SaaS, launch sites | Violet-to-cyan gradients as decoration, tabbed platform tour |
 | **[Velocity](themes/velocity/)** | Product landing pages, starters | Slate and bronze, tight radii, deliberately small layout set |
+| **[Voxt](themes/voxt/)** | Developer tools, AI environments, CLI | High-contrast terminal IDE preview, clean feature grids, strict CSP |
 
 ---
 
@@ -18,7 +19,7 @@ Three production themes for [Static Site Generator (SSG)](https://github.com/seb
 
 ```bash
 # Copy a theme into your project
-cp -R themes/apex my-site
+cp -R themes/voxt my-site
 cd my-site
 
 # Set your own site name and base URL
@@ -37,7 +38,7 @@ stylesheet on any site published under a sub-path. Atlas additionally needs
 Each theme's own README documents its layouts, front-matter contract and
 token system: [Apex](themes/apex/README.md) ·
 [Atlas](themes/atlas/README.md) · [Kinetic](themes/kinetic/README.md) ·
-[Velocity](themes/velocity/README.md).
+[Velocity](themes/velocity/README.md) · [Voxt](themes/voxt/README.md).
 
 ---
 

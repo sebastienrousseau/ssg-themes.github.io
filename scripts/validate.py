@@ -29,7 +29,7 @@ import sys
 import tomllib
 from pathlib import Path
 
-THEMES = ("apex", "atlas", "kinetic", "velocity")
+THEMES = ("apex", "atlas", "kinetic", "velocity", "voxt")
 
 REQUIRED_FILES = (
     "theme.toml",

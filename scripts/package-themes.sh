@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 DOWNLOADS="public/downloads"
-THEMES=(apex atlas kinetic velocity)
+THEMES=(apex atlas kinetic velocity voxt)
 
 mkdir -p "${DOWNLOADS}"
 

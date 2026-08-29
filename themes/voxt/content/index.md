@@ -1,6 +1,9 @@
 ---
 layout: index
 title: Voxt — Modern Developer & AI Single Page Showcase
+description: "Portable, disposable AI developer environments featuring 4-pane TMUX IDE, MCP AI agents, and sub-500ms startup times."
+eyebrow: "Dev Tools & AI Showcase"
+author: "SSG Theme Suite"
 name: Voxt
 headline: Portable, Disposable AI Developer Environments
 lead: Ultra-performant dev containers featuring a 4-pane TMUX IDE, stdio Model Context Protocol (MCP) AI agents, git worktree pairing, and sub-500ms startup times.

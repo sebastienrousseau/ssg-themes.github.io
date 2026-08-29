@@ -1,15 +1,17 @@
 # SSG Themes
 
-> Three production themes for Static Site Generator (SSG): Apex, Atlas and
-> Velocity. Each has its own design system and layout set, built on a shared
-> template architecture, with every accessibility and performance claim
-> enforced by a CI gate.
+> Five production themes for Static Site Generator (SSG): Apex, Atlas,
+> Kinetic, Velocity, and Voxt. Each has its own design system and layout set,
+> built on a shared template architecture, with every accessibility and
+> performance claim enforced by a CI gate.
 
 ## Themes
 
-- [Apex](https://ssg-themes.github.io/apex/): portfolio and consulting theme. Cool neutrals, deep blue accent, seven layouts.
-- [Atlas](https://ssg-themes.github.io/atlas/): editorial and knowledge-hub theme. Serif reading column at a 72-character measure, forest-green accent, eight layouts.
-- [Velocity](https://ssg-themes.github.io/velocity/): product landing and starter theme. Slate and bronze, seven layouts, the smallest of the three.
+- [Apex](https://themes.static-site-generator.com/apex/): portfolio and consulting theme. Cool neutrals, deep blue accent, seven layouts.
+- [Atlas](https://themes.static-site-generator.com/atlas/): editorial and knowledge-hub theme. Serif reading column at a 72-character measure, forest-green accent, eight layouts.
+- [Kinetic](https://themes.static-site-generator.com/kinetic/): multi-product SaaS and launch theme. Violet-to-cyan decoration, tabbed tour, five layouts.
+- [Velocity](https://themes.static-site-generator.com/velocity/): product landing and starter theme. Slate and bronze, seven layouts.
+- [Voxt](https://themes.static-site-generator.com/voxt/): developer tools and AI environment showcase theme. Terminal IDE dock preview, feature grids, strict CSP.
 
 ## Verified properties
 

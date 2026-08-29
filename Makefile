@@ -1,4 +1,4 @@
-.PHONY: help build build-apex build-atlas build-kinetic build-velocity check check-contrast check-weight check-structure clean preview
+.PHONY: help build build-apex build-atlas build-kinetic build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -8,6 +8,7 @@ help:
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-velocity   Build the Velocity theme"
+	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight)"
 	@echo "  make clean            Remove build output"
 
@@ -25,6 +26,9 @@ build-kinetic:
 
 build-velocity:
 	@bash scripts/build.sh velocity
+
+build-voxt:
+	@bash scripts/build.sh voxt
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
