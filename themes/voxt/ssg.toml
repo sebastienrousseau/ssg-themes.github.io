@@ -1,0 +1,19 @@
+site_name = "Voxt"
+site_title = "Voxt — Modern Developer & AI Single Page Showcase"
+site_description = "A responsive, single-page developer and AI tool landing page theme for Static Site Generator."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/voxt/content"
+template_dir = "themes/voxt/_layouts"
+output_dir = "public/voxt"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

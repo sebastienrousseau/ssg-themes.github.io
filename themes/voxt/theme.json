@@ -1,0 +1,17 @@
+{
+  "name": "Voxt",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "description": "Modern single-page developer and product showcase theme: dark/light mode tokens, hero preview dock, feature grids, and zero third-party scripts.",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/voxt/",
+  "min_version": "0.0.50",
+  "tags": ["landing-page", "one-page", "developer-tools", "ai", "product", "dark-mode"],
+  "features": ["dark-mode", "search", "rss", "json-ld", "wcag-aa", "no-build-step", "contact-form"],
+  "authors": [
+    {
+      "name": "SSG Theme Suite",
+      "homepage": "https://github.com/sebastienrousseau"
+    }
+  ]
+}
