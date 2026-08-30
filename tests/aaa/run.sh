@@ -26,7 +26,14 @@ cd "$(git rev-parse --show-toplevel)"
 PORT="${AAA_PORT:-8732}"
 
 [[ -d public ]] || { echo "error: run \`make build\` first" >&2; exit 1; }
-if [[ ! -d node_modules/@playwright ]]; then
+# CI installs Playwright under tests/responsive for the other browser gates;
+# locally it is usually at the repository root. Accept either rather than
+# making the caller install it twice.
+if [[ -d node_modules/@playwright ]]; then
+  export NODE_PATH="$PWD/node_modules"
+elif [[ -d tests/responsive/node_modules/@playwright ]]; then
+  export NODE_PATH="$PWD/tests/responsive/node_modules"
+else
   echo "error: @playwright/test not installed — see the header of this file" >&2
   exit 1
 fi

@@ -414,7 +414,33 @@ a:hover { color: var(--accent-hover); }
   border: 1px solid var(--line);
   border-radius: var(--r);
   padding: 1.1rem;
+  /* A scrolling code block is a scrollable region, and a scrollable region
+   * that is not focusable cannot be reached from a keyboard at all - axe
+   * reports it as serious, and it is 2.1.1. The French accessibility page
+   * tripped it, because its comments are longer than the English ones, which
+   * is exactly the kind of difference a theme claiming to work in any
+   * language must not be sensitive to.
+   *
+   * Adding tabindex from script would satisfy the checker while leaving a
+   * reader without JavaScript unable to reach the same content. Wrapping
+   * removes the scrollable region instead, so there is nothing to reach: it
+   * holds with scripting off, and it means no sample can ever scroll
+   * sideways, which is 1.4.10 as well.
+   *
+   * overflow-x stays as a backstop for content that cannot wrap at all. */
   overflow-x: auto;
+}
+.prose pre code,
+.prose pre code span,
+.snippet-body code {
+  /* break-spaces rather than pre-wrap: both preserve indentation, but
+   * pre-wrap lets a run of trailing spaces hang outside the content box, and
+   * the aligned comments in these samples have plenty. That measured 385px
+   * inside a 414px viewport, reaching x=426, while the pre itself reported
+   * scrollWidth equal to clientWidth - so nothing was clipped, and a check
+   * comparing width against the viewport saw nothing wrong. */
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
 }
 .prose pre code { background: none; padding: 0; font-size: 0.875rem; }
 /* The syntax highlighter labels tokens with scope names — "shell", "source",
@@ -501,12 +527,6 @@ a:hover { color: var(--accent-hover); }
  * without losing their shape. */
 @media (max-width: 30rem) {
   .prose pre { overflow-x: visible; }
-  .prose pre code,
-  .prose pre code span {
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-  }
-  .snippet-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
 
 @media (max-width: 48rem) {

@@ -111,7 +111,7 @@ thèmes :
 
 ```bash
 make check-contrast   # chaque paire de jetons, clair et sombre
-make check-aaa        # contraste rendu, taille des cibles, redistribution, focus
+make check-aaa        # contraste rendu, cibles, redistribution, focus
 ```
 
 `check-contrast` analyse la feuille de style et calcule le rapport de chaque
