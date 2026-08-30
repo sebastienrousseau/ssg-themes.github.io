@@ -16,7 +16,7 @@ date: 2026-08-29
   <div class="container text-center">
     <h2 class="section-title">Engineered for Autonomous AI Agents & Developers</h2>
     <p class="section-desc">A unified container runtime that eliminates context friction between human developers and terminal AI coding agents.</p>
-    <div class="grid-2x2">
+    <div class="grid-2x2" id="features">
       <div class="card">
         <h3>4-Pane TMUX IDE (Prefix + i)</h3>
         <p>Pre-configured VS Code style terminal multiplexer grid with Project Explorer, Neovim LSP, bash CLI, and AI Agent pane.</p>
