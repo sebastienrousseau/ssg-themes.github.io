@@ -268,4 +268,9 @@ EOF
   echo "==> sitemap.xml indexes $(grep -c '<sitemap>' "public/sitemap.xml") theme sitemap(s)"
 fi
 
+# ssg emits no heading ids, so a theme declaring an "On this page" list
+# renders a contents block whose every entry points at nothing. This adds the
+# ids and fails the build on a fragment that still does not resolve.
+python3 scripts/anchor_headings.py public
+
 echo "==> showcase built into public/"
