@@ -1,0 +1,13 @@
+name = "Stablo"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "An airy editorial blog theme for SSG: a centred wordmark with navigation either side, large featured cards, category labels and author bylines. Every colour pair is verified at WCAG AAA in CI."
+homepage = "https://themes.static-site-generator.com/stablo/"
+demosite = "https://themes.static-site-generator.com/stablo/"
+tags = ["blog", "editorial", "magazine", "accessible", "multilingual"]
+features = ["blog", "multilingual", "dark-mode", "accessible", "no-js-required"]
+min_version = "0.0.56"
+
+[author]
+  name = "SSG Theme Suite"
+  homepage = "https://themes.static-site-generator.com/"

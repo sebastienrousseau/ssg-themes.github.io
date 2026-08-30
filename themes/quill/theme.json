@@ -1,0 +1,14 @@
+{
+  "name": "quill",
+  "title": "Quill",
+  "version": "0.1.0",
+  "description": "Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/quill/",
+  "min_ssg_version": "0.0.56",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}

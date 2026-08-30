@@ -1,0 +1,13 @@
+name = "Quill"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "A typographic blog theme for SSG: a large tight-tracked wordmark, full-bleed hero images, two-column post headers and a deliberately monochrome palette. Every colour pair is verified at WCAG AAA in CI."
+homepage = "https://themes.static-site-generator.com/quill/"
+demosite = "https://themes.static-site-generator.com/quill/"
+tags = ["blog", "typography", "minimal", "accessible", "multilingual"]
+features = ["blog", "multilingual", "dark-mode", "accessible", "no-js-required"]
+min_version = "0.0.56"
+
+[author]
+  name = "SSG Theme Suite"
+  homepage = "https://themes.static-site-generator.com/"

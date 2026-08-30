@@ -28,7 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-THEMES=(apex atlas kinetic lucid velocity voxt)
+THEMES=(apex atlas kinetic lucid quill stablo velocity voxt)
 TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:
@@ -271,6 +271,19 @@ fi
 # ssg emits no heading ids, so a theme declaring an "On this page" list
 # renders a contents block whose every entry points at nothing. This adds the
 # ids and fails the build on a fragment that still does not resolve.
+# ssg emits the highlighter stylesheet per theme under a content hash, but
+# the pages it generates link to /highlight.css at the site root. Without
+# this every page carrying a code block loads an unstyled one — which was
+# true of the live lucid pages, and went unseen because the showcase did not
+# link to lucid, so the crawler never reached them.
+hl="$(find public -maxdepth 2 -name 'highlight.*.css' -print -quit)"
+if [[ -n "${hl}" ]]; then
+  cp -f "${hl}" "public/highlight.css"
+  echo "==> highlight.css published at the site root (from ${hl##*/})"
+else
+  echo "==> no highlighter stylesheet emitted; skipping root copy"
+fi
+
 python3 scripts/anchor_headings.py public
 
 echo "==> showcase built into public/"

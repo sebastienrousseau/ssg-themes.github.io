@@ -29,7 +29,7 @@ import sys
 import tomllib
 from pathlib import Path
 
-THEMES = ("apex", "atlas", "kinetic", "lucid", "velocity", "voxt")
+THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity", "voxt")
 
 REQUIRED_FILES = (
     "theme.toml",
@@ -371,6 +371,54 @@ def check_theme(root: Path, name: str) -> list[str]:
     return errors
 
 
+def check_registration(root: Path) -> list[str]:
+    """Every theme on disk must be advertised where a reader looks for it.
+
+    Adding a theme means touching several files, and the two that describe it
+    to people — the showcase index and the README — are the two nothing
+    validated. Lucid was built, gated, packaged, deployed and served at
+    /lucid/ while the showcase homepage listed five themes and did not
+    mention it, so the only way in was a URL you already knew.
+
+    THEMES is checked against the directory listing as well, so a theme
+    cannot be added to disk and left out of every gate that iterates it.
+    """
+    errors: list[str] = []
+
+    on_disk = sorted(
+        d.name for d in (root / "themes").iterdir()
+        if d.is_dir() and not d.name.startswith(".")
+    )
+    if on_disk != sorted(THEMES):
+        missing = set(on_disk) - set(THEMES)
+        extra = set(THEMES) - set(on_disk)
+        if missing:
+            errors.append(f"themes/ has {', '.join(sorted(missing))} but THEMES does not list them")
+        if extra:
+            errors.append(f"THEMES lists {', '.join(sorted(extra))} but themes/ has no such directory")
+
+    index = root / "public_index.html"
+    if index.is_file():
+        html = index.read_text(encoding="utf-8")
+        for name in on_disk:
+            # The card links to the demo; that is what makes it reachable.
+            if f'href="{name}/"' not in html:
+                errors.append(f"public_index.html has no card linking to {name}/")
+    else:
+        errors.append("public_index.html is missing")
+
+    readme = root / "README.md"
+    if readme.is_file():
+        text = readme.read_text(encoding="utf-8")
+        for name in on_disk:
+            if f"themes/{name}/" not in text:
+                errors.append(f"README.md does not list the {name} theme")
+    else:
+        errors.append("README.md is missing")
+
+    return errors
+
+
 def main() -> int:
     root = Path(__file__).resolve().parent.parent
     all_errors: list[str] = []
@@ -378,6 +426,7 @@ def main() -> int:
     for name in THEMES:
         all_errors.extend(check_theme(root, name))
 
+    all_errors.extend(check_registration(root))
     all_errors.extend(tracked_junk(root))
     all_errors.extend(check_legacy_redirects(root))
 

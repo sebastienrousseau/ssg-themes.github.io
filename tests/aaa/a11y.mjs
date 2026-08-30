@@ -1,7 +1,20 @@
 import { chromium } from '@playwright/test';
 const BASE='http://127.0.0.1:8732';
-const PAGES=['/lucid/','/lucid/installation/','/lucid/configuration/','/lucid/accessibility/',
-  '/lucid/fr/','/lucid/fr/installation/','/lucid/fr/configuration/','/lucid/fr/accessibilite/'];
+const PAGES=[
+  // Lucid — documentation
+  '/lucid/', '/lucid/installation/', '/lucid/configuration/', '/lucid/accessibility/',
+  '/lucid/fr/', '/lucid/fr/installation/', '/lucid/fr/configuration/', '/lucid/fr/accessibilite/',
+  // Stablo — editorial blog
+  '/stablo/', '/stablo/archive/', '/stablo/about/',
+  '/stablo/posts/measuring-instead-of-claiming/',
+  '/stablo/fr/', '/stablo/fr/archives/', '/stablo/fr/a-propos/',
+  '/stablo/fr/posts/mesurer-plutot-que-declarer/',
+  // Quill — typographic blog
+  '/quill/', '/quill/archive/', '/quill/about/',
+  '/quill/posts/measuring-instead-of-claiming/',
+  '/quill/fr/', '/quill/fr/archives/', '/quill/fr/a-propos/',
+  '/quill/fr/posts/mesurer-plutot-que-declarer/',
+];
 const AUDIT = () => {
   const lum=c=>{const m=c.match(/[\d.]+/g).map(Number);const f=v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)};return 0.2126*f(m[0])+0.7152*f(m[1])+0.0722*f(m[2])};
   const ratio=(a,b)=>{const s=[lum(a),lum(b)].sort((p,q)=>q-p);return (s[0]+0.05)/(s[1]+0.05)};

@@ -1,0 +1,58 @@
+---
+author: "SSG Theme Suite"
+date: "2026-08-30"
+language: "en-GB"
+schema: "page"
+changefreq: "weekly"
+copyright_year: "2026"
+locale_path: "/stablo/"
+base_path: "/stablo/"
+en_current: ' aria-current="true"'
+fr_current: ""
+name: "Stablo"
+short_name: "ST"
+tagline: "Notes on building for the web, slowly and on purpose."
+slug_archive: "archive"
+slug_about: "about"
+nav_home: "Home"
+nav_archive: "Archive"
+nav_about: "About"
+cur_home: ""
+cur_archive: ' aria-current="page"'
+cur_about: ""
+label_skip: "Skip to main content"
+label_menu: "Menu"
+label_nav: "Main"
+label_langs: "Language"
+label_theme: "Theme"
+label_theme_system: "System"
+label_light: "Light"
+label_dark: "Dark"
+label_crumbs: "Breadcrumb"
+label_pager: "Post"
+label_prev: "Previous"
+label_next: "Next"
+label_footer_nav: "Footer"
+label_sections: "Sections"
+nf_eyebrow: "404"
+nf_h: "That page is not here"
+nf_lead: "The link may be old, or the post may have been renamed. The archive lists everything that exists."
+nf_cta: "Back to the blog"
+footer_note: "A blog theme for Static Site Generator, published under MIT."
+copyright: "© 2026 SSG Theme Suite. Licensed under MIT."
+screenshot_alt: "The blog home page: featured posts with category labels, author bylines and dates."
+translation_key: "archive"
+title: "Archive — Stablo"
+description: "Every post, newest first."
+keywords: "archive, blog"
+eyebrow: "Archive"
+headline: "Archive"
+lead: "Every post published here, newest first."
+layout: "page"
+---
+
+| Post | Category | Author | Date |
+| --- | --- | --- | --- |
+| [Measuring instead of claiming](/stablo/posts/measuring-instead-of-claiming/) | Craft | Ada Whitfield | 21 August 2026 |
+| [The real cost of a sticky header](/stablo/posts/the-cost-of-a-sticky-header/) | Design | Ada Whitfield | 12 August 2026 |
+| [Writing for two languages from the start](/stablo/posts/writing-for-two-languages/) | Writing | Ines Moreau | 3 August 2026 |

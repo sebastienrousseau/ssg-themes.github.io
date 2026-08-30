@@ -77,7 +77,7 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kinetic", "lucid", "velocity")
+THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity")
 
 # WCAG 1.4.11 Non-text Contrast has no AAA level — 3:1 is the whole
 # criterion. A theme that wants to be stricter than "meets AA" therefore has
@@ -85,7 +85,7 @@ THEMES = ("apex", "atlas", "kinetic", "lucid", "velocity")
 # the AA *text* threshold applied to borders and focus rings. It is the
 # strictest defensible bar for non-text, and opt-in because raising it for
 # every theme would fail four of them on a rule they never claimed.
-STRICT_NONTEXT = frozenset({"lucid"})
+STRICT_NONTEXT = frozenset({"lucid", "quill", "stablo"})
 STRICT_NONTEXT_RATIO = 4.5
 MODES = (("light", ":root,"), ("dark", ':root[data-theme="dark"]'))
 

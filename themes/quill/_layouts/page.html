@@ -1,0 +1,17 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="wrap narrow page">
+  <nav class="crumbs" aria-label="{{label_crumbs}}">
+    <ol>
+      <li><a href="{{locale_path}}">{{nav_home}}</a></li>
+      <li><span aria-current="page">{{headline}}</span></li>
+    </ol>
+  </nav>
+  <p class="eyebrow">{{eyebrow}}</p>
+  <h1 class="page-h">{{headline}}</h1>
+  <p class="page-lead">{{lead}}</p>
+  <div class="prose">
+    {{!content}}
+  </div>
+</section>
+{{/block}}

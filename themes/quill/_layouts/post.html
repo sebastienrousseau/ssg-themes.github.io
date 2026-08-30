@@ -1,0 +1,41 @@
+{{#extends "base"}}
+{{#block "main"}}
+<article class="post">
+  <div class="wrap narrow post-head">
+    <nav class="crumbs" aria-label="{{label_crumbs}}">
+      <ol>
+        <li><a href="{{locale_path}}">{{nav_home}}</a></li>
+        <li><span aria-current="page">{{post_title}}</span></li>
+      </ol>
+    </nav>
+    <p class="post-cat">{{post_cat}}</p>
+    <h1 class="post-h">{{post_title}}</h1>
+    <p class="post-meta">
+      <span class="post-author">{{post_author}}</span>
+      <span class="card-sep" aria-hidden="true">&#183;</span>
+      <time datetime="{{post_iso}}">{{post_date}}</time>
+      <span class="card-sep" aria-hidden="true">&#183;</span>
+      <span>{{post_read}}</span>
+    </p>
+  </div>
+
+  <p class="post-media"><span class="post-art post-art-1"></span></p>
+
+  <div class="wrap narrow prose">
+    {{!content}}
+  </div>
+
+  <div class="wrap narrow">
+    <nav class="pager" aria-label="{{label_pager}}">
+      <a class="pager-link pager-prev" href="{{prev_href}}">
+        <span class="pager-dir">{{label_prev}}</span>
+        <span class="pager-name">{{prev_label}}</span>
+      </a>
+      <a class="pager-link pager-next" href="{{next_href}}">
+        <span class="pager-dir">{{label_next}}</span>
+        <span class="pager-name">{{next_label}}</span>
+      </a>
+    </nav>
+  </div>
+</article>
+{{/block}}

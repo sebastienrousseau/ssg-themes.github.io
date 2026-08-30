@@ -1,0 +1,58 @@
+---
+author: "SSG Theme Suite"
+date: "2026-08-30"
+language: "fr-FR"
+schema: "page"
+changefreq: "weekly"
+copyright_year: "2026"
+locale_path: "/quill/fr/"
+base_path: "/quill/"
+en_current: ""
+fr_current: ' aria-current="true"'
+name: "Quill"
+short_name: "QU"
+tagline: "Notes sur la fabrication du web, lentement et volontairement."
+slug_archive: "archives"
+slug_about: "a-propos"
+nav_home: "Accueil"
+nav_archive: "Archives"
+nav_about: "À propos"
+cur_home: ""
+cur_archive: ' aria-current="page"'
+cur_about: ""
+label_skip: "Aller au contenu principal"
+label_menu: "Menu"
+label_nav: "Principal"
+label_langs: "Langue"
+label_theme: "Thème"
+label_theme_system: "Système"
+label_light: "Clair"
+label_dark: "Sombre"
+label_crumbs: "Fil d'Ariane"
+label_pager: "Article"
+label_prev: "Précédent"
+label_next: "Suivant"
+label_footer_nav: "Pied de page"
+label_sections: "Sections"
+nf_eyebrow: "404"
+nf_h: "Cette page n'est pas ici"
+nf_lead: "Le lien est peut-être ancien, ou l'article a été renommé. Les archives listent tout ce qui existe."
+nf_cta: "Retour au blog"
+footer_note: "Un thème de blog pour Static Site Generator, publié sous licence MIT."
+copyright: "© 2026 SSG Theme Suite. Sous licence MIT."
+screenshot_alt: "La page d'accueil du blog : articles en vedette avec catégories, auteurs et dates."
+translation_key: "archive"
+title: "Archives — Quill"
+description: "Tous les articles, du plus récent au plus ancien."
+keywords: "archive, blog"
+eyebrow: "Archives"
+headline: "Archives"
+lead: "Tous les articles publiés ici, du plus récent au plus ancien."
+layout: "page"
+---
+
+| Article | Catégorie | Auteur | Date |
+| --- | --- | --- | --- |
+| [Mesurer plutôt que déclarer](/quill/fr/posts/mesurer-plutot-que-declarer/) | Artisanat | Ada Whitfield | 21 août 2026 |
+| [Le coût réel d'un en-tête fixe](/quill/fr/posts/le-cout-d-un-en-tete-fixe/) | Design | Ada Whitfield | 12 août 2026 |
+| [Écrire pour deux langues dès le départ](/quill/fr/posts/ecrire-pour-deux-langues/) | Écriture | Inès Moreau | 3 août 2026 |
