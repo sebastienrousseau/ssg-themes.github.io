@@ -1,6 +1,7 @@
 {
   "name": "velocity",
   "title": "Velocity",
+  "category": "Marketing",
   "version": "2.0.0",
   "description": "Product and starter theme: smallest useful layout set, no build toolchain, AAA-gated tokens.",
   "author": "SSG Theme Suite",

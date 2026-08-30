@@ -1,6 +1,7 @@
 {
   "name": "apex",
   "title": "Apex",
+  "category": "Portfolio",
   "version": "2.0.0",
   "description": "Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests.",
   "author": "SSG Theme Suite",
