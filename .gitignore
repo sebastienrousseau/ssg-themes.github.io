@@ -27,3 +27,4 @@ __pycache__/
 
 # Local preview mirror (see `make preview`).
 .preview/
+tests/aaa/node_modules

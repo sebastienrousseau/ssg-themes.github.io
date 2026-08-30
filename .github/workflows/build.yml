@@ -134,6 +134,13 @@ jobs:
           npx --prefix tests/responsive playwright install --with-deps chromium
           bash tests/responsive/run.sh
 
+      # The AAA suites measure what the browser paints, which the stylesheet
+      # gates above cannot: a token can pass in isolation and still be
+      # rendered on a ground it was never paired with. Reuses the Chromium
+      # installed by the step above.
+      - name: AAA gates (rendered contrast, target size, reflow, focus)
+        run: bash tests/aaa/run.sh
+
       - name: Install link checker
         run: npm install --no-save linkinator
 

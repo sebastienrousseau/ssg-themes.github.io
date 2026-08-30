@@ -1,4 +1,4 @@
-.PHONY: help build build-apex build-atlas build-kinetic build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-aaa build build-apex build-atlas build-kinetic build-lucid build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -7,9 +7,10 @@ help:
 	@echo "  make build-apex       Build the Apex theme"
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
+	@echo "  make build-lucid      Build the Lucid theme"
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make build-voxt       Build the Voxt theme"
-	@echo "  make check            Run every gate (structure, contrast, weight)"
+	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
 	@echo "  make clean            Remove build output"
 
 build:
@@ -24,6 +25,9 @@ build-atlas:
 build-kinetic:
 	@bash scripts/build.sh kinetic
 
+build-lucid:
+	@bash scripts/build.sh lucid
+
 build-velocity:
 	@bash scripts/build.sh velocity
 
@@ -32,7 +36,7 @@ build-voxt:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-audit check-responsive
+check: check-structure check-contrast build check-weight check-audit check-responsive check-aaa
 	@echo "All gates passed."
 
 check-structure:
@@ -51,6 +55,11 @@ check-audit:
 # 25 pages x 13 viewports x 2 colour schemes, measured not screenshotted.
 check-responsive:
 	@bash tests/responsive/run.sh
+
+# What a browser actually paints: rendered contrast against real backgrounds,
+# 44px targets, heading order, and reflow at 11 widths in both schemes.
+check-aaa:
+	@bash tests/aaa/run.sh
 
 clean:
 	@rm -rf public dist

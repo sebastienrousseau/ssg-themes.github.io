@@ -1,0 +1,29 @@
+site_name = "Lucid"
+site_title = "Lucid — documentation theme for SSG"
+site_description = "A documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, and colour verified at WCAG AAA."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/lucid/content"
+template_dir = "themes/lucid/_layouts"
+output_dir = "public/lucid"
+
+# Two locales ship with the theme so the multilingual wiring is exercised
+# rather than merely claimed: every page carries a translation_key, and the
+# generator emits hreflang alternates from it. Adding a locale is adding a
+# directory under content/ and a string to this list — no layout changes,
+# because every visible string is front matter rather than markup.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

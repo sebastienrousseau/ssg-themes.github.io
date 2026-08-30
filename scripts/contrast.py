@@ -77,7 +77,16 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kinetic", "velocity")
+THEMES = ("apex", "atlas", "kinetic", "lucid", "velocity")
+
+# WCAG 1.4.11 Non-text Contrast has no AAA level — 3:1 is the whole
+# criterion. A theme that wants to be stricter than "meets AA" therefore has
+# nothing higher to conform to, so these themes are held to 4.5:1 instead:
+# the AA *text* threshold applied to borders and focus rings. It is the
+# strictest defensible bar for non-text, and opt-in because raising it for
+# every theme would fail four of them on a rule they never claimed.
+STRICT_NONTEXT = frozenset({"lucid"})
+STRICT_NONTEXT_RATIO = 4.5
 MODES = (("light", ":root,"), ("dark", ':root[data-theme="dark"]'))
 
 
@@ -100,6 +109,8 @@ def main() -> int:
                 continue
 
             for fg, bg, target, label in PAIRS:
+                if target == UI_NONTEXT and theme in STRICT_NONTEXT:
+                    target = STRICT_NONTEXT_RATIO
                 if fg not in tokens or bg not in tokens:
                     failures.append(
                         f"{theme}/{mode}: token {fg} or {bg} not declared "
@@ -120,7 +131,10 @@ def main() -> int:
             print(f"  FAIL  {f}")
         return 1
 
-    print(f"contrast: all {checked} token pairs pass (AAA text, 3:1 non-text)")
+    print(
+        f"contrast: all {checked} token pairs pass "
+        f"(AAA text; non-text 3:1, or {STRICT_NONTEXT_RATIO}:1 for {', '.join(sorted(STRICT_NONTEXT))})"
+    )
     return 0
 
 
