@@ -14,8 +14,19 @@ import { chromium } from '@playwright/test';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8732';
 const PAGES = [
+  // Lucid — documentation
   '/lucid/', '/lucid/installation/', '/lucid/configuration/', '/lucid/accessibility/',
   '/lucid/fr/', '/lucid/fr/installation/', '/lucid/fr/configuration/', '/lucid/fr/accessibilite/',
+  // Stablo — editorial blog
+  '/stablo/', '/stablo/archive/', '/stablo/about/',
+  '/stablo/posts/measuring-instead-of-claiming/',
+  '/stablo/fr/', '/stablo/fr/archives/', '/stablo/fr/a-propos/',
+  '/stablo/fr/posts/mesurer-plutot-que-declarer/',
+  // Quill — typographic blog
+  '/quill/', '/quill/archive/', '/quill/about/',
+  '/quill/posts/measuring-instead-of-claiming/',
+  '/quill/fr/', '/quill/fr/archives/', '/quill/fr/a-propos/',
+  '/quill/fr/posts/mesurer-plutot-que-declarer/',
 ];
 const VIEWPORTS = [
   { width: 1280, height: 800 }, { width: 1024, height: 800 }, { width: 900, height: 800 },

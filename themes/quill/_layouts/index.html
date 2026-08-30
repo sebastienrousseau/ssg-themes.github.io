@@ -1,0 +1,44 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="wrap hero-post" aria-labelledby="hero-h">
+  <h1 id="hero-h" class="vh">{{headline}}</h1>
+  <span class="hero-media" aria-hidden="true">
+    <span class="hero-art hero-art-1"></span>
+      </span>
+  <div class="hero-grid">
+    <div>
+      <h2 class="hero-h"><a href="{{p1_href}}">{{p1_title}}</a></h2>
+      <p class="hero-date"><time datetime="{{p1_iso}}">{{p1_date}}</time></p>
+    </div>
+    <div>
+      <p class="hero-excerpt">{{p1_excerpt}}</p>
+      <p class="byline"><span class="byline-name">{{p1_author}}</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap stories" aria-labelledby="stories-h">
+  <h2 id="stories-h" class="section-h">{{more_h}}</h2>
+  <ul class="story-list">
+    <li class="story">
+      <span class="story-media" aria-hidden="true">
+        <span class="story-art story-art-2"></span>
+      </span>
+      <h3 class="story-h"><a href="{{p2_href}}">{{p2_title}}</a></h3>
+      <p class="story-date"><time datetime="{{p2_iso}}">{{p2_date}}</time></p>
+      <p class="story-excerpt">{{p2_excerpt}}</p>
+      <p class="byline"><span class="byline-name">{{p2_author}}</span></p>
+    </li>
+    <li class="story">
+      <span class="story-media" aria-hidden="true">
+        <span class="story-art story-art-3"></span>
+      </span>
+      <h3 class="story-h"><a href="{{p3_href}}">{{p3_title}}</a></h3>
+      <p class="story-date"><time datetime="{{p3_iso}}">{{p3_date}}</time></p>
+      <p class="story-excerpt">{{p3_excerpt}}</p>
+      <p class="byline"><span class="byline-name">{{p3_author}}</span></p>
+    </li>
+  </ul>
+  <p class="more-cta"><a class="btn btn-secondary" href="{{locale_path}}{{slug_archive}}/">{{more_cta}}</a></p>
+</section>
+{{/block}}

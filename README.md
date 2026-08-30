@@ -10,6 +10,9 @@ Five production themes for [Static Site Generator (SSG)](https://github.com/seba
 | **[Apex](themes/apex/)** | Portfolios, consulting, advisory | Cool neutrals, deep blue, interface sans |
 | **[Atlas](themes/atlas/)** | Long-form writing, research, reference | Warm-neutral ground, forest green, serif reading column |
 | **[Kinetic](themes/kinetic/)** | Multi-product SaaS, launch sites | Violet-to-cyan gradients as decoration, tabbed platform tour |
+| **[Lucid](themes/lucid/)** | Software documentation, handbooks, references | USWDS documentation-page pattern, side nav and in-page contents, English and French |
+| **[Quill](themes/quill/)** | Writing-led blogs, essays, changelogs | Monochrome, tight-tracked wordmark, full-bleed heroes |
+| **[Stablo](themes/stablo/)** | Editorial blogs, magazines, personal writing | Centred wordmark, large featured cards, indigo accent |
 | **[Velocity](themes/velocity/)** | Product landing pages, starters | Slate and bronze, tight radii, deliberately small layout set |
 | **[Voxt](themes/voxt/)** | Developer tools, AI environments, CLI | High-contrast terminal IDE preview, clean feature grids, strict CSP |
 

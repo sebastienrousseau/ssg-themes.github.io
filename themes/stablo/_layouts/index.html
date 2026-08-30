@@ -1,0 +1,51 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="wrap feature" aria-labelledby="feature-h">
+  <h1 id="feature-h" class="vh">{{headline}}</h1>
+  <ul class="card-grid card-grid-2">
+    <li class="card card-lg">
+      <span class="card-media" aria-hidden="true">
+        <span class="card-art card-art-1"></span>
+      </span>
+      <p class="card-cat"><a href="{{locale_path}}{{slug_archive}}/">{{p1_cat}}</a></p>
+      <h2 class="card-h"><a href="{{p1_href}}">{{p1_title}}</a></h2>
+      <p class="card-meta">
+        <span class="card-author">{{p1_author}}</span>
+        <span class="card-sep" aria-hidden="true">&#183;</span>
+        <time datetime="{{p1_iso}}">{{p1_date}}</time>
+      </p>
+    </li>
+    <li class="card card-lg">
+      <span class="card-media" aria-hidden="true">
+        <span class="card-art card-art-2"></span>
+      </span>
+      <p class="card-cat"><a href="{{locale_path}}{{slug_archive}}/">{{p2_cat}}</a></p>
+      <h2 class="card-h"><a href="{{p2_href}}">{{p2_title}}</a></h2>
+      <p class="card-meta">
+        <span class="card-author">{{p2_author}}</span>
+        <span class="card-sep" aria-hidden="true">&#183;</span>
+        <time datetime="{{p2_iso}}">{{p2_date}}</time>
+      </p>
+    </li>
+  </ul>
+</section>
+
+<section class="wrap more" aria-labelledby="more-h">
+  <h2 id="more-h" class="section-h">{{more_h}}</h2>
+  <ul class="card-grid card-grid-3">
+    <li class="card">
+      <span class="card-media" aria-hidden="true">
+        <span class="card-art card-art-3"></span>
+      </span>
+      <p class="card-cat"><a href="{{locale_path}}{{slug_archive}}/">{{p3_cat}}</a></p>
+      <h3 class="card-h card-h-sm"><a href="{{p3_href}}">{{p3_title}}</a></h3>
+      <p class="card-meta">
+        <span class="card-author">{{p3_author}}</span>
+        <span class="card-sep" aria-hidden="true">&#183;</span>
+        <time datetime="{{p3_iso}}">{{p3_date}}</time>
+      </p>
+    </li>
+  </ul>
+  <p class="more-cta"><a class="btn btn-secondary" href="{{locale_path}}{{slug_archive}}/">{{more_cta}}</a></p>
+</section>
+{{/block}}

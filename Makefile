@@ -1,4 +1,4 @@
-.PHONY: help check-aaa build build-apex build-atlas build-kinetic build-lucid build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-aaa build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -15,6 +15,12 @@ help:
 
 build:
 	@bash scripts/build.sh all
+
+build-quill:
+	@bash scripts/build.sh quill
+
+build-stablo:
+	@bash scripts/build.sh stablo
 
 build-apex:
 	@bash scripts/build.sh apex

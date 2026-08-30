@@ -1,0 +1,469 @@
+/* Stablo — an airy editorial blog theme.
+ *
+ * The palette was solved against WCAG AAA before any of this was written, so
+ * no pair here needed adjusting afterwards: every text token is at least 7:1
+ * against the ground it is painted on, in both colour schemes. Borders and
+ * focus rings are held to 4.5:1 rather than the 3:1 that 1.4.11 asks, which
+ * is the strictest defensible bar since that criterion has no AAA level.
+ */
+
+:root,
+:root[data-theme="light"] {
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --r: 12px;
+  --gap: 1.5rem;
+  --shell: 74rem;
+  --read: 42rem;
+  /* Fallbacks. main.js measures the real masthead and overwrites them, so
+   * the offsets stay correct when a translation makes a label longer. */
+  --masthead-h: 5rem;
+
+  --bg: #ffffff;
+  --surface: #f5f6f8;
+  --ink: #12141a;
+  --ink-soft: #2b2f38;
+  --ink-muted: #3f4552;
+  --accent: #3b3ba8;
+  --accent-hover: #292974;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5e5f6;
+  --surface-soft: #e9ebf0;
+  --on-accent-soft: #292974;
+  --focus: #3b3ba8;
+  --line: #5c6270;
+  --rule: #d7dae1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1014;
+    --surface: #171a21;
+    --ink: #f4f6fa;
+    --ink-soft: #d5dae3;
+    --ink-muted: #aeb6c3;
+    --accent: #a9b4ff;
+    --accent-hover: #ccd3ff;
+    --accent-ink: #0b0d12;
+    --accent-soft: #1d2130;
+    --surface-soft: #1f2430;
+    --on-accent-soft: #ccd3ff;
+    --focus: #a9b4ff;
+    --line: #7b8391;
+    --rule: #262b35;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1014;
+  --surface: #171a21;
+  --ink: #f4f6fa;
+  --ink-soft: #d5dae3;
+  --ink-muted: #aeb6c3;
+  --accent: #a9b4ff;
+  --accent-hover: #ccd3ff;
+  --accent-ink: #0b0d12;
+  --accent-soft: #1d2130;
+  --surface-soft: #1f2430;
+  --on-accent-soft: #ccd3ff;
+  --focus: #a9b4ff;
+  --line: #7b8391;
+  --rule: #262b35;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, ul, ol, dl, dd, figure, pre { margin: 0; }
+ul[class], ol[class] { list-style: none; padding: 0; }
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  /* 1.5 line-height and generous paragraph spacing are 1.4.8; the body size
+   * puts the reading column near 66 characters without the reader zooming. */
+  font-size: 106.25%;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+  /* 2.4.11/2.4.12: anything scrolled to must clear the sticky masthead. */
+  scroll-padding-top: calc(var(--masthead-h) + 1rem);
+}
+
+body { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+main { flex: 1; }
+
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.vh {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -5rem;
+  z-index: 20;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--r);
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0.5rem; }
+
+.wrap { width: 100%; max-width: var(--shell); margin: 0 auto; padding: 0 1.25rem; }
+.narrow { max-width: var(--read); }
+
+/* ---------- masthead: wordmark centred, navigation either side ---------- */
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+  position: var(--masthead-pos, sticky);
+  top: 0;
+  z-index: 10;
+}
+.masthead-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  min-height: 5rem;
+}
+.brand {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 44px;
+  padding: 0.5rem 0;
+}
+.brand-name {
+  overflow-wrap: anywhere;
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.nav-left { order: 1; }
+.masthead-tools { order: 3; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+.nav-list, .lang-list { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.nav-list a, .lang-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.nav-list a:hover, .lang-list a:hover { background: var(--surface); color: var(--accent-hover); text-decoration: underline; }
+.nav-list a[aria-current], .lang-list a[aria-current] {
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+  font-weight: 700;
+}
+
+.nav-btn, .mode-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nav-btn { display: none; }
+.mode-btn-state { color: var(--ink-muted); font-weight: 500; }
+
+/* Generator-injected search control, adopted into the header by main.js. */
+#ssg-search-btn, #ssg-search-btn * {
+  position: static !important;
+  inset: auto !important;
+  margin: 0 !important;
+  color: var(--ink-soft) !important;
+}
+#ssg-search-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.9rem !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  background: var(--surface) !important;
+  font: inherit !important;
+  font-size: 0.875rem !important;
+  cursor: pointer;
+}
+
+/* ---------- cards ---------- */
+.feature { padding: 3.5rem 1.25rem 0; }
+.card-grid { display: grid; gap: 2.5rem; }
+.card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); }
+/* auto-fill, not auto-fit: auto-fit collapses the empty tracks, so a row
+ * holding one post stretches that card to the full width of the grid. */
+.card-grid-3 { grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); }
+
+.card { display: flex; flex-direction: column; }
+.card-lg .card-h { overflow-wrap: anywhere; font-size: clamp(1.375rem, 2.6vw, 1.75rem); }
+
+.card-media { display: block; border-radius: var(--r); overflow: hidden; }
+.card-art {
+  display: block;
+  aspect-ratio: 16 / 10;
+  /* Drawn in CSS rather than shipped as a file: the demo needs no external
+   * asset, nothing 404s, and the page-weight budget is unaffected. */
+  background:
+    radial-gradient(120% 90% at 20% 15%, var(--accent-soft) 0%, transparent 60%),
+    linear-gradient(135deg, var(--surface) 0%, var(--accent-soft) 100%);
+}
+.card-art-2 { background: linear-gradient(120deg, var(--accent-soft) 0%, var(--surface) 70%); }
+.card-art-3 { background: linear-gradient(200deg, var(--surface) 10%, var(--accent-soft) 90%); }
+
+.card-cat { margin-top: 1rem; }
+.card-cat a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+.card-cat a:hover { text-decoration: underline; color: var(--accent-hover); }
+
+.card-h { overflow-wrap: anywhere; font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.015em; margin-top: 0.15rem; }
+.card-h-sm { font-size: 1.1875rem; }
+.card-h a { color: var(--ink); text-decoration: none; }
+.card-h a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+.card-meta { margin-top: 0.6rem; color: var(--ink-muted); font-size: 0.9375rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.card-author { color: var(--ink-soft); font-weight: 600; }
+.card-sep { color: var(--ink-muted); }
+
+.more { padding: 3.5rem 1.25rem 4rem; }
+.section-h { overflow-wrap: anywhere; font-size: 1.25rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.75rem; }
+.more-cta { margin-top: 2.5rem; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-hover); color: var(--accent-ink); }
+.btn-secondary { border: 1px solid var(--line); color: var(--ink-soft); background: var(--surface); }
+.btn-secondary:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* ---------- post ---------- */
+.post-head { padding-top: 3rem; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0; font-size: 0.9375rem; color: var(--ink-muted); }
+.crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--ink-muted); }
+.crumbs a, .crumbs [aria-current] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.15rem;
+  color: var(--ink-soft);
+}
+.crumbs [aria-current] { color: var(--ink-muted); }
+
+.eyebrow, .post-cat {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.post-h { overflow-wrap: anywhere; font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.15; letter-spacing: -0.02em; margin-top: 0.5rem; }
+.page-h { overflow-wrap: anywhere; font-size: clamp(1.875rem, 4.5vw, 2.5rem); line-height: 1.2; letter-spacing: -0.02em; margin-top: 0.5rem; }
+.post-meta { margin-top: 1rem; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.post-author { color: var(--ink-soft); font-weight: 600; }
+.page-lead { margin-top: 1rem; font-size: 1.125rem; color: var(--ink-soft); }
+
+.post-media { max-width: var(--shell); margin: 2.5rem auto 0; padding: 0 1.25rem; }
+.post-art {
+  display: block;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--accent-soft) 100%);
+}
+
+.page { padding-top: 3rem; padding-bottom: 4rem; }
+.post .prose { padding-top: 2.5rem; padding-bottom: 1rem; }
+
+/* ---------- prose ---------- */
+.prose { color: var(--ink-soft); }
+.prose h2 { font-size: 1.5rem; margin-top: 2.5rem; letter-spacing: -0.01em; color: var(--ink); scroll-margin-top: calc(var(--masthead-h) + 1rem); }
+.prose h3 { font-size: 1.1875rem; margin-top: 1.75rem; color: var(--ink); scroll-margin-top: calc(var(--masthead-h) + 1rem); }
+
+/* 1.4.8 asks paragraph spacing of at least 1.5x the line height. The rule is
+ * a descendant selector, not a child one, because the generator wraps
+ * rendered markdown in an element of its own — written as `>` it matches
+ * nothing and the spacing silently does not apply. */
+.prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+  + :where(p, ul, ol, pre, blockquote, table, dl, figure) { margin-top: 2.5em; }
+.prose :where(h2, h3, h4) + * { margin-top: 0.9em; }
+.prose li + li { margin-top: 0.5em; }
+.prose ul, .prose ol { padding-left: 1.25rem; }
+
+.prose a { color: var(--accent); }
+.prose a:hover { color: var(--accent-hover); }
+.prose strong { color: var(--ink); }
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.1rem;
+  /* A scrolling code block is a scrollable region, and an unfocusable one
+   * cannot be reached from a keyboard at all. Wrapping removes the region
+   * rather than making it reachable, and holds with scripting off. */
+  overflow-x: auto;
+}
+.prose pre code { background: none; padding: 0; font-size: 0.875rem; }
+.prose pre code, .prose pre code span, .prose pre code * {
+  /* break-spaces rather than pre-wrap: pre-wrap lets a run of trailing
+   * spaces hang outside the content box, which measures as overflow. */
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
+}
+/* The highlighter labels tokens with scope names — "source", "meta",
+ * "variable", "comment" — and any of them may collide with a layout class.
+ * Token spans carry colour and weight, never geometry. */
+.prose pre code span {
+  padding: 0; margin: 0; border: 0; display: inline;
+  max-width: none; letter-spacing: inherit; word-spacing: inherit;
+}
+
+.prose table { width: 100%; border-collapse: collapse; }
+.prose th, .prose td {
+  text-align: start;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.9375rem;
+  /* 1.4.10: let long cell content break so the columns shrink to the
+   * container instead of forcing the page to scroll sideways. */
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.prose th { color: var(--ink); font-weight: 700; background: var(--surface); }
+
+/* ---------- pager ---------- */
+.pager { display: grid; gap: 1rem; margin: 3.5rem 0 4rem; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
+.pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 44px;
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  text-decoration: none;
+  background: var(--surface);
+}
+.pager-link:hover { border-color: var(--line); }
+.pager-dir { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); font-weight: 700; }
+.pager-name { color: var(--ink); font-weight: 700; }
+.pager-next { text-align: end; }
+
+/* ---------- 404 ---------- */
+.nf { padding: 5rem 1.25rem; text-align: center; }
+.nf-h { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-top: 0.5rem; }
+.nf-lead { margin: 1rem 0 2rem; color: var(--ink-soft); }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--rule); background: var(--surface); margin-top: auto; }
+.footer-in { display: grid; gap: 2rem; padding-top: 3rem; padding-bottom: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); }
+.footer-name { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 1.25rem; color: var(--ink); }
+.footer-note { margin-top: 0.5rem; color: var(--ink-soft); font-size: 0.9375rem; }
+.footer-h { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
+.footer-nav ul { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.footer-nav a:hover { color: var(--accent-hover); text-decoration: underline; }
+.footer-legal { padding-bottom: 2.5rem; color: var(--ink-muted); font-size: 0.875rem; }
+
+@media (max-width: 48rem) {
+  .nav-btn { display: inline-flex; align-items: center; justify-content: center; }
+  .site-nav { display: none; width: 100%; order: 4; }
+  .site-nav.is-open { display: block; }
+  .nav-list { flex-direction: column; }
+  .masthead-in { padding-bottom: 0.5rem; }
+  /* Fallback where --masthead-pos is never set (no JavaScript): below this
+   * width the masthead wraps to several rows and is not worth sticking.
+   * relative, not static, so it still positions its children. */
+  .masthead { position: relative; }
+  .brand { order: 1; }
+  .masthead-tools { order: 2; }
+}
+
+@media (max-width: 30rem) {
+  .prose pre { overflow-x: visible; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .masthead, .footer, .pager, .skip-link, .card-media, .post-media { display: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+}
+
+/* 2.5.5 Target Size (Enhanced). A post title is a navigation target, not a
+ * link inside a sentence, so the criterion's inline exception does not cover
+ * it: a single-line title measured 35px tall. Block display with a minimum
+ * height gives it a 44px box while the text still wraps normally. */
+.card-h a, .story-h a, .hero-h a {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 0.3rem;
+}

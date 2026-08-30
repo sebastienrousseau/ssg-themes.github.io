@@ -1,0 +1,36 @@
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <nav class="site-nav nav-left" id="site-nav" aria-label="{{label_nav}}">
+      <ul class="nav-list">
+        <li><a href="{{locale_path}}"{{cur_home}}>{{nav_home}}</a></li>
+        <li><a href="{{locale_path}}{{slug_archive}}/"{{cur_archive}}>{{nav_archive}}</a></li>
+        <li><a href="{{locale_path}}{{slug_about}}/"{{cur_about}}>{{nav_about}}</a></li>
+      </ul>
+    </nav>
+
+    <a class="brand" href="{{locale_path}}">
+      <span class="brand-name">{{name}}</span>
+    </a>
+
+    <div class="masthead-tools">
+      <button
+        class="nav-btn"
+        type="button"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >{{label_menu}}</button>
+      <nav class="lang-nav" aria-label="{{label_langs}}">
+        <ul class="lang-list">
+          <li><a href="{{base_path}}" hreflang="en" lang="en"{{en_current}}>English</a></li>
+          <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{fr_current}}>Français</a></li>
+        </ul>
+      </nav>
+      <button class="mode-btn" type="button" id="mode-toggle"
+              data-label-light="{{label_light}}" data-label-dark="{{label_dark}}">
+        <span class="mode-btn-label">{{label_theme}}</span>
+        <span class="mode-btn-state" id="mode-state">{{label_theme_system}}</span>
+      </button>
+    </div>
+  </div>
+</header>

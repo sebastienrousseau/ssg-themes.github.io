@@ -1,0 +1,337 @@
+# Generated from the keys the layouts reference.
+#
+# Required is exactly the shell contract: the fields the header, footer
+# and document metadata need, which every page renders. The per-layout
+# keys are optional because a page only supplies the set its own layout
+# uses — an about page has no p1_title, and an index has no post_date.
+#
+# ssg treats an unresolved {{tag}} as a hard error, so a key a layout
+# does need still fails the build rather than shipping a literal brace.
+
+[[schemas]]
+name = "page"
+
+[[schemas.fields]]
+name = "copyright"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "cur_about"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "cur_archive"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "cur_home"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "en_current"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_note"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "fr_current"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_dark"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_footer_nav"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_langs"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_light"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_menu"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_nav"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_sections"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_skip"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_system"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "locale_path"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_about"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_archive"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_home"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "screenshot_alt"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_about"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_archive"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "eyebrow"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "headline"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_crumbs"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_next"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_pager"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_prev"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "lead"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "more_cta"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "more_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "next_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "next_label"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "nf_cta"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "nf_eyebrow"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "nf_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "nf_lead"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_author"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_cat"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_date"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_iso"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p1_title"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_author"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_cat"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_date"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_iso"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p2_title"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_author"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_cat"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_date"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_iso"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "p3_title"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_author"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_cat"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_date"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_iso"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_read"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "post_title"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "prev_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "prev_label"
+type = "string"
+required = false

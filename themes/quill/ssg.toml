@@ -1,0 +1,27 @@
+site_name = "Quill"
+site_title = "Quill — a blog theme for SSG"
+site_description = "A typographic blog theme for SSG: a large tight-tracked wordmark, full-bleed hero images, two-column post headers and a deliberately monochrome palette. Every colour pair is verified at WCAG AAA in CI."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/quill/content"
+template_dir = "themes/quill/_layouts"
+output_dir = "public/quill"
+
+# Two locales ship with the theme so the multilingual wiring is exercised
+# rather than merely claimed: every page carries a translation_key, and the
+# generator emits hreflang alternates from it.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

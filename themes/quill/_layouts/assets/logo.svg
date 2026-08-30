@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Quill">
+  <rect width="32" height="32" rx="0" fill="#12141a"/>
+  <text x="16" y="22" text-anchor="middle" font-family="system-ui, sans-serif"
+        font-size="18" font-weight="700" fill="#ffffff">Q</text>
+</svg>

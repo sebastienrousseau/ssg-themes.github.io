@@ -1,0 +1,27 @@
+site_name = "Stablo"
+site_title = "Stablo — a blog theme for SSG"
+site_description = "An airy editorial blog theme for SSG: a centred wordmark with navigation either side, large featured cards, category labels and author bylines. Every colour pair is verified at WCAG AAA in CI."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/stablo/content"
+template_dir = "themes/stablo/_layouts"
+output_dir = "public/stablo"
+
+# Two locales ship with the theme so the multilingual wiring is exercised
+# rather than merely claimed: every page carries a translation_key, and the
+# generator emits hreflang alternates from it.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]
