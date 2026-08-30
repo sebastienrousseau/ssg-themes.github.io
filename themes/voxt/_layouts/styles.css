@@ -483,12 +483,20 @@ body {
 
 @media (max-width: 900px) {
   .tmux-grid {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) rather than 1fr: a grid item defaults to
+     * min-width:auto, so a 1fr track cannot shrink below the intrinsic
+     * width of its content. The pane contents are file paths and terminal
+     * lines that do not wrap, so at 320px the track resolved to 566px
+     * inside a 286px grid and pushed the page sideways. */
+    grid-template-columns: minmax(0, 1fr);
     min-height: auto;
   }
 }
 
 .tmux-pane {
+  /* Same reason as the track above: these are flex and grid children, and
+   * both default to a minimum of their content size. */
+  min-width: 0;
   background: #090d13;
   border-right: 1px solid var(--border);
   display: flex;
@@ -501,6 +509,7 @@ body {
 }
 
 .tmux-center-col {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border);
