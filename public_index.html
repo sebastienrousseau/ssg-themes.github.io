@@ -200,6 +200,13 @@
       }
       .theme img { border-bottom: 1px solid var(--line-soft); }
       .theme-body { padding: 1.35rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+      .theme-cat {
+        font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.09em; color: var(--accent);
+      }
+      /* .theme-body is a flex column with a gap, so the eyebrow sits close to
+         the name without a margin of its own. */
+      .theme-cat + h3 { margin-top: -0.35rem; }
       .theme h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; }
       .theme p { color: var(--ink-muted); font-size: 0.94rem; }
       .theme dl {
@@ -263,10 +270,13 @@
         </p>
 
         <ul class="facts">
-          <li class="fact"><b>136</b><span>colour token pairs passing AAA contrast, light and dark</span></li>
-          <li class="fact"><b>0</b><span>accessibility issues across all theme pages</span></li>
-          <li class="fact"><b>0</b><span>third-party requests, on every page</span></li>
-          <li class="fact"><b>6.9 KB</b><span>heaviest page, gzipped, including CSS and JS</span></li>
+          <!-- Filled by scripts/facts.py from the gates that produce them.
+               Do not type a number here: the sentence above promises these
+               are generated, and two of them had silently gone stale. -->
+          <li class="fact"><b data-fact="tokens">—</b><span>colour token pairs passing AAA contrast, light and dark</span></li>
+          <li class="fact"><b data-fact="a11y">—</b><span>accessibility issues across all theme pages</span></li>
+          <li class="fact"><b data-fact="thirdparty">—</b><span>third-party requests, on every page</span></li>
+          <li class="fact"><b data-fact="heaviest">—</b><span>heaviest page, gzipped, including CSS and JS</span></li>
         </ul>
       </div>
     </header>
@@ -279,6 +289,7 @@
             <article class="theme">
               <picture><source srcset="apex/images/screenshot.webp" type="image/webp" /><img src="apex/images/screenshot.png" alt="The Apex home page: a portrait beside a large headline, with a row of metric cards below." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Portfolio</p>
                 <h3>Apex</h3>
                 <p>Portfolio and consulting. Cool neutrals with a deep blue accent, a portrait-led hero and a metric grid.</p>
                 <dl>
@@ -296,6 +307,7 @@
             <article class="theme">
               <picture><source srcset="atlas/images/screenshot.webp" type="image/webp" /><img src="atlas/images/screenshot.png" alt="The Atlas home page: a serif headline over a standfirst, with three article cards beneath." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Publication</p>
                 <h3>Atlas</h3>
                 <p>Editorial and knowledge hubs. A serif reading column at a 72-character measure, with a forest-green accent.</p>
                 <dl>
@@ -313,6 +325,7 @@
             <article class="theme">
               <picture><source srcset="kinetic/images/screenshot.webp" type="image/webp" /><img src="kinetic/images/screenshot.png" alt="The Kinetic home page: a violet gradient hero above a row of figures and a tabbed platform tour." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Marketing</p>
                 <h3>Kinetic</h3>
                 <p>Work-platform marketing. Violet-to-cyan gradients used as decoration only, with a tabbed platform tour and an island-enhanced pricing table.</p>
                 <dl>
@@ -330,6 +343,7 @@
             <article class="theme">
               <picture><source srcset="lucid/images/screenshot.webp" type="image/webp" /><img src="lucid/images/screenshot.png" alt="The Lucid documentation page: side navigation, a reading column and an in-page contents list." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Documentation</p>
                 <h3>Lucid</h3>
                 <p>Technical documentation in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, breadcrumbs, English and French.</p>
                 <dl>
@@ -346,6 +360,7 @@
             <article class="theme">
               <picture><source srcset="quill/images/screenshot.webp" type="image/webp" /><img src="quill/images/screenshot.png" alt="The Quill home page: a large wordmark, a full-bleed hero image and a two-column post header." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Blog</p>
                 <h3>Quill</h3>
                 <p>Typographic and monochrome. A large tight-tracked wordmark, full-bleed hero, two-column post headers.</p>
                 <dl>
@@ -362,6 +377,7 @@
             <article class="theme">
               <picture><source srcset="stablo/images/screenshot.webp" type="image/webp" /><img src="stablo/images/screenshot.png" alt="The Stablo home page: a centred wordmark with featured post cards, category labels and author bylines." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Blog</p>
                 <h3>Stablo</h3>
                 <p>Airy and editorial. A centred wordmark with navigation either side, large featured cards with category labels.</p>
                 <dl>
@@ -378,6 +394,7 @@
             <article class="theme">
               <picture><source srcset="velocity/images/screenshot.webp" type="image/webp" /><img src="velocity/images/screenshot.png" alt="The Velocity home page: a centred product headline above a grid of six feature cards." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Marketing</p>
                 <h3>Velocity</h3>
                 <p>Product landings and starters. Slate with a bronze accent, tight radii, and a deliberately small layout set.</p>
                 <dl>
@@ -395,6 +412,7 @@
             <article class="theme">
               <picture><source srcset="voxt/images/screenshot.webp" type="image/webp" /><img src="voxt/images/screenshot.png" alt="The Voxt home page: a high-contrast terminal IDE preview above feature grids and security specifications." width="1500" height="1000" loading="lazy" /></picture>
               <div class="theme-body">
+                <p class="theme-cat">Marketing</p>
                 <h3>Voxt</h3>
                 <p>Developer tools and AI environment showcase. High-contrast terminal IDE preview, clean feature grids, and strict security compliance.</p>
                 <dl>

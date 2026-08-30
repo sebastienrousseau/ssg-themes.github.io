@@ -286,4 +286,10 @@ fi
 
 python3 scripts/anchor_headings.py public
 
+# The showcase's headline figures come from the gates rather than from
+# whoever last edited the page. This runs last, after anchoring: adding
+# heading ids grows every page, so measuring before it reported a heaviest
+# page of 12.2 KB when the file finally published was 12.4 KB.
+python3 scripts/facts.py
+
 echo "==> showcase built into public/"

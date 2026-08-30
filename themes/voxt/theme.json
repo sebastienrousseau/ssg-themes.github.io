@@ -1,6 +1,7 @@
 {
   "name": "voxt",
   "title": "Voxt",
+  "category": "Marketing",
   "version": "0.0.1",
   "description": "Developer tools and AI environment showcase theme: high-contrast terminal IDE dock preview, AAA colour tokens, zero third-party requests.",
   "author": "SSG Theme Suite",

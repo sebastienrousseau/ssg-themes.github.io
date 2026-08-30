@@ -1,6 +1,7 @@
 {
   "name": "quill",
   "title": "Quill",
+  "category": "Blog",
   "version": "0.1.0",
   "description": "Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French.",
   "author": "SSG Theme Suite",

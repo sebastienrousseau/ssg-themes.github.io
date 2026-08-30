@@ -29,6 +29,8 @@ import sys
 import tomllib
 from pathlib import Path
 
+CATEGORIES = ("Blog", "Documentation", "Marketing", "Portfolio", "Publication")
+
 THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity", "voxt")
 
 REQUIRED_FILES = (
@@ -274,6 +276,14 @@ def check_theme(root: Path, name: str) -> list[str]:
                     f"{name}: theme.json name is {data.get('name')!r}, "
                     f"expected {name!r} (must match the directory)"
                 )
+            cat = data.get("category")
+            if not cat:
+                errors.append(f"{name}: theme.json missing category")
+            elif cat not in CATEGORIES:
+                errors.append(
+                    f"{name}: theme.json category {cat!r} is not one of "
+                    f"{', '.join(CATEGORIES)}"
+                )
             for field in ("version", "license", "min_ssg_version",
                           "demosite", "screenshot"):
                 if not data.get(field):
@@ -443,6 +453,47 @@ def check_registration(root: Path) -> list[str]:
         for name in on_disk:
             if name.capitalize() not in html:
                 errors.append(f"public_index.html never names {name.capitalize()}")
+            # The eyebrow is what tells a reader what a theme is for before
+            # they read the description, so it has to agree with the manifest
+            # rather than being typed independently.
+            tj = root / "themes" / name / "theme.json"
+            if tj.is_file():
+                try:
+                    cat = json.loads(tj.read_text()).get("category")
+                except (OSError, ValueError):
+                    cat = None
+                if cat:
+                    card = f'<p class="theme-cat">{cat}</p>\n                <h3>{name.capitalize()}</h3>'
+                    if card not in html:
+                        errors.append(
+                            f"public_index.html: {name.capitalize()} card does "
+                            f"not show its category {cat!r}"
+                        )
+
+    # The headline figures must stay generated. Typing one back in is easy,
+    # reads as deliberate, and is exactly how 136 and 6.9 KB survived next to
+    # a sentence promising the numbers came from gates.
+    if index.is_file():
+        html = index.read_text(encoding="utf-8")
+        facts = re.search(r'<ul class="facts">(.*?)</ul>', html, re.S)
+        if not facts:
+            errors.append("public_index.html has no facts list")
+        else:
+            # In the source every entry carries data-fact and an em-dash
+            # placeholder; scripts/facts.py substitutes the real value into
+            # the built page. A value typed here would ship as-is.
+            for attrs, value in re.findall(r"<b([^>]*)>([^<]*)</b>", facts.group(1)):
+                if "data-fact=" not in attrs:
+                    errors.append(
+                        "public_index.html: a facts entry does not use "
+                        f'data-fact (found "{value.strip()}")'
+                    )
+                elif value.strip() not in ("", "\u2014", "-"):
+                    errors.append(
+                        f'public_index.html: facts list has a typed value '
+                        f'"{value.strip()}"; leave the placeholder so '
+                        "scripts/facts.py fills it"
+                    )
 
     readme = root / "README.md"
     if readme.is_file():

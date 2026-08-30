@@ -1,6 +1,7 @@
 {
   "name": "lucid",
   "title": "Lucid",
+  "category": "Documentation",
   "version": "0.1.0",
   "description": "Documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, AAA-gated tokens, multilingual.",
   "author": "SSG Theme Suite",
