@@ -1,0 +1,14 @@
+{
+  "name": "lucid",
+  "title": "Lucid",
+  "version": "0.1.0",
+  "description": "Documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, AAA-gated tokens, multilingual.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/lucid/",
+  "min_ssg_version": "0.0.56",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}

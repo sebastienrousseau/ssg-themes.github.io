@@ -1,0 +1,445 @@
+# Typed front-matter contract for Lucid.
+#
+# `ssg` validates every page carrying `schema = "page"` against this at
+# compile time. That matters more than usual here: the template engine
+# treats an unresolved `{{tag}}` as a hard error, so a layout referencing a
+# field no content file defines breaks the build anyway — this schema turns
+# that into a named, actionable message instead of a template failure.
+#
+# The required set is exactly the shell contract: the fields every page
+# needs because the base layout, header and footer reference them. Because
+# every visible string is a field rather than markup, this list is also the
+# translation checklist — a new locale is complete when each of these is
+# present in its content files.
+#
+# The optional set covers the per-layout fields: hero and card copy for the
+# index layout, and navigation state, pagination and contents for the doc
+# layout. A page using a layout must define that layout's fields.
+
+[[schemas]]
+name = "page"
+
+[[schemas.fields]]
+name = "author"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "base_path"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "changefreq"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "copyright"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "copyright_year"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "date"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "description"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "en_current"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "footer_note"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "fr_current"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "headline"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "keywords"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_docs"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_footer_nav"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_langs"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_menu"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_nav"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_skip"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_system"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "language"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "layout"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "lead"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "locale_path"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "name"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_a11y"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_config"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_home"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "nav_install"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "schema"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "screenshot_alt"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "short_name"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_a11y"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_config"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "slug_install"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "title"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "translation_key"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "cta_final"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "cta_primary"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "cta_secondary"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "cur_a11y"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "cur_config"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "cur_install"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "eyebrow"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f1_body"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f1_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f2_body"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f2_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f3_body"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f3_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f4_body"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "f4_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "features_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "features_lead"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "hero_tag"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "hero_tagline"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_crumbs"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_docs_nav"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_next"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_pager"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_prev"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "label_toc"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "nav_home_page"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "next_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "next_label"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "prev_href"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "prev_label"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_1_d"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_1_t"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_2_d"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_2_t"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_3_d"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_3_t"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "proof_lead"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "snippet_caption"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "snippet_code"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "start_h"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "start_lead"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_1"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_1_id"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_2"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_2_id"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_3"
+type = "string"
+required = false
+
+[[schemas.fields]]
+name = "toc_3_id"
+type = "string"
+required = false
