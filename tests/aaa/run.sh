@@ -28,15 +28,27 @@ PORT="${AAA_PORT:-8732}"
 [[ -d public ]] || { echo "error: run \`make build\` first" >&2; exit 1; }
 # CI installs Playwright under tests/responsive for the other browser gates;
 # locally it is usually at the repository root. Accept either rather than
-# making the caller install it twice.
-if [[ -d node_modules/@playwright ]]; then
-  export NODE_PATH="$PWD/node_modules"
-elif [[ -d tests/responsive/node_modules/@playwright ]]; then
-  export NODE_PATH="$PWD/tests/responsive/node_modules"
-else
+# making the caller install the same thing twice.
+#
+# NODE_PATH does not help here: it is honoured by CommonJS require() and
+# ignored by ESM import, and these suites are ESM. ESM resolves by walking
+# node_modules directories upward from the importing *file*, so the package
+# has to be reachable on that path - hence the symlink rather than a variable.
+NM=""
+for candidate in node_modules tests/responsive/node_modules; do
+  if [[ -d "${candidate}/@playwright/test" ]]; then
+    NM="${PWD}/${candidate}"
+    break
+  fi
+done
+if [[ -z "${NM}" ]]; then
   echo "error: @playwright/test not installed — see the header of this file" >&2
   exit 1
 fi
+if [[ "${NM}" != "${PWD}/tests/aaa/node_modules" ]]; then
+  ln -sfn "${NM}" tests/aaa/node_modules
+fi
+echo "playwright: ${NM}"
 
 python3 -m http.server "${PORT}" --directory public >/dev/null 2>&1 &
 SERVER=$!
