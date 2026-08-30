@@ -407,6 +407,43 @@ def check_registration(root: Path) -> list[str]:
     else:
         errors.append("public_index.html is missing")
 
+    # The count and the roll-call in the showcase copy are claims about how
+    # many themes exist, and nothing checked them. They had been wrong for
+    # three additions: the page said "five themes" with eight on disk, and
+    # its JSON-LD still said "Four themes ... Apex, Atlas, Kinetic and
+    # Velocity". Both read as deliberate, which is what makes prose claims
+    # about state worth gating.
+    if index.is_file():
+        html = index.read_text(encoding="utf-8")
+        words = {
+            1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+            7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven",
+            12: "twelve",
+        }
+        expected = words.get(len(on_disk))
+        if expected:
+            lowered = html.lower()
+            for n, word in words.items():
+                if n == len(on_disk):
+                    continue
+                # Only count it as a claim when it sits next to "theme".
+                for phrase in (f"{word} themes", f"{word} gated themes"):
+                    if phrase in lowered:
+                        errors.append(
+                            f'public_index.html says "{phrase}" but themes/ '
+                            f"holds {len(on_disk)}"
+                        )
+            if f"{expected} themes" not in lowered:
+                errors.append(
+                    f'public_index.html never says "{expected} themes"; '
+                    f"themes/ holds {len(on_disk)}"
+                )
+        # Every theme must be named, not merely linked: the enumerations in
+        # the title, description and lead are where a new theme goes missing.
+        for name in on_disk:
+            if name.capitalize() not in html:
+                errors.append(f"public_index.html never names {name.capitalize()}")
+
     readme = root / "README.md"
     if readme.is_file():
         text = readme.read_text(encoding="utf-8")
