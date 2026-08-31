@@ -75,10 +75,17 @@ def main() -> int:
             if not arts:
                 errors.append(f"{rel}: post page has no BlogPosting entity")
             for a in arts:
+                image = a.get("image")
+                if isinstance(image, dict):
+                    image = image.get("url")
                 for field, value in (
                     ("headline", a.get("headline")),
                     ("datePublished", a.get("datePublished")),
                     ("author", (a.get("author") or {}).get("name")),
+                    # Google's Article rich-result rules and ssg's own
+                    # auditor both require an image; the first CI run of
+                    # this gate proved the two must agree.
+                    ("image", image),
                 ):
                     if not (value or "").strip():
                         errors.append(f"{rel}: BlogPosting {field} is empty")
