@@ -292,4 +292,8 @@ python3 scripts/anchor_headings.py public
 # page of 12.2 KB when the file finally published was 12.4 KB.
 python3 scripts/facts.py
 
+# The AI-discovery surface is a claim like any other: JSON-LD must parse,
+# posts must carry article-level schema, and llms.txt/agents.txt must exist.
+python3 scripts/structured_data.py public
+
 echo "==> showcase built into public/"
