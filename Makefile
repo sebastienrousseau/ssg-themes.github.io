@@ -49,13 +49,13 @@ check-links:
 	@bash scripts/linkcheck.sh
 
 check-structure:
-	@python3 scripts/validate.py
+	@/usr/bin/python3 scripts/validate.py
 
 check-contrast:
-	@python3 scripts/contrast.py
+	@/usr/bin/python3 scripts/contrast.py
 
 check-weight:
-	@python3 scripts/pageweight.py
+	@/usr/bin/python3 scripts/pageweight.py
 
 # Mirrors the deployed URL prefix before auditing — see scripts/audit.sh.
 check-audit:
@@ -79,3 +79,9 @@ clean:
 preview: build ## Serve the built site as published, on :8099
 	@echo "  http://127.0.0.1:8099/"
 	@npx --yes http-server public -p 8099 --silent
+
+contrast:
+	@/usr/bin/python3 scripts/audit-contrast.py
+
+validate:
+	@/usr/bin/python3 scripts/validate-frontmatter.py

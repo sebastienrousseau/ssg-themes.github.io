@@ -1,20 +1,60 @@
+<!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
 <!DOCTYPE html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<html lang="{{ site.language | default(value='en-GB') }}" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>{% block title %}{{ page.title }} — {{ site.site_name }}{% endblock %}</title>
+  
+  <meta name="description" content="{{ page.description | default(value=site.site_description) }}">
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+  <meta name="author" content="{{ page.author | default(value=site.site_name) }}">
+  <meta name="robots" content="{{ page.robots | default(value='index, follow') }}">
+  <meta name="referrer" content="no-referrer">
+  <meta name="format-detection" content="telephone=no">
+  
+  {% if site.base_url %}<link rel="canonical" href="{{ site.base_url }}{{ page.url | default(value='/') }}">{% endif %}
 
-    <title>SSG Themes — nine gated themes for Static Site Generator</title>
-    <meta
-      name="description"
-      content="Apex, Atlas, Kaishi, Kinetic, Lucid, Quill, Stablo, Velocity and Voxt: nine themes for Static Site Generator. WCAG 2.2 AA verified in CI, colour tokens gated at AAA contrast, zero third-party requests, under 7 KB per page."
-    />
-    <meta name="keywords" content="ssg themes, static site generator, accessible themes, apex, atlas, kinetic, lucid, quill, stablo, velocity, voxt" />
-    <meta name="author" content="SSG Theme Suite" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.site_name }}">
+  <meta property="og:url" content="{{ site.base_url }}{{ page.url | default(value='/') }}">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.description | default(value=site.site_description) }}">
+  <meta property="og:locale" content="{{ site.language | default(value='en_GB') }}">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title }}">
+  <meta name="twitter:description" content="{{ page.description | default(value=site.site_description) }}">
 
-    <!--
-      This page is hand-authored and not processed by the generator's
-      inline-extraction pass, so its single <style>/* ==========================================================================
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.base_url }}/#website",
+        "url": "{{ site.base_url }}",
+        "name": "{{ site.site_name }}",
+        "description": "{{ site.site_description }}",
+        "inLanguage": "{{ site.language | default(value='en-GB') }}"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ site.base_url }}{{ page.url | default(value='/') }}#webpage",
+        "url": "{{ site.base_url }}{{ page.url | default(value='/') }}",
+        "name": "{{ page.title }}",
+        "description": "{{ page.description | default(value=site.site_description) }}",
+        "isPartOf": { "@id": "{{ site.base_url }}/#website" },
+        "inLanguage": "{{ site.language | default(value='en-GB') }}"
+      }
+    ]
+  }
+  </script>
+
+  <style>/* ==========================================================================
    Skeletonic CSS v2.0.0 — Universal Portfolio Engine
    https://skeletonic.io
    ========================================================================== */
@@ -2916,260 +2956,125 @@ select::picker(select) {
   }
 }
 </style>
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
-
-    <header class="masthead">
-      <div class="container">
-        <p class="eyebrow">Themes for Static Site Generator</p>
-        <h1>Nine themes. One architecture. Every claim gated.</h1>
-        <p class="lead">
-          Apex, Atlas, Kinetic, Lucid, Quill, Stablo, Velocity, and Voxt each have their own
-          design system and layout set, built on a shared template
-          architecture. The
-          numbers below are produced by gates that run on every commit — there
-          are no hardcoded score badges here.
-        </p>
-
-        <ul class="facts">
-          <!-- Filled by scripts/facts.py from the gates that produce them.
-               Do not type a number here: the sentence above promises these
-               are generated, and two of them had silently gone stale. -->
-          <li class="fact"><b data-fact="tokens">—</b><span>colour token pairs passing AAA contrast, light and dark</span></li>
-          <li class="fact"><b data-fact="a11y">—</b><span>accessibility issues across all theme pages</span></li>
-          <li class="fact"><b data-fact="thirdparty">—</b><span>third-party requests, on every page</span></li>
-          <li class="fact"><b data-fact="heaviest">—</b><span>heaviest page, gzipped, including CSS and JS</span></li>
-        </ul>
-      </div>
-    </header>
-
-    <main id="main">
-      <section>
-        <div class="container">
-          <h2>Choose a theme</h2>
-          <div class="themes">
-            <article class="theme">
-              <picture><source srcset="apex/images/screenshot.webp" type="image/webp" /><img src="apex/images/screenshot.png" alt="The Apex home page: a portrait beside a large headline, with a row of metric cards below." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Portfolio</p>
-                <h3>Apex</h3>
-                <p>Portfolio and consulting. Cool neutrals with a deep blue accent, a portrait-led hero and a metric grid.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>7</dd>
-                  <dt>Best for</dt><dd>Advisors, directors, consultants</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="apex/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/apex.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/apex.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="theme">
-              <picture><source srcset="atlas/images/screenshot.webp" type="image/webp" /><img src="atlas/images/screenshot.png" alt="The Atlas home page: a serif headline over a standfirst, with three article cards beneath." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Publication</p>
-                <h3>Atlas</h3>
-                <p>Editorial and knowledge hubs. A serif reading column at a 72-character measure, with a forest-green accent.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>8</dd>
-                  <dt>Best for</dt><dd>Research, essays, reference</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="atlas/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/atlas.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/atlas.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="theme">
-              <picture><source srcset="kaishi/images/screenshot.webp" type="image/webp" /><img src="kaishi/images/screenshot.png" alt="The Kaishi home page: a translucent sticky header above a centred headline and a row of soft-cornered cards." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Portfolio</p>
-                <h3>Kaishi</h3>
-                <p>A first site, done properly. Apple's restraint — translucent header, pill controls, soft cards — on a palette gated at AAA in both schemes.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>6</dd>
-                  <dt>Best for</dt><dd>Personal sites, project pages, first launches</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="kaishi/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/kaishi.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/kaishi.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-            <article class="theme">
-              <picture><source srcset="kinetic/images/screenshot.webp" type="image/webp" /><img src="kinetic/images/screenshot.png" alt="The Kinetic home page: a violet gradient hero above a row of figures and a tabbed platform tour." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Marketing</p>
-                <h3>Kinetic</h3>
-                <p>Work-platform marketing. Violet-to-cyan gradients used as decoration only, with a tabbed platform tour and an island-enhanced pricing table.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>5</dd>
-                  <dt>Best for</dt><dd>Multi-product SaaS, launch sites</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="kinetic/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/kinetic.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/kinetic.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="theme">
-              <picture><source srcset="lucid/images/screenshot.webp" type="image/webp" /><img src="lucid/images/screenshot.png" alt="The Lucid documentation page: side navigation, a reading column and an in-page contents list." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Documentation</p>
-                <h3>Lucid</h3>
-                <p>Technical documentation in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, breadcrumbs, English and French.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>7</dd>
-                  <dt>Best for</dt><dd>Software docs, handbooks, references</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="lucid/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/lucid.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/lucid.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-            <article class="theme">
-              <picture><source srcset="quill/images/screenshot.webp" type="image/webp" /><img src="quill/images/screenshot.png" alt="The Quill home page: a large wordmark, a full-bleed hero image and a two-column post header." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Blog</p>
-                <h3>Quill</h3>
-                <p>Typographic and monochrome. A large tight-tracked wordmark, full-bleed hero, two-column post headers.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>4</dd>
-                  <dt>Best for</dt><dd>Writing-led blogs, essays, changelogs</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="quill/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/quill.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/quill.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-            <article class="theme">
-              <picture><source srcset="stablo/images/screenshot.webp" type="image/webp" /><img src="stablo/images/screenshot.png" alt="The Stablo home page: a centred wordmark with featured post cards, category labels and author bylines." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Blog</p>
-                <h3>Stablo</h3>
-                <p>Airy and editorial. A centred wordmark with navigation either side, large featured cards with category labels.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>4</dd>
-                  <dt>Best for</dt><dd>Editorial blogs, magazines, personal writing</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="stablo/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/stablo.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/stablo.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-            <article class="theme">
-              <picture><source srcset="velocity/images/screenshot.webp" type="image/webp" /><img src="velocity/images/screenshot.png" alt="The Velocity home page: a centred product headline above a grid of six feature cards." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Marketing</p>
-                <h3>Velocity</h3>
-                <p>Product landings and starters. Slate with a bronze accent, tight radii, and a deliberately small layout set.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>7</dd>
-                  <dt>Best for</dt><dd>SaaS pages, project sites</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="velocity/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/velocity.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/velocity.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="theme">
-              <picture><source srcset="voxt/images/screenshot.webp" type="image/webp" /><img src="voxt/images/screenshot.png" alt="The Voxt home page: a high-contrast terminal IDE preview above feature grids and security specifications." width="1500" height="1000" loading="lazy" /></picture>
-              <div class="theme-body">
-                <p class="theme-cat">Marketing</p>
-                <h3>Voxt</h3>
-                <p>Developer tools and AI environment showcase. High-contrast terminal IDE preview, clean feature grids, and strict security compliance.</p>
-                <dl>
-                  <dt>Layouts</dt><dd>5</dd>
-                  <dt>Best for</dt><dd>Developer tools, CLI &amp; AI showcase, single-page landing</dd>
-                </dl>
-                <div class="links">
-                  <a class="btn btn-primary" href="voxt/">View demo</a>
-                  <a class="btn btn-secondary" href="downloads/voxt.zip" download>.zip</a>
-                  <a class="btn btn-secondary" href="downloads/voxt.tar.gz" download>.tar.gz</a>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <h2>What each gate checks</h2>
-          <div class="scroll">
-            <table>
-              <caption class="skip-link">Continuous integration gates and what each one asserts</caption>
-              <thead>
-                <tr><th scope="col">Gate</th><th scope="col">Asserts</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Contrast</th>
-                  <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11) — in both light and dark</td>
-                </tr>
-                <tr>
-                  <th scope="row">Structure</th>
-                  <td>Manifests agree, screenshots meet registry sizes, no third-party host appears in any theme source</td>
-                </tr>
-                <tr>
-                  <th scope="row">Page weight</th>
-                  <td>Every page under 20 KB gzipped including its CSS and JS; zero third-party subresources</td>
-                </tr>
-                <tr>
-                  <th scope="row">Accessibility</th>
-                  <td>The generator's report shows 0 issues, and axe-core passes <code>wcag22aa</code></td>
-                </tr>
-                <tr>
-                  <th scope="row">Generator audit</th>
-                  <td>JSON-LD, hreflang, CSP and SRI, HTML5, broken links, Open Graph, feeds, search index</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <h2>Getting started</h2>
-          <p class="lead">
-            Copy a theme, set your site name and base URL in
-            <code>ssg.toml</code>, and build. Requires ssg 0.0.49 or later.
-            Each theme's README documents its layouts, front-matter contract
-            and token system.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        <p>
-          MIT licensed ·
-          <a href="https://github.com/sebastienrousseau/ssg-themes.github.io">Source</a> ·
-          <a href="https://github.com/sebastienrousseau/static-site-generator">Static Site Generator</a>
-        </p>
-      </div>
-    </footer>
+  {% block head_extra %}{% endblock %}
+<style>
+  /* Photo Lightbox Modal */
+  .photo-lightbox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .photo-lightbox-modal.active {
+    display: flex !important;
+  }
+  .photo-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .photo-lightbox-content {
+    position: relative;
+    max-width: 94vw;
+    max-height: 94vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: lightboxZoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes lightboxZoomIn {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .photo-lightbox-media-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 90vw;
+    max-height: 82vh;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  }
+  .photo-lightbox-close {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    color: #ffffff !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    font-size: 1.1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    line-height: 1 !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .photo-lightbox-close:hover {
+    background: rgba(0, 0, 0, 0.85) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.1) !important;
+  }
+  .photo-lightbox-img {
+    max-width: 90vw;
+    max-height: 82vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 16px;
+  }
+  .photo-lightbox-caption {
+    margin-top: 1rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 48rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+  }
+  .photo-card, .photo-img-wrapper, .gallery-card, .gallery-img-wrapper {
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   
+  <header role="banner">
+    <div class="layout-wrapper">
+      <nav aria-label="Primary Navigation">
+        <ul>
+          <li><a href="/" {% if page.url == '/' %}aria-current="page"{% endif %}>Home</a></li>
+          <li><a href="/about" {% if page.url == '/about' %}aria-current="page"{% endif %}>About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <div class="layout-wrapper">
+      {% block content %}{{ content | safe }}{% endblock %}
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="layout-wrapper">
+      <p>&copy; 2026 {{ site.site_name }}. All rights reserved.</p>
+    </div>
+  </footer>
+
 <div id="searchModal" class="search-modal" role="dialog" aria-modal="true" aria-label="Site Search" style="display:none;">
   <div class="search-backdrop"></div>
   <div class="search-dialog">
