@@ -5,6 +5,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 locale_path: "/stablo/"
 base_path: "/stablo/"
 en_current: ' aria-current="true"'

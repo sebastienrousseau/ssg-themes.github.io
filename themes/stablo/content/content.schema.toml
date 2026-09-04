@@ -12,6 +12,11 @@
 name = "page"
 
 [[schemas.fields]]
+name = "label_made_with"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "copyright"
 type = "string"
 required = true

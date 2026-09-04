@@ -20,6 +20,7 @@ label_theme: "Thème"
 label_theme_system: "Système"
 label_docs: "Documentation"
 label_footer_nav: "Documentation"
+label_made_with: "Réalisé avec SSG"
 label_docs_nav: "Sections de la documentation"
 label_crumbs: "Fil d'Ariane"
 label_pager: "Page"
@@ -81,7 +82,7 @@ locales = ["en", "fr", "de"]
 url_prefix = "sub_path"
 ```
 
-Ajoutez ensuite `content/de/`, un fichier par page. Chaque page porte une `translation_key` ; les pages qui partagent une clé sont considérées comme des traductions l'une de l'autre, ce qui produit les alternates `hreflang`. La validation du dépôt échoue si une clé ne se résout pas dans chaque langue déclarée : un site à moitié traduit est une erreur de construction, pas une surprise pour le lecteur.
+Ajoutez ensuite `content/de/`, un fichier par page. Chaque page porte une `translation_key`; les pages qui partagent une clé sont considérées comme des traductions l'une de l'autre, ce qui produit les alternates `hreflang`. La validation du dépôt échoue si une clé ne se résout pas dans chaque langue déclarée : un site à moitié traduit est une erreur de construction, pas une surprise pour le lecteur.
 
 ## Jetons de couleur
 

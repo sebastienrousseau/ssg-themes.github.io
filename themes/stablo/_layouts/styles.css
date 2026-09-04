@@ -467,3 +467,13 @@ a:hover { color: var(--accent-hover); }
   min-height: 44px;
   padding-block: 0.3rem;
 }
+
+/* Attribution link. The colour is inherited from the footer so the pair is one
+   the contrast gate already verifies in styles.css, rather than a new literal
+   that nothing checks. The 44px box meets the AAA target-size minimum. */
+.made-with-ssg {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+}

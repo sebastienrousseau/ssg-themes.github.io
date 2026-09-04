@@ -13,6 +13,7 @@ schema: "page"
 tags: ["method", "editorial"]
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 form_origin: "https://example.com"
 nav_articles: "true"
 eyebrow: "Articles"

@@ -13,6 +13,7 @@ schema: "page"
 tags: ["reference", "method"]
 changefreq: "monthly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 form_origin: "https://example.com"
 nav_papers: "true"
 eyebrow: "Publications"

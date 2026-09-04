@@ -510,6 +510,18 @@ a:hover { color: var(--accent-hover); }
 .footer-nav a:hover { color: var(--accent-hover); }
 .footer-legal { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
 .footer-legal p { color: var(--ink-muted); font-size: 0.875rem; }
+/* Attribution link. Same treatment as the footer navigation so the touch
+   target stays at the 44px AAA minimum and the colour pair is one already
+   verified by the contrast gate. */
+.footer-credit { margin-top: 0.25rem; }
+.footer-credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+.footer-credit a:hover { color: var(--accent-hover); }
 
 /* ---------- narrow viewports ---------- *
  * The sidebar and contents collapse into the reading order rather than

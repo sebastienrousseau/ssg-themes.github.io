@@ -95,6 +95,11 @@ type = "string"
 required = true
 
 [[schemas.fields]]
+name = "label_made_with"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "label_menu"
 type = "string"
 required = true

@@ -981,3 +981,8 @@
     margin-block-start: var(--space-m);
   }
 }
+
+/* Attribution link, set inline in the colophon sentence. Colour is inherited so
+   the contrast pair stays the verified one; target-size does not apply because
+   2.5.5 exempts a link inside a sentence. */
+.made-with-ssg { color: inherit; }
