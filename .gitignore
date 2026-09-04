@@ -28,3 +28,17 @@ __pycache__/
 # Local preview mirror (see `make preview`).
 .preview/
 tests/aaa/node_modules
+
+# Local build output.
+#
+# GitHub Pages publishes this site from the `gh-pages` branch via a
+# workflow (checked: source.branch=gh-pages, build_type=workflow), so
+# `docs/` here is only ever a local build artefact — caches, generated
+# JSON reports, copied assets. Committing it would put ~20 regenerated
+# files into every diff for no gain.
+#
+# `docs/i18n-followup.md` is the exception: it is hand-written, predates
+# the build output, and is tracked. It is kept at its historical path
+# rather than moved, so its history stays intact.
+/docs/*
+!/docs/i18n-followup.md
