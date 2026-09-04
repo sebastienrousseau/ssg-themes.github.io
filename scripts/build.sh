@@ -28,7 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-THEMES=(apex atlas kinetic lucid quill stablo velocity voxt)
+THEMES=(apex atlas kaishi kinetic lucid quill stablo velocity voxt)
 TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:
@@ -81,15 +81,15 @@ build_theme() {
 
   "${SSG}" build -f "${staged_config}"
 
-  # Standalone stylesheet and scripts. These live in `_layouts/` beside the
-  # templates that reference them, but the generator only compiles `.html`
-  # from that directory — it never copies siblings — so without this step
-  # every page 404s on its stylesheet and renders unstyled.
-  for asset in styles.css main.js theme-init.js; do
-    if [[ -f "themes/${theme}/_layouts/${asset}" ]]; then
-      cp -f "themes/${theme}/_layouts/${asset}" "public/${theme}/${asset}"
-    fi
-  done
+  # The stylesheet and scripts that live in `_layouts/` beside the templates
+  # referencing them are staged and fingerprinted by the generator itself, so
+  # they are not copied here.
+  #
+  # They used to be. Copying them back after the build re-created an
+  # unfingerprinted, unminified duplicate of each one at a stable URL, with no
+  # `integrity` attribute covering it, while every page referenced only the
+  # fingerprinted name. Three dead files per theme, and a reachable copy of
+  # the site's own JavaScript that SRI did not protect.
 
   # Screenshots, referenced by the gallery landing page.
   if [[ -d "themes/${theme}/images" ]]; then
@@ -128,10 +128,14 @@ fi
 
 # Legacy theme paths.
 #
-# The themes were renamed (portfolio -> apex, sebastienrousseau -> atlas,
-# kaishi -> velocity) and the old build mirrored the output into both. Those
-# paths are live and may have inbound links, so dropping the mirror without
-# a redirect would turn three working URLs into 404s.
+# The themes were renamed (portfolio -> apex, sebastienrousseau -> atlas)
+# and the old build mirrored the output into both. Those paths are live and
+# may have inbound links, so dropping the mirror without a redirect would
+# turn working URLs into 404s.
+#
+# `kaishi` was also on this list, redirecting to velocity. It is a theme in
+# its own right again, so /kaishi/ now serves that theme and the redirect is
+# deliberately gone — the path resolves, just to different content.
 #
 # GitHub Pages serves no redirect rules, so this is the static equivalent:
 # a canonical pointing at the new home for crawlers, a meta refresh for
@@ -204,7 +208,6 @@ HTML
 if [[ "${TARGET}" == "all" ]]; then
   emit_legacy_redirect portfolio apex
   emit_legacy_redirect sebastienrousseau atlas
-  emit_legacy_redirect kaishi velocity
 fi
 
 # Gallery landing page.

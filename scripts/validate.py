@@ -31,7 +31,7 @@ from pathlib import Path
 
 CATEGORIES = ("Blog", "Documentation", "Marketing", "Portfolio", "Publication")
 
-THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity", "voxt")
+THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity", "voxt")
 
 REQUIRED_FILES = (
     "theme.toml",
@@ -222,7 +222,6 @@ def tracked_junk(root: Path) -> list[str]:
 LEGACY_PATHS = {
     "portfolio": "apex",
     "sebastienrousseau": "atlas",
-    "kaishi": "velocity",
 }
 
 

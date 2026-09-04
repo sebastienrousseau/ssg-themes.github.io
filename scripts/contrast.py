@@ -77,7 +77,7 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity")
+THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity")
 
 # WCAG 1.4.11 Non-text Contrast has no AAA level — 3:1 is the whole
 # criterion. A theme that wants to be stricter than "meets AA" therefore has
