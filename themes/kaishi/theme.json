@@ -1,0 +1,15 @@
+{
+  "name": "kaishi",
+  "title": "Kaishi",
+  "category": "Portfolio",
+  "version": "1.0.0",
+  "description": "Apple-inspired starter theme: translucent sticky header, pill controls and a soft card geometry, on a colour system gated at WCAG AAA.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/kaishi/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}
