@@ -35,6 +35,7 @@
   --focus: #8a3324;
   --line: #595959;
   --rule: #dcdcdc;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -54,6 +55,7 @@
     --line: #7f7f7f;
     --rule: #242424;
   }
+  color-scheme: dark;
 }
 
 :root[data-theme="dark"] {
@@ -71,6 +73,7 @@
   --focus: #f0a08e;
   --line: #7f7f7f;
   --rule: #242424;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

@@ -22,6 +22,7 @@
   --on-accent-soft: #08417f;
   --focus: #08417f;
   --line: #5f6976;
+  color-scheme: light;
 }
 
 :root[data-theme="dark"] {
@@ -38,6 +39,7 @@
   --on-accent-soft: #c6dbf7;
   --focus: #93bef7;
   --line: #7d8b9f;
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,6 +58,7 @@
     --focus: #93bef7;
     --line: #7d8b9f;
   }
+  color-scheme: dark;
 }
 
 :root {
