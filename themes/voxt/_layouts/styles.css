@@ -494,7 +494,7 @@ body {
 
 .tab-item {
   font-size: 0.8125rem;
-  color: #8b949e;
+  color: #9ea6ae;
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
 }
@@ -582,7 +582,7 @@ body {
   background: #121822;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.72rem;
-  color: #8b949e;
+  color: #9ea6ae;
   font-weight: 600;
 }
 
@@ -596,7 +596,8 @@ body {
 }
 
 .ai-badge {
-  background: rgba(192, 132, 252, 0.2);
+  background: #352e4e;
+  color: #99c9ff;
   color: #d2a8ff;
   padding: 0.1rem 0.4rem;
   border-radius: 4px;
@@ -611,7 +612,7 @@ body {
 }
 
 .explorer-content {
-  color: #8b949e;
+  color: #9ea6ae;
   font-size: 0.78rem;
   line-height: 1.7;
 }
@@ -631,9 +632,9 @@ body {
 }
 
 .tree-node.active {
-  color: #58a6ff;
+  color: #74b5ff;
   font-weight: 700;
-  background: rgba(88, 166, 255, 0.15);
+  background: #152436;
   border-radius: 3px;
 }
 
@@ -651,7 +652,7 @@ body {
 
 .terminal-content {
   background: #090d13;
-  color: #8b949e;
+  color: #9ea6ae;
   font-size: 0.78rem;
   line-height: 1.65;
 }
@@ -689,7 +690,7 @@ body {
 }
 
 .cli-out {
-  color: #8b949e;
+  color: #9ea6ae;
   margin-bottom: 0.4rem;
 }
 
@@ -703,7 +704,7 @@ body {
 .code-fn { color: #d2a8ff; font-weight: 600; }
 .code-type { color: #79c0ff; }
 .code-str { color: #a5d6ff; }
-.code-comment { color: #8b949e; font-style: italic; }
+.code-comment { color: #9ea6ae; font-style: italic; }
 .code-num { color: #79c0ff; }
 
 /* TMUX Status Bar at Bottom */
@@ -712,7 +713,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0.35rem 1rem;
-  background: #0366d6;
+  background: #0253af;
   color: #ffffff;
   font-size: 0.74rem;
   font-weight: 700;
@@ -722,7 +723,7 @@ body {
 }
 
 .status-center {
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-weight: 500;
 }
 
