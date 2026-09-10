@@ -15,17 +15,17 @@
 
     <nav class="site-nav" id="site-nav" aria-label="{{label_nav}}">
       <ul class="nav-list">
-        <li><a href="{{locale_path}}"{{cur_home}}>{{nav_home}}</a></li>
-        <li><a href="{{locale_path}}{{slug_archive}}/"{{cur_archive}}>{{nav_archive}}</a></li>
-        <li><a href="{{locale_path}}{{slug_about}}/"{{cur_about}}>{{nav_about}}</a></li>
+        <li><a href="{{locale_path}}"{{!cur_home}}>{{nav_home}}</a></li>
+        <li><a href="{{locale_path}}{{slug_archive}}/"{{!cur_archive}}>{{nav_archive}}</a></li>
+        <li><a href="{{locale_path}}{{slug_about}}/"{{!cur_about}}>{{nav_about}}</a></li>
       </ul>
     </nav>
 
     <div class="masthead-tools">
       <nav class="lang-nav" aria-label="{{label_langs}}">
         <ul class="lang-list">
-          <li><a href="{{base_path}}" hreflang="en" lang="en"{{en_current}}>English</a></li>
-          <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{fr_current}}>Français</a></li>
+          <li><a href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a></li>
+          <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a></li>
         </ul>
       </nav>
       <!-- Search trigger slot. The generator replaces this element with
