@@ -79,6 +79,39 @@ PAIRS = [
 
 THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity")
 
+# Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
+# / `--primary` / `--border` where the other eight use `--ink` / `--surface`
+# / `--accent` / `--line`. Because none of the names in PAIRS resolved, it was
+# simply left out of THEMES, and so its colours were never checked at all.
+#
+# That silence was not free. When these pairs were first run against it, seven
+# failed, three of them WCAG 1.4.11 non-text violations rather than AAA
+# shortfalls: `--border` sat at 1.92:1 against the dark ground and 2.54:1
+# against the light one, against a requirement of 3:1.
+#
+# A theme is not exempt from contrast because it names its tokens differently,
+# so voxt is checked here under its own vocabulary rather than rewritten to
+# match the others.
+VOXT_PAIRS = [
+    ("--fg", "--bg", AAA_TEXT, "body text on ground"),
+    ("--fg", "--bg-card", AAA_TEXT, "body text on card"),
+    ("--fg-muted", "--bg", AAA_TEXT, "secondary text on ground"),
+    ("--fg-muted", "--bg-card", AAA_TEXT, "secondary text on card"),
+    ("--fg-subtle", "--bg", AAA_TEXT, "muted text on ground"),
+    ("--fg-subtle", "--bg-card", AAA_TEXT, "muted text on card"),
+    ("--primary", "--bg", AAA_TEXT, "link on ground"),
+    ("--primary", "--bg-card", AAA_TEXT, "link on card"),
+    ("--primary-hover", "--bg-card", AAA_TEXT, "hovered link on card"),
+    ("--accent", "--bg", AAA_TEXT, "accent text on ground"),
+    ("--focus", "--bg", UI_NONTEXT, "focus ring against ground"),
+    ("--border", "--bg", UI_NONTEXT, "border against ground"),
+    ("--border-strong", "--bg-card", UI_NONTEXT, "strong border against card"),
+]
+
+# Dark-first: the unqualified `:root` block *is* the dark palette, and the
+# light one is the opt-in override. The other eight are the other way round.
+VOXT_MODES = (("dark", ":root"), ("light", '[data-theme="light"]'))
+
 # WCAG 1.4.11 Non-text Contrast has no AAA level — 3:1 is the whole
 # criterion. A theme that wants to be stricter than "meets AA" therefore has
 # nothing higher to conform to, so these themes are held to 4.5:1 instead:
@@ -122,6 +155,31 @@ def main() -> int:
                 if got + 1e-9 < target:
                     failures.append(
                         f"{theme}/{mode}: {label} — {tokens[fg]} on {tokens[bg]} "
+                        f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
+                    )
+
+    voxt_css = root / "themes" / "voxt" / "_layouts" / "styles.css"
+    if not voxt_css.exists():
+        failures.append("voxt: missing themes/voxt/_layouts/styles.css")
+    else:
+        css = voxt_css.read_text(encoding="utf-8")
+        for mode, selector in VOXT_MODES:
+            tokens = parse_tokens(css, selector)
+            if not tokens:
+                failures.append(f"voxt/{mode}: no tokens found for `{selector}`")
+                continue
+            for fg, bg, target, label in VOXT_PAIRS:
+                if fg not in tokens or bg not in tokens:
+                    failures.append(
+                        f"voxt/{mode}: token {fg} or {bg} not declared "
+                        f"(needed for '{label}')"
+                    )
+                    continue
+                got = ratio(tokens[fg], tokens[bg])
+                checked += 1
+                if got + 1e-9 < target:
+                    failures.append(
+                        f"voxt/{mode}: {label} — {tokens[fg]} on {tokens[bg]} "
                         f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
                     )
 
