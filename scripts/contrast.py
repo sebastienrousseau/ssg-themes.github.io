@@ -42,6 +42,48 @@ def ratio(fg: str, bg: str) -> float:
     return (l1 + 0.05) / (l2 + 0.05)
 
 
+# Display P3 -> XYZ (D65). Only the middle row is needed: WCAG relative
+# luminance is Y, and Y is defined in XYZ, not in any particular RGB
+# space. Computing it this way lets a P3 colour be held to exactly the
+# same thresholds as an sRGB one rather than being exempt.
+P3_TO_XYZ_Y = (0.2289745, 0.6917387, 0.0792868)
+
+
+def p3_luminance(components: tuple[float, float, float]) -> float:
+    """Relative luminance of a `color(display-p3 r g b)` triple."""
+    lin = [_linear(round(c * 255)) for c in components]
+    return sum(P3_TO_XYZ_Y[i] * lin[i] for i in range(3))
+
+
+def parse_p3_tokens(css: str, selector: str) -> dict[str, tuple[float, ...]]:
+    """Extracts `--name: color(display-p3 r g b);` from a `selector` block.
+
+    P3 tokens were added so wide-gamut displays get the chroma sRGB was
+    clipping. They must be checked, not just declared: a colour the gate
+    cannot parse is a colour outside the gate, and that is precisely how
+    voxt's seven contrast failures went unnoticed for as long as they
+    did.
+    """
+    idx = css.find(selector)
+    if idx == -1:
+        return {}
+    block = css[idx: css.find("}", idx)]
+    return {
+        name: tuple(float(v) for v in values.split())
+        for name, values in re.findall(
+            r"(--[a-z0-9-]+)\s*:\s*color\(display-p3\s+([0-9.\s]+)\)\s*;",
+            block,
+        )
+    }
+
+
+def ratio_mixed(fg_luminance: float, bg_hex: str) -> float:
+    """Contrast of an already-computed luminance against a hex colour."""
+    l2 = luminance(bg_hex)
+    lighter, darker = max(fg_luminance, l2), min(fg_luminance, l2)
+    return (lighter + 0.05) / (darker + 0.05)
+
+
 def parse_tokens(css: str, selector: str) -> dict[str, str]:
     """Extracts `--name: #hex;` pairs from the first block matching `selector`."""
     idx = css.find(selector)
@@ -156,6 +198,42 @@ def main() -> int:
                     failures.append(
                         f"{theme}/{mode}: {label} — {tokens[fg]} on {tokens[bg]} "
                         f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
+                    )
+
+    # --- Display P3 ------------------------------------------------------
+    # The wide-gamut restatements are held to the same thresholds as the
+    # sRGB tokens they override. They keep their lightness by
+    # construction, so they should pass wherever the sRGB value does —
+    # "should" being exactly the kind of assumption this file exists to
+    # stop anyone relying on.
+    for theme in THEMES + ("voxt",):
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        gamut = css.find("@media (color-gamut: p3)")
+        if gamut == -1:
+            failures.append(f"{theme}: no Display P3 block")
+            continue
+        p3_region = css[gamut:]
+        pairs = VOXT_PAIRS if theme == "voxt" else PAIRS
+        modes = VOXT_MODES if theme == "voxt" else MODES
+        for mode, selector in modes:
+            srgb = parse_tokens(css, selector)
+            wide = parse_p3_tokens(p3_region, selector)
+            if not wide:
+                continue
+            for fg, bg, target, label in pairs:
+                if fg not in wide or bg not in srgb:
+                    continue
+                if target == UI_NONTEXT and theme in STRICT_NONTEXT:
+                    target = STRICT_NONTEXT_RATIO
+                got = ratio_mixed(p3_luminance(wide[fg]), srgb[bg])
+                checked += 1
+                if got + 1e-9 < target:
+                    failures.append(
+                        f"{theme}/{mode}/p3: {label} — {fg} on {srgb[bg]} "
+                        f"= {got:.2f}:1, need {target}:1"
                     )
 
     voxt_css = root / "themes" / "voxt" / "_layouts" / "styles.css"

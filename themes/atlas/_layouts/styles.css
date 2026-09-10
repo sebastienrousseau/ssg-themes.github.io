@@ -1059,3 +1059,93 @@
   min-height: 44px;
   color: inherit;
 }
+
+/* ---------------------------------------------------------------------
+   Increase Contrast (macOS / iOS "Increase Contrast", and the same user
+   preference on other platforms).
+
+   Tokens only, so every rule that already consumes them follows. Muted
+   and soft inks collapse onto the full-strength ink, and the hairline
+   rules become the border colour, which is the part that disappears
+   first for anyone who asked for more contrast.
+   --------------------------------------------------------------------- */
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="dark"] {
+    --ink-soft: var(--ink);
+    --ink-muted: var(--ink);
+    --rule: var(--line);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Forced colours (Invert Colors, Windows High Contrast, and similar).
+
+   The OS replaces the palette wholesale here, so the job is not to
+   restyle but to make sure nothing that was carried by colour alone
+   disappears with it. Focus rings and borders get explicit system
+   colours; links get LinkText so they stay identifiable as links.
+   --------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  a {
+    color: LinkText;
+  }
+  a:visited {
+    color: VisitedText;
+  }
+  /* A button distinguished only by its background becomes invisible
+     when the background is forced; give it an edge that is not. */
+  .btn,
+  .btn-primary {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .skip-link {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Wide colour (Display P3).
+
+   Every token above is sRGB and stays that way — this block only runs
+   where the display can actually show more, and only the chromatic
+   tokens are restated. Neutrals carry almost no chroma, so a wider
+   gamut has nothing to give them.
+
+   Each colour keeps its lightness and hue exactly and gains about a
+   fifth more chroma, which is the part sRGB was clipping. Because
+   lightness is unchanged, contrast is too: `scripts/contrast.py` checks
+   these P3 values against the same thresholds as the sRGB ones, via
+   their XYZ luminance.
+   --------------------------------------------------------------------- */
+@media (color-gamut: p3) {
+  :root,
+  :root[data-theme="light"] {
+    --accent: color(display-p3 0.1191 0.3244 0.2218);
+    --accent-hover: color(display-p3 0.0793 0.2295 0.1557);
+    --focus: color(display-p3 0.1846 0.4826 0.3182);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: color(display-p3 0.4829 0.8332 0.6189);
+      --accent-hover: color(display-p3 0.6076 0.8834 0.7141);
+      --focus: color(display-p3 0.4829 0.8332 0.6189);
+    }
+  }
+  :root[data-theme="dark"] {
+    --accent: color(display-p3 0.4829 0.8332 0.6189);
+    --accent-hover: color(display-p3 0.6076 0.8834 0.7141);
+    --focus: color(display-p3 0.4829 0.8332 0.6189);
+  }
+}
