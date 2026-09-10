@@ -1054,3 +1054,18 @@
     --focus: color(display-p3 0.6395 0.5308 0.9994);
   }
 }
+
+/* A section that sits on the soft ground. Was an inline
+   `style="background: var(--bg-soft)"`, which the generator's
+   own CSP blocks — `style-src 'self'` admits no inline style,
+   so the background silently never applied and the browser
+   logged a violation on every page carrying it. */
+.section-soft {
+  background: var(--bg-soft);
+}
+
+/* Same reason as `.section-soft`: an inline
+   `style="justify-content:center"` cannot survive the CSP. */
+.cta-row-centred {
+  justify-content: center;
+}
