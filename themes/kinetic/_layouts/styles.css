@@ -46,7 +46,7 @@
     --focus: #6d28d9;
 
     /* Decorative only — never behind text. */
-    --wash: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #0891b2 100%);
+    --wash: linear-gradient(135deg, #6517ea 0%, #4036e3 45%, #055e74 100%);
     --wash-soft: linear-gradient(135deg, #f4f1fe 0%, #eef6ff 100%);
 
     --shadow-sm: 0 1px 3px rgb(22 18 31 / 8%);
@@ -60,7 +60,9 @@
     --ssg-search-top: calc((4rem - 2.75rem) / 2);
 
     color-scheme: light;
-  }
+    --wash-solid: #f4f1fe;
+  --wash-solid-strong: #6517ea;
+}
 
   /* Dark — redefine tokens only. Guarded so an explicit light choice
      still wins on a dark OS. */
@@ -85,14 +87,16 @@
       --line-soft: #2b2350;
       --focus: #a78bfa;
 
-      --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0e7490 100%);
+      --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0b5e75 100%);
       --wash-soft: linear-gradient(135deg, #16112a 0%, #12203a 100%);
 
       --shadow-sm: 0 1px 3px rgb(0 0 0 / 55%);
       --shadow-md: 0 10px 30px -12px rgb(0 0 0 / 70%);
 
       color-scheme: dark;
-    }
+        --wash-solid: #16112a;
+    --wash-solid-strong: #6d28d9;
+}
   }
 
   /* The toggle wins in both directions. */
@@ -116,14 +120,16 @@
     --line-soft: #2b2350;
     --focus: #a78bfa;
 
-    --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0e7490 100%);
+    --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0b5e75 100%);
     --wash-soft: linear-gradient(135deg, #16112a 0%, #12203a 100%);
 
     --shadow-sm: 0 1px 3px rgb(0 0 0 / 55%);
     --shadow-md: 0 10px 30px -12px rgb(0 0 0 / 70%);
 
     color-scheme: dark;
-  }
+    --wash-solid: #16112a;
+  --wash-solid-strong: #6d28d9;
+}
 
   :root {
     /* A fluid scale, so 200% zoom and 320px both stay on the ramp. */
@@ -401,7 +407,12 @@
     width: 2rem;
     height: 2rem;
     border-radius: 9px;
-    background: var(--wash);
+    /* Solid under the gradient: a checker cannot measure contrast
+       through a background-image, and this also renders correctly
+       where the gradient does not. Every stop clears 7:1 against
+       the white label. */
+    background-color: var(--wash-solid-strong);
+    background-image: var(--wash);
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 800;
@@ -535,7 +546,8 @@
   .hero {
     position: relative;
     padding-block: clamp(3rem, 2rem + 6vw, 7rem);
-    background: var(--wash-soft);
+    background-color: var(--wash-solid);
+  background-image: var(--wash-soft);
     border-block-end: 1px solid var(--line-soft);
   }
 

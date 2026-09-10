@@ -200,6 +200,42 @@ def main() -> int:
                         f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
                     )
 
+    # --- Gradient stops -------------------------------------------------
+    # axe cannot compute contrast through a `background-image`: it reports
+    # the element rather than a ratio, so a gradient is a hole in the one
+    # tool that would otherwise catch this. Kinetic's brand mark sat at
+    # 3.68:1 against the cyan end of its wash — a WCAG AA failure — and
+    # nothing flagged the number, only the fact that a number could not be
+    # produced.
+    #
+    # Every stop of a gradient that carries text is checked here against
+    # the colour laid over it, because the worst stop is the one that
+    # decides whether the text is readable.
+    GRADIENT_TEXT = {
+        "kinetic": [("--wash", "#ffffff", AAA_TEXT, "brand mark on wash")],
+    }
+    for theme, checks in GRADIENT_TEXT.items():
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        for token, fg, target, label in checks:
+            stops = re.findall(
+                rf"{re.escape(token)}:\s*linear-gradient\(([^;]*)\)\s*;", css
+            )
+            if not stops:
+                failures.append(f"{theme}: no gradient found for {token}")
+                continue
+            for grad in stops:
+                for stop in re.findall(r"#[0-9a-fA-F]{6}", grad):
+                    got = ratio(fg, stop)
+                    checked += 1
+                    if got + 1e-9 < target:
+                        failures.append(
+                            f"{theme}/gradient: {label} — {fg} on stop {stop} "
+                            f"= {got:.2f}:1, need {target}:1 ({token})"
+                        )
+
     # --- Display P3 ------------------------------------------------------
     # The wide-gamut restatements are held to the same thresholds as the
     # sRGB tokens they override. They keep their lightness by
