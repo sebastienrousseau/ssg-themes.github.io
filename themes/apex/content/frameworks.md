@@ -29,6 +29,9 @@ nav_frameworks: "true"
 eyebrow: "Frameworks"
 headline: "Conventions worth keeping"
 lead: "Apex encodes a small number of opinions. Each one is here because removing it measurably costs something."
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## One idea per page, stated first

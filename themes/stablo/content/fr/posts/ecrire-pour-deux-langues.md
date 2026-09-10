@@ -57,6 +57,8 @@ prev_label: "Le coût réel d'un en-tête fixe"
 next_href: "/stablo/fr/archives/"
 next_label: "Archives"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Ajouter une seconde langue à un site terminé est un audit que vous n'avez

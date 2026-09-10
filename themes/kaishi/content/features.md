@@ -17,6 +17,10 @@ nav_features: "true"
 eyebrow: "Features"
 headline: "What is in the box"
 lead: "A short list, honestly described. Where a capability comes from the generator rather than the theme, it says so."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## From the theme

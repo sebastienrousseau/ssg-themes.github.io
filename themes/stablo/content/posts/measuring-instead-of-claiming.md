@@ -57,6 +57,8 @@ prev_label: "Home"
 next_href: "/stablo/posts/the-cost-of-a-sticky-header/"
 next_label: "The real cost of a sticky header"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 A stylesheet is a set of claims. Each rule says that when this pattern

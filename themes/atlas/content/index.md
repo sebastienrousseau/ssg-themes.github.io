@@ -46,6 +46,10 @@ card_two_blurb: "What a long-form technical page owes a reader who arrives from 
 card_three_eyebrow: "Practice"
 card_three_title: "Editorial standards"
 card_three_blurb: "Corrections policy, sourcing, and the difference between an update and a rewrite."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## What makes it a reading theme

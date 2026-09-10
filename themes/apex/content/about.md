@@ -29,6 +29,9 @@ nav_about: "true"
 eyebrow: "Specifications"
 headline: "How Apex is put together"
 lead: "A short, honest account of the architecture, the gates, and the trade-offs."
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Template architecture

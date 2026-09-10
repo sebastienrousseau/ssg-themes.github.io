@@ -57,6 +57,8 @@ prev_label: "Measuring instead of claiming"
 next_href: "/quill/posts/writing-for-two-languages/"
 next_label: "Writing for two languages from the start"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 A header that follows you down the page is one of those decisions that

@@ -11,7 +11,20 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 DOWNLOADS="public/downloads"
-THEMES=(apex atlas kinetic lucid quill stablo velocity voxt)
+# Derived from themes/ rather than restated. This list previously
+# duplicated the one in build.sh and fell one behind it: kaishi was added
+# to build.sh, built and published, but never packaged -- so the theme was
+# browsable on the site with no download beside it. Deriving the list means
+# adding a theme cannot leave it half-shipped again.
+THEMES=()
+for _dir in themes/*/; do
+  THEMES+=("$(basename "${_dir}")")
+done
+
+if ((${#THEMES[@]} == 0)); then
+  echo "error: no themes found under themes/" >&2
+  exit 1
+fi
 
 mkdir -p "${DOWNLOADS}"
 

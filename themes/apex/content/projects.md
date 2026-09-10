@@ -29,6 +29,9 @@ nav_projects: "true"
 eyebrow: "Case studies"
 headline: "Three ways to use Apex"
 lead: "Sample content showing the shapes the theme is designed to hold. Replace it with your own."
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Independent consulting practice

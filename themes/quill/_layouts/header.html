@@ -28,6 +28,11 @@
           <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{fr_current}}>Français</a></li>
         </ul>
       </nav>
+      <!-- Search trigger slot. The generator replaces this element with
+           the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
+           with no slot the button is position:fixed in the viewport corner
+           and cannot align with this header. -->
+      <span data-ssg-search></span>
       <button class="mode-btn" type="button" id="mode-toggle"
               data-label-light="{{label_light}}" data-label-dark="{{label_dark}}">
         <span class="mode-btn-label">{{label_theme}}</span>

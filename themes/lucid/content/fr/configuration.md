@@ -57,6 +57,8 @@ prev_label: "Installation"
 next_href: "/lucid/fr/accessibilite/"
 next_label: "Accessibilité"
 layout: "doc"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Front matter

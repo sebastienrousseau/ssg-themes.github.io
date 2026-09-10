@@ -71,4 +71,6 @@ p3_date: "3 August 2026"
 p3_iso: "2026-08-03"
 p3_excerpt: "Retrofitting a second locale finds every place a layout assumed the length of an English word, and every id scheme that only survives ASCII."
 layout: "index"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---

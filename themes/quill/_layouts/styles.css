@@ -233,8 +233,14 @@ a:hover { color: var(--accent-hover); }
   width: 100%;
   /* Drawn in CSS rather than shipped as a file: the demo needs no external
    * asset, nothing 404s, and the page-weight budget is unaffected. */
+  /* Tinted with the theme's own accent rather than left neutral. The
+   * previous pair (--surface #f2f2f2 -> --rule #dcdcdc) spanned 22 of 255
+   * in luminance, which at 21:9 rendered as a flat grey rectangle and read
+   * as a failed image load rather than as artwork. Stablo's .card-art
+   * already uses --accent-soft this way. */
   background:
-    linear-gradient(105deg, var(--surface) 0%, var(--rule) 55%, var(--surface) 100%);
+    radial-gradient(120% 90% at 22% 18%, var(--accent-soft) 0%, transparent 62%),
+    linear-gradient(105deg, var(--surface) 0%, var(--accent-soft) 55%, var(--surface) 100%);
 }
 .hero-grid {
   display: grid;
@@ -260,7 +266,7 @@ a:hover { color: var(--accent-hover); }
 .story-art {
   display: block;
   aspect-ratio: 16 / 10;
-  background: linear-gradient(140deg, var(--rule) 0%, var(--surface) 70%);
+  background: linear-gradient(140deg, var(--accent-soft) 0%, var(--surface) 70%);
 }
 .story-h { overflow-wrap: anywhere; margin-top: 1rem; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.03em; }
 .story-h a { color: var(--ink); text-decoration: none; }
@@ -319,7 +325,7 @@ a:hover { color: var(--accent-hover); }
   display: block;
   aspect-ratio: 21 / 9;
   width: 100%;
-  background: linear-gradient(105deg, var(--surface) 0%, var(--rule) 55%, var(--surface) 100%);
+  background: linear-gradient(105deg, var(--surface) 0%, var(--accent-soft) 55%, var(--surface) 100%);
 }
 
 .page { padding-top: 3rem; padding-bottom: 4rem; }

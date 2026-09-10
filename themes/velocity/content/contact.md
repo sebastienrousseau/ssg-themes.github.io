@@ -18,6 +18,10 @@ form_action: "https://example.com/your-form-endpoint"
 eyebrow: "Contact"
 headline: "Questions about Velocity"
 lead: "Tell us what you are building and we will tell you whether this is the right theme for it."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Set `form_action` in `content/contact.md` to your own endpoint before

@@ -125,6 +125,16 @@ type = "string"
 required = true
 
 [[schemas.fields]]
+name = "label_theme_light"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_dark"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "language"
 type = "string"
 required = true

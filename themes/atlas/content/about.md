@@ -37,6 +37,10 @@ footer_built: "Built with"
 footer_sitemap: "Sitemap"
 footer_licence: "Released under the MIT licence."
 footer_colophon: "Built with Static Site Generator (SSG). WCAG 2.2 AA verified in CI."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Editorial standards, as a template

@@ -50,6 +50,8 @@ eyebrow: "À propos"
 headline: "À propos"
 lead: "Un site de démonstration pour le thème, et une note sur ce qui est réellement vérifié."
 layout: "page"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Ceci est un site de démonstration pour le thème **Stablo**. Les

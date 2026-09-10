@@ -57,6 +57,8 @@ prev_label: "Accueil"
 next_href: "/quill/fr/posts/le-cout-d-un-en-tete-fixe/"
 next_label: "Le coût réel d'un en-tête fixe"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Une feuille de style est un ensemble d'affirmations. Chaque règle dit que

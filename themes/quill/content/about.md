@@ -50,6 +50,8 @@ eyebrow: "About"
 headline: "About"
 lead: "A demonstration site for the theme, and a note on what is actually verified."
 layout: "page"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 This is a demonstration site for the **Quill** theme. The posts are

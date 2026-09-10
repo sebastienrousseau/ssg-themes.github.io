@@ -10,6 +10,10 @@ lead: Ultra-performant dev containers featuring a 4-pane TMUX IDE, stdio Model C
 permalink: /
 language: en-GB
 date: 2026-08-29
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 <section id="overview" class="section">

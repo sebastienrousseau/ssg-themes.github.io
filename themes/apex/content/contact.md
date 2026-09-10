@@ -30,6 +30,9 @@ eyebrow: "Contact"
 headline: "Start a conversation"
 lead: "Tell us what you are building and we will point you at the right starting configuration."
 form_action: "https://example.com/your-form-endpoint"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Replace `form_action` in `content/contact.md` with your own endpoint before

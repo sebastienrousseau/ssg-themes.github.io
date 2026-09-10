@@ -72,4 +72,6 @@ cta_final: "Installer Lucid"
 
 footer_note: "Un thème de documentation pour Static Site Generator, publié sous licence MIT ou Apache-2.0."
 copyright: "© 2026 SSG Theme Suite. Sous licence MIT ou Apache-2.0."
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---

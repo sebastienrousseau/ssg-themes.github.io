@@ -42,6 +42,10 @@ form_email: "Adresse électronique"
 form_email_hint: "Utilisée uniquement pour répondre à cette demande."
 form_message: "Message"
 form_submit: "Envoyer la demande"
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Renseignez `form_action` dans `content/fr/nous-contacter.md` avec votre propre

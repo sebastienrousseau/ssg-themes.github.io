@@ -647,7 +647,12 @@
     text-align: center;
   }
 
-  .metric-value {
+  /* Scoped to .metric so it outranks `.card p` above, which sets a muted
+   * colour and --step--1 on every paragraph in a card. Bare `.metric-value`
+   * (0,1,0) loses to `.card p` (0,1,1), so the headline figure rendered at
+   * body size in grey -- the one element on the card meant to be large and
+   * accented. Visible on the theme's own demo, not just the showcase. */
+  .metric .metric-value {
     font-size: var(--step-3);
     font-weight: 800;
     color: var(--accent);

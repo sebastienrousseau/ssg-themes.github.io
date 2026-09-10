@@ -30,6 +30,9 @@ hero_alt: "Portrait of the site owner, shown at the top of the home page."
 eyebrow: "Executive portfolio"
 headline: "A portfolio theme that earns its accessibility claim"
 lead: "Apex is built for consultants, directors and advisors who need a fast, credible site without a build toolchain. Every accessibility and performance claim it makes is checked by a gate in CI."
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## What you get

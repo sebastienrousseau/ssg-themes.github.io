@@ -46,6 +46,10 @@ card_two_blurb: "Ce qu'une page technique au long cours doit au lecteur qui y ar
 card_three_eyebrow: "Pratique"
 card_three_title: "Règles éditoriales"
 card_three_blurb: "Politique de correction, sourçage, et la différence entre une mise à jour et une réécriture."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Ce qui en fait un thème de lecture

@@ -17,6 +17,10 @@ nav_home: "true"
 eyebrow: "Starter theme"
 headline: "A clean start, accessible from the first commit"
 lead: "Kaishi is a starter theme that borrows Apple's restraint — a translucent sticky header, pill controls, generous type — and holds every colour pair to WCAG AAA rather than AA."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Who this is for

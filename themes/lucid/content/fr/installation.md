@@ -57,6 +57,8 @@ prev_label: "Accueil"
 next_href: "/lucid/fr/configuration/"
 next_label: "Configuration"
 layout: "doc"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Prérequis

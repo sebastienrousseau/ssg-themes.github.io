@@ -18,6 +18,10 @@ nav_contact: "true"
 eyebrow: "Contact"
 headline: "Tell us what you are trying to build"
 lead: "The form below posts to the endpoint named in this page’s front matter. Point it at your own before deploying."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Before you deploy this page

@@ -50,6 +50,8 @@ eyebrow: "Archives"
 headline: "Archives"
 lead: "Tous les articles publiés ici, du plus récent au plus ancien."
 layout: "page"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 | Article | Catégorie | Auteur | Date |

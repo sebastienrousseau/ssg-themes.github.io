@@ -28,6 +28,9 @@ build-apex:
 build-atlas:
 	@bash scripts/build.sh atlas
 
+build-kaishi:
+	@bash scripts/build.sh kaishi
+
 build-kinetic:
 	@bash scripts/build.sh kinetic
 

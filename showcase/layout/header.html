@@ -26,41 +26,35 @@
         </svg>
       </button>
 
+      <!--
+        The showcase is a single page, so its nav is in-page anchors plus the
+        repository, rather than Apex's five-page site nav. Both fragments
+        resolve to ids in the landing layout, and scripts/build.sh checks
+        every fragment on every page, so a renamed heading fails the build
+        rather than shipping a dead link.
+      -->
       <ul class="nav-menu" id="navMenu">
         <li>
-          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{nav_label_home}}</a>
+          <a class="nav-link" href="{{locale_path}}" aria-current="page">{{nav_label_home}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}{{slug_projects}}/" {{#if nav_projects}}aria-current="page"{{/if}}>{{nav_label_projects}}</a>
+          <a class="nav-link" href="#themes-heading">{{nav_label_themes}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}{{slug_frameworks}}/" {{#if nav_frameworks}}aria-current="page"{{/if}}>{{nav_label_frameworks}}</a>
+          <a class="nav-link" href="#gates-heading">{{nav_label_gates}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}{{slug_about}}/" {{#if nav_about}}aria-current="page"{{/if}}>{{nav_label_about}}</a>
-        </li>
-        <li>
-          <a class="nav-link" href="{{locale_path}}{{slug_contact}}/" {{#if nav_contact}}aria-current="page"{{/if}}>{{nav_label_contact}}</a>
+          <a class="nav-link" href="{{repo_url}}" rel="noopener noreferrer">{{nav_label_repo}}</a>
         </li>
       </ul>
 
       <!-- ssg:lang-switcher -->
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
-      <!-- Search trigger slot. The generator replaces this element with
-           the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
-           with no slot the button is position:fixed in the viewport corner
-           and cannot align with this header. -->
+      <!-- Search trigger slot; see src/plugins/search.rs. -->
       <span data-ssg-search></span>
-      <button
-        class="theme-toggle"
-        id="mode-toggle"
-        type="button"
-        data-label-light="{{label_theme_light}}"
-        data-label-dark="{{label_theme_dark}}"
-      >
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
         <span class="visually-hidden">{{label_theme}}</span>
-        <span class="visually-hidden" id="mode-state">{{label_theme_system}}</span>
         <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="4" />
           <line x1="12" y1="2" x2="12" y2="5" />

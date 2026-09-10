@@ -102,6 +102,16 @@ type = "string"
 required = true
 
 [[schemas.fields]]
+name = "label_theme_light"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_dark"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "locale_path"
 type = "string"
 required = true

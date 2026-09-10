@@ -17,6 +17,10 @@ nav_solutions: "true"
 eyebrow: "Solutions"
 headline: "Start from how your team already works"
 lead: "Sample content showing how a solutions page reads when each entry is a paragraph rather than a slogan."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Product teams

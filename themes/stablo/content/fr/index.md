@@ -71,4 +71,6 @@ p3_date: "3 août 2026"
 p3_iso: "2026-08-03"
 p3_excerpt: "Ajouter une seconde langue après coup révèle chaque endroit où la mise en page supposait la longueur d'un mot anglais, et chaque schéma d'identifiants qui ne survit qu'en ASCII."
 layout: "index"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
