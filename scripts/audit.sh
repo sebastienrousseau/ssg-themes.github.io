@@ -36,7 +36,10 @@ fi
 # ai-plugin.json / _headers as absent when every one is present. Rather than
 # leave four permanent false findings, assert them here.
 missing=0
-for theme in apex atlas kinetic lucid quill stablo velocity voxt; do
+# Derived from themes/, not listed here: this list named eight themes while
+# nine were on disk, so kaishi's site-root conventions were never once
+# asserted on - the same drift the build workflow documents for Kinetic.
+for theme in $(find themes -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort); do
   for f in llms.txt agents.txt .well-known/ai-plugin.json .well-known/mcp.json _headers robots.txt sitemap.xml; do
     if [[ ! -f "public/${theme}/${f}" ]]; then
       echo "  FAIL  ${theme}/${f} missing" >&2

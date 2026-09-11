@@ -98,6 +98,22 @@ def parse_tokens(css: str, selector: str) -> dict[str, str]:
     }
 
 
+def parse_gradient(css: str, selector: str, token: str) -> list[str]:
+    """Hex stops of `--token: linear-gradient(...)` in the first `selector` block.
+
+    Read from the same block as the text tokens so a gradient is always paired
+    with the ink that is actually laid over it in that colour scheme. Pairing a
+    single ink against every declaration of the token would compare light text
+    with the light-mode stops and report a failure that no one can see.
+    """
+    idx = css.find(selector)
+    if idx == -1:
+        return []
+    block = css[idx: css.find("}", idx)]
+    m = re.search(rf"{re.escape(token)}\s*:\s*linear-gradient\(([^;]*)\)\s*;", block)
+    return re.findall(r"#[0-9a-fA-F]{6}", m.group(1)) if m else []
+
+
 # (foreground token, background token, target ratio, human label)
 PAIRS = [
     ("--ink", "--bg", AAA_TEXT, "body text on page ground"),
@@ -214,6 +230,41 @@ def main() -> int:
     GRADIENT_TEXT = {
         "kinetic": [("--wash", "#ffffff", AAA_TEXT, "brand mark on wash")],
     }
+    # Text whose ground is a gradient *and* whose colour changes with the
+    # scheme, so both have to be read out of the same block. These are the
+    # elements hidden from axe in scripts/pa11y.sh, which cannot compute a
+    # ratio through a background-image; this is the check that replaces it.
+    GRADIENT_TEXT_MODAL = {
+        "kinetic": [
+            ("--wash-soft", "--ink", AAA_TEXT, "hero heading on soft wash"),
+            ("--wash-soft", "--ink-soft", AAA_TEXT, "hero lead on soft wash"),
+        ],
+    }
+    for theme, checks in GRADIENT_TEXT_MODAL.items():
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        for mode, selector in MODES:
+            tokens = parse_tokens(css, selector)
+            for grad_token, ink_token, target, label in checks:
+                stops = parse_gradient(css, selector, grad_token)
+                fg = tokens.get(ink_token)
+                if not stops or not fg:
+                    failures.append(
+                        f"{theme}/{mode}: {label} — could not resolve "
+                        f"{grad_token} or {ink_token}"
+                    )
+                    continue
+                for stop in stops:
+                    got = ratio(fg, stop)
+                    checked += 1
+                    if got + 1e-9 < target:
+                        failures.append(
+                            f"{theme}/{mode}/gradient: {label} — {fg} on stop "
+                            f"{stop} = {got:.2f}:1, need {target}:1"
+                        )
+
     for theme, checks in GRADIENT_TEXT.items():
         css_path = root / "themes" / theme / "_layouts" / "styles.css"
         if not css_path.exists():

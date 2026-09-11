@@ -161,7 +161,10 @@ jobs:
       # Informational only, and deliberately so: README.md states this
       # project ships no Lighthouse score badge, so there is no claim here
       # for a gate to defend. The report is uploaded for humans to read.
-      - name: Lighthouse CI (informational — no badge depends on it)
+      - name: pa11y (axe + htmlcs, WCAG2AAA, every built page)
+        run: bash scripts/pa11y.sh
+
+      - name: Lighthouse CI
         run: |
           npm install --no-save @lhci/cli
           # Same derivation as the accessibility gate, for the same reason.
@@ -169,14 +172,18 @@ jobs:
           for theme in themes/*/; do
             urls+=("--collect.url=http://localhost/$(basename "${theme}")/index.html")
           done
+          # The thresholds live in .lighthouserc.json (1.0 across the board) so
+          # a local `make check-lighthouse` and CI assert the same thing.
+          # Performance is the one category left off here and only here: it
+          # measures the runner, not the site, and a loaded shared runner moves
+          # it by more than any change to these themes ever has.
           npx lhci autorun \
+            --config=.lighthouserc.json \
             --collect.staticDistDir=public \
             "${urls[@]}" \
             --assert.assertions.categories:performance=off \
-            --assert.preset=lighthouse:recommended \
             --upload.target=filesystem \
             --upload.outputDir=./lhci
-        continue-on-error: true
 
       - name: Upload build
         uses: actions/upload-artifact@v4

@@ -1,4 +1,9 @@
-.PHONY: help check-aaa check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+# validate.py needs tomllib, which is Python 3.11+. macOS ships 3.9 at
+# /usr/bin/python3, so hardcoding that path made `make check-structure`
+# impossible to run locally while CI passed. Override with `make PYTHON=...`.
+PYTHON ?= python3
+
+.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -45,20 +50,20 @@ build-voxt:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-audit check-responsive check-aaa check-links
+check: check-structure check-contrast build check-weight check-audit check-responsive check-aaa check-links check-pa11y
 	@echo "All gates passed."
 
 check-links:
 	@bash scripts/linkcheck.sh
 
 check-structure:
-	@/usr/bin/python3 scripts/validate.py
+	@$(PYTHON) scripts/validate.py
 
 check-contrast:
-	@/usr/bin/python3 scripts/contrast.py
+	@$(PYTHON) scripts/contrast.py
 
 check-weight:
-	@/usr/bin/python3 scripts/pageweight.py
+	@$(PYTHON) scripts/pageweight.py
 
 # Mirrors the deployed URL prefix before auditing — see scripts/audit.sh.
 check-audit:
@@ -73,6 +78,17 @@ check-responsive:
 check-aaa:
 	@bash tests/aaa/run.sh
 
+# axe + htmlcs at WCAG2AAA over every built page. The two runners disagree
+# often enough to be worth running both, and neither overlaps much with the
+# rendered-contrast suite above.
+check-pa11y:
+	@bash scripts/pa11y.sh
+
+# Lighthouse at minScore 1.0. Kept out of `check` because it wants three runs
+# per page and a quiet machine; CI runs it on its own.
+check-lighthouse:
+	@bash scripts/lighthouse.sh
+
 clean:
 	@rm -rf public dist
 
@@ -84,7 +100,7 @@ preview: build ## Serve the built site as published, on :8099
 	@npx --yes http-server public -p 8099 --silent
 
 contrast:
-	@/usr/bin/python3 scripts/audit-contrast.py
+	@$(PYTHON) scripts/audit-contrast.py
 
 validate:
-	@/usr/bin/python3 scripts/validate-frontmatter.py
+	@$(PYTHON) scripts/validate-frontmatter.py

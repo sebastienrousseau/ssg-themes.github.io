@@ -1,4 +1,4 @@
-name: Quality Gate & WCAG AAA Compliance
+name: Repository Hygiene
 
 on:
   push:
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   quality-gate:
-    name: WCAG 2.2 AAA & Lighthouse Quality Gate
+    name: Manifest and branch hygiene
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -25,10 +25,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      - name: Install Audit Tooling
-        run: |
-          npm install -g pa11y-ci @lhci/cli
 
       - name: Verify SSG Manifest Conformance
         run: |
