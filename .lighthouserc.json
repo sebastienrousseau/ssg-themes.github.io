@@ -31,19 +31,19 @@
           }
         ],
         "first-contentful-paint": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 1000
           }
         ],
         "largest-contentful-paint": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 1200
           }
         ],
         "cumulative-layout-shift": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 0
           }

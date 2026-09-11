@@ -21,6 +21,14 @@ function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     if (statSync(full).isDirectory()) walk(full, out);
+    else if (entry === '404.html') {
+      // Not reachable by walking directories: a 404 page has no index.html.
+      // No theme emits one today - the _layouts/404.html templates are never
+      // built - so this finds nothing yet. It is here so that the day one is
+      // emitted it is measured, rather than shipping unlooked-at.
+      const rel = relative(ROOT, dir).split(sep).join('/');
+      out.push(rel === '' ? '/404.html' : `/${rel}/404.html`);
+    }
     else if (entry === 'index.html') {
       // Redirect stubs are not pages: they carry no content to audit, and
       // navigating one tears down the execution context mid-evaluate.

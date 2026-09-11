@@ -42,3 +42,7 @@ tests/aaa/node_modules
 # rather than moved, so its history stays intact.
 /docs/*
 !/docs/i18n-followup.md
+
+# Lighthouse CI report output (scripts/lighthouse.sh)
+.lighthouse/
+.lighthouseci/

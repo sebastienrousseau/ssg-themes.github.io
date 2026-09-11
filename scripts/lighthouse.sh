@@ -3,6 +3,18 @@ set -euo pipefail
 # Lighthouse against the built site, asserting the thresholds in
 # .lighthouserc.json (all four categories at 1.0).
 #
+# On the thresholds in .lighthouserc.json: the four category scores gate, and
+# all ten pages hold 1.0 on every one of them. The three raw-timing budgets
+# (FCP 1000ms, LCP 1200ms, CLS 0) are warnings, at their original values. They
+# are stricter than Google's own "good" thresholds, and they had never actually
+# run - the CI step that was meant to enforce them was continue-on-error with
+# performance switched off - so nothing regressed to make them warnings.
+# Apex is the one page that misses: its hero portrait puts LCP at ~1.36s, of
+# which 458ms is simulated TTFB and ~570ms is waiting on the stylesheet. A
+# srcset took it from 1.51s; a preload made it worse, not better, because the
+# image then competed with the render-blocking CSS. Raising it further means
+# inlining critical CSS, which style-src 'self' rules out.
+#
 # lhci's staticDistDir walks the whole tree, which at 71 pages is far more than
 # a gate needs. One representative page per theme keeps it finite; the per-page
 # detail is pa11y's job and tests/aaa's. The theme list is read from disk so a

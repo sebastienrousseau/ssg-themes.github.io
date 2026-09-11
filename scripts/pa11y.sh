@@ -33,6 +33,12 @@ import json, os, re, sys
 port = sys.argv[1]
 urls = []
 for d, _, fs in os.walk('public'):
+    for name in sorted(fs):
+        if name != '404.html':
+            continue
+        # A 404 page has no index.html, so walking directories never finds it.
+        rel404 = os.path.relpath(d, 'public').replace(os.sep, '/')
+        urls.append(f"http://127.0.0.1:{port}/" + ('' if rel404 == '.' else rel404 + '/') + '404.html')
     if 'index.html' not in fs:
         continue
     # Redirect stubs have no content to audit.
