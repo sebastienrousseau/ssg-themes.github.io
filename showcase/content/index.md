@@ -202,7 +202,7 @@ schema: "page"
       <h2 id="gates-heading">What each gate checks</h2>
       <div class="scroll">
         <table>
-          <caption class="skip-link">Continuous integration gates and what each one asserts</caption>
+          <caption class="visually-hidden">Continuous integration gates and what each one asserts</caption>
           <thead>
             <tr><th scope="col">Gate</th><th scope="col">Asserts</th></tr>
           </thead>

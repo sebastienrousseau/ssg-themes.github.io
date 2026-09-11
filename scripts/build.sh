@@ -234,6 +234,15 @@ if [[ -f "showcase/ssg.toml" && -d "showcase/layout" ]]; then
   cp -R "themes/apex/_layouts/." "${SHOWCASE_LAYOUTS}/"
   cp -f "showcase/layout/"*.html "${SHOWCASE_LAYOUTS}/"
 
+  # Apex's <head> advertises RSS, Atom and JSON Feed. Apex generates all three;
+  # the showcase is a one-page gallery with no posts and generates only
+  # rss.xml, so those two links 404'd on the landing page. Stripped from the
+  # staged copy rather than by forking base.html - a forked head is how the old
+  # hand-written landing page drifted out of date in the first place.
+  sed -i.bak -e '/application\/atom+xml/d' -e '/application\/feed+json/d' \
+    "${SHOWCASE_LAYOUTS}/base.html"
+  rm -f "${SHOWCASE_LAYOUTS}/base.html.bak"
+
   sed -e "s|^base_url = .*|base_url = \"${SHOWCASE_BASE_URL}\"|" \
       -e "s|SHOWCASE_LAYOUTS|${SHOWCASE_LAYOUTS}|" \
       -e "s|SHOWCASE_OUT|${SHOWCASE_OUT}|" \
