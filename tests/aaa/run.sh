@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Measures the AAA claims the Lucid theme makes, against the built site.
+# Measures the AAA claims the themes make, against the built site. The page
+# set is discovered from public/ (see pages.mjs), so every theme shipped in
+# themes/ is visited and a new one is covered the day it lands.
 #
 # The repository's other gates read source: `contrast.py` checks the tokens a
 # stylesheet declares, which is necessary but not sufficient — a token can
 # pass in isolation and still be rendered on a ground it was never paired
-# with. These two suites check what a browser actually paints, in both
+# with. These three suites check what a browser actually paints, in both
 # colour schemes:
 #
 #   a11y.mjs    every rendered text run against its real computed background
 #               (7:1, or 4.5:1 for large text), every non-inline target at
 #               44x44, heading order, landmarks, accessible names
-#   reflow.mjs  8 pages x 11 viewports x 2 schemes, asserting no horizontal
+#   reflow.mjs  every page x 11 viewports x 2 schemes, asserting no horizontal
 #               scrolling and no element wider than the viewport
 #   focus.mjs   tabs every page at 7 widths and hit-tests each focus ring, so
 #               2.4.11 and 2.4.12 are decided by paint order rather than by
@@ -58,6 +60,7 @@ for _ in $(seq 1 40); do
   sleep 0.25
 done
 
+node tests/aaa/selftest.mjs
 node tests/aaa/a11y.mjs
 node tests/aaa/reflow.mjs
 node tests/aaa/focus.mjs

@@ -1,0 +1,25 @@
+<!doctype html><meta charset="utf-8"><title>contrast fixture</title>
+<style>
+  body { background: #fff; margin: 0; font-size: 16px; }
+  p { margin: 0; padding: 0; font-size: 16px; font-weight: 400; }
+  /* Each id states the ratio a browser actually renders, computed
+     independently in tests/aaa/selftest.mjs from the same source numbers. */
+  #plain      { color: rgb(29,29,31);  background: rgb(255,255,255); }
+  #srgbfn     { color: rgb(29,29,31);  background: color(srgb 1 1 1); }
+  #translucent{ color: rgb(29,29,31);  background: color(srgb 1 1 1 / 0.82); }
+  #rgba       { color: rgb(29,29,31);  background: rgba(255,255,255,0.5); }
+  #fail       { color: rgb(160,160,160); background: rgb(255,255,255); }
+  #borderline { color: rgb(88,88,88);  background: rgb(255,255,255); }
+  #alphatext  { color: rgba(0,0,0,0.35); background: rgb(255,255,255); }
+  #gradient   { color: rgb(29,29,31);  background: linear-gradient(#fff,#eee); }
+</style>
+<main>
+  <p id="plain">plain white ground</p>
+  <p id="srgbfn">srgb function ground</p>
+  <p id="translucent">translucent srgb ground</p>
+  <p id="rgba">translucent rgba ground</p>
+  <p id="fail">too light to read</p>
+  <p id="borderline">just under seven to one</p>
+  <p id="alphatext">translucent text</p>
+  <p id="gradient">text on a gradient</p>
+</main>
