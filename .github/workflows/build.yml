@@ -162,7 +162,11 @@ jobs:
       # project ships no Lighthouse score badge, so there is no claim here
       # for a gate to defend. The report is uploaded for humans to read.
       - name: pa11y (axe + htmlcs, WCAG2AAA, every built page)
-        run: bash scripts/pa11y.sh
+        run: |
+          # The install used to sit in quality-gate.yml, which never ran the
+          # tool it installed. It belongs next to the step that uses it.
+          npm install -g pa11y-ci
+          bash scripts/pa11y.sh
 
       - name: Lighthouse CI
         run: |
