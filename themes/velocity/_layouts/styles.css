@@ -1200,3 +1200,11 @@ footer a,
 html {
   scroll-padding-top: 5.5rem;
 }
+
+/* An inline `style="justify-content:center"` cannot survive `style-src 'self'`:
+   Chrome refuses to apply it and logs a CSP violation, which is what cost this
+   theme its Lighthouse best-practices score. Kinetic has the same class for the
+   same reason. */
+.cta-row-centred {
+  justify-content: center;
+}

@@ -1368,3 +1368,10 @@ html {
   text-align: center;
   opacity: 0.6;
 }
+
+/* An inline `style="justify-content:center"` cannot survive `style-src 'self'`:
+   Chrome refuses to apply it and logs a CSP violation. Used by 404.html, which
+   no gate visits - a 404 page has no index.html for the page set to find. */
+.cta-row-centred {
+  justify-content: center;
+}
