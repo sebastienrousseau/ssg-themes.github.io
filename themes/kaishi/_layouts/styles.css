@@ -316,6 +316,20 @@
     margin-block-start: var(--space-s);
   }
 
+  /* 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x line
+     spacing. The `> * + *` rule above cannot deliver it - ssg wraps rendered
+     Markdown in its own element, so that selector matches the wrapper and
+     every paragraph inside it stays at 0. Lucid hit this first; these are the
+     same themes' version of it, found when the browser gate was widened from
+     three themes to nine. `lh` states the requirement exactly; the em value is
+     the fallback and clears 1.5x line-height for this theme's own metrics. */
+  .prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+    + :where(p, ul, ol, pre, blockquote, table, dl, figure) {
+    margin-block-start: 2.7em;
+    margin-block-start: 1.6lh;
+  }
+
+
   .prose h2 {
     margin-block-start: var(--space-l);
   }
@@ -1156,4 +1170,48 @@
     --accent-hover: color(display-p3 0.6817 0.7958 0.9971);
     --focus: color(display-p3 0.5281 0.6989 0.9996);
   }
+}
+
+/* WCAG 2.5.5 Target Size (Enhanced, AAA) — 44x44 CSS px.
+ *
+ * Footer and navigation links are lists of controls, not running text, so
+ * 2.5.5's "inline" exception does not cover them; a 17px-tall footer link is
+ * a real failure. The rules below are the same treatment Lucid has always
+ * used, applied here after the browser gate was widened from three themes to
+ * all nine and found these. */
+footer a,
+.brand,
+.suite-link,
+.made-with-ssg,
+.taxonomy-page-list a,
+.taxonomy-term-list a {
+  display: inline-flex;
+  align-items: center;
+  /* min-width, not justify-content: centring would pull short labels like
+     "RSS" away from the left edge the rest of the column lines up on. The
+     target grows to the right; the text stays where it was. */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.nav-link {
+  min-width: 44px;
+  justify-content: center;
+}
+
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* WCAG 2.4.11/2.4.12 Focus Not Obscured. The header is sticky, so scrolling to
+   a focused control - or to a fragment - can park it underneath. Lucid, Quill
+   and Stablo have always set this; the browser gate only covered those three,
+   so the other six never showed the symptom. 5.5rem clears this header at its
+   tallest (69px, measured across the widths the reflow gate uses). */
+html {
+  scroll-padding-top: 5.5rem;
 }

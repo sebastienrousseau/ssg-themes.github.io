@@ -337,7 +337,12 @@ a:hover { color: var(--accent-hover); }
   grid-template-columns: 14rem minmax(0, 1fr) 13rem;
 }
 .doc-side, .doc-toc { align-self: start; position: sticky; top: 5rem; }
+/* Also applied to a <p> now (see doc.html): the sidebar label is not a
+   heading, so its weight and margins are stated rather than inherited from
+   an element default. */
 .side-h {
+  font-weight: 700;
+  margin-top: 0;
   font-size: 0.8125rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
