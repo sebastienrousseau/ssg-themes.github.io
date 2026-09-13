@@ -12,6 +12,11 @@
 name = "page"
 
 [[schemas.fields]]
+name = "label_made_with"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "copyright"
 type = "string"
 required = true
@@ -93,6 +98,16 @@ required = true
 
 [[schemas.fields]]
 name = "label_theme_system"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_light"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "label_theme_dark"
 type = "string"
 required = true
 

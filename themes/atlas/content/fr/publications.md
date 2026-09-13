@@ -13,6 +13,7 @@ schema: "page"
 tags: ["reference", "method"]
 changefreq: "monthly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 form_origin: "https://example.com"
 nav_papers: "true"
 eyebrow: "Publications"
@@ -36,6 +37,10 @@ footer_built: "Réalisé avec"
 footer_sitemap: "Plan du site"
 footer_licence: "Publié sous licence MIT."
 footer_colophon: "Réalisé avec Static Site Generator (SSG). Conformité WCAG 2.2 AA vérifiée en intégration continue."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Ce qui a sa place ici

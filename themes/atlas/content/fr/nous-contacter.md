@@ -12,6 +12,7 @@ language: "fr"
 schema: "page"
 changefreq: "yearly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 form_origin: "https://example.com"
 nav_contact: "true"
 form_action: "https://example.com/your-form-endpoint"
@@ -41,6 +42,10 @@ form_email: "Adresse électronique"
 form_email_hint: "Utilisée uniquement pour répondre à cette demande."
 form_message: "Message"
 form_submit: "Envoyer la demande"
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Renseignez `form_action` dans `content/fr/nous-contacter.md` avec votre propre

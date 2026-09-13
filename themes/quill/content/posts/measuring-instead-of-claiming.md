@@ -5,6 +5,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 locale_path: "/quill/"
 base_path: "/quill/"
 en_current: ' aria-current="true"'
@@ -56,6 +57,8 @@ prev_label: "Home"
 next_href: "/quill/posts/the-cost-of-a-sticky-header/"
 next_label: "The real cost of a sticky header"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 A stylesheet is a set of claims. Each rule says that when this pattern

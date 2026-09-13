@@ -12,6 +12,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 form_origin: "https://example.com"
 nav_home: "true"
 eyebrow: "Editorial hub"
@@ -45,6 +46,10 @@ card_two_blurb: "What a long-form technical page owes a reader who arrives from 
 card_three_eyebrow: "Practice"
 card_three_title: "Editorial standards"
 card_three_blurb: "Corrections policy, sourcing, and the difference between an update and a rewrite."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## What makes it a reading theme

@@ -5,6 +5,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 locale_path: "/quill/"
 base_path: "/quill/"
 en_current: ' aria-current="true"'
@@ -56,6 +57,8 @@ prev_label: "The real cost of a sticky header"
 next_href: "/quill/archive/"
 next_label: "Archive"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Adding a second language to a finished site is an audit you did not ask

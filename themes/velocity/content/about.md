@@ -17,6 +17,10 @@ nav_about: "true"
 eyebrow: "About"
 headline: "How Velocity is built"
 lead: "The architecture in brief, and the two files you will actually edit."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Structure

@@ -234,26 +234,37 @@ function probe() {
     }
   }
 
-  // --- the search trigger against the header it sits beside -------------
+  // --- the search trigger against whatever governs its alignment ----------
   //
-  // The generator injects the trigger as `position: fixed` over the page,
-  // not as a child of the header, so it cannot inherit the header's
-  // vertical centring. It shipped 4-6px low on all four themes, which is
-  // small enough to read as sloppiness rather than a bug and never showed
-  // up in any existing check. Only meaningful while it is beside the
-  // header: below 48rem it deliberately moves to the bottom corner.
+  // The trigger shipped 4-6px low on all four themes, small enough to read as
+  // sloppiness rather than a bug, and no existing check saw it. What it must
+  // line up with depends on how the generator placed it:
+  //
+  //   in the header's flow   the theme's own flex centring governs it, so the
+  //                          thing to check is its parent. Comparing against
+  //                          the whole header is wrong the moment the header
+  //                          wraps to two rows - the trigger is then centred
+  //                          in its own row, correctly, and 25px from the
+  //                          centre of a 95px header.
+  //   a positioned overlay   it cannot inherit anything, so the header band
+  //                          is the only reference there is.
+  //
+  // Only meaningful while it is beside the header: below 48rem it deliberately
+  // moves to the bottom corner.
   const trigger = document.querySelector('#ssg-search-btn');
   const header = document.querySelector('.site-header');
   if (trigger && header && vw >= 768) {
     const tr = trigger.getBoundingClientRect();
-    const hr = header.getBoundingClientRect();
-    // Only when it is actually overlapping the header band.
-    if (tr.top < hr.bottom) {
-      const drift = Math.round((tr.top + tr.height / 2) - (hr.top + hr.height / 2));
+    const positioned = ['fixed', 'absolute'].includes(getComputedStyle(trigger).position);
+    const inFlow = !positioned && header.contains(trigger);
+    const ref = inFlow ? trigger.parentElement.getBoundingClientRect() : header.getBoundingClientRect();
+    // Only when it is actually overlapping the band it is measured against.
+    if (tr.top < ref.bottom) {
+      const drift = Math.round((tr.top + tr.height / 2) - (ref.top + ref.height / 2));
       if (Math.abs(drift) > 2) {
         out.push({
           kind: 'control-misaligned',
-          detail: `${label(trigger)} centre is ${drift}px off the header's`,
+          detail: `${label(trigger)} centre is ${drift}px off ${inFlow ? "its row's" : "the header's"}`,
         });
       }
     }

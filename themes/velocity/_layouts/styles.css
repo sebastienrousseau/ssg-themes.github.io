@@ -311,6 +311,20 @@
     margin-block-start: var(--space-s);
   }
 
+  /* 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x line
+     spacing. The `> * + *` rule above cannot deliver it - ssg wraps rendered
+     Markdown in its own element, so that selector matches the wrapper and
+     every paragraph inside it stays at 0. Lucid hit this first; these are the
+     same themes' version of it, found when the browser gate was widened from
+     three themes to nine. `lh` states the requirement exactly; the em value is
+     the fallback and clears 1.5x line-height for this theme's own metrics. */
+  .prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+    + :where(p, ul, ol, pre, blockquote, table, dl, figure) {
+    margin-block-start: 2.7em;
+    margin-block-start: 1.6lh;
+  }
+
+
   .prose h2 {
     margin-block-start: var(--space-l);
   }
@@ -1046,4 +1060,151 @@
   .site-footer {
     margin-block-start: var(--space-m);
   }
+}
+
+/* Attribution link, set inline in the colophon sentence. Colour is inherited so
+   the contrast pair stays the verified one; target-size does not apply because
+   2.5.5 exempts a link inside a sentence. */
+.made-with-ssg { color: inherit; }
+
+/* ---------------------------------------------------------------------
+   Increase Contrast (macOS / iOS "Increase Contrast", and the same user
+   preference on other platforms).
+
+   Tokens only, so every rule that already consumes them follows. Muted
+   and soft inks collapse onto the full-strength ink, and the hairline
+   rules become the border colour, which is the part that disappears
+   first for anyone who asked for more contrast.
+   --------------------------------------------------------------------- */
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="dark"] {
+    --ink-soft: var(--ink);
+    --ink-muted: var(--ink);
+    --rule: var(--line);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Forced colours (Invert Colors, Windows High Contrast, and similar).
+
+   The OS replaces the palette wholesale here, so the job is not to
+   restyle but to make sure nothing that was carried by colour alone
+   disappears with it. Focus rings and borders get explicit system
+   colours; links get LinkText so they stay identifiable as links.
+   --------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  a {
+    color: LinkText;
+  }
+  a:visited {
+    color: VisitedText;
+  }
+  /* A button distinguished only by its background becomes invisible
+     when the background is forced; give it an edge that is not. */
+  .btn,
+  .btn-primary {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .skip-link {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Wide colour (Display P3).
+
+   Every token above is sRGB and stays that way — this block only runs
+   where the display can actually show more, and only the chromatic
+   tokens are restated. Neutrals carry almost no chroma, so a wider
+   gamut has nothing to give them.
+
+   Each colour keeps its lightness and hue exactly and gains about a
+   fifth more chroma, which is the part sRGB was clipping. Because
+   lightness is unchanged, contrast is too: `scripts/contrast.py` checks
+   these P3 values against the same thresholds as the sRGB ones, via
+   their XYZ luminance.
+   --------------------------------------------------------------------- */
+@media (color-gamut: p3) {
+  :root,
+  :root[data-theme="light"] {
+    --accent: color(display-p3 0.4209 0.2731 0.0016);
+    --accent-hover: color(display-p3 0.3229 0.1827 0.0);
+    --focus: color(display-p3 0.118 0.2529 0.9035);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: color(display-p3 0.9786 0.7468 0.0138);
+      --accent-hover: color(display-p3 0.9859 0.8275 0.2563);
+      --focus: color(display-p3 0.5344 0.8234 0.9985);
+    }
+  }
+  :root[data-theme="dark"] {
+    --accent: color(display-p3 0.9786 0.7468 0.0138);
+    --accent-hover: color(display-p3 0.9859 0.8275 0.2563);
+    --focus: color(display-p3 0.5344 0.8234 0.9985);
+  }
+}
+
+/* WCAG 2.5.5 Target Size (Enhanced, AAA) — 44x44 CSS px.
+ *
+ * Footer and navigation links are lists of controls, not running text, so
+ * 2.5.5's "inline" exception does not cover them; a 17px-tall footer link is
+ * a real failure. The rules below are the same treatment Lucid has always
+ * used, applied here after the browser gate was widened from three themes to
+ * all nine and found these. */
+footer a,
+.brand,
+.suite-link,
+.made-with-ssg,
+.taxonomy-page-list a,
+.taxonomy-term-list a {
+  display: inline-flex;
+  align-items: center;
+  /* min-width, not justify-content: centring would pull short labels like
+     "RSS" away from the left edge the rest of the column lines up on. The
+     target grows to the right; the text stays where it was. */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.nav-link {
+  min-width: 44px;
+  justify-content: center;
+}
+
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* WCAG 2.4.11/2.4.12 Focus Not Obscured. The header is sticky, so scrolling to
+   a focused control - or to a fragment - can park it underneath. Lucid, Quill
+   and Stablo have always set this; the browser gate only covered those three,
+   so the other six never showed the symptom. 5.5rem clears this header at its
+   tallest (69px, measured across the widths the reflow gate uses). */
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+/* An inline `style="justify-content:center"` cannot survive `style-src 'self'`:
+   Chrome refuses to apply it and logs a CSP violation, which is what cost this
+   theme its Lighthouse best-practices score. Kinetic has the same class for the
+   same reason. */
+.cta-row-centred {
+  justify-content: center;
 }

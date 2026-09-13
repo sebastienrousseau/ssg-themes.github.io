@@ -20,6 +20,7 @@ label_theme: "Theme"
 label_theme_system: "System"
 label_docs: "Documentation"
 label_footer_nav: "Documentation"
+label_made_with: "Made with SSG"
 label_docs_nav: "Documentation sections"
 label_crumbs: "Breadcrumb"
 label_pager: "Page"
@@ -56,6 +57,8 @@ prev_label: "Installation"
 next_href: "/lucid/accessibility/"
 next_label: "Accessibility"
 layout: "doc"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Front matter

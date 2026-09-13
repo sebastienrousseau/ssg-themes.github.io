@@ -12,6 +12,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "yearly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 form_origin: "https://example.com"
 nav_contact: "true"
 form_action: "https://example.com/your-form-endpoint"
@@ -41,6 +42,10 @@ form_email: "Email address"
 form_email_hint: "Used only to reply to this enquiry."
 form_message: "Message"
 form_submit: "Send enquiry"
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Set `form_action` in `content/contact.md` to your own endpoint before

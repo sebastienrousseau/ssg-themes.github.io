@@ -5,7 +5,7 @@
       <span class="brand-text">{{name}}</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" aria-label="{{label_nav}}">
       <!-- Always present; CSS hides it above 48rem. -->
       <button
         class="nav-toggle"
@@ -14,7 +14,7 @@
         aria-expanded="false"
         aria-controls="navMenu"
       >
-        <span class="visually-hidden">Menu</span>
+        <span class="visually-hidden">{{label_menu}}</span>
         <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <line x1="3" y1="6" x2="21" y2="6" />
           <line x1="3" y1="12" x2="21" y2="12" />
@@ -28,25 +28,39 @@
 
       <ul class="nav-menu" id="navMenu">
         <li>
-          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
+          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{nav_label_home}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}projects/" {{#if nav_projects}}aria-current="page"{{/if}}>Case studies</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_projects}}/" {{#if nav_projects}}aria-current="page"{{/if}}>{{nav_label_projects}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}frameworks/" {{#if nav_frameworks}}aria-current="page"{{/if}}>Frameworks</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_frameworks}}/" {{#if nav_frameworks}}aria-current="page"{{/if}}>{{nav_label_frameworks}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}about/" {{#if nav_about}}aria-current="page"{{/if}}>About</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_about}}/" {{#if nav_about}}aria-current="page"{{/if}}>{{nav_label_about}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_contact}}/" {{#if nav_contact}}aria-current="page"{{/if}}>{{nav_label_contact}}</a>
         </li>
       </ul>
 
+      <!-- ssg:lang-switcher -->
+
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
-        <span class="visually-hidden">Dark theme</span>
+      <!-- Search trigger slot. The generator replaces this element with
+           the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
+           with no slot the button is position:fixed in the viewport corner
+           and cannot align with this header. -->
+      <span data-ssg-search></span>
+      <button
+        class="theme-toggle"
+        id="mode-toggle"
+        type="button"
+        data-label-light="{{label_theme_light}}"
+        data-label-dark="{{label_theme_dark}}"
+      >
+        <span class="visually-hidden">{{label_theme}}</span>
+        <span class="visually-hidden" id="mode-state">{{label_theme_system}}</span>
         <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="4" />
           <line x1="12" y1="2" x2="12" y2="5" />

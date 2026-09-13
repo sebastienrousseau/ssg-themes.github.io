@@ -3,9 +3,25 @@
 <section class="hero" aria-labelledby="hero-heading">
   <div class="container hero-grid">
     <div class="hero-image">
+      <!-- The portrait is this page's LCP element and the only reason Apex is
+           slower than the other eight themes. A single 1024px source went to
+           every viewport while the image renders between 283 and 438 CSS px,
+           so most of those bytes were never used. The browser picks a width
+           now; the `sizes` values are the measured display box. -->
       <picture>
-        <source srcset="{{locale_path}}assets/images/portrait.webp" type="image/webp" />
-        <img src="{{locale_path}}assets/images/portrait.jpg" alt="{{hero_alt}}" width="512" height="512" loading="eager" fetchpriority="high" />
+        <source
+          type="image/webp"
+          sizes="(min-width: 60rem) 438px, (min-width: 48rem) 283px, 364px"
+          srcset="{{locale_path}}assets/images/portrait-512.webp 512w,
+                  {{locale_path}}assets/images/portrait-768.webp 768w,
+                  {{locale_path}}assets/images/portrait.webp 1024w" />
+        <img
+          src="{{locale_path}}assets/images/portrait-512.jpg"
+          sizes="(min-width: 60rem) 438px, (min-width: 48rem) 283px, 364px"
+          srcset="{{locale_path}}assets/images/portrait-512.jpg 512w,
+                  {{locale_path}}assets/images/portrait-768.jpg 768w,
+                  {{locale_path}}assets/images/portrait.jpg 1024w"
+          alt="{{hero_alt}}" width="512" height="512" loading="eager" fetchpriority="high" />
       </picture>
     </div>
     <div class="stack">

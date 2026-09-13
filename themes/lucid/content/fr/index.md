@@ -31,6 +31,7 @@ label_theme: "Thème"
 label_theme_system: "Système"
 label_docs: "Documentation"
 label_footer_nav: "Documentation"
+label_made_with: "Réalisé avec SSG"
 nav_home: "Accueil"
 nav_install: "Installation"
 nav_config: "Configuration"
@@ -57,7 +58,7 @@ f2_body: "Les titres de la page en cours de lecture, pour parcourir une référe
 f3_h: "Précédent et suivant"
 f3_body: "Une documentation se lit au moins une fois dans l'ordre. La pagination nomme la page voisine au lieu de pointer une flèche vers elle."
 f4_h: "Deux thèmes de couleur"
-f4_body: "Clair et sombre, tous deux au niveau AAA. Sans JavaScript, le thème suit le système d'exploitation ; le contrôle y revient toujours."
+f4_body: "Clair et sombre, tous deux au niveau AAA. Sans JavaScript, le thème suit le système d'exploitation; le contrôle y revient toujours."
 
 proof_h: "Une accessibilité mesurée, pas affirmée"
 proof_lead: "Les promesses d'accessibilité ne coûtent rien. Celles-ci sont imposées par les contrôles du dépôt : une modification qui en casse une fait échouer la construction."
@@ -71,4 +72,6 @@ cta_final: "Installer Lucid"
 
 footer_note: "Un thème de documentation pour Static Site Generator, publié sous licence MIT ou Apache-2.0."
 copyright: "© 2026 SSG Theme Suite. Sous licence MIT ou Apache-2.0."
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---

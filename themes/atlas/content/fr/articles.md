@@ -13,6 +13,7 @@ schema: "page"
 tags: ["method", "editorial"]
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 form_origin: "https://example.com"
 nav_articles: "true"
 eyebrow: "Articles"
@@ -36,13 +37,17 @@ footer_built: "Réalisé avec"
 footer_sitemap: "Plan du site"
 footer_licence: "Publié sous licence MIT."
 footer_colophon: "Réalisé avec Static Site Generator (SSG). Conformité WCAG 2.2 AA vérifiée en intégration continue."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Structurer un pôle de connaissances
 
 La plupart des pôles commencent comme des blogues et le restent, ce qui
 explique pourquoi tant d'entre eux deviennent inutilisables passé la deuxième
-année. Un flux est ordonné par la date d'écriture ; un pôle est ordonné par
+année. Un flux est ordonné par la date d'écriture; un pôle est ordonné par
 ce dont le lecteur a besoin. Ces deux ordres divergent vite.
 
 Le remède pratique consiste à séparer tôt les pages durables des pages datées,
@@ -61,7 +66,7 @@ dessus de la prose, la place d'un chapeau énonçant la thèse.
 
 ## Mettre à jour plutôt que réécrire
 
-Une mise à jour ajoute ; une réécriture remplace. Si un lecteur qui avait mis
+Une mise à jour ajoute; une réécriture remplace. Si un lecteur qui avait mis
 la page en signet il y a deux ans était dérouté par ce qu'il y trouve
 aujourd'hui, c'était une réécriture : elle mérite une nouvelle adresse et un
 renvoi depuis l'ancienne.

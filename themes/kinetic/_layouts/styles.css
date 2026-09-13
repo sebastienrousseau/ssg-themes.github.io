@@ -46,7 +46,7 @@
     --focus: #6d28d9;
 
     /* Decorative only — never behind text. */
-    --wash: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #0891b2 100%);
+    --wash: linear-gradient(135deg, #6517ea 0%, #4036e3 45%, #055e74 100%);
     --wash-soft: linear-gradient(135deg, #f4f1fe 0%, #eef6ff 100%);
 
     --shadow-sm: 0 1px 3px rgb(22 18 31 / 8%);
@@ -60,7 +60,9 @@
     --ssg-search-top: calc((4rem - 2.75rem) / 2);
 
     color-scheme: light;
-  }
+    --wash-solid: #f4f1fe;
+  --wash-solid-strong: #6517ea;
+}
 
   /* Dark — redefine tokens only. Guarded so an explicit light choice
      still wins on a dark OS. */
@@ -85,14 +87,16 @@
       --line-soft: #2b2350;
       --focus: #a78bfa;
 
-      --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0e7490 100%);
+      --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0b5e75 100%);
       --wash-soft: linear-gradient(135deg, #16112a 0%, #12203a 100%);
 
       --shadow-sm: 0 1px 3px rgb(0 0 0 / 55%);
       --shadow-md: 0 10px 30px -12px rgb(0 0 0 / 70%);
 
       color-scheme: dark;
-    }
+        --wash-solid: #16112a;
+    --wash-solid-strong: #6d28d9;
+}
   }
 
   /* The toggle wins in both directions. */
@@ -116,14 +120,16 @@
     --line-soft: #2b2350;
     --focus: #a78bfa;
 
-    --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0e7490 100%);
+    --wash: linear-gradient(135deg, #6d28d9 0%, #4338ca 45%, #0b5e75 100%);
     --wash-soft: linear-gradient(135deg, #16112a 0%, #12203a 100%);
 
     --shadow-sm: 0 1px 3px rgb(0 0 0 / 55%);
     --shadow-md: 0 10px 30px -12px rgb(0 0 0 / 70%);
 
     color-scheme: dark;
-  }
+    --wash-solid: #16112a;
+  --wash-solid-strong: #6d28d9;
+}
 
   :root {
     /* A fluid scale, so 200% zoom and 320px both stay on the ramp. */
@@ -312,6 +318,20 @@
     margin-block-start: 1em;
   }
 
+  /* 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x line
+     spacing. The `> * + *` rule above cannot deliver it - ssg wraps rendered
+     Markdown in its own element, so that selector matches the wrapper and
+     every paragraph inside it stays at 0. Lucid hit this first; these are the
+     same themes' version of it, found when the browser gate was widened from
+     three themes to nine. `lh` states the requirement exactly; the em value is
+     the fallback and clears 1.5x line-height for this theme's own metrics. */
+  .prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+    + :where(p, ul, ol, pre, blockquote, table, dl, figure) {
+    margin-block-start: 2.7em;
+    margin-block-start: 1.6lh;
+  }
+
+
   .prose h2 {
     margin-block-start: 1.8em;
   }
@@ -401,7 +421,12 @@
     width: 2rem;
     height: 2rem;
     border-radius: 9px;
-    background: var(--wash);
+    /* Solid under the gradient: a checker cannot measure contrast
+       through a background-image, and this also renders correctly
+       where the gradient does not. Every stop clears 7:1 against
+       the white label. */
+    background-color: var(--wash-solid-strong);
+    background-image: var(--wash);
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 800;
@@ -535,7 +560,8 @@
   .hero {
     position: relative;
     padding-block: clamp(3rem, 2rem + 6vw, 7rem);
-    background: var(--wash-soft);
+    background-color: var(--wash-solid);
+  background-image: var(--wash-soft);
     border-block-end: 1px solid var(--line-soft);
   }
 
@@ -941,4 +967,171 @@
     box-shadow: none;
     break-inside: avoid;
   }
+}
+
+/* Attribution link. The colour is inherited from the footer so the pair is one
+   the contrast gate already verifies in styles.css, rather than a new literal
+   that nothing checks. The 44px box meets the AAA target-size minimum. */
+.made-with-ssg {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------------
+   Increase Contrast (macOS / iOS "Increase Contrast", and the same user
+   preference on other platforms).
+
+   Tokens only, so every rule that already consumes them follows. Muted
+   and soft inks collapse onto the full-strength ink, and the hairline
+   rules become the border colour, which is the part that disappears
+   first for anyone who asked for more contrast.
+   --------------------------------------------------------------------- */
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="dark"] {
+    --ink-soft: var(--ink);
+    --ink-muted: var(--ink);
+    --rule: var(--line);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Forced colours (Invert Colors, Windows High Contrast, and similar).
+
+   The OS replaces the palette wholesale here, so the job is not to
+   restyle but to make sure nothing that was carried by colour alone
+   disappears with it. Focus rings and borders get explicit system
+   colours; links get LinkText so they stay identifiable as links.
+   --------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  a {
+    color: LinkText;
+  }
+  a:visited {
+    color: VisitedText;
+  }
+  /* A button distinguished only by its background becomes invisible
+     when the background is forced; give it an edge that is not. */
+  .btn,
+  .btn-primary {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .skip-link {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Wide colour (Display P3).
+
+   Every token above is sRGB and stays that way — this block only runs
+   where the display can actually show more, and only the chromatic
+   tokens are restated. Neutrals carry almost no chroma, so a wider
+   gamut has nothing to give them.
+
+   Each colour keeps its lightness and hue exactly and gains about a
+   fifth more chroma, which is the part sRGB was clipping. Because
+   lightness is unchanged, contrast is too: `scripts/contrast.py` checks
+   these P3 values against the same thresholds as the sRGB ones, via
+   their XYZ luminance.
+   --------------------------------------------------------------------- */
+@media (color-gamut: p3) {
+  :root,
+  :root[data-theme="light"] {
+    --accent: color(display-p3 0.3372 0.0057 0.7496);
+    --accent-hover: color(display-p3 0.2742 0.0082 0.6115);
+    --focus: color(display-p3 0.4039 0.0 0.8915);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: color(display-p3 0.7768 0.7113 0.9971);
+      --accent-hover: color(display-p3 0.8587 0.8148 0.9965);
+      --focus: color(display-p3 0.6395 0.5308 0.9994);
+    }
+  }
+  :root[data-theme="dark"] {
+    --accent: color(display-p3 0.7768 0.7113 0.9971);
+    --accent-hover: color(display-p3 0.8587 0.8148 0.9965);
+    --focus: color(display-p3 0.6395 0.5308 0.9994);
+  }
+}
+
+/* A section that sits on the soft ground. Was an inline
+   `style="background: var(--bg-soft)"`, which the generator's
+   own CSP blocks — `style-src 'self'` admits no inline style,
+   so the background silently never applied and the browser
+   logged a violation on every page carrying it. */
+.section-soft {
+  background: var(--bg-soft);
+}
+
+/* Same reason as `.section-soft`: an inline
+   `style="justify-content:center"` cannot survive the CSP. */
+.cta-row-centred {
+  justify-content: center;
+}
+
+/* WCAG 2.5.5 Target Size (Enhanced, AAA) — 44x44 CSS px.
+ *
+ * Footer and navigation links are lists of controls, not running text, so
+ * 2.5.5's "inline" exception does not cover them; a 17px-tall footer link is
+ * a real failure. The rules below are the same treatment Lucid has always
+ * used, applied here after the browser gate was widened from three themes to
+ * all nine and found these. */
+footer a,
+.brand,
+.suite-link,
+.made-with-ssg,
+.taxonomy-page-list a,
+.taxonomy-term-list a {
+  display: inline-flex;
+  align-items: center;
+  /* min-width, not justify-content: centring would pull short labels like
+     "RSS" away from the left edge the rest of the column lines up on. The
+     target grows to the right; the text stays where it was. */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.nav-link {
+  min-width: 44px;
+  justify-content: center;
+}
+
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* A link that is the entire content of its paragraph is a control, not a
+   phrase inside a sentence, so 2.5.5's inline exception does not apply. */
+.container > p > a:only-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* WCAG 2.4.11/2.4.12 Focus Not Obscured. The header is sticky, so scrolling to
+   a focused control - or to a fragment - can park it underneath. Lucid, Quill
+   and Stablo have always set this; the browser gate only covered those three,
+   so the other six never showed the symptom. 5.5rem clears this header at its
+   tallest (65px, measured across the widths the reflow gate uses). */
+html {
+  scroll-padding-top: 5.5rem;
 }

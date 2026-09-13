@@ -66,49 +66,63 @@
       }
     }
 
-    /* ---------------- theme toggle ---------------- */
-    var themeToggle = document.getElementById('themeToggle');
+    /* ---------------- theme mode (system / light / dark) ---------------- */
+    /* Three states, not two. A two-way switch gives no way back to following
+       the operating system once it has been touched: the first click stamps
+       `data-theme` and nothing ever removes it. "system" is therefore part of
+       the cycle, represented by the *absence* of the attribute and of the
+       stored value -- exactly what theme-init.js already expects. */
+    var mode = document.getElementById('mode-toggle');
+    var modeState = document.getElementById('mode-state');
 
-    if (themeToggle) {
+    if (mode && modeState) {
       var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-      var currentTheme = function () {
-        return (
-          root.getAttribute('data-theme') ||
-          (prefersDark.matches ? 'dark' : 'light')
-        );
+      var order = ['system', 'light', 'dark'];
+      var labels = {
+        system: modeState.textContent.trim(),
+        light: mode.getAttribute('data-label-light') || 'Light',
+        dark: mode.getAttribute('data-label-dark') || 'Dark'
       };
 
-      /* The visible icon is chosen by CSS from [data-theme]; the only
-         state this needs to publish is `aria-pressed`. */
-      var syncPressed = function () {
-        themeToggle.setAttribute(
-          'aria-pressed',
-          String(currentTheme() === 'dark')
-        );
+      var current = function () {
+        var set = root.getAttribute('data-theme');
+        return set === 'light' || set === 'dark' ? set : 'system';
       };
 
-      syncPressed();
-
-      themeToggle.addEventListener('click', function () {
-        var next = currentTheme() === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try {
-          localStorage.setItem('theme', next);
-        } catch (e) {
-          /* Storage unavailable: the choice applies for this page only. */
+      var apply = function (next) {
+        if (next === 'system') {
+          root.removeAttribute('data-theme');
+          try {
+            localStorage.removeItem('theme');
+          } catch (e) {
+            /* Storage unavailable: the choice applies for this page only. */
+          }
+        } else {
+          root.setAttribute('data-theme', next);
+          try {
+            localStorage.setItem('theme', next);
+          } catch (e) {
+            /* Storage unavailable: the choice applies for this page only. */
+          }
         }
-        syncPressed();
+        modeState.textContent = labels[next];
+      };
+
+      modeState.textContent = labels[current()];
+
+      mode.addEventListener('click', function () {
+        apply(order[(order.indexOf(current()) + 1) % order.length]);
       });
 
-      /* Track the OS while the visitor has not made an explicit choice. */
+      /* While the visitor is following the OS, reflect its changes. */
       if (typeof prefersDark.addEventListener === 'function') {
         prefersDark.addEventListener('change', function () {
           if (!root.hasAttribute('data-theme')) {
-            syncPressed();
+            modeState.textContent = labels.system;
           }
         });
       }
     }
+
   });
 })();

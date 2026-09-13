@@ -13,6 +13,7 @@ schema: "page"
 tags: ["method", "editorial"]
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 form_origin: "https://example.com"
 nav_articles: "true"
 eyebrow: "Articles"
@@ -36,6 +37,10 @@ footer_built: "Built with"
 footer_sitemap: "Sitemap"
 footer_licence: "Released under the MIT licence."
 footer_colophon: "Built with Static Site Generator (SSG). WCAG 2.2 AA verified in CI."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Structuring a knowledge hub

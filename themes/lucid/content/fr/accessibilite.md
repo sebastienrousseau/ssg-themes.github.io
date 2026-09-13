@@ -20,6 +20,7 @@ label_theme: "Thème"
 label_theme_system: "Système"
 label_docs: "Documentation"
 label_footer_nav: "Documentation"
+label_made_with: "Réalisé avec SSG"
 label_docs_nav: "Sections de la documentation"
 label_crumbs: "Fil d'Ariane"
 label_pager: "Page"
@@ -56,6 +57,8 @@ prev_label: "Configuration"
 next_href: "/lucid/fr/"
 next_label: "Accueil"
 layout: "doc"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Conformité
@@ -76,7 +79,7 @@ lorsqu'il était possible de dépasser le seuil exigé, Lucid le dépasse.
 | 1.4.6 Contraste (amélioré) | Chaque paire de jetons de texte atteint au moins 7:1 dans les deux thèmes |
 | 1.4.8 Présentation visuelle | Colonne de lecture proche de 66 caractères, interligne 1,6, espacement des paragraphes supérieur à 1,5 fois cet interligne, texte jamais justifié, thème choisi par le lecteur |
 | 1.4.9 Texte sous forme d'image (sans exception) | Il n'y en a aucune. Titres, libellés et contrôles sont du vrai texte |
-| 2.1.3 Clavier (sans exception) | Chaque contrôle est un lien ou un bouton natif ; rien n'exige un pointeur |
+| 2.1.3 Clavier (sans exception) | Chaque contrôle est un lien ou un bouton natif; rien n'exige un pointeur |
 | 2.2.3 Aucune limite de temps | Rien n'expire, ne défile ni ne se recharge |
 | 2.3.2 Trois flashs | Rien ne clignote |
 | 2.3.3 Animation à l'interaction | Toute animation est désactivée sous `prefers-reduced-motion` |
@@ -85,7 +88,7 @@ lorsqu'il était possible de dépasser le seuil exigé, Lucid le dépasse.
 | 2.4.12 Focus non masqué (amélioré) | Aucune partie d'un anneau de focus n'est jamais couverte — vérifié sur 1 066 arrêts de tabulation |
 | 2.4.13 Apparence du focus | Anneau de 3 px décalé de 2 px, au-dessus de 4,5:1 face au composant et à son fond |
 | 2.5.5 Taille de la cible (amélioré) | Chaque lien, bouton et contrôle mesure au moins 44 sur 44 pixels |
-| 2.5.6 Mécanismes de saisie simultanés | Clavier, pointeur et tactile fonctionnent ensemble ; aucun n'est désactivé |
+| 2.5.6 Mécanismes de saisie simultanés | Clavier, pointeur et tactile fonctionnent ensemble; aucun n'est désactivé |
 | 3.2.5 Changement à la demande | Rien ne navigue, ne s'ouvre ni ne se recharge tout seul |
 
 ### Critères sans niveau AAA, respectés au plus haut niveau défini
@@ -143,7 +146,7 @@ le genre d'affirmation que cette page cherche à éviter.
 - **3.1.3 Mots inhabituels** et **3.1.4 Abréviations (AAA)** demandent des
   glossaires et des développements que seul un auteur peut fournir.
 - **1.2.x Alternatives aux médias** ne s'appliquent que si vous ajoutez de
-  l'audio ou de la vidéo ; le thème n'en livre aucun.
+  l'audio ou de la vidéo; le thème n'en livre aucun.
 - **Le texte alternatif des images** vous revient. Le logo décoratif du thème
   porte `alt=""` afin qu'un lecteur d'écran le passe.
 

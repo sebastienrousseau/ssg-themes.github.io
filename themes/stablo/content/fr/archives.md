@@ -5,6 +5,7 @@ language: "fr-FR"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 locale_path: "/stablo/fr/"
 base_path: "/stablo/"
 en_current: ""
@@ -49,6 +50,8 @@ eyebrow: "Archives"
 headline: "Archives"
 lead: "Tous les articles publiés ici, du plus récent au plus ancien."
 layout: "page"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 | Article | Catégorie | Auteur | Date |

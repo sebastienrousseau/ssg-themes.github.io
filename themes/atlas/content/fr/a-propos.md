@@ -13,6 +13,7 @@ schema: "page"
 tags: ["editorial"]
 changefreq: "monthly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 form_origin: "https://example.com"
 nav_about: "true"
 eyebrow: "À propos"
@@ -36,6 +37,10 @@ footer_built: "Réalisé avec"
 footer_sitemap: "Plan du site"
 footer_licence: "Publié sous licence MIT."
 footer_colophon: "Réalisé avec Static Site Generator (SSG). Conformité WCAG 2.2 AA vérifiée en intégration continue."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Des règles éditoriales, en modèle
@@ -47,7 +52,7 @@ confiance sur rien.
 - **Sourçage.** Toute affirmation factuelle renvoie à une source primaire.
 - **Corrections.** Une erreur substantielle donne lieu à une note datée en
   tête de page.
-- **Mises à jour.** Les modifications mineures sont silencieuses ; tout ce qui
+- **Mises à jour.** Les modifications mineures sont silencieuses; tout ce qui
   change une conclusion fait l'objet d'une note.
 - **Déclaration d'intérêts.** Les relations commerciales pertinentes pour un
   texte y sont mentionnées.
@@ -55,7 +60,7 @@ confiance sur rien.
 ## Comment le thème est construit
 
 `base.html` porte la coquille du document et déclare un bloc `main`. Chaque
-gabarit de page s'ouvre par `{{#extends "base"}}` et remplit ce bloc ;
+gabarit de page s'ouvre par `{{#extends "base"}}` et remplit ce bloc;
 l'en-tête et le pied de page sont des fragments. Le texte des pages est du
 Markdown injecté par `{{!content}}`.
 

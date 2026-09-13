@@ -13,6 +13,11 @@
 name = "page"
 
 [[schemas.fields]]
+name = "label_made_with"
+type = "string"
+required = true
+
+[[schemas.fields]]
 name = "title"
 type = "string"
 required = true

@@ -24,7 +24,20 @@
       <a class="nav-link" href="#faq">FAQ</a>
     </nav>
     <div class="header-actions">
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode theme">
+      <!-- Search trigger slot. The generator replaces this element with
+           the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
+           with no slot the button is position:fixed in the viewport corner
+           and cannot align with this header. -->
+      <span data-ssg-search></span>
+      <button
+        class="theme-toggle"
+        id="mode-toggle"
+        type="button"
+        data-label-light="{{label_theme_light}}"
+        data-label-dark="{{label_theme_dark}}"
+      >
+        <span class="visually-hidden">{{label_theme}}</span>
+        <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
         <span class="theme-icon" aria-hidden="true">◐</span>
       </button>
       <a class="btn btn-outline btn-sm" href="https://github.com/sebastienrousseau/{{name}}" target="_blank" rel="noopener noreferrer" aria-label="View {{name}} on GitHub">GitHub</a>

@@ -17,6 +17,10 @@ nav_platform: "true"
 eyebrow: "Platform"
 headline: "One record type, four ways to look at it"
 lead: "Sample content demonstrating the prose and card components at a longer length than the home page uses."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Plan

@@ -17,6 +17,10 @@ nav_pricing: "true"
 eyebrow: "Pricing"
 headline: "A pricing page, as an example"
 lead: "Sample content demonstrating the table and card components. The theme itself is free and MIT-licensed."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## How this page works

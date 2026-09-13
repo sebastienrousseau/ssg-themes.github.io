@@ -57,8 +57,20 @@
       <div data-ssg-lang-switcher></div>
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
-        <span class="visually-hidden">Dark theme</span>
+      <!-- Search trigger slot. The generator replaces this element with
+           the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
+           with no slot the button is position:fixed in the viewport corner
+           and cannot align with this header. -->
+      <span data-ssg-search></span>
+      <button
+        class="theme-toggle"
+        id="mode-toggle"
+        type="button"
+        data-label-light="{{label_theme_light}}"
+        data-label-dark="{{label_theme_dark}}"
+      >
+        <span class="visually-hidden">{{label_theme}}</span>
+        <span class="visually-hidden" id="mode-state">{{label_theme_system}}</span>
         <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="4" />
           <line x1="12" y1="2" x2="12" y2="5" />

@@ -17,6 +17,10 @@ nav_home: "true"
 eyebrow: "Starter theme"
 headline: "Ship a product site this afternoon"
 lead: "Velocity is the smallest useful Static Site Generator theme: five pages, one stylesheet, no build step and nothing loaded from anyone else’s server."
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Who this is for

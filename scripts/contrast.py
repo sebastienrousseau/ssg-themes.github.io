@@ -42,6 +42,48 @@ def ratio(fg: str, bg: str) -> float:
     return (l1 + 0.05) / (l2 + 0.05)
 
 
+# Display P3 -> XYZ (D65). Only the middle row is needed: WCAG relative
+# luminance is Y, and Y is defined in XYZ, not in any particular RGB
+# space. Computing it this way lets a P3 colour be held to exactly the
+# same thresholds as an sRGB one rather than being exempt.
+P3_TO_XYZ_Y = (0.2289745, 0.6917387, 0.0792868)
+
+
+def p3_luminance(components: tuple[float, float, float]) -> float:
+    """Relative luminance of a `color(display-p3 r g b)` triple."""
+    lin = [_linear(round(c * 255)) for c in components]
+    return sum(P3_TO_XYZ_Y[i] * lin[i] for i in range(3))
+
+
+def parse_p3_tokens(css: str, selector: str) -> dict[str, tuple[float, ...]]:
+    """Extracts `--name: color(display-p3 r g b);` from a `selector` block.
+
+    P3 tokens were added so wide-gamut displays get the chroma sRGB was
+    clipping. They must be checked, not just declared: a colour the gate
+    cannot parse is a colour outside the gate, and that is precisely how
+    voxt's seven contrast failures went unnoticed for as long as they
+    did.
+    """
+    idx = css.find(selector)
+    if idx == -1:
+        return {}
+    block = css[idx: css.find("}", idx)]
+    return {
+        name: tuple(float(v) for v in values.split())
+        for name, values in re.findall(
+            r"(--[a-z0-9-]+)\s*:\s*color\(display-p3\s+([0-9.\s]+)\)\s*;",
+            block,
+        )
+    }
+
+
+def ratio_mixed(fg_luminance: float, bg_hex: str) -> float:
+    """Contrast of an already-computed luminance against a hex colour."""
+    l2 = luminance(bg_hex)
+    lighter, darker = max(fg_luminance, l2), min(fg_luminance, l2)
+    return (lighter + 0.05) / (darker + 0.05)
+
+
 def parse_tokens(css: str, selector: str) -> dict[str, str]:
     """Extracts `--name: #hex;` pairs from the first block matching `selector`."""
     idx = css.find(selector)
@@ -54,6 +96,22 @@ def parse_tokens(css: str, selector: str) -> dict[str, str]:
             r"(--[a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;", block
         )
     }
+
+
+def parse_gradient(css: str, selector: str, token: str) -> list[str]:
+    """Hex stops of `--token: linear-gradient(...)` in the first `selector` block.
+
+    Read from the same block as the text tokens so a gradient is always paired
+    with the ink that is actually laid over it in that colour scheme. Pairing a
+    single ink against every declaration of the token would compare light text
+    with the light-mode stops and report a failure that no one can see.
+    """
+    idx = css.find(selector)
+    if idx == -1:
+        return []
+    block = css[idx: css.find("}", idx)]
+    m = re.search(rf"{re.escape(token)}\s*:\s*linear-gradient\(([^;]*)\)\s*;", block)
+    return re.findall(r"#[0-9a-fA-F]{6}", m.group(1)) if m else []
 
 
 # (foreground token, background token, target ratio, human label)
@@ -77,7 +135,40 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kinetic", "lucid", "quill", "stablo", "velocity")
+THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity")
+
+# Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
+# / `--primary` / `--border` where the other eight use `--ink` / `--surface`
+# / `--accent` / `--line`. Because none of the names in PAIRS resolved, it was
+# simply left out of THEMES, and so its colours were never checked at all.
+#
+# That silence was not free. When these pairs were first run against it, seven
+# failed, three of them WCAG 1.4.11 non-text violations rather than AAA
+# shortfalls: `--border` sat at 1.92:1 against the dark ground and 2.54:1
+# against the light one, against a requirement of 3:1.
+#
+# A theme is not exempt from contrast because it names its tokens differently,
+# so voxt is checked here under its own vocabulary rather than rewritten to
+# match the others.
+VOXT_PAIRS = [
+    ("--fg", "--bg", AAA_TEXT, "body text on ground"),
+    ("--fg", "--bg-card", AAA_TEXT, "body text on card"),
+    ("--fg-muted", "--bg", AAA_TEXT, "secondary text on ground"),
+    ("--fg-muted", "--bg-card", AAA_TEXT, "secondary text on card"),
+    ("--fg-subtle", "--bg", AAA_TEXT, "muted text on ground"),
+    ("--fg-subtle", "--bg-card", AAA_TEXT, "muted text on card"),
+    ("--primary", "--bg", AAA_TEXT, "link on ground"),
+    ("--primary", "--bg-card", AAA_TEXT, "link on card"),
+    ("--primary-hover", "--bg-card", AAA_TEXT, "hovered link on card"),
+    ("--accent", "--bg", AAA_TEXT, "accent text on ground"),
+    ("--focus", "--bg", UI_NONTEXT, "focus ring against ground"),
+    ("--border", "--bg", UI_NONTEXT, "border against ground"),
+    ("--border-strong", "--bg-card", UI_NONTEXT, "strong border against card"),
+]
+
+# Dark-first: the unqualified `:root` block *is* the dark palette, and the
+# light one is the opt-in override. The other eight are the other way round.
+VOXT_MODES = (("dark", ":root"), ("light", '[data-theme="light"]'))
 
 # WCAG 1.4.11 Non-text Contrast has no AAA level — 3:1 is the whole
 # criterion. A theme that wants to be stricter than "meets AA" therefore has
@@ -122,6 +213,138 @@ def main() -> int:
                 if got + 1e-9 < target:
                     failures.append(
                         f"{theme}/{mode}: {label} — {tokens[fg]} on {tokens[bg]} "
+                        f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
+                    )
+
+    # --- Gradient stops -------------------------------------------------
+    # axe cannot compute contrast through a `background-image`: it reports
+    # the element rather than a ratio, so a gradient is a hole in the one
+    # tool that would otherwise catch this. Kinetic's brand mark sat at
+    # 3.68:1 against the cyan end of its wash — a WCAG AA failure — and
+    # nothing flagged the number, only the fact that a number could not be
+    # produced.
+    #
+    # Every stop of a gradient that carries text is checked here against
+    # the colour laid over it, because the worst stop is the one that
+    # decides whether the text is readable.
+    GRADIENT_TEXT = {
+        "kinetic": [("--wash", "#ffffff", AAA_TEXT, "brand mark on wash")],
+    }
+    # Text whose ground is a gradient *and* whose colour changes with the
+    # scheme, so both have to be read out of the same block. These are the
+    # elements hidden from axe in scripts/pa11y.sh, which cannot compute a
+    # ratio through a background-image; this is the check that replaces it.
+    GRADIENT_TEXT_MODAL = {
+        "kinetic": [
+            ("--wash-soft", "--ink", AAA_TEXT, "hero heading on soft wash"),
+            ("--wash-soft", "--ink-soft", AAA_TEXT, "hero lead on soft wash"),
+        ],
+    }
+    for theme, checks in GRADIENT_TEXT_MODAL.items():
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        for mode, selector in MODES:
+            tokens = parse_tokens(css, selector)
+            for grad_token, ink_token, target, label in checks:
+                stops = parse_gradient(css, selector, grad_token)
+                fg = tokens.get(ink_token)
+                if not stops or not fg:
+                    failures.append(
+                        f"{theme}/{mode}: {label} — could not resolve "
+                        f"{grad_token} or {ink_token}"
+                    )
+                    continue
+                for stop in stops:
+                    got = ratio(fg, stop)
+                    checked += 1
+                    if got + 1e-9 < target:
+                        failures.append(
+                            f"{theme}/{mode}/gradient: {label} — {fg} on stop "
+                            f"{stop} = {got:.2f}:1, need {target}:1"
+                        )
+
+    for theme, checks in GRADIENT_TEXT.items():
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        for token, fg, target, label in checks:
+            stops = re.findall(
+                rf"{re.escape(token)}:\s*linear-gradient\(([^;]*)\)\s*;", css
+            )
+            if not stops:
+                failures.append(f"{theme}: no gradient found for {token}")
+                continue
+            for grad in stops:
+                for stop in re.findall(r"#[0-9a-fA-F]{6}", grad):
+                    got = ratio(fg, stop)
+                    checked += 1
+                    if got + 1e-9 < target:
+                        failures.append(
+                            f"{theme}/gradient: {label} — {fg} on stop {stop} "
+                            f"= {got:.2f}:1, need {target}:1 ({token})"
+                        )
+
+    # --- Display P3 ------------------------------------------------------
+    # The wide-gamut restatements are held to the same thresholds as the
+    # sRGB tokens they override. They keep their lightness by
+    # construction, so they should pass wherever the sRGB value does —
+    # "should" being exactly the kind of assumption this file exists to
+    # stop anyone relying on.
+    for theme in THEMES + ("voxt",):
+        css_path = root / "themes" / theme / "_layouts" / "styles.css"
+        if not css_path.exists():
+            continue
+        css = css_path.read_text(encoding="utf-8")
+        gamut = css.find("@media (color-gamut: p3)")
+        if gamut == -1:
+            failures.append(f"{theme}: no Display P3 block")
+            continue
+        p3_region = css[gamut:]
+        pairs = VOXT_PAIRS if theme == "voxt" else PAIRS
+        modes = VOXT_MODES if theme == "voxt" else MODES
+        for mode, selector in modes:
+            srgb = parse_tokens(css, selector)
+            wide = parse_p3_tokens(p3_region, selector)
+            if not wide:
+                continue
+            for fg, bg, target, label in pairs:
+                if fg not in wide or bg not in srgb:
+                    continue
+                if target == UI_NONTEXT and theme in STRICT_NONTEXT:
+                    target = STRICT_NONTEXT_RATIO
+                got = ratio_mixed(p3_luminance(wide[fg]), srgb[bg])
+                checked += 1
+                if got + 1e-9 < target:
+                    failures.append(
+                        f"{theme}/{mode}/p3: {label} — {fg} on {srgb[bg]} "
+                        f"= {got:.2f}:1, need {target}:1"
+                    )
+
+    voxt_css = root / "themes" / "voxt" / "_layouts" / "styles.css"
+    if not voxt_css.exists():
+        failures.append("voxt: missing themes/voxt/_layouts/styles.css")
+    else:
+        css = voxt_css.read_text(encoding="utf-8")
+        for mode, selector in VOXT_MODES:
+            tokens = parse_tokens(css, selector)
+            if not tokens:
+                failures.append(f"voxt/{mode}: no tokens found for `{selector}`")
+                continue
+            for fg, bg, target, label in VOXT_PAIRS:
+                if fg not in tokens or bg not in tokens:
+                    failures.append(
+                        f"voxt/{mode}: token {fg} or {bg} not declared "
+                        f"(needed for '{label}')"
+                    )
+                    continue
+                got = ratio(tokens[fg], tokens[bg])
+                checked += 1
+                if got + 1e-9 < target:
+                    failures.append(
+                        f"voxt/{mode}: {label} — {tokens[fg]} on {tokens[bg]} "
                         f"= {got:.2f}:1, need {target}:1 ({fg} / {bg})"
                     )
 

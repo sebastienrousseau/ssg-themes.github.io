@@ -1,0 +1,71 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{locale_path}}">
+      <span class="brand-mark" aria-hidden="true">{{short_name}}</span>
+      <span class="brand-text">{{name}}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="{{label_nav}}">
+      <!-- Always present; CSS hides it above 48rem. -->
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span class="visually-hidden">{{label_menu}}</span>
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+
+      <!--
+        The showcase is a single page, so its nav is in-page anchors plus the
+        repository, rather than Apex's five-page site nav. Both fragments
+        resolve to ids in the landing layout, and scripts/build.sh checks
+        every fragment on every page, so a renamed heading fails the build
+        rather than shipping a dead link.
+      -->
+      <ul class="nav-menu" id="navMenu">
+        <li>
+          <a class="nav-link" href="{{locale_path}}" aria-current="page">{{nav_label_home}}</a>
+        </li>
+        <li>
+          <a class="nav-link" href="#themes-heading">{{nav_label_themes}}</a>
+        </li>
+        <li>
+          <a class="nav-link" href="#gates-heading">{{nav_label_gates}}</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{repo_url}}" rel="noopener noreferrer">{{nav_label_repo}}</a>
+        </li>
+      </ul>
+
+      <!-- ssg:lang-switcher -->
+
+      <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
+      <!-- Search trigger slot; see src/plugins/search.rs. -->
+      <span data-ssg-search></span>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+        <span class="visually-hidden">{{label_theme}}</span>
+        <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="5" />
+          <line x1="12" y1="19" x2="12" y2="22" />
+          <line x1="2" y1="12" x2="5" y2="12" />
+          <line x1="19" y1="12" x2="22" y2="12" />
+        </svg>
+        <svg class="icon-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>

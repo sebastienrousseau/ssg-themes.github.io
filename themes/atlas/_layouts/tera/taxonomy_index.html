@@ -1,0 +1,36 @@
+{# SPDX-License-Identifier: Apache-2.0 OR MIT #}
+{#
+  Overrides the generator's built-in taxonomy index.
+
+  The built-in renders a heading and a list of term links and nothing else,
+  which leaves the page with about 45 characters of text. The semantics gate
+  reads `main.textContent` with CSS disabled and wants at least 50: a page
+  whose entire content is four link labels does not tell an unstyled or
+  screen-reader visitor what it is. The sentence below is that explanation,
+  and it is worth having for its own sake rather than for the threshold.
+#}
+{% extends "base.html" %}
+
+{% block title %}{{ taxonomy_title }}{% if site.title %} — {{ site.title }}{% endif %}{% endblock %}
+
+{% block content %}
+<article class="taxonomy-index taxonomy-index-{{ taxonomy_name }}">
+  <header>
+    <h1>{{ taxonomy_title }}</h1>
+    <p class="lede">
+      {%- if site.language and site.language[:2] == 'fr' -%}
+        Chaque sujet abordé dans ces pages, avec le nombre d’articles classés
+        sous chacun. Suivez un lien pour lire les articles correspondants.
+      {%- else -%}
+        Every subject covered in these pages, with the number of articles filed
+        under each. Follow one to read the articles it collects.
+      {%- endif -%}
+    </p>
+  </header>
+  <ul class="taxonomy-term-list">
+    {% for entry in terms %}
+    <li><a href="{{ url_prefix | safe }}/{{ taxonomy_name }}/{{ entry.slug }}/">{{ entry.name }}</a> ({{ entry.count }})</li>
+    {% endfor %}
+  </ul>
+</article>
+{% endblock %}

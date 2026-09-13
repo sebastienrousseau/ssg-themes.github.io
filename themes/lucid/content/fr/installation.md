@@ -20,6 +20,7 @@ label_theme: "Thème"
 label_theme_system: "Système"
 label_docs: "Documentation"
 label_footer_nav: "Documentation"
+label_made_with: "Réalisé avec SSG"
 label_docs_nav: "Sections de la documentation"
 label_crumbs: "Fil d'Ariane"
 label_pager: "Page"
@@ -56,6 +57,8 @@ prev_label: "Accueil"
 next_href: "/lucid/fr/configuration/"
 next_label: "Configuration"
 layout: "doc"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## Prérequis

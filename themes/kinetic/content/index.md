@@ -19,6 +19,10 @@ headline: "Everything the team is doing, in one place"
 lead: "Kinetic is a marketing theme for a multi-product SaaS: a hero, a tabbed platform tour, a feature grid and a pricing table — all of it static, all of it usable without JavaScript."
 cta_primary: "Talk to us"
 cta_secondary: "Tour the platform"
+label_theme: "Theme"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 ## What this theme is

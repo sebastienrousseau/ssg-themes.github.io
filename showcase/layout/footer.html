@@ -1,0 +1,50 @@
+<!-- The showcase's own footer.
+     It overrides Apex's for the same reason header.html does: Apex's footer
+     links to projects/, frameworks/, about/, contact/, atom.xml and feed.json,
+     which exist under /apex/ and nowhere else. Rendered at the site root those
+     became six broken links on the landing page. Everything below resolves. -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h2>Documentation</h2>
+        <ul>
+          <li><a href="{{site_path}}lucid/">Lucid</a></li>
+          <li><a href="{{site_path}}atlas/">Atlas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Editorial</h2>
+        <ul>
+          <li><a href="{{site_path}}stablo/">Stablo</a></li>
+          <li><a href="{{site_path}}quill/">Quill</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Marketing</h2>
+        <ul>
+          <li><a href="{{site_path}}apex/">Apex</a></li>
+          <li><a href="{{site_path}}kinetic/">Kinetic</a></li>
+          <li><a href="{{site_path}}velocity/">Velocity</a></li>
+          <li><a href="{{site_path}}voxt/">Voxt</a></li>
+          <li><a href="{{site_path}}kaishi/">Kaishi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Built with</h2>
+        <ul>
+          <li>
+            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+          </li>
+          <li><a href="{{site_path}}rss.xml">RSS</a></li>
+          <li><a href="{{site_path}}sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
+      <span>Built with <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">Made with SSG</a>. WCAG 2.2 AA verified in CI.</span>
+    </div>
+  </div>
+</footer>

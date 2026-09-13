@@ -313,6 +313,20 @@
     margin-block-start: var(--space-s);
   }
 
+  /* 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x line
+     spacing. The `> * + *` rule above cannot deliver it - ssg wraps rendered
+     Markdown in its own element, so that selector matches the wrapper and
+     every paragraph inside it stays at 0. Lucid hit this first; these are the
+     same themes' version of it, found when the browser gate was widened from
+     three themes to nine. `lh` states the requirement exactly; the em value is
+     the fallback and clears 1.5x line-height for this theme's own metrics. */
+  .prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+    + :where(p, ul, ol, pre, blockquote, table, dl, figure) {
+    margin-block-start: 2.7em;
+    margin-block-start: 1.6lh;
+  }
+
+
   .prose h2 {
     margin-block-start: var(--space-l);
   }
@@ -1048,4 +1062,316 @@
   .site-footer {
     margin-block-start: var(--space-m);
   }
+}
+
+/* Attribution link. The colour is inherited from the footer so the pair is one
+   the contrast gate already verifies in styles.css, rather than a new literal
+   that nothing checks. The 44px box meets the AAA target-size minimum. */
+.made-with-ssg {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------------
+   Increase Contrast (macOS / iOS "Increase Contrast", and the same user
+   preference on other platforms).
+
+   Tokens only, so every rule that already consumes them follows. Muted
+   and soft inks collapse onto the full-strength ink, and the hairline
+   rules become the border colour, which is the part that disappears
+   first for anyone who asked for more contrast.
+   --------------------------------------------------------------------- */
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="dark"] {
+    --ink-soft: var(--ink);
+    --ink-muted: var(--ink);
+    --rule: var(--line);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Forced colours (Invert Colors, Windows High Contrast, and similar).
+
+   The OS replaces the palette wholesale here, so the job is not to
+   restyle but to make sure nothing that was carried by colour alone
+   disappears with it. Focus rings and borders get explicit system
+   colours; links get LinkText so they stay identifiable as links.
+   --------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  a {
+    color: LinkText;
+  }
+  a:visited {
+    color: VisitedText;
+  }
+  /* A button distinguished only by its background becomes invisible
+     when the background is forced; give it an edge that is not. */
+  .btn,
+  .btn-primary {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .skip-link {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Wide colour (Display P3).
+
+   Every token above is sRGB and stays that way — this block only runs
+   where the display can actually show more, and only the chromatic
+   tokens are restated. Neutrals carry almost no chroma, so a wider
+   gamut has nothing to give them.
+
+   Each colour keeps its lightness and hue exactly and gains about a
+   fifth more chroma, which is the part sRGB was clipping. Because
+   lightness is unchanged, contrast is too: `scripts/contrast.py` checks
+   these P3 values against the same thresholds as the sRGB ones, via
+   their XYZ luminance.
+   --------------------------------------------------------------------- */
+@media (color-gamut: p3) {
+  :root,
+  :root[data-theme="light"] {
+    --accent: color(display-p3 0.1191 0.3244 0.2218);
+    --accent-hover: color(display-p3 0.0793 0.2295 0.1557);
+    --focus: color(display-p3 0.1846 0.4826 0.3182);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: color(display-p3 0.4829 0.8332 0.6189);
+      --accent-hover: color(display-p3 0.6076 0.8834 0.7141);
+      --focus: color(display-p3 0.4829 0.8332 0.6189);
+    }
+  }
+  :root[data-theme="dark"] {
+    --accent: color(display-p3 0.4829 0.8332 0.6189);
+    --accent-hover: color(display-p3 0.6076 0.8834 0.7141);
+    --focus: color(display-p3 0.4829 0.8332 0.6189);
+  }
+}
+
+/* WCAG 2.5.5 Target Size (Enhanced, AAA) — 44x44 CSS px.
+ *
+ * Footer and navigation links are lists of controls, not running text, so
+ * 2.5.5's "inline" exception does not cover them; a 17px-tall footer link is
+ * a real failure. The rules below are the same treatment Lucid has always
+ * used, applied here after the browser gate was widened from three themes to
+ * all nine and found these. */
+footer a,
+.brand,
+.suite-link,
+.made-with-ssg,
+.taxonomy-page-list a,
+.taxonomy-term-list a {
+  display: inline-flex;
+  align-items: center;
+  /* min-width, not justify-content: centring would pull short labels like
+     "RSS" away from the left edge the rest of the column lines up on. The
+     target grows to the right; the text stays where it was. */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.nav-link {
+  min-width: 44px;
+  justify-content: center;
+}
+
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* A card's title is a link and a target in its own right, not running text. */
+.card h3 a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* WCAG 2.4.11/2.4.12 Focus Not Obscured. The header is sticky, so scrolling to
+   a focused control - or to a fragment - can park it underneath. Lucid, Quill
+   and Stablo have always set this; the browser gate only covered those three,
+   so the other six never showed the symptom. 7rem clears this header at its
+   tallest (95px, measured across the widths the reflow gate uses). */
+html {
+  scroll-padding-top: 7rem;
+}
+
+/* Taxonomy pages (_layouts/tera/base.html) shipped these as an inline
+ * <style>, which forced style-src 'unsafe-inline' on eight pages while
+ * every other page in the suite runs style-src 'self'. The rules are
+ * scoped to [data-theme-mode], so they match nothing elsewhere. */
+/* Theme Mode Variables & Overrides */
+:root[data-theme-mode="light"], [data-theme-mode="light"] {
+  --bg-canvas: #fbfbfd !important;
+  --bg-surface: #ffffff !important;
+  --bg-subtle: #f5f5f7 !important;
+  --bg-glass: rgba(255, 255, 255, 0.85) !important;
+  --text-headline: #1d1d1f !important;
+  --text-body: #1d1d1f !important;
+  --border-hairline: rgba(0, 0, 0, 0.08) !important;
+  color-scheme: light !important;
+}
+
+:root[data-theme-mode="dark"], [data-theme-mode="dark"] {
+  --bg-canvas: #000000 !important;
+  --bg-surface: #161617 !important;
+  --bg-subtle: #1d1d1f !important;
+  --bg-glass: rgba(22, 22, 23, 0.85) !important;
+  --text-headline: #f5f5f7 !important;
+  --text-body: #f5f5f7 !important;
+  --border-hairline: rgba(255, 255, 255, 0.12) !important;
+  color-scheme: dark !important;
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  padding: 3px;
+  border-radius: 980px;
+}
+.theme-btn {
+  background: transparent;
+  border: none;
+  border-radius: 980px;
+  padding: 4px 7px;
+  color: var(--text-headline);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.65;
+}
+.theme-btn:hover {
+  opacity: 1;
+}
+.theme-btn.active {
+  background: var(--bg-surface);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  opacity: 1;
+}
+
+/* Search Trigger & Modal Styles */
+.search-trigger {
+  border-radius: 980px !important;
+  border: 1px solid var(--border-hairline) !important;
+  background: var(--bg-subtle) !important;
+  color: var(--text-headline) !important;
+  padding: 0.35rem 0.85rem !important;
+}
+/* `.search-modal` sets display:flex, and an author rule beats the user agent's
+   [hidden] {display:none}. Without this the dialog, marked hidden in the
+   markup, would render over the page on every load. */
+.search-modal[hidden] {
+  display: none;
+}
+
+.search-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+.search-backdrop {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+}
+.search-dialog {
+  position: relative;
+  width: 90%;
+  max-width: 580px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-headline);
+  font-size: 1.1rem;
+  outline: none;
+}
+.search-close {
+  background: none;
+  border: none;
+  color: var(--text-headline);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.search-results {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.search-item {
+  padding: 10px 18px;
+  display: block;
+  text-decoration: none;
+  color: var(--text-headline);
+  border-bottom: 1px solid var(--border-hairline);
+  transition: background 0.15s ease;
+}
+.search-item:hover, .search-item.selected {
+  background: var(--bg-subtle);
+}
+.search-item-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.search-item-desc {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+.search-empty {
+  padding: 24px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* An inline `style="justify-content:center"` cannot survive `style-src 'self'`:
+   Chrome refuses to apply it and logs a CSP violation. Used by 404.html, which
+   no gate visits - a 404 page has no index.html for the page set to find. */
+.cta-row-centred {
+  justify-content: center;
 }

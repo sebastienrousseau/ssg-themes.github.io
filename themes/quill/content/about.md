@@ -5,6 +5,7 @@ language: "en-GB"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Made with SSG"
 locale_path: "/quill/"
 base_path: "/quill/"
 en_current: ' aria-current="true"'
@@ -49,6 +50,8 @@ eyebrow: "About"
 headline: "About"
 lead: "A demonstration site for the theme, and a note on what is actually verified."
 layout: "page"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 This is a demonstration site for the **Quill** theme. The posts are

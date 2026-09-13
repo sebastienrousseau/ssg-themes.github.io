@@ -1,21 +1,6 @@
 import { chromium } from '@playwright/test';
+import { BASE, PAGES } from './pages.mjs';
 
-const BASE = 'http://127.0.0.1:8732';
-const PAGES = [
-  // Lucid — documentation
-  '/lucid/', '/lucid/installation/', '/lucid/configuration/', '/lucid/accessibility/',
-  '/lucid/fr/', '/lucid/fr/installation/', '/lucid/fr/configuration/', '/lucid/fr/accessibilite/',
-  // Stablo — editorial blog
-  '/stablo/', '/stablo/archive/', '/stablo/about/',
-  '/stablo/posts/measuring-instead-of-claiming/',
-  '/stablo/fr/', '/stablo/fr/archives/', '/stablo/fr/a-propos/',
-  '/stablo/fr/posts/mesurer-plutot-que-declarer/',
-  // Quill — typographic blog
-  '/quill/', '/quill/archive/', '/quill/about/',
-  '/quill/posts/measuring-instead-of-claiming/',
-  '/quill/fr/', '/quill/fr/archives/', '/quill/fr/a-propos/',
-  '/quill/fr/posts/mesurer-plutot-que-declarer/',
-];
 // 320 is the WCAG 1.4.10 reference width; 640 at 200% zoom is the same test.
 const VIEWPORTS = [
   [320,568],[360,740],[375,667],[390,844],[412,915],[414,896],[768,1024],[834,1112],
@@ -44,6 +29,23 @@ for (const scheme of SCHEMES) {
           .filter(e => {
             const r = e.getBoundingClientRect();
             if (!r.width && !r.height) return false;
+            // Entirely off-canvas to the left: a skip link parked at -9999px
+            // until focus, or a visually hidden caption. In LTR there is
+            // nothing to scroll to at negative x, so this is not the
+            // two-dimensional scrolling 1.4.10 is about. Anything that really
+            // overflows still trips the scrollWidth check below.
+            if (r.right <= 0) return false;
+            // Inside its own scroll region. 1.4.10 exempts content that needs
+            // two-dimensional layout - a data table, a code block - and the
+            // established treatment is a scroll container around it. The page
+            // itself still must not scroll sideways, which the scrollWidth
+            // check below enforces. Only auto/scroll count: overflow:hidden
+            // would make the overflowing part unreachable, which is a real
+            // fault and stays reported.
+            for (let a = e.parentElement; a && a !== document.documentElement; a = a.parentElement) {
+              const ox = getComputedStyle(a).overflowX;
+              if (ox === 'auto' || ox === 'scroll') return false;
+            }
             return r.width > window.innerWidth + 1 ||
                    r.right > window.innerWidth + 1 ||
                    r.left < -1;

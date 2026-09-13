@@ -31,7 +31,7 @@
      bootstrap, which prevents a flash of the wrong theme) and no inline
      script, so the policy can stay tight without breaking the theme. #}
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'">
+        content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'">
   <meta property="og:title" content="{{ page_title | default(taxonomy_title) | default(site.title) }}">
   <meta property="og:type" content="website">
   <meta property="og:description" content="{{ page_description | default(site.description) }}">
@@ -97,6 +97,24 @@
       </p>
     </div>
   </footer>
+
+
+<div id="searchModal" class="search-modal" role="dialog" aria-modal="true" aria-label="Site Search" hidden>
+  <div class="search-backdrop"></div>
+  <div class="search-dialog">
+    <div class="search-header">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="search" id="searchInput" class="search-input" placeholder="Search pages, articles, docs..." aria-label="Search query" autocomplete="off">
+      <button type="button" class="search-close" id="searchClose" aria-label="Close search">✕</button>
+    </div>
+    <div id="searchResults" class="search-results" role="listbox">
+      <div class="search-empty">Type to search...</div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{{ site_prefix | safe }}/taxonomy.js" defer></script>
 
 </body>
 </html>

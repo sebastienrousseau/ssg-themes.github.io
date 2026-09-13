@@ -5,6 +5,7 @@ language: "fr-FR"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
+label_made_with: "Réalisé avec SSG"
 locale_path: "/quill/fr/"
 base_path: "/quill/"
 en_current: ""
@@ -56,6 +57,8 @@ prev_label: "Mesurer plutôt que déclarer"
 next_href: "/quill/fr/posts/ecrire-pour-deux-langues/"
 next_label: "Écrire pour deux langues dès le départ"
 layout: "post"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 ---
 
 Un en-tête qui vous suit au fil de la page est une décision qui semble
