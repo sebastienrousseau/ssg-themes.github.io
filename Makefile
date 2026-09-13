@@ -3,7 +3,8 @@
 # impossible to run locally while CI passed. Override with `make PYTHON=...`.
 PYTHON ?= python3
 
-.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kaishi build-kinetic build-lucid build-prism build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: build-kaishi build-prism
 
 help:
 	@echo "SSG theme showcase"
