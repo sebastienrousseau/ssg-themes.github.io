@@ -1,0 +1,15 @@
+{
+  "name": "prism",
+  "title": "Prism",
+  "category": "Marketing",
+  "version": "1.0.0",
+  "description": "Financial-infrastructure marketing theme: navy masthead with disclosure menus, sloped hero with product mock-ups, product and solution grids, a developer code panel and a governance metrics card, AAA-gated tokens.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/prism/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}

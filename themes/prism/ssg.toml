@@ -1,6 +1,6 @@
-# Site-level configuration for the Apex theme.
+# Site-level configuration for the Prism theme.
 #
-# Passed to the generator with `ssg build -f themes/apex/ssg.toml`. Without
+# Passed to the generator with `ssg build -f themes/prism/ssg.toml`. Without
 # it the build falls back to the compiled-in defaults, which is how earlier
 # releases shipped an `llms.txt` reading "MySsgSite — A site built with SSG"
 # and JSON-LD pointing at http://127.0.0.1:8000.
@@ -13,15 +13,15 @@
 # root in this monorepo. In your own project they are usually
 # `content`, `_layouts` and `public`.
 
-site_name = "SSG Theme Suite"
-site_title = "SSG Themes — ten gated themes for Static Site Generator"
-site_description = "Ten accessible, production-ready themes for Static Site Generator, each claim checked by a gate in CI."
+site_name = "Prism"
+site_title = "Prism — financial-infrastructure marketing theme for SSG"
+site_description = "A financial-infrastructure marketing theme for SSG: navy masthead with disclosure menus, a sloped hero, product grids and a developer code panel, gated at WCAG AAA."
 base_url = "https://example.com"
 language = "en-GB"
 
-content_dir = "showcase/content"
-template_dir = "SHOWCASE_LAYOUTS"
-output_dir = "SHOWCASE_OUT"
+content_dir = "themes/prism/content"
+template_dir = "themes/prism/_layouts"
+output_dir = "public/prism"
 
 # Agentic discovery (2026). Emits /agents.txt, /.well-known/ai-plugin.json
 # and /.well-known/mcp.json.

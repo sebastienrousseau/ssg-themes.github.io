@@ -135,7 +135,7 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity")
+THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "prism", "quill", "stablo", "velocity")
 
 # Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
 # / `--primary` / `--border` where the other eight use `--ink` / `--surface`
@@ -176,6 +176,68 @@ VOXT_MODES = (("dark", ":root"), ("light", '[data-theme="light"]'))
 # the AA *text* threshold applied to borders and focus rings. It is the
 # strictest defensible bar for non-text, and opt-in because raising it for
 # every theme would fail four of them on a rule they never claimed.
+# Tokens a theme declares beyond the shared vocabulary. Prism's masthead,
+# hero and developer panel are navy in both schemes and carry their own
+# `--hero-*` inks, and its code window has its own `--code-*` colours. A
+# colour the gate does not name is a colour outside the gate — the reason
+# voxt was checked under its own vocabulary rather than exempted — so these
+# are held to the same thresholds as the shared pairs.
+EXTRA_PAIRS = {
+    "prism": [
+        ("--hero-ink", "--hero-bg", AAA_TEXT, "masthead text on navy"),
+        ("--hero-ink-soft", "--hero-bg", AAA_TEXT, "masthead secondary text on navy"),
+        ("--hero-ink", "--hero-surface", AAA_TEXT, "masthead text on raised navy"),
+        ("--hero-ink-soft", "--hero-surface", AAA_TEXT, "masthead secondary text on raised navy"),
+        ("--hero-accent", "--hero-bg", AAA_TEXT, "eyebrow on navy"),
+        ("--hero-accent", "--hero-bg", UI_NONTEXT, "masthead focus ring against navy"),
+        ("--hero-accent", "--hero-surface", UI_NONTEXT, "masthead focus ring against raised navy"),
+        ("--hero-clay", "--hero-bg", AAA_TEXT, "developer eyebrow on navy"),
+        ("--hero-clay", "--hero-surface", AAA_TEXT, "notification title on raised navy"),
+        ("--hero-gold", "--hero-bg", AAA_TEXT, "wordmark dot on navy"),
+        ("--hero-line", "--hero-bg", UI_NONTEXT, "masthead border against navy"),
+        ("--hero-bg", "--hero-ink", AAA_TEXT, "hero button label on white"),
+        ("--code-plain", "--code-bg", AAA_TEXT, "code text"),
+        ("--code-keyword", "--code-bg", AAA_TEXT, "code keyword"),
+        ("--code-function", "--code-bg", AAA_TEXT, "code function"),
+        ("--code-string", "--code-bg", AAA_TEXT, "code string"),
+        ("--code-comment", "--code-bg", AAA_TEXT, "code comment"),
+        ("--code-comment", "--code-bar", AAA_TEXT, "code window title"),
+        ("--code-property", "--code-bg", AAA_TEXT, "code property"),
+        ("--code-number", "--code-bg", AAA_TEXT, "code number"),
+        ("--green-text", "--green-soft", AAA_TEXT, "green tag text on tint"),
+        ("--green-text", "--surface", AAA_TEXT, "green text on surface"),
+        ("--green-text", "--bg-soft", AAA_TEXT, "metric figure on soft ground"),
+        ("--green", "--surface", UI_NONTEXT, "green rule against surface"),
+        ("--green", "--bg-soft", UI_NONTEXT, "green rule against soft ground"),
+        ("--clay-text", "--clay-soft", AAA_TEXT, "clay tag text on tint"),
+        ("--clay-text", "--surface", AAA_TEXT, "clay label on surface"),
+        ("--gold-text", "--gold-soft", AAA_TEXT, "gold tag text on tint"),
+        ("--burgundy-text", "--burgundy-soft", AAA_TEXT, "burgundy tag text on tint"),
+        ("--ink-soft", "--bg-soft", AAA_TEXT, "secondary text on soft ground"),
+        ("--ink", "--bg-soft", AAA_TEXT, "body text on soft ground"),
+        ("--accent", "--bg-soft", AAA_TEXT, "link on soft ground"),
+        ("--ink-muted", "--bg-soft", AAA_TEXT, "muted text on soft ground"),
+        ("--line", "--bg-soft", UI_NONTEXT, "control border against soft ground"),
+        # The white glyph on each icon badge, against the *lightest* stop of
+        # that badge's gradient — the stop that decides whether the icon can
+        # be seen. WCAG 1.4.11 (3:1). These were literals inside the
+        # component rule until the gate could reach them, and two of them
+        # sat at 2.5:1.
+        ("--badge-ink", "--badge-blue-to", UI_NONTEXT, "glyph on the blue badge"),
+        ("--badge-ink", "--badge-clay-to", UI_NONTEXT, "glyph on the clay badge"),
+        ("--badge-ink", "--badge-green-to", UI_NONTEXT, "glyph on the green badge"),
+        ("--badge-ink", "--badge-gold-to", UI_NONTEXT, "glyph on the gold badge"),
+        ("--badge-ink", "--badge-burgundy-to", UI_NONTEXT, "glyph on the burgundy badge"),
+        ("--badge-ink", "--badge-navy-to", UI_NONTEXT, "glyph on the navy badge"),
+        ("--badge-ink", "--badge-blue-from", UI_NONTEXT, "glyph on the blue badge, dark stop"),
+        ("--badge-ink", "--badge-clay-from", UI_NONTEXT, "glyph on the clay badge, dark stop"),
+        ("--badge-ink", "--badge-green-from", UI_NONTEXT, "glyph on the green badge, dark stop"),
+        ("--badge-ink", "--badge-gold-from", UI_NONTEXT, "glyph on the gold badge, dark stop"),
+        ("--badge-ink", "--badge-burgundy-from", UI_NONTEXT, "glyph on the burgundy badge, dark stop"),
+        ("--badge-ink", "--badge-navy-from", UI_NONTEXT, "glyph on the navy badge, dark stop"),
+    ],
+}
+
 STRICT_NONTEXT = frozenset({"lucid", "quill", "stablo"})
 STRICT_NONTEXT_RATIO = 4.5
 MODES = (("light", ":root,"), ("dark", ':root[data-theme="dark"]'))
@@ -199,7 +261,7 @@ def main() -> int:
                 failures.append(f"{theme}/{mode}: no tokens found for `{selector}`")
                 continue
 
-            for fg, bg, target, label in PAIRS:
+            for fg, bg, target, label in PAIRS + EXTRA_PAIRS.get(theme, []):
                 if target == UI_NONTEXT and theme in STRICT_NONTEXT:
                     target = STRICT_NONTEXT_RATIO
                 if fg not in tokens or bg not in tokens:

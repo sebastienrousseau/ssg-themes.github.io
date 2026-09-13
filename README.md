@@ -42,7 +42,7 @@
 
 ## Themes
 
-Nine themes ship in this repository. Every one is held to the same
+Ten themes ship in this repository. Every one is held to the same
 gates: WCAG AAA colour, a page-weight budget, and no third-party
 requests.
 
@@ -53,6 +53,7 @@ requests.
 | [Kaishi](themes/kaishi/) | Portfolio | Apple-inspired starter theme: translucent sticky header, pill controls and a soft card geometry, on a colour system gated at WCAG AAA. |
 | [Kinetic](themes/kinetic/) | Marketing | Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens. |
 | [Lucid](themes/lucid/) | Documentation | Documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, AAA-gated tokens, multilingual. |
+| [Prism](themes/prism/) | Marketing | Financial-infrastructure marketing theme: navy masthead with disclosure menus, sloped hero with product mock-ups, product and solution grids, developer code panel and governance metrics, AAA-gated tokens. |
 | [Quill](themes/quill/) | Blog | Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French. |
 | [Stablo](themes/stablo/) | Blog | Editorial blog theme: centred wordmark, large featured cards, category labels and author bylines. AAA-gated tokens, English and French. |
 | [Velocity](themes/velocity/) | Marketing | Product and starter theme: smallest useful layout set, no build toolchain, AAA-gated tokens. |

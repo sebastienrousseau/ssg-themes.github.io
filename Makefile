@@ -13,6 +13,7 @@ help:
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-lucid      Build the Lucid theme"
+	@echo "  make build-prism      Build the Prism theme"
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
@@ -33,6 +34,8 @@ build-apex:
 build-atlas:
 	@bash scripts/build.sh atlas
 
+.PHONY: build-kaishi build-prism
+
 build-kaishi:
 	@bash scripts/build.sh kaishi
 
@@ -41,6 +44,9 @@ build-kinetic:
 
 build-lucid:
 	@bash scripts/build.sh lucid
+
+build-prism:
+	@bash scripts/build.sh prism
 
 build-velocity:
 	@bash scripts/build.sh velocity

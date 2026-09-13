@@ -1,17 +1,17 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — nine gated themes for Static Site Generator"
-description: "Apex, Atlas, Kaishi, Kinetic, Lucid, Quill, Stablo, Velocity and Voxt: nine themes for Static Site Generator, each claim checked by a gate."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, kaishi, kinetic, lucid, quill, stablo, velocity, voxt"
+title: "SSG Themes — ten gated themes for Static Site Generator"
+description: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity and Voxt: ten themes for Static Site Generator, each claim checked by a gate."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, kaishi, kinetic, lucid, prism, quill, stablo, velocity, voxt"
 author: "SSG Theme Suite"
-date: "2026-09-04"
+date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Nine themes. One architecture. Every claim gated."
-lead: "Apex, Atlas, Kaishi, Kinetic, Lucid, Quill, Stablo, Velocity, and Voxt each have their own design system and layout set, built on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
-news_publication_date: "2026-09-04"
+headline: "Ten themes. One architecture. Every claim gated."
+lead: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity, and Voxt each have their own design system and layout set, built on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
+news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
 nav_label_gates: "Gates"
@@ -119,6 +119,24 @@ schema: "page"
           <a class="btn btn-primary" href="lucid/">View demo</a>
           <a class="btn btn-secondary" href="downloads/lucid.zip" download>.zip</a>
           <a class="btn btn-outline" href="downloads/lucid.tar.gz" download>.tar.gz</a>
+        </div>
+      </article>
+      <article class="card">
+        <picture>
+          <source srcset="prism/images/screenshot.webp" type="image/webp" />
+          <img src="prism/images/screenshot.png" alt="The Prism home page: a navy masthead and sloped hero with three product mock-up cards, above a row of partner badges." width="1500" height="1000" loading="lazy" />
+        </picture>
+        <p class="eyebrow">Marketing</p>
+        <h3>Prism</h3>
+        <p>Financial infrastructure. A navy masthead with a disclosure mega-menu, a sloped hero with product mock-ups, and four semantic tints on a warm off-white ground.</p>
+        <dl>
+          <dt>Layouts</dt><dd>4</dd>
+          <dt>Best for</dt><dd>Fintech, payments, enterprise platforms</dd>
+        </dl>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="prism/">View demo</a>
+          <a class="btn btn-secondary" href="downloads/prism.zip" download>.zip</a>
+          <a class="btn btn-outline" href="downloads/prism.tar.gz" download>.tar.gz</a>
         </div>
       </article>
       <article class="card">
