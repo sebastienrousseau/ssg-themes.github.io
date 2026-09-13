@@ -4,7 +4,6 @@
 PYTHON ?= python3
 
 .PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
-.PHONY: build-kaishi build-prism
 
 help:
 	@echo "SSG theme showcase"
@@ -34,6 +33,8 @@ build-apex:
 
 build-atlas:
 	@bash scripts/build.sh atlas
+
+.PHONY: build-kaishi build-prism
 
 build-kaishi:
 	@bash scripts/build.sh kaishi
