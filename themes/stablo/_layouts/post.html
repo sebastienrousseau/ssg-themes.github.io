@@ -1,6 +1,37 @@
 {{#extends "base"}}
 {{#block "main"}}
 <article class="post">
+  <!-- Typed to the page, not the site. The base layout's Blog/WebPage graph
+       says a blog exists; it never said this page is an article, by whom, or
+       when — which is exactly what an answer engine needs to cite it. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "{{permalink}}#article",
+        "headline": "{{post_title}}",
+        "description": "{{description}}",
+        "datePublished": "{{post_iso}}",
+        "image": "{{site_url}}images/screenshot.png",
+        "inLanguage": "{{language}}",
+        "articleSection": "{{post_cat}}",
+        "author": { "@type": "Person", "name": "{{post_author}}" },
+        "mainEntityOfPage": { "@id": "{{permalink}}" },
+        "isPartOf": { "@id": "{{site_url}}#blog" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "{{nav_home}}", "item": "{{site_url}}" },
+          { "@type": "ListItem", "position": 2, "name": "{{post_title}}", "item": "{{permalink}}" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <div class="wrap narrow post-head">
     <nav class="crumbs" aria-label="{{label_crumbs}}">
       <ol>

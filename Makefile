@@ -3,7 +3,7 @@
 # impossible to run locally while CI passed. Override with `make PYTHON=...`.
 PYTHON ?= python3
 
-.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links check-schema build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -50,11 +50,14 @@ build-voxt:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-audit check-responsive check-aaa check-links check-pa11y
+check: check-structure check-contrast build check-weight check-audit check-responsive check-aaa check-links check-pa11y check-schema
 	@echo "All gates passed."
 
 check-links:
 	@bash scripts/linkcheck.sh
+
+check-schema:
+	@$(PYTHON) scripts/structured_data.py public
 
 check-structure:
 	@$(PYTHON) scripts/validate.py
