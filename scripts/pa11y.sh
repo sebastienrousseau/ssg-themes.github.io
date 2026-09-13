@@ -26,7 +26,7 @@ else
 fi
 
 PORT="${PORT:-8733}"
-MIN_URLS="${MIN_URLS:-60}"
+MIN_URLS="${MIN_URLS:-70}"
 
 python3 - "$PORT" > /tmp/pa11yci.generated.json <<'PY'
 import json, os, re, sys

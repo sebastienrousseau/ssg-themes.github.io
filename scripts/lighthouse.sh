@@ -40,8 +40,8 @@ THEMES=()
 while IFS= read -r t; do THEMES+=("${t}"); done < <(
   find themes -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
 )
-if (( ${#THEMES[@]} < 9 )); then
-  echo "error: found ${#THEMES[@]} themes, expected at least 9" >&2
+if (( ${#THEMES[@]} < 10 )); then
+  echo "error: found ${#THEMES[@]} themes, expected at least 10" >&2
   exit 1
 fi
 

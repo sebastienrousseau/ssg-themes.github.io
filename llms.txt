@@ -1,30 +1,36 @@
 # SSG Themes
 
-> Five production themes for Static Site Generator (SSG): Apex, Atlas,
-> Kinetic, Velocity, and Voxt. Each has its own design system and layout set,
-> built on a shared template architecture, with every accessibility and
-> performance claim enforced by a CI gate.
+> Ten production themes for Static Site Generator (SSG): Apex, Atlas,
+> Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity and Voxt. Each has
+> its own design system and layout set, built on a shared template
+> architecture, with every accessibility and performance claim enforced by
+> a CI gate.
 
 ## Themes
 
 - [Apex](https://themes.static-site-generator.com/apex/): portfolio and consulting theme. Cool neutrals, deep blue accent, seven layouts.
 - [Atlas](https://themes.static-site-generator.com/atlas/): editorial and knowledge-hub theme. Serif reading column at a 72-character measure, forest-green accent, eight layouts.
+- [Kaishi](https://themes.static-site-generator.com/kaishi/): Apple-inspired starter theme. Translucent sticky header, pill controls, soft card geometry.
 - [Kinetic](https://themes.static-site-generator.com/kinetic/): multi-product SaaS and launch theme. Violet-to-cyan decoration, tabbed tour, five layouts.
+- [Lucid](https://themes.static-site-generator.com/lucid/): documentation theme in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, English and French.
+- [Prism](https://themes.static-site-generator.com/prism/): financial-infrastructure marketing theme. Navy masthead with a disclosure mega-menu, sloped hero with product mock-ups, four semantic tints, four layouts.
+- [Quill](https://themes.static-site-generator.com/quill/): typographic blog theme. Large tight-tracked wordmark, full-bleed hero, monochrome palette, English and French.
+- [Stablo](https://themes.static-site-generator.com/stablo/): editorial blog theme. Centred wordmark, large featured cards, category labels and bylines, English and French.
 - [Velocity](https://themes.static-site-generator.com/velocity/): product landing and starter theme. Slate and bronze, seven layouts.
 - [Voxt](https://themes.static-site-generator.com/voxt/): developer tools and AI environment showcase theme. Terminal IDE dock preview, feature grids, strict CSP.
 
 ## Verified properties
 
-- WCAG 2.2 AA, checked by axe-core and the generator's own accessibility pass; 0 issues across 15 pages.
-- Colour tokens clear WCAG 1.4.6 AAA contrast (7:1 for text, 3:1 for borders and focus rings) in both light and dark; 102 token pairs gated.
+- Colour tokens clear WCAG 1.4.6 AAA contrast (7:1 for text, 3:1 for borders and focus rings) in both light and dark, checked by `scripts/contrast.py` on every commit.
+- Rendered contrast, 44px target size, heading order, reflow at 320px and focus visibility are measured in a browser by `tests/aaa/` and `tests/responsive/` over every built page.
 - Zero third-party requests on every page: no CDN, webfont host, analytics or tag manager.
-- Under 7 KB gzipped per page including CSS and JS, against a 20 KB budget.
+- Every page under 20 KB gzipped including CSS and JS, gated by `scripts/pageweight.py`.
 
 ## Not claimed
 
-- Not full WCAG AAA conformance: AAA includes manual criteria no theme can satisfy alone. The themes target AA.
+- Not full WCAG AAA conformance: AAA includes manual criteria no theme can satisfy alone. The automated gates cover contrast, target size, reflow, focus and structure.
 - No fixed Lighthouse score: Lighthouse runs in CI but a score depends on host and network.
 
 ## Requirements
 
-Requires ssg 0.0.49 or later. Source: https://github.com/sebastienrousseau/ssg-themes.github.io
+Requires ssg 0.0.50 or later. Source: https://github.com/sebastienrousseau/ssg-themes.github.io

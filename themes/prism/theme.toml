@@ -1,0 +1,21 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Prism"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Financial-infrastructure marketing theme: navy masthead with disclosure menus, sloped hero with product mock-ups, product and solution grids, a developer code panel and a governance metrics card, AAA-gated tokens."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://themes.static-site-generator.com/prism/"
+
+# Minimum generator version. Below this the build does not merely degrade:
+# the layout named in front matter is ignored, the bundled content schema
+# aborts the compile, and extracted CSS 404s under a sub-path.
+min_version = "0.0.50"
+
+tags = ["marketing","fintech","enterprise","landing-page","accessibility"]
+features = ["dark-mode","search","rss","json-ld","wcag-aa","no-build-step","contact-form","mega-menu"]
+
+[[authors]]
+name = "SSG Theme Suite"
+homepage = "https://github.com/sebastienrousseau"

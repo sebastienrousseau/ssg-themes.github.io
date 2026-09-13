@@ -31,7 +31,7 @@ from pathlib import Path
 
 CATEGORIES = ("Blog", "Documentation", "Marketing", "Portfolio", "Publication")
 
-THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "quill", "stablo", "velocity", "voxt")
+THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "prism", "quill", "stablo", "velocity", "voxt")
 
 REQUIRED_FILES = (
     "theme.toml",

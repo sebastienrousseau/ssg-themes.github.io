@@ -3,7 +3,7 @@
 # impossible to run locally while CI passed. Override with `make PYTHON=...`.
 PYTHON ?= python3
 
-.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links build build-apex build-atlas build-kaishi build-kinetic build-lucid build-prism build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -13,6 +13,7 @@ help:
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-lucid      Build the Lucid theme"
+	@echo "  make build-prism      Build the Prism theme"
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
@@ -41,6 +42,9 @@ build-kinetic:
 
 build-lucid:
 	@bash scripts/build.sh lucid
+
+build-prism:
+	@bash scripts/build.sh prism
 
 build-velocity:
 	@bash scripts/build.sh velocity
