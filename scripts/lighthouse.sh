@@ -4,7 +4,7 @@ set -euo pipefail
 # .lighthouserc.json (all four categories at 1.0).
 #
 # On the thresholds in .lighthouserc.json: the four category scores gate, and
-# all ten pages hold 1.0 on every one of them. The three raw-timing budgets
+# all sampled pages hold 1.0 on every one of them. The three raw-timing budgets
 # (FCP 1000ms, LCP 1200ms, CLS 0) are warnings, at their original values. They
 # are stricter than Google's own "good" thresholds, and they had never actually
 # run - the CI step that was meant to enforce them was continue-on-error with
@@ -15,7 +15,7 @@ set -euo pipefail
 # image then competed with the render-blocking CSS. Raising it further means
 # inlining critical CSS, which style-src 'self' rules out.
 #
-# lhci's staticDistDir walks the whole tree, which at 71 pages is far more than
+# lhci's staticDistDir walks the whole tree, which at 99 pages is far more than
 # a gate needs. One representative page per theme keeps it finite; the per-page
 # detail is pa11y's job and tests/aaa's. The theme list is read from disk so a
 # new theme is covered the day it lands.
@@ -40,8 +40,8 @@ THEMES=()
 while IFS= read -r t; do THEMES+=("${t}"); done < <(
   find themes -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
 )
-if (( ${#THEMES[@]} < 10 )); then
-  echo "error: found ${#THEMES[@]} themes, expected at least 10" >&2
+if (( ${#THEMES[@]} < 20 )); then
+  echo "error: found ${#THEMES[@]} themes, expected at least 20" >&2
   exit 1
 fi
 

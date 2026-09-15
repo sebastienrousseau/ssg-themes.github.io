@@ -1,0 +1,13 @@
+{
+  "name": "steward",
+  "display_name": "Steward",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Institutional financial-advisory marketing theme with editorial typography and disciplined grids.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/steward/",
+  "demosite": "https://themes.static-site-generator.com/steward/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

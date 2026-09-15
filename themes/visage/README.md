@@ -1,0 +1,33 @@
+# Visage
+
+Visage is an evidence-led aesthetic-health theme for Static Site Generator.
+It translates clinical whitespace and a centred consultation journey into an
+original, privacy-first composition.
+
+## Build
+
+From the repository root:
+
+```sh
+ssg build -f themes/visage/ssg.toml
+```
+
+The committed `styles.css` is compiled from `styles.styl`, which imports the
+local Skeletonic Stylus core. Change `base_url`, the demonstration content and
+the contact address before deployment.
+
+## Accessibility and resilience
+
+- WCAG 2.2 AAA colour-token targets in light and dark schemes
+- 44-by-44-pixel controls and visible keyboard focus
+- 320-pixel and 400% zoom reflow
+- reduced-motion, forced-colour, print, no-JavaScript and no-CSS fallbacks
+- same-origin content security policy and no third-party requests
+
+Automated checks are evidence for the tested pages and environments, not a
+permanent certification. Re-run the repository gates after changing content or
+colours.
+
+## Licence
+
+MIT.

@@ -1,0 +1,13 @@
+name = "covenant"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Private-capital theme with black, ivory and red geometry and evidence-led portfolio storytelling."
+homepage = "https://themes.static-site-generator.com/covenant/"
+demosite = "https://themes.static-site-generator.com/covenant/"
+tags = ["marketing", "private-equity", "capital", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

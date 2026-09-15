@@ -1,0 +1,88 @@
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+  var mode = document.getElementById('mode-toggle');
+  var state = document.getElementById('mode-state');
+  var searchSlot = document.getElementById('search-slot');
+
+  function placeSearch() {
+    var button = document.getElementById('ssg-search-btn');
+    if (!button || !menu) return false;
+    var target = searchSlot || menu;
+    if (button.parentNode !== target) target.appendChild(button);
+    return true;
+  }
+
+  function setMenu(open) {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('data-open', String(open));
+  }
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', function () {
+      var opening = toggle.getAttribute('aria-expanded') !== 'true';
+      if (opening) placeSearch();
+      setMenu(opening);
+    });
+    menu.addEventListener('click', function (event) {
+      if (event.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', function (event) {
+      if (!menu.contains(event.target) && !toggle.contains(event.target)) setMenu(false);
+    });
+  }
+
+  if (mode && state) {
+    var order = ['system', 'light', 'dark'];
+    var labels = { system: 'System', light: mode.dataset.labelLight, dark: mode.dataset.labelDark };
+    function current() {
+      var value = root.getAttribute('data-theme');
+      return value === 'light' || value === 'dark' ? value : 'system';
+    }
+    function apply(value) {
+      if (value === 'system') {
+        root.removeAttribute('data-theme');
+        try { localStorage.removeItem('theme'); } catch (error) { /* no-op */ }
+      } else {
+        root.setAttribute('data-theme', value);
+        try { localStorage.setItem('theme', value); } catch (error) { /* no-op */ }
+      }
+      state.textContent = labels[value];
+      mode.setAttribute('aria-label', 'Change colour theme: ' + labels[value]);
+    }
+    var initialTheme = current();
+    var initialLabel = labels[initialTheme];
+    if (state.textContent !== initialLabel) state.textContent = initialLabel;
+    if (mode.getAttribute('aria-label') !== 'Change colour theme: ' + initialLabel) {
+      mode.setAttribute('aria-label', 'Change colour theme: ' + initialLabel);
+    }
+    mode.addEventListener('click', function () {
+      apply(order[(order.indexOf(current()) + 1) % order.length]);
+    });
+  }
+
+  /*
+   * SSG adds its search widget after the theme script. Adopt the trigger into
+   * the navigation row so it cannot cover adjacent controls or focused page
+   * content. On compact layouts it becomes the final control in the disclosed
+   * mobile menu instead of floating above the document.
+   */
+  if (menu && typeof matchMedia === 'function') {
+    var wide = matchMedia('(min-width: 64.0625rem)');
+    if (wide.matches) placeSearch();
+    if (typeof wide.addEventListener === 'function') {
+      wide.addEventListener('change', function (event) {
+        if (event.matches) placeSearch();
+      });
+    }
+  }
+})();

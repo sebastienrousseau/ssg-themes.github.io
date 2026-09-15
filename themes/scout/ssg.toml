@@ -1,0 +1,19 @@
+site_name = "Scout"
+site_title = "Scout — AI shopping assistant theme for SSG"
+site_description = "A bold AI shopping theme with oversized type, modular product cards and transparent recommendation principles."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/scout/content"
+template_dir = "themes/scout/_layouts"
+output_dir = "public/scout"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

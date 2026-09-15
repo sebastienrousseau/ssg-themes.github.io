@@ -28,7 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-THEMES=(apex atlas kaishi kinetic lucid prism quill stablo velocity voxt)
+THEMES=(apex atlas cadence covenant hearth intent kairo kaishi kinetic lucid noir prism quill scout signal stablo steward velocity visage voxt)
 TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:
@@ -46,7 +46,12 @@ trap 'rm -rf "${BUILD_TMP}"' EXIT
 
 # Prefer a locally built binary when present so the repo can be built
 # against an unreleased generator; otherwise use whatever is on PATH.
-if [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
+if [[ -n "${SSG:-}" ]]; then
+  if [[ ! -x "${SSG}" ]]; then
+    echo "error: SSG override is not executable: ${SSG}" >&2
+    exit 1
+  fi
+elif [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
   SSG="/tmp/builds/cargo/release/ssg"
 elif command -v ssg >/dev/null 2>&1; then
   SSG="ssg"
@@ -54,6 +59,26 @@ else
   echo "error: no \`ssg\` binary found on PATH" >&2
   exit 1
 fi
+
+# ssg 0.0.62 fingerprints layout-owned CSS and JavaScript and rewrites the
+# generated references. The currently published 0.0.56 binary fingerprints
+# only part of that set: its HTML still points at stable layout paths such as
+# `styles.css` and `theme-init.js`, but it does not copy those files. Keep the
+# build compatible with both releases by publishing a stable asset only when
+# the generated HTML references it and the generator did not emit it. Newer
+# releases therefore retain their fingerprint-only output with no dead copies.
+publish_missing_layout_assets() {
+  local layouts="$1" output="$2" asset
+
+  for asset in styles.css theme-init.js main.js; do
+    [[ -f "${layouts}/${asset}" ]] || continue
+    [[ -f "${output}/${asset}" ]] && continue
+    if rg -q "(?:href|src)=\"[^\"]*/${asset}\"" "${output}" -g '*.html'; then
+      cp -f "${layouts}/${asset}" "${output}/${asset}"
+      echo "==> compatibility asset ${output}/${asset}"
+    fi
+  done
+}
 
 build_theme() {
   local theme="$1"
@@ -80,6 +105,8 @@ build_theme() {
     "${config}" > "${staged_config}"
 
   "${SSG}" build -f "${staged_config}"
+
+  publish_missing_layout_assets "themes/${theme}/_layouts" "public/${theme}"
 
   # The stylesheet and scripts that live in `_layouts/` beside the templates
   # referencing them are staged and fingerprinted by the generator itself, so
@@ -254,6 +281,7 @@ if [[ -f "showcase/ssg.toml" && -d "showcase/layout" ]]; then
   # holds every built theme, and handing it to the generator as an output
   # directory risks it being treated as one to manage.
   cp -R "${SHOWCASE_OUT}/." "public/"
+  publish_missing_layout_assets "${SHOWCASE_LAYOUTS}" "public"
 else
   echo "error: showcase/ssg.toml and showcase/layout/ are required to build" >&2
   echo "       the landing page. The hand-authored public_index.html fallback" >&2

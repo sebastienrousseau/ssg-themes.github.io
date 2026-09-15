@@ -1,0 +1,19 @@
+site_name = "Kairo"
+site_title = "Kairo — expressive creative portfolio theme for SSG"
+site_description = "A cinematic creative portfolio with oversized type, energetic geometry and an original image-free art direction."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/kairo/content"
+template_dir = "themes/kairo/_layouts"
+output_dir = "public/kairo"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

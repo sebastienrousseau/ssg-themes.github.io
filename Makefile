@@ -11,10 +11,20 @@ help:
 	@echo "  make build            Build all themes into public/"
 	@echo "  make build-apex       Build the Apex theme"
 	@echo "  make build-atlas      Build the Atlas theme"
+	@echo "  make build-cadence    Build the Cadence theme"
+	@echo "  make build-covenant   Build the Covenant theme"
+	@echo "  make build-hearth     Build the Hearth theme"
+	@echo "  make build-intent     Build the Intent theme"
+	@echo "  make build-kairo      Build the Kairo theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-lucid      Build the Lucid theme"
+	@echo "  make build-noir       Build the Noir theme"
 	@echo "  make build-prism      Build the Prism theme"
+	@echo "  make build-scout      Build the Scout theme"
+	@echo "  make build-signal     Build the Signal theme"
+	@echo "  make build-steward    Build the Steward theme"
 	@echo "  make build-velocity   Build the Velocity theme"
+	@echo "  make build-visage     Build the Visage theme"
 	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
 	@echo "  make clean            Remove build output"
@@ -36,6 +46,23 @@ build-atlas:
 
 .PHONY: build-kaishi build-prism
 
+.PHONY: build-cadence build-covenant build-hearth build-intent build-kairo build-noir build-scout build-signal build-steward build-visage
+
+build-cadence:
+	@bash scripts/build.sh cadence
+
+build-covenant:
+	@bash scripts/build.sh covenant
+
+build-hearth:
+	@bash scripts/build.sh hearth
+
+build-intent:
+	@bash scripts/build.sh intent
+
+build-kairo:
+	@bash scripts/build.sh kairo
+
 build-kaishi:
 	@bash scripts/build.sh kaishi
 
@@ -45,11 +72,26 @@ build-kinetic:
 build-lucid:
 	@bash scripts/build.sh lucid
 
+build-noir:
+	@bash scripts/build.sh noir
+
 build-prism:
 	@bash scripts/build.sh prism
 
+build-scout:
+	@bash scripts/build.sh scout
+
+build-signal:
+	@bash scripts/build.sh signal
+
+build-steward:
+	@bash scripts/build.sh steward
+
 build-velocity:
 	@bash scripts/build.sh velocity
+
+build-visage:
+	@bash scripts/build.sh visage
 
 build-voxt:
 	@bash scripts/build.sh voxt
@@ -78,7 +120,7 @@ check-weight:
 check-audit:
 	@bash scripts/audit.sh
 
-# 25 pages x 13 viewports x 2 colour schemes, measured not screenshotted.
+# Every discovered page x 13 viewports x 2 colour schemes, measured not screenshotted.
 check-responsive:
 	@bash tests/responsive/run.sh
 

@@ -1,0 +1,13 @@
+{
+  "name": "intent",
+  "display_name": "Intent",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Portfolio",
+  "description": "Editorial design-portfolio theme with monochrome fields, studio colour and structured case studies.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/intent/",
+  "demosite": "https://themes.static-site-generator.com/intent/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

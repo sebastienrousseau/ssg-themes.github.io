@@ -15,7 +15,7 @@ import { join, relative, sep } from 'node:path';
 export const BASE = process.env.BASE || 'http://127.0.0.1:8732';
 
 const ROOT = 'public';
-const MIN_PAGES = 70;
+const MIN_PAGES = 90;
 
 function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {

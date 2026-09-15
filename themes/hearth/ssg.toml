@@ -1,0 +1,19 @@
+site_name = "Hearth"
+site_title = "Hearth — considered furniture catalogue theme for SSG"
+site_description = "An airy furniture catalogue with an original CSS chair study, generous product grids and material-led storytelling."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/hearth/content"
+template_dir = "themes/hearth/_layouts"
+output_dir = "public/hearth"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

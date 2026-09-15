@@ -1,0 +1,13 @@
+name = "intent"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Editorial design-portfolio theme with monochrome fields, studio colour and structured case studies."
+homepage = "https://themes.static-site-generator.com/intent/"
+demosite = "https://themes.static-site-generator.com/intent/"
+tags = ["portfolio", "designer", "editorial", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

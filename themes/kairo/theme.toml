@@ -1,0 +1,13 @@
+name = "kairo"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Expressive creative-portfolio theme with oversized type and original geometric art direction."
+homepage = "https://themes.static-site-generator.com/kairo/"
+demosite = "https://themes.static-site-generator.com/kairo/"
+tags = ["portfolio", "creative", "designer", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

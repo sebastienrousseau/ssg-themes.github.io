@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — ten gated themes for Static Site Generator"
-description: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity and Voxt: ten themes for Static Site Generator, each claim checked by a gate."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, kaishi, kinetic, lucid, prism, quill, stablo, velocity, voxt"
+title: "SSG Themes — twenty gated themes for Static Site Generator"
+description: "Twenty distinct themes for Static Site Generator, from publishing and portfolios to finance, commerce and SaaS, with every claim checked by a gate."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, scout, signal, stablo, steward, velocity, visage, voxt"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Ten themes. One architecture. Every claim gated."
-lead: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity, and Voxt each have their own design system and layout set, built on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
+headline: "Twenty themes. One architecture. Every claim gated."
+lead: "Twenty themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
 news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
@@ -210,6 +210,66 @@ schema: "page"
           <a class="btn btn-secondary" href="downloads/voxt.zip" download>.zip</a>
           <a class="btn btn-outline" href="downloads/voxt.tar.gz" download>.tar.gz</a>
         </div>
+      </article>
+      <article class="card">
+        <picture><source srcset="steward/images/screenshot.webp" type="image/webp" /><img src="steward/images/screenshot.png" alt="The Steward home page: an institutional finance headline beside an abstract architectural composition and mandate cards." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Steward</h3><p>Institutional finance. Editorial serif type, a disciplined ledger grid and trust-led service narratives.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Advisers, family offices, institutions</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="steward/">View demo</a><a class="btn btn-secondary" href="downloads/steward.zip" download>.zip</a><a class="btn btn-outline" href="downloads/steward.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="kairo/images/screenshot.webp?v=20260914-2" type="image/webp" /><img src="kairo/images/screenshot.png?v=20260914-2" alt="The Kairo home page: oversized black typography over orange balconies against a cyan sky, framed by warm ivory." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Portfolio</p><h3>Kairo</h3><p>Creative direction. Cinematic type, energetic orange geometry and substantial case-study framing.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Designers, studios, art directors</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="kairo/">View demo</a><a class="btn btn-secondary" href="downloads/kairo.zip" download>.zip</a><a class="btn btn-outline" href="downloads/kairo.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="visage/images/screenshot.webp?v=20260914-2" type="image/webp" /><img src="visage/images/screenshot.png?v=20260914-2" alt="The Visage home page: a centred specialist-consultation headline above four clear care commitments." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Visage</h3><p>Aesthetic health. Calm clinical whitespace, consent-led copy and a private consultation journey.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Clinics, practitioners, wellness services</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="visage/">View demo</a><a class="btn btn-secondary" href="downloads/visage.zip" download>.zip</a><a class="btn btn-outline" href="downloads/visage.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="signal/images/screenshot.webp" type="image/webp" /><img src="signal/images/screenshot.png" alt="The Signal home page: a centred revenue-intelligence headline above a luminous blue dashboard abstraction." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Signal</h3><p>Revenue intelligence. Luminous dashboard surfaces, modular capabilities and explainable AI copy.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>SaaS, analytics, revenue platforms</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="signal/">View demo</a><a class="btn btn-secondary" href="downloads/signal.zip" download>.zip</a><a class="btn btn-outline" href="downloads/signal.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="cadence/images/screenshot.webp" type="image/webp" /><img src="cadence/images/screenshot.png" alt="The Cadence home page: a high-contrast cycling headline beside an abstract rider and orange road flare." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Cadence</h3><p>Performance cycling. Dark cinematic staging, oversized type and evidence-led specification content.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Cycle makers, teams, endurance brands</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="cadence/">View demo</a><a class="btn btn-secondary" href="downloads/cadence.zip" download>.zip</a><a class="btn btn-outline" href="downloads/cadence.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="noir/images/screenshot.webp" type="image/webp" /><img src="noir/images/screenshot.png" alt="The Noir home page: a monochrome streetwear headline beside a sculptural jacket silhouette." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Noir</h3><p>Streetwear commerce. Near-black catalogue staging, hard rules and transparent product information.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Fashion labels, lookbooks, catalogues</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="noir/">View demo</a><a class="btn btn-secondary" href="downloads/noir.zip" download>.zip</a><a class="btn btn-outline" href="downloads/noir.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="covenant/images/screenshot.webp" type="image/webp" /><img src="covenant/images/screenshot.png" alt="The Covenant home page: an ivory serif investment headline beside black and red architectural geometry." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Covenant</h3><p>Private capital. Black, ivory and red geometry with rigorous portfolio and disclosure narratives.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Investment firms, portfolio groups, institutions</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="covenant/">View demo</a><a class="btn btn-secondary" href="downloads/covenant.zip" download>.zip</a><a class="btn btn-outline" href="downloads/covenant.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="hearth/images/screenshot.webp" type="image/webp" /><img src="hearth/images/screenshot.png" alt="The Hearth home page: an airy furniture headline above an abstract upholstered chair study." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Hearth</h3><p>Furniture catalogue. Airy product staging, warm material tones and practical ownership content.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Furniture makers, interiors, product studios</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="hearth/">View demo</a><a class="btn btn-secondary" href="downloads/hearth.zip" download>.zip</a><a class="btn btn-outline" href="downloads/hearth.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="intent/images/screenshot.webp" type="image/webp" /><img src="intent/images/screenshot.png" alt="The Intent home page: an editorial serif portfolio headline beside a monochrome studio study crossed by yellow ribbon." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Portfolio</p><h3>Intent</h3><p>Editorial design. Expressive serif typography, monochrome fields and a vivid studio-ribbon motif.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Designers, illustrators, creative directors</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="intent/">View demo</a><a class="btn btn-secondary" href="downloads/intent.zip" download>.zip</a><a class="btn btn-outline" href="downloads/intent.tar.gz" download>.tar.gz</a></div>
+      </article>
+      <article class="card">
+        <picture><source srcset="scout/images/screenshot.webp" type="image/webp" /><img src="scout/images/screenshot.png" alt="The Scout home page: an oversized AI-shopping headline beside a purple product-query composition." width="1500" height="1000" loading="lazy" /></picture>
+        <p class="eyebrow">Marketing</p><h3>Scout</h3><p>AI shopping. Bold commerce type, modular product cards and transparent recommendation principles.</p>
+        <dl><dt>Layouts</dt><dd>3</dd><dt>Best for</dt><dd>Comparison tools, marketplaces, shopping agents</dd></dl>
+        <div class="cta-row"><a class="btn btn-primary" href="scout/">View demo</a><a class="btn btn-secondary" href="downloads/scout.zip" download>.zip</a><a class="btn btn-outline" href="downloads/scout.tar.gz" download>.tar.gz</a></div>
       </article>
     </div>
   </div>

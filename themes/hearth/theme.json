@@ -1,0 +1,13 @@
+{
+  "name": "hearth",
+  "display_name": "Hearth",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Considered furniture-catalogue theme with an original chair study and material-led storytelling.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/hearth/",
+  "demosite": "https://themes.static-site-generator.com/hearth/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

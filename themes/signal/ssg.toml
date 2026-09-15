@@ -1,0 +1,19 @@
+site_name = "Signal"
+site_title = "Signal — revenue intelligence SaaS theme for SSG"
+site_description = "A precise AI revenue-intelligence theme with a luminous dashboard composition, modular capabilities and grounded product copy."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/signal/content"
+template_dir = "themes/signal/_layouts"
+output_dir = "public/signal"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

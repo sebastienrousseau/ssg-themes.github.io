@@ -1,0 +1,19 @@
+site_name = "Visage"
+site_title = "Visage — evidence-led aesthetic health theme for SSG"
+site_description = "A calm clinical-aesthetics theme with generous whitespace, a centred consultation journey and privacy-first static delivery."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/visage/content"
+template_dir = "themes/visage/_layouts"
+output_dir = "public/visage"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

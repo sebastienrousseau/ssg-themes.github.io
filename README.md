@@ -42,7 +42,7 @@
 
 ## Themes
 
-Ten themes ship in this repository. Every one is held to the same
+Twenty themes ship in this repository. Every one is held to the same
 gates: WCAG AAA colour, a page-weight budget, and no third-party
 requests.
 
@@ -50,13 +50,23 @@ requests.
 | --- | --- | --- |
 | [Apex](themes/apex/) | Portfolio | Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests. |
 | [Atlas](themes/atlas/) | Publication | Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens. |
+| [Cadence](themes/cadence/) | Marketing | Performance-cycling theme: cinematic dark stage, rider abstraction and evidence-led specifications. |
+| [Covenant](themes/covenant/) | Marketing | Private-capital theme: black, ivory and red geometry with rigorous portfolio narratives. |
+| [Hearth](themes/hearth/) | Marketing | Furniture-catalogue theme: airy product staging, warm materials and practical ownership content. |
+| [Intent](themes/intent/) | Portfolio | Editorial design portfolio: expressive serif type, monochrome fields and a studio-ribbon motif. |
+| [Kairo](themes/kairo/) | Portfolio | Creative-direction portfolio: cinematic type, energetic orange geometry and substantial case studies. |
 | [Kaishi](themes/kaishi/) | Portfolio | Apple-inspired starter theme: translucent sticky header, pill controls and a soft card geometry, on a colour system gated at WCAG AAA. |
 | [Kinetic](themes/kinetic/) | Marketing | Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens. |
 | [Lucid](themes/lucid/) | Documentation | Documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, AAA-gated tokens, multilingual. |
+| [Noir](themes/noir/) | Marketing | Streetwear-commerce theme: near-black product staging, hard rules and transparent catalogue information. |
 | [Prism](themes/prism/) | Marketing | Financial-infrastructure marketing theme: navy masthead with disclosure menus, sloped hero with product mock-ups, product and solution grids, developer code panel and governance metrics, AAA-gated tokens. |
 | [Quill](themes/quill/) | Blog | Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French. |
+| [Scout](themes/scout/) | Marketing | AI-shopping theme: bold commerce type, modular product cards and transparent recommendations. |
+| [Signal](themes/signal/) | Marketing | Revenue-intelligence theme: luminous dashboard surfaces and grounded, explainable AI copy. |
 | [Stablo](themes/stablo/) | Blog | Editorial blog theme: centred wordmark, large featured cards, category labels and author bylines. AAA-gated tokens, English and French. |
+| [Steward](themes/steward/) | Marketing | Institutional-finance theme: editorial serif type, a ledger grid and trust-led service narratives. |
 | [Velocity](themes/velocity/) | Marketing | Product and starter theme: smallest useful layout set, no build toolchain, AAA-gated tokens. |
+| [Visage](themes/visage/) | Marketing | Aesthetic-health theme: clinical whitespace, consent-led copy and a private consultation journey. |
 | [Voxt](themes/voxt/) | Marketing | Developer tools and AI environment showcase theme: high-contrast terminal IDE dock preview, AAA colour tokens, zero third-party requests. |
 
 Each links to its own README for installation and layout details.

@@ -1,0 +1,19 @@
+site_name = "Intent"
+site_title = "Intent — editorial design portfolio theme for SSG"
+site_description = "A monochrome editorial portfolio cut with a vivid studio ribbon, expressive serif type and structured project narratives."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/intent/content"
+template_dir = "themes/intent/_layouts"
+output_dir = "public/intent"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

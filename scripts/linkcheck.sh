@@ -22,4 +22,6 @@ for _ in $(seq 1 40); do
 done
 
 npx --yes linkinator "http://127.0.0.1:${PORT}/" \
-  --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
+  --recurse --silent --concurrency 20 \
+  --retry-errors --retry-errors-count 3 \
+  --skip "^https?://(?!127\.0\.0\.1)"

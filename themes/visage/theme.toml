@@ -1,0 +1,13 @@
+name = "visage"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Evidence-led aesthetic-health theme with a calm consultation journey and generous whitespace."
+homepage = "https://themes.static-site-generator.com/visage/"
+demosite = "https://themes.static-site-generator.com/visage/"
+tags = ["marketing", "health", "wellness", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

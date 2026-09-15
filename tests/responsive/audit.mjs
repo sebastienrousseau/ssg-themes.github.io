@@ -126,6 +126,7 @@ function probe() {
   // --- interactive target sizes ---------------------------------------
   const INTERACTIVE = 'a[href], button, input, select, textarea, summary, [role="button"]';
   const controls = [...document.querySelectorAll(INTERACTIVE)].filter(visible);
+  const header = document.querySelector('.site-header');
   // 2.5.8 is not a bare "every target is 24x24" rule — it carries two
   // exceptions that are part of the criterion, not loopholes:
   //
@@ -199,6 +200,29 @@ function probe() {
     }
   }
 
+  // --- navigation clearance -------------------------------------------
+  // Reference-led hero compositions can deliberately place the header over
+  // artwork. Elements marked for clearance are the pieces of that artwork
+  // that must remain visually independent from every header control.
+  if (header) {
+    const headerControls = controls.filter((el) => header.contains(el));
+    for (const marker of document.querySelectorAll('[data-nav-clearance]')) {
+      if (!visible(marker)) continue;
+      const mr = marker.getBoundingClientRect();
+      for (const control of headerControls) {
+        const cr = control.getBoundingClientRect();
+        const ox = Math.min(mr.right, cr.right) - Math.max(mr.left, cr.left);
+        const oy = Math.min(mr.bottom, cr.bottom) - Math.max(mr.top, cr.top);
+        if (ox > 2 && oy > 2) {
+          out.push({
+            kind: 'nav-content-overlap',
+            detail: `${label(control)} overlaps protected ${label(marker)} by ${Math.round(ox)}x${Math.round(oy)}px`,
+          });
+        }
+      }
+    }
+  }
+
   // --- skip links, measured in the state a user actually meets them ----
   for (const el of document.querySelectorAll('a.skip-link, a[href^="#"][class*="skip"]')) {
     el.focus();
@@ -252,14 +276,14 @@ function probe() {
   // Only meaningful while it is beside the header: below 48rem it deliberately
   // moves to the bottom corner.
   const trigger = document.querySelector('#ssg-search-btn');
-  const header = document.querySelector('.site-header');
   if (trigger && header && vw >= 768) {
     const tr = trigger.getBoundingClientRect();
     const positioned = ['fixed', 'absolute'].includes(getComputedStyle(trigger).position);
     const inFlow = !positioned && header.contains(trigger);
     const ref = inFlow ? trigger.parentElement.getBoundingClientRect() : header.getBoundingClientRect();
+    const rowAligned = !inFlow || getComputedStyle(trigger.parentElement).flexDirection.startsWith('row');
     // Only when it is actually overlapping the band it is measured against.
-    if (tr.top < ref.bottom) {
+    if (rowAligned && tr.top < ref.bottom) {
       const drift = Math.round((tr.top + tr.height / 2) - (ref.top + ref.height / 2));
       if (Math.abs(drift) > 2) {
         out.push({
@@ -338,7 +362,7 @@ if (byKind.size === 0) {
 }
 
 console.log(`responsive: ${byKind.size} distinct defect(s) across ${checks} renders\n`);
-const order = ['http', 'overflow-x', 'element-escapes', 'element-wide', 'overlap', 'control-misaligned', 'target-size-aa', 'target-size-aaa', 'tiny-text'];
+const order = ['http', 'overflow-x', 'element-escapes', 'element-wide', 'overlap', 'nav-content-overlap', 'control-misaligned', 'target-size-aa', 'target-size-aaa', 'tiny-text'];
 for (const kind of order) {
   const rows = [...byKind.values()].filter((v) => v.kind === kind);
   if (!rows.length) continue;

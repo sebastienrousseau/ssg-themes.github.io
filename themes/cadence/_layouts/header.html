@@ -1,0 +1,22 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{site_path}}" aria-label="{{name}} home">
+      <span class="brand-mark" aria-hidden="true">{{brand_mark}}</span>
+      <span>{{name}}</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
+      <span>Menu</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+    </button>
+    <nav class="site-nav" id="navMenu" aria-label="Primary">
+      <a href="{{site_path}}#services">Services</a>
+      <a href="{{site_path}}#work">Work</a>
+      <a href="{{site_path}}about/">About</a>
+      <a class="nav-cta" href="{{site_path}}#contact">{{cta_primary}}</a>
+    </nav>
+    <button class="mode-toggle" id="mode-toggle" type="button" data-label-light="Light" data-label-dark="Dark" aria-label="Change colour theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" /></svg>
+      <span id="mode-state">System</span>
+    </button>
+  </div>
+</header>

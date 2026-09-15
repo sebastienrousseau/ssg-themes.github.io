@@ -1,0 +1,13 @@
+name = "steward"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Institutional financial-advisory marketing theme with editorial typography and disciplined grids."
+homepage = "https://themes.static-site-generator.com/steward/"
+demosite = "https://themes.static-site-generator.com/steward/"
+tags = ["marketing", "finance", "institutional", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

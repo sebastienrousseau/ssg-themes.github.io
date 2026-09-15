@@ -1,0 +1,19 @@
+site_name = "Cadence"
+site_title = "Cadence — performance cycling theme for SSG"
+site_description = "A dark, kinetic cycling theme with oversized typography, an original rider abstraction and high-contrast performance data."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/cadence/content"
+template_dir = "themes/cadence/_layouts"
+output_dir = "public/cadence"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

@@ -1,0 +1,13 @@
+{
+  "name": "kairo",
+  "display_name": "Kairo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Portfolio",
+  "description": "Expressive creative-portfolio theme with oversized type and original geometric art direction.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/kairo/",
+  "demosite": "https://themes.static-site-generator.com/kairo/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}
