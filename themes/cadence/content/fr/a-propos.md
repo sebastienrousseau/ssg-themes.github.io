@@ -1,0 +1,53 @@
+---
+name: "Cadence"
+short_name: "CA"
+author: "SSG Theme Suite"
+date: "2026-09-13"
+language: "fr-FR"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+theme_style: "style-cadence"
+theme_colour: "#101214"
+brand_mark: "C"
+footer_note: "Un équipement précis pour les longues routes et l'effort honnête."
+cta_primary: "Find your setup"
+locale_path: "/cadence/fr/"
+base_path: "/cadence/"
+en_current: ""
+fr_current: ' aria-current="true"'
+label_home: "Accueil Cadence"
+label_menu: "Menu"
+label_nav: "Principale"
+label_langs: "Langue"
+label_theme: "Changer le thème de couleur"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+label_theme_system: "Système"
+label_explore: "Explorer"
+label_start: "Engager la conversation"
+label_demo_content: "Contenu de démonstration."
+label_made_with: "Réalisé avec SSG"
+nav_services: "Services"
+nav_work: "Réalisations"
+nav_work_long: "Travaux sélectionnés"
+nav_about: "À propos"
+nav_contact: "Contact"
+slug_about: "a-propos"
+slug_contact: "contact"
+layout: "page"
+translation_key: "about"
+title: "À propos — Cadence"
+description: "Les principes de narration de la performance et d'interaction inclusive qui sous-tendent le thème cyclisme Cadence."
+keywords: "à propos Cadence, design web cyclisme"
+eyebrow: "À propos de Cadence"
+headline: "De l'énergie, avec des preuves."
+lead: "Cadence emprunte l'échelle et la chaleur d'une affiche de performance tout en gardant une information produit directe et vérifiable."
+---
+
+## Une composition routière originale
+
+Le cycliste, la traînée lumineuse et la roue suggérés dans l'en-tête sont
+entièrement dessinés en CSS. Ils créent de l'élan sans ajouter de requête
+d'image bloquante ni faire dépendre le contraste du texte d'une photographie.

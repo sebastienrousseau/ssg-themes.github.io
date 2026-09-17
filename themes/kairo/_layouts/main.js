@@ -76,13 +76,13 @@
    * content. On compact layouts it becomes the final control in the disclosed
    * mobile menu instead of floating above the document.
    */
-  if (menu && typeof matchMedia === 'function') {
-    var wide = matchMedia('(min-width: 64.0625rem)');
-    if (wide.matches) placeSearch();
-    if (typeof wide.addEventListener === 'function') {
-      wide.addEventListener('change', function (event) {
-        if (event.matches) placeSearch();
+  if (menu) {
+    var searchObserver;
+    if (!placeSearch() && typeof MutationObserver === 'function') {
+      searchObserver = new MutationObserver(function () {
+        if (placeSearch()) searchObserver.disconnect();
       });
+      searchObserver.observe(document.body, { childList: true, subtree: true });
     }
   }
 })();

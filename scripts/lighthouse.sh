@@ -64,8 +64,16 @@ for t in "${THEMES[@]}"; do
 done
 
 echo "lighthouse: $(( ${#THEMES[@]} + 1 )) pages (showcase + ${#THEMES[@]} themes)"
+SETTINGS=()
+if [[ "${LIGHTHOUSE_PRESET:-mobile}" == "desktop" ]]; then
+  SETTINGS+=(--collect.settings.preset=desktop)
+  echo "lighthouse profile: desktop"
+else
+  echo "lighthouse profile: mobile"
+fi
 ${LHCI} autorun \
   "${ARGS[@]}" \
+  "${SETTINGS[@]}" \
   --collect.numberOfRuns=1 \
   --upload.target=filesystem \
   --upload.outputDir=./.lighthouse

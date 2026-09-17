@@ -23,6 +23,12 @@
   --cl-grey-100: light-dark(oklch(0.98 0.01 250), oklch(0.15 0.01 250));
   --cl-grey-200: light-dark(oklch(0.9 0.01 250), oklch(0.25 0.01 250));
 }
+
+/* AAA correction for the generator-owned search label on light surfaces. */
+:root[data-theme="light"] #ssg-search-btn { color: #505057 !important; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #ssg-search-btn { color: #505057 !important; }
+}
 .text-primary {
   color: var(--cl-primary);
 }
@@ -328,7 +334,8 @@
 @layer theme.tokens, theme.base, theme.layout, theme.components, theme.variants;
 
 @layer theme.tokens {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --bg: #f5f4ef;
   --bg-soft: #e8ebe5;
   --surface: #ffffff;
@@ -969,10 +976,24 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
 }
 
 @media (color-gamut: p3) {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --accent: color(display-p3 0.09 0.29 0.23);
 }
 :root[data-theme="dark"] {
   --accent: color(display-p3 0.55 0.89 0.73);
 }
+}
+
+/* The page headline is sized from its own column, not the viewport.
+ *
+ * `.page-grid` gives the header a 0.65fr track — about 409px at 1440 — while
+ * the headline was `clamp(2.25rem, 10vw, 2.75rem)` off the viewport. A single
+ * long word ("Recommendation") then rendered 698px wide and ran straight
+ * through the prose column beside it: text printed over text, which no
+ * contrast or reflow gate can see because nothing overflowed the page. */
+.page-grid header { container-type: inline-size; }
+.page-grid header h1 {
+  font-size: min(var(--step-4), 13cqi);
+  overflow-wrap: break-word;
 }

@@ -3,11 +3,19 @@
   "display_name": "Scout",
   "version": "1.0.0",
   "license": "MIT",
-  "category": "Marketing",
-  "description": "AI shopping-assistant theme with oversized type, product cards and transparent recommendations.",
+  "category": "Developer Tools",
+  "description": "Diagnostic-instrument theme for protocol and server verification tools: evidence tables, severity ledgers and a readout hero.",
   "min_ssg_version": "0.0.56",
   "homepage": "https://themes.static-site-generator.com/scout/",
   "demosite": "https://themes.static-site-generator.com/scout/",
   "screenshot": "images/screenshot.png",
-  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+  "features": [
+    "dark-mode",
+    "wcag-aaa-tokens",
+    "structured-data",
+    "agent-discovery",
+    "severity-ledger",
+    "evidence-tables",
+    "print-stylesheet"
+  ]
 }

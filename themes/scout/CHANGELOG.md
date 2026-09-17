@@ -1,8 +1,7 @@
 # Changelog
 
-## 1.0.0 — 2026-09-13
+## 1.0.0 — 2026-09-16
 
-- Initial Scout theme.
-- Added original AI-shopping landing page and about page.
-- Added Skeletonic-based responsive styling and light/dark palettes.
-- Added structured data, agent discovery and resilient interaction fallbacks.
+- Added the diagnostic readout, severity ledger and request evidence views.
+- Added responsive CloudCDN imagery and distinct light and dark palettes.
+- Added print, reduced-motion, keyboard and forced-colour support.

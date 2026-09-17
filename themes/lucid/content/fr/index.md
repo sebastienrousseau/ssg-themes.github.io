@@ -1,4 +1,5 @@
 ---
+form_origin: "https://example.com"
 name: "Lucid"
 short_name: "LU"
 title: "Lucid — thème de documentation pour SSG"

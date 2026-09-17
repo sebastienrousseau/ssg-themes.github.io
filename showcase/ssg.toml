@@ -14,8 +14,8 @@
 # `content`, `_layouts` and `public`.
 
 site_name = "SSG Theme Suite"
-site_title = "SSG Themes — twenty gated themes for Static Site Generator"
-site_description = "Twenty accessible, production-ready themes for Static Site Generator, each claim checked by a gate in CI."
+site_title = "SSG Themes — twenty-two gated themes for Static Site Generator"
+site_description = "Twenty-two accessible, production-ready themes for Static Site Generator, each claim checked by a gate in CI."
 base_url = "https://example.com"
 language = "en-GB"
 

@@ -18,6 +18,11 @@
   ready(function () {
     var root = document.documentElement;
 
+    /* SSG 0.0.56 predates automatic search-slot replacement. */
+    var searchSlot = document.querySelector('[data-ssg-search]');
+    var searchButton = document.getElementById('ssg-search-btn');
+    if (searchSlot && searchButton) searchSlot.replaceWith(searchButton);
+
     /* ---------------- navigation disclosure ---------------- */
     var navToggle = document.getElementById('navToggle');
     var navMenu = document.getElementById('navMenu');

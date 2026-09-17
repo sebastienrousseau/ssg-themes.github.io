@@ -1066,6 +1066,17 @@
     overflow: hidden;
   }
 
+  .hero-stage-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.28;
+    filter: saturate(0.55) contrast(1.1);
+  }
+
   /* The mesh, confined to the stage. Behind the cards, which are solid. */
   .hero-glow {
     position: absolute;
@@ -1096,6 +1107,7 @@
 
   .mock {
     position: relative;
+    z-index: 1;
     padding: 1.25rem;
     border-radius: var(--radius-lg);
     background: var(--surface);
@@ -1842,6 +1854,13 @@
    button reads as a light pill on the navy band either way.
    --------------------------------------------------------------------- */
 .site-header .header-inner .site-nav #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  justify-content: center;
   background: #ffffff;
   color: #0b192c;
   border: 1px solid #ffffff;
@@ -1850,6 +1869,21 @@
   box-shadow: none;
   font-family: var(--font-sans);
   font-weight: 600;
+}
+
+.site-header .header-inner .site-nav #ssg-search-btn span,
+.site-header .header-inner .site-nav #ssg-search-btn kbd {
+  display: none;
+}
+
+/* Reserve the exact trigger box before the legacy generator moves its
+   appended search button into this slot at DOM ready. The replacement then
+   changes no header geometry and produces no layout shift. */
+.site-header .header-inner .site-nav [data-ssg-search] {
+  display: block;
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 
 .site-header .header-inner .site-nav #ssg-search-btn:hover {
@@ -2105,4 +2139,13 @@ footer a,
    clears this header at its tallest single row (68px) with room to spare. */
 html {
   scroll-padding-top: 6rem;
+}
+
+/* Art-directed mobile hero.
+   The desktop file is a tall portrait; on a phone it would run to roughly
+   three screens of height and cost three times the bytes. A 3:2 crop is
+   served below 64rem, and the reserved box has to match it or the swap
+   shows up as layout shift. */
+@media (max-width: 64rem) {
+  .art-mobile-crop { aspect-ratio: 3 / 2; object-fit: cover; height: auto; }
 }

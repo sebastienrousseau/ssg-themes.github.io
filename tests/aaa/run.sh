@@ -8,9 +8,11 @@ set -euo pipefail
 # The repository's other gates read source: `contrast.py` checks the tokens a
 # stylesheet declares, which is necessary but not sufficient — a token can
 # pass in isolation and still be rendered on a ground it was never paired
-# with. These three suites check what a browser actually paints, in both
+# with. These four suites check what a browser actually paints, in both
 # colour schemes:
 #
+#   modes.mjs   every theme in light, dark and system modes, including proof
+#               that an explicit choice overrides the operating-system mode
 #   a11y.mjs    every rendered text run against its real computed background
 #               (7:1, or 4.5:1 for large text), every non-inline target at
 #               44x44, heading order, landmarks, accessible names
@@ -26,6 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 PORT="${AAA_PORT:-8732}"
+export BASE="http://127.0.0.1:${PORT}"
 
 [[ -d public ]] || { echo "error: run \`make build\` first" >&2; exit 1; }
 # CI installs Playwright under tests/responsive for the other browser gates;
@@ -61,6 +64,11 @@ for _ in $(seq 1 40); do
 done
 
 node tests/aaa/selftest.mjs
+node tests/aaa/composition-selftest.mjs
+node tests/aaa/modes.mjs
 node tests/aaa/a11y.mjs
 node tests/aaa/reflow.mjs
 node tests/aaa/focus.mjs
+# Composition: cropped or stretched images, a photograph used twice on one
+# page, and text laid over text. None of the suites above can see any of it.
+node tests/aaa/composition.mjs

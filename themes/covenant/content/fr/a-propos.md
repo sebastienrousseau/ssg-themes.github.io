@@ -1,0 +1,53 @@
+---
+name: "Covenant"
+short_name: "CO"
+title: "À propos — Covenant"
+description: "Les principes éditoriaux et de gouvernance qui sous-tendent le thème de capital privé Covenant."
+keywords: "à propos Covenant, design capital-investissement"
+author: "SSG Theme Suite"
+date: "2026-09-13"
+layout: "page"
+language: "fr-FR"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+theme_style: "style-covenant"
+theme_colour: "#090909"
+brand_mark: "C"
+footer_note: "Actionnariat patient, discipline opérationnelle et partenariat responsable."
+cta_primary: "Speak with the team"
+eyebrow: "À propos de Covenant"
+headline: "La rigueur comme parti pris graphique."
+lead: "Covenant traite l'information financière comme un objet éditorial : affirmée dans la forme, prudente dans le propos."
+locale_path: "/covenant/fr/"
+base_path: "/covenant/"
+en_current: ""
+fr_current: ' aria-current="true"'
+label_home: "Accueil Covenant"
+label_menu: "Menu"
+label_nav: "Principale"
+label_langs: "Langue"
+label_theme: "Changer le thème de couleur"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+label_theme_system: "Système"
+label_explore: "Explorer"
+label_start: "Engager la conversation"
+label_demo_content: "Contenu de démonstration."
+label_made_with: "Réalisé avec SSG"
+nav_services: "Capacités d'investissement"
+nav_work: "Participations"
+nav_work_long: "Participations choisies"
+nav_about: "À propos"
+nav_contact: "Contact"
+slug_about: "a-propos"
+slug_contact: "contact"
+translation_key: "about"
+---
+
+## Une composition financière sobre
+
+La géométrie noir, ivoire et rouge structure la page sans recourir à la
+photographie. Le contraste du texte ne dépend donc jamais d'une image, et la
+mise en page reste lisible quel que soit le réglage d'affichage.

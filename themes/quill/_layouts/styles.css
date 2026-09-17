@@ -229,21 +229,21 @@ a:hover { color: var(--accent-hover); }
 
 /* ---------- hero post and story list ---------- */
 .hero-post { padding: 3.5rem 1.25rem 0; }
-.hero-media { display: block; }
-.hero-art {
+.hero-media { display: block; overflow: hidden; background: var(--surface); }
+.hero-media img {
   display: block;
-  aspect-ratio: 21 / 9;
   width: 100%;
-  /* Drawn in CSS rather than shipped as a file: the demo needs no external
-   * asset, nothing 404s, and the page-weight budget is unaffected. */
-  /* Tinted with the theme's own accent rather than left neutral. The
-   * previous pair (--surface #f2f2f2 -> --rule #dcdcdc) spanned 22 of 255
-   * in luminance, which at 21:9 rendered as a flat grey rectangle and read
-   * as a failed image load rather than as artwork. Stablo's .card-art
-   * already uses --accent-soft this way. */
-  background:
-    radial-gradient(120% 90% at 22% 18%, var(--accent-soft) 0%, transparent 62%),
-    linear-gradient(105deg, var(--surface) 0%, var(--accent-soft) 55%, var(--surface) 100%);
+  height: auto;
+  /* The source's own 1200x742, stated rather than left to `auto`.
+   *
+   * With `aspect-ratio: auto` the row above the fold had no reserved height
+   * until the photograph arrived, so on a throttled connection everything
+   * below it was pushed down as it loaded: Lighthouse measured a 0.146
+   * cumulative layout shift, all of it attributed to `.hero-grid`, which
+   * contains no image at all. It never shows at full speed, which is why
+   * only a throttled run finds it. */
+  aspect-ratio: 1200 / 742;
+  object-fit: cover;
 }
 .hero-grid {
   display: grid;
@@ -265,11 +265,13 @@ a:hover { color: var(--accent-hover); }
 .story-list { display: grid; gap: 3rem; grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr)); }
 .story { display: flex; flex-direction: column; }
 .card-sep { color: var(--ink-muted); }
-.story-media { display: block; }
-.story-art {
+.story-media { display: block; overflow: hidden; background: var(--surface); }
+.story-media img {
   display: block;
-  aspect-ratio: 16 / 10;
-  background: linear-gradient(140deg, var(--accent-soft) 0%, var(--surface) 70%);
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 742;
+  object-fit: cover;
 }
 .story-h { overflow-wrap: anywhere; margin-top: 1rem; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.03em; }
 .story-h a { color: var(--ink); text-decoration: none; }

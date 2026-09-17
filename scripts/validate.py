@@ -29,12 +29,12 @@ import sys
 import tomllib
 from pathlib import Path
 
-CATEGORIES = ("Blog", "Documentation", "Marketing", "Portfolio", "Publication")
+CATEGORIES = ("Blog", "Developer Tools", "Documentation", "Marketing", "Portfolio", "Publication")
 
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "scout",
-    "signal", "stablo", "steward", "velocity", "visage", "voxt",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "signal", "stablo", "steward", "velocity", "visage", "vista", "voxt",
 )
 
 REQUIRED_FILES = (
@@ -523,26 +523,35 @@ def check_registration(root: Path) -> list[str]:
     layout = root / "showcase" / "layout" / "index.html"
     if layout.is_file():
         html = layout.read_text(encoding="utf-8")
-        facts = re.search(r'<div class="grid">(.*?)</div>\s*</div>\s*</section>',
-                          html, re.S)
-        if not facts:
-            errors.append("showcase/layout/index.html has no facts grid")
-        else:
-            # In the source every entry carries data-fact and an em-dash
-            # placeholder; scripts/facts.py substitutes the real value into
-            # the built page. A value typed here would ship as-is.
-            for attrs, value in re.findall(r"<b([^>]*)>([^<]*)</b>", facts.group(1)):
-                if "data-fact=" not in attrs:
-                    errors.append(
-                        "showcase/layout/index.html: a facts entry does not use "
-                        f'data-fact (found "{value.strip()}")'
-                    )
-                elif value.strip() not in ("", "\u2014", "-"):
-                    errors.append(
-                        f'showcase/layout/index.html: facts list has a typed value '
-                        f'"{value.strip()}"; leave the placeholder so '
-                        "scripts/facts.py fills it"
-                    )
+        # Matched on the `data-fact` attributes rather than on the class of
+        # the box that holds them. The check used to look for a `<div
+        # class="grid">`, which tied a claim about *generated numbers* to one
+        # particular piece of layout: redesigning the landing page into a
+        # carousel failed this gate while every number was still a
+        # placeholder. What matters is that no value is typed here.
+        # Comments first: the layout documents the contract by quoting
+        # `<b data-fact="KEY">…</b>` in prose, and scanning the raw file
+        # reported that example as a typed value.
+        markup = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+        entries = re.findall(r"<b([^>]*data-fact=[^>]*)>([^<]*)</b>", markup)
+        if not entries:
+            errors.append(
+                "showcase/layout/index.html declares no data-fact entries; "
+                "scripts/facts.py has nothing to fill"
+            )
+        for _attrs, value in entries:
+            if value.strip() not in ("", "\u2014", "-"):
+                errors.append(
+                    f'showcase/layout/index.html: facts list has a typed value '
+                    f'"{value.strip()}"; leave the placeholder so '
+                    "scripts/facts.py fills it"
+                )
+        for stray in re.findall(r"<b(?![^>]*data-fact=)[^>]*>([^<]*)</b>", markup):
+            if stray.strip():
+                errors.append(
+                    "showcase/layout/index.html: a bold value without "
+                    f'data-fact ("{stray.strip()}") would ship as typed'
+                )
 
     readme = root / "README.md"
     if readme.is_file():

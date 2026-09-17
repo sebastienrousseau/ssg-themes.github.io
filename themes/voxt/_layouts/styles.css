@@ -13,6 +13,7 @@
   --fg-subtle: #a6aab6;
   --primary: #69adff;
   --primary-hover: #93c5fd;
+  --primary-ink: #090a0f;
   --primary-glow: rgba(96, 165, 250, 0.25);
   --accent: #c084fc;
   --success: #34d399;
@@ -37,6 +38,7 @@
   --fg-subtle: #484e60;
   --primary: #1641bd;
   --primary-hover: #1e40af;
+  --primary-ink: #ffffff;
   --primary-glow: rgba(29, 78, 216, 0.15);
   --accent: #6b21a8;
   --success: #065f46;
@@ -72,6 +74,7 @@
   --fg-subtle: #484e60;
   --primary: #1641bd;
   --primary-hover: #1e40af;
+  --primary-ink: #ffffff;
   --primary-glow: rgba(29, 78, 216, 0.15);
   --accent: #6b21a8;
   --success: #065f46;
@@ -111,7 +114,7 @@ body {
   top: -999px;
   left: 1rem;
   background: var(--primary);
-  color: #090a0f;
+  color: var(--primary-ink);
   padding: 0.65rem 1.25rem;
   border-radius: var(--radius-sm);
   z-index: 100;
@@ -122,9 +125,6 @@ body {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-}
-[data-theme="light"] .skip-link {
-  color: #ffffff;
 }
 .skip-link:focus {
   top: 1rem;
@@ -270,6 +270,30 @@ body {
   flex-wrap: wrap;
 }
 
+.header-actions > [data-ssg-search] {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.header-actions > #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  box-shadow: none;
+}
+
+.header-actions > #ssg-search-btn span,
+.header-actions > #ssg-search-btn kbd {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .header-actions .btn {
     display: none;
@@ -319,14 +343,10 @@ body {
 
 .btn-primary {
   background: var(--primary);
-  color: #090a0f;
+  color: var(--primary-ink);
   box-shadow: 0 4px 14px var(--primary-glow);
 }
 
-[data-theme="light"] .btn-primary {
-  background: var(--primary);
-  color: #ffffff;
-}
 
 .btn-primary:hover {
   background: var(--primary-hover);
@@ -389,7 +409,7 @@ body {
 
 .pill-tag {
   background: var(--primary);
-  color: #090a0f;
+  color: var(--primary-ink);
   font-size: 0.75rem;
   font-weight: 800;
   padding: 0.15rem 0.5rem;
@@ -398,9 +418,6 @@ body {
   flex-shrink: 0;
 }
 
-[data-theme="light"] .pill-tag {
-  color: #ffffff;
-}
 
 .pill-text {
   font-size: 0.875rem;
@@ -436,6 +453,25 @@ body {
   gap: 1rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
+}
+
+.hero-photo {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto 2rem;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: #090d13;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.hero-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 742;
+  object-fit: cover;
 }
 
 /* --- Authentic 4-Pane TMUX IDE Terminal Grid --- */
@@ -909,7 +945,7 @@ td {
   flex-wrap: wrap;
 }
 
-.footer-col h4 {
+.footer-col h2 {
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;

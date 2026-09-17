@@ -1,0 +1,120 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="stage" aria-labelledby="hero-heading">
+  <div class="container stage-copy">
+    <p class="eyebrow eyebrow-stage">{{eyebrow}}</p>
+    <h1 id="hero-heading">{{headline}}</h1>
+    <p class="lead stage-lead">{{lead}}</p>
+    <div class="cta-row cta-row-centred">
+      <a class="btn btn-stage" href="{{locale_path}}features/">{{cta_primary}}</a>
+      <a class="btn btn-stage-quiet" href="{{locale_path}}specs/">{{cta_secondary}}</a>
+    </div>
+  </div>
+
+  <figure class="stage-shot">
+    <img src="{{site_path}}images/environment.webp"
+         srcset="{{site_path}}images/environment-320.webp 320w, {{site_path}}images/environment-480.webp 480w, {{site_path}}images/environment-640.webp 640w, {{site_path}}images/environment-768.webp 768w, {{site_path}}images/environment-960.webp 960w, {{site_path}}images/environment-1200.webp 1200w"
+         sizes="(min-width: 64rem) 72vw, 100vw"
+         width="1200" height="742" fetchpriority="high" decoding="async"
+         alt="A pale dune landscape under a soft gradient sky, used as an immersive environment" />
+  </figure>
+</section>
+
+<section class="section" aria-labelledby="carousel-heading">
+  <div class="container">
+    <div class="rail-head">
+      <div>
+        <p class="eyebrow">A closer look</p>
+        <h2 id="carousel-heading">Built around what you actually do</h2>
+      </div>
+      <div class="rail-controls">
+        <button id="railPrev" type="button" aria-controls="featureRail">
+          <span class="visually-hidden">Show previous features</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+        <button id="railNext" type="button" aria-controls="featureRail">
+          <span class="visually-hidden">Show more features</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <!--
+      A scroll region, not a slideshow. It scrolls with a trackpad, a drag,
+      the arrow keys once focused, and the two buttons above. Nothing
+      advances on its own: motion lasting more than five seconds would need
+      a pause control under WCAG 2.2.2, and a feature list has no reason to
+      move without being asked.
+    -->
+    <div class="rail" id="featureRail" role="region" aria-label="Features, scrollable horizontally" tabindex="0">
+      <article class="rail-card">
+        <p class="rail-index">01</p>
+        <h3>An display for every task</h3>
+        <p>Two panels the size of a postage stamp carry more pixels each than a 4K television, so text stays text at any distance.</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">02</p>
+        <h3>Input without hardware</h3>
+        <p>Look at a control and pinch. No wand, no glove, nothing to charge on a second cable overnight.</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">03</p>
+        <h3>Sound that stays put</h3>
+        <p>Audio is placed in the room rather than in your ears, so a window you moved to the left still sounds as though it is there.</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">04</p>
+        <h3>Environments on demand</h3>
+        <p>Replace the room with a landscape when you need to concentrate, and dial it back when somebody walks in.</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">05</p>
+        <h3>Privacy at the sensor</h3>
+        <p>Eye data never leaves the device and is never handed to an app. What you looked at is not a signal anybody else receives.</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">06</p>
+        <h3>Passthrough that convinces</h3>
+        <p>Cameras rebuild the room with low enough latency that reaching for a cup is not a calculation.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-silicon" aria-labelledby="silicon-heading">
+  <div class="container silicon-grid">
+    <div class="stack">
+      <p class="eyebrow eyebrow-stage">Silicon</p>
+      <h2 id="silicon-heading">Two chips, one of them doing nothing but listening</h2>
+      <p class="silicon-lead">One runs the system. The second does nothing but process twelve cameras, five sensors and six microphones, so the picture is on the panels before your inner ear notices the delay.</p>
+      <dl class="specs">
+        <div class="spec"><dt>Sensor-to-photon latency</dt><dd>12 ms</dd></div>
+        <div class="spec"><dt>Cameras and sensors</dt><dd>17</dd></div>
+        <div class="spec"><dt>Pixels across both panels</dt><dd>23M</dd></div>
+        <div class="spec"><dt>Refresh, sustained</dt><dd>90–100 Hz</dd></div>
+      </dl>
+    </div>
+    <figure class="silicon-shot">
+      <picture><source media="(max-width: 64rem)" srcset="{{site_path}}images/silicon-m320.webp 320w, {{site_path}}images/silicon-m480.webp 480w, {{site_path}}images/silicon-m640.webp 640w, {{site_path}}images/silicon-m768.webp 768w" sizes="100vw"><img class="art-mobile-crop" src="{{site_path}}images/silicon.webp"
+           srcset="{{site_path}}images/silicon-320.webp 320w, {{site_path}}images/silicon-480.webp 480w, {{site_path}}images/silicon-640.webp 640w, {{site_path}}images/silicon-768.webp 768w, {{site_path}}images/silicon-960.webp 960w"
+           sizes="(min-width: 64rem) 38vw, 92vw"
+           width="1200" height="1920" loading="lazy" decoding="async"
+           alt="A processor lit from beneath on a circuit board" /></picture>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose">{{!content}}</div>
+</section>
+
+<section class="section section-close" aria-labelledby="close-heading">
+  <div class="container stack text-center">
+    <h2 id="close-heading">{{close_heading}}</h2>
+    <p class="lead mx-auto">{{close_lead}}</p>
+    <div class="cta-row cta-row-centred">
+      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
+    </div>
+  </div>
+</section>
+{{/block}}

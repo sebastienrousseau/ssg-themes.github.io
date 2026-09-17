@@ -2,7 +2,7 @@
 name: "Kaishi"
 short_name: "KA"
 title: "Contact — Kaishi"
-description: "Get in touch about the Kaishi theme."
+description: "Get in touch about the Kaishi theme for SSG: ask a question, report an issue, or request a custom build. Includes response times and studio contact details."
 keywords: "kaishi contact"
 author: "SSG Theme Suite"
 date: "2026-08-11"

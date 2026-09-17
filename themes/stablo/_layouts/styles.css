@@ -227,18 +227,22 @@ a:hover { color: var(--accent-hover); }
 .card { display: flex; flex-direction: column; }
 .card-lg .card-h { overflow-wrap: anywhere; font-size: clamp(1.375rem, 2.6vw, 1.75rem); }
 
-.card-media { display: block; border-radius: var(--r); overflow: hidden; }
-.card-art {
+.card-media { display: block; border-radius: var(--r); overflow: hidden; background: var(--surface-soft); }
+.card-media img {
   display: block;
-  aspect-ratio: 16 / 10;
-  /* Drawn in CSS rather than shipped as a file: the demo needs no external
-   * asset, nothing 404s, and the page-weight budget is unaffected. */
-  background:
-    radial-gradient(120% 90% at 20% 15%, var(--accent-soft) 0%, transparent 60%),
-    linear-gradient(135deg, var(--surface) 0%, var(--accent-soft) 100%);
+  width: 100%;
+  height: auto;
+  /* The sources' own 1200x742, stated rather than left to `auto`.
+   *
+   * Without it nothing reserves the card's picture height until the file
+   * arrives, so on a throttled connection every card below shifts down as
+   * they load. It was masked while two images carried fetchpriority="high"
+   * and arrived early; dropping the redundant priority — only one element
+   * can be the largest contentful paint — exposed a 0.328 shift that had
+   * been latent all along. */
+  aspect-ratio: 1200 / 742;
+  object-fit: cover;
 }
-.card-art-2 { background: linear-gradient(120deg, var(--accent-soft) 0%, var(--surface) 70%); }
-.card-art-3 { background: linear-gradient(200deg, var(--surface) 10%, var(--accent-soft) 90%); }
 
 .card-cat { margin-top: 1rem; }
 .card-cat a {

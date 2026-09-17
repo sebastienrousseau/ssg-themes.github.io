@@ -1,0 +1,253 @@
+
+/* ======================================================================
+   Showcase-only presentation.
+   ----------------------------------------------------------------------
+   Appended to a staged copy of the Apex stylesheet at build time, never
+   written into themes/apex/, because that theme ships to users as a
+   downloadable archive and a gallery-only carousel would ship with it.
+
+   Everything below consumes Apex's own gated tokens, so the colour gate
+   already covers every pair used here. Apex's palette is deep charcoal
+   (#1d1d1f) on near-white and a true black canvas in dark mode, which is
+   the treatment this gallery wants anyway.
+   ====================================================================== */
+
+/* ---- rhythm on the golden ratio -------------------------------------- */
+.showcase {
+  --s-1: 0.95rem;
+  --s-2: 1.55rem;
+  --s-3: 2.5rem;
+  --s-4: 4.05rem;
+  --s-5: 6.55rem;
+}
+
+/* ---- hero ------------------------------------------------------------ */
+.sc-hero {
+  padding-block: clamp(3.5rem, 3rem + 6vw, var(--s-5));
+  text-align: center;
+}
+
+.sc-hero .eyebrow {
+  display: inline-block;
+  margin-bottom: var(--s-1);
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sc-hero h1 {
+  max-width: 18ch;
+  margin-inline: auto;
+  font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.sc-hero .lead {
+  max-width: 56ch;
+  margin: var(--s-2) auto 0;
+  color: var(--ink-soft);
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* ---- the numbers, as a quiet rule rather than four boxes ------------- */
+.sc-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line-soft);
+}
+
+.sc-facts > div { max-width: 15rem; }
+
+.sc-facts b {
+  display: block;
+  font-size: clamp(1.7rem, 1.4rem + 1.3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sc-facts p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+/* ---- carousel -------------------------------------------------------- */
+.sc-gallery { padding-block: var(--s-4); }
+
+.sc-gallery-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-bottom: var(--s-3);
+}
+
+.sc-gallery-head h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 1.4rem + 1.7vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+.sc-controls { display: flex; gap: 0.6rem; }
+
+.sc-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.sc-controls button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sc-controls button:disabled { opacity: 0.35; cursor: default; }
+
+.sc-controls svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* The track is a scroll region: it gets a name and a tab stop so it can be
+   reached and driven from the keyboard, which is the whole reason a
+   carousel is allowed to exist here. Nothing auto-advances — motion that
+   runs longer than five seconds would need a pause control under WCAG
+   2.2.2, and a gallery does not need to move by itself. */
+.sc-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(17rem, 78vw, 26rem);
+  gap: var(--s-2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 0.25rem;
+  padding: 0.25rem 0.25rem var(--s-2);
+  overscroll-behavior-x: contain;
+}
+
+@media (min-width: 48rem) {
+  .sc-track { grid-auto-columns: clamp(20rem, 36vw, 27rem); }
+}
+
+.sc-track:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-track { scroll-behavior: auto; }
+}
+
+.sc-slide {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  /* A continuous curve rather than a plain radius. */
+  border-radius: 1.5rem;
+  border: 1px solid var(--line-soft);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 12px 28px -18px rgb(0 0 0 / 30%);
+}
+
+.sc-shot {
+  display: block;
+  margin: 0;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.sc-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The registry screenshots are 1500x1000; keeping that ratio means the
+     picture is never cut to fit the card. */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.sc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: var(--s-2);
+  flex: 1;
+}
+
+.sc-body .eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sc-body h3 {
+  margin: 0;
+  font-size: clamp(1.3rem, 1.2rem + 0.5vw, 1.7rem);
+  letter-spacing: -0.02em;
+}
+
+.sc-body > p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  line-height: 1.55;
+}
+
+.sc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sc-meta li {
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+
+.sc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: var(--s-1);
+}
+
+.sc-actions .btn { font-size: var(--step--1); }
+
+/* ---- gates table ------------------------------------------------------ */
+.sc-gates { padding-block: var(--s-4); background: var(--bg-soft); }
+.sc-gates h2 { font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem); letter-spacing: -0.03em; }

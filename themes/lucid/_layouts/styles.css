@@ -281,6 +281,21 @@ a:hover { color: var(--accent-hover); }
   max-width: 40rem;
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.hero-in > .hero-photo {
+  max-width: 72rem;
+  margin-top: 3rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.hero-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 742;
+  object-fit: cover;
+}
 
 .btn {
   display: inline-flex;

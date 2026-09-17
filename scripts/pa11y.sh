@@ -74,9 +74,9 @@ overlay_text = [
     '.poster-title span', '.poster-intro a span', '.poster-proof dt',
     '.project > span', '.project h3', '.project p', '.project b',
     '.swatches a', '.noir-benefits b',
-    '.style-noir:not(:has(.noir-showcase)) .eyebrow', '.scout-hero h1',
+    '.style-noir:not(:has(.noir-showcase)) .eyebrow', '.curio-hero h1',
     '.ai-shop', '.social-proof', '.hero-note', '.hero-list', '.scroll-note',
-    '.scout-plan-grid .glow h3', '.signal-hero h1', '.integrations h2',
+    '.curio-plan-grid .glow h3', '.signal-hero h1', '.integrations h2',
     '.office-frame figcaption', '.adviser-portrait figcaption',
     '.service-list a span', '.domain-grid h3',
     # Same decorative-arrow pattern as '.poster-intro a span' above: a bare

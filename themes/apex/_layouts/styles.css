@@ -1146,3 +1146,22 @@ html {
 .cta-row-centred {
   justify-content: center;
 }
+
+/* Reserve the search slot before script execution, then keep the generated
+   trigger in the same 44px navigation cell on every supported SSG release. */
+.site-nav > [data-ssg-search] {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.site-nav > #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+}
+.site-nav > #ssg-search-btn span,
+.site-nav > #ssg-search-btn kbd { display: none; }

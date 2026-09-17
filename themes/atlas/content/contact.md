@@ -2,7 +2,7 @@
 name: "Atlas"
 short_name: "AT"
 title: "Contact — Atlas"
-description: "How to reach the editors and submit a correction."
+description: "Reach the Atlas editorial desk to submit a correction, propose a commissioned piece, or ask about republishing. Response times and postal address included."
 keywords: "atlas contact, corrections"
 author: "SSG Theme Suite"
 date: "2026-08-11"

@@ -2,6 +2,16 @@
 
 @layer skeletonic.base, skeletonic.layout;
 :root {
+  /* Spacing on the golden ratio: each step is the previous x1.618, so the
+     rhythm between a label and its heading, a heading and its section, and
+     one section and the next are all related rather than arbitrary. */
+  --space-s: 1.5rem;
+  --space-m: 2.5rem;
+  --space-l: 4rem;
+  --space-xl: 6.5rem;
+}
+
+:root {
   --cl-primary: light-dark(oklch(0.4 0.2 250), oklch(0.7 0.16 250));
   --cl-secondary: light-dark(oklch(0.38 0.15 200), oklch(0.65 0.12 200));
   --cl-success: light-dark(oklch(0.7 0.2 140), oklch(0.75 0.15 140));
@@ -22,6 +32,14 @@
   --bg-danger: light-dark(oklch(0.96 0.03 20), oklch(0.18 0.04 20));
   --cl-grey-100: light-dark(oklch(0.98 0.01 250), oklch(0.15 0.01 250));
   --cl-grey-200: light-dark(oklch(0.9 0.01 250), oklch(0.25 0.01 250));
+}
+
+/* The generator's default search label is 6.95:1 on white. This restrained
+   light-scheme adjustment clears the 7:1 AAA threshold without altering the
+   control's dark treatment. */
+:root[data-theme="light"] #ssg-search-btn { color: #505057 !important; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #ssg-search-btn { color: #505057 !important; }
 }
 .text-primary {
   color: var(--cl-primary);
@@ -328,7 +346,8 @@
 @layer theme.tokens, theme.base, theme.layout, theme.components, theme.variants;
 
 @layer theme.tokens {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --bg: #f5f4ef;
   --bg-soft: #ece8df;
   --surface: #ffffff;
@@ -344,71 +363,91 @@
   --focus: #0f5793;
   --line: #707a74;
   --line-soft: #c9cec9;
-  --scene: #101214;
-  --scene-ink: #ffffff;
-  --scene-muted: #d9eee6;
-  --scene-accent: #ff7a1a;
+  --scene: #f2efe8;
+  --scene-ink: #101713;
+  --scene-muted: #3f4642;
+  --scene-accent: #8a3200;
   --glow: #d0a66f;
+  /* The poster ground is a photographic backdrop and stays dark in both
+     modes, the way a photograph does; `--scene-ink` is what sits on it and
+     both pairs are gated. `--label` and `--cta` were literals in component
+     rules, which is how this theme came to paint the same brown canvas in
+     every mode while its toggle claimed three. */
+  --poster: #efece6;
+  --label: #7a3300;
+  --cta: #ffbd22;
+  --cta-ink: #111111;
   --shadow: 0 1.5rem 4rem rgb(12 31 23 / 14%);
   --background-color: var(--bg);
   --foreground-color: var(--ink);
   --focus-ring-color: var(--focus);
   color-scheme: light;
+  --poster-exposure: brightness(1.16) contrast(0.94);
 }
 
 :root[data-theme="dark"] {
-  --bg: #0d1210;
-  --bg-soft: #171512;
-  --surface: #211e19;
-  --surface-soft: #2b261e;
-  --ink: #f5faf7;
-  --ink-soft: #d4e3da;
-  --ink-muted: #b9cec1;
+  --bg: #000000;
+  --bg-soft: #0a0a0a;
+  --surface: #141414;
+  --surface-soft: #1c1c1c;
+  --ink: #f5f5f7;
+  --ink-soft: #d2d2d7;
+  --ink-muted: #aeaeb2;
   --accent: #ffd27a;
   --accent-hover: #ffe2a8;
   --accent-ink: #281b00;
   --accent-soft: #51401e;
   --on-accent-soft: #fff7e5;
   --focus: #79c5ff;
-  --line: #82968a;
-  --line-soft: #3e5147;
-  --scene: #090a0b;
-  --scene-ink: #ffffff;
-  --scene-muted: #d9eee6;
+  --line: #8e8e93;
+  --line-soft: #2c2c2e;
+  --scene: #0a0a0a;
+  --scene-ink: #f5f5f7;
+  --scene-muted: #aeaeb2;
   --scene-accent: #ff9a45;
   --glow: #6a3b19;
+  --poster: #000000;
+  --label: #ffad70;
+  --cta: #ffbd22;
+  --cta-ink: #111111;
   --shadow: 0 1.5rem 4rem rgb(0 0 0 / 44%);
   --background-color: var(--bg);
   --foreground-color: var(--ink);
   --focus-ring-color: var(--focus);
   color-scheme: dark;
+  --poster-exposure: invert(1) contrast(1.04);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0d1210;
-    --bg-soft: #171512;
-    --surface: #211e19;
-    --surface-soft: #2b261e;
-    --ink: #f5faf7;
-    --ink-soft: #d4e3da;
-    --ink-muted: #b9cec1;
+    --bg: #000000;
+    --bg-soft: #0a0a0a;
+    --surface: #141414;
+    --surface-soft: #1c1c1c;
+    --ink: #f5f5f7;
+    --ink-soft: #d2d2d7;
+    --ink-muted: #aeaeb2;
     --accent: #ffd27a;
     --accent-hover: #ffe2a8;
     --accent-ink: #281b00;
     --accent-soft: #51401e;
     --on-accent-soft: #fff7e5;
     --focus: #79c5ff;
-    --line: #82968a;
-    --line-soft: #3e5147;
-    --scene: #090a0b;
-    --scene-ink: #ffffff;
-    --scene-muted: #d9eee6;
+    --line: #8e8e93;
+    --line-soft: #2c2c2e;
+    --scene: #0a0a0a;
+    --scene-ink: #f5f5f7;
+    --scene-muted: #aeaeb2;
     --scene-accent: #ff9a45;
     --glow: #6a3b19;
+    --poster: #000000;
+    --label: #ffad70;
+    --cta: #ffbd22;
+    --cta-ink: #111111;
     --background-color: var(--bg);
     --foreground-color: var(--ink);
     --focus-ring-color: var(--focus);
+    --poster-exposure: invert(1) contrast(1.04);
     color-scheme: dark;
   }
 }
@@ -431,51 +470,84 @@
 }
 
 @layer theme.rebuild {
-.style-cadence { --black:#07080a; --orange:#f49a1d; --bg:#130d08; --ink:#f8f8f6; --ink-soft:#cbd6d0; --accent:#f49a1d; --accent-hover:#ffad70; --accent-ink:#111; --surface-soft:#24211e; background:#130d08; color:var(--ink); }
+/* Consumes tokens only. It used to redeclare --bg, --ink, --ink-soft,
+   --accent, --accent-hover, --accent-ink and --surface-soft as fixed
+   literals, which shadowed the gated light/dark pairs above: the contrast
+   gate went on measuring values the page never used, and the three-state
+   toggle changed nothing a visitor could see. */
+.style-cadence { background:var(--bg); color:var(--ink); }
 .style-cadence .wrap { width:min(calc(100% - 3rem),80rem); margin-inline:auto; }
 .style-cadence h1,.style-cadence h2,.style-cadence h3 { color:inherit; font-family:Arial,Helvetica,sans-serif; font-weight:500; }
 .style-cadence .site-header { position:absolute; inset:5rem 4rem auto; width:auto; z-index:20; border:0; background:transparent; backdrop-filter:none; }
-.style-cadence .brand,.style-cadence .site-nav a,.style-cadence .mode-toggle { color:#fff; }
+.style-cadence .brand,.style-cadence .site-nav a,.style-cadence .mode-toggle { color:var(--ink); }
+/* Over the poster the masthead sits on a photograph, so it takes the
+   scene ink in both modes; on every other page it takes the page ink. */
+/* Over the poster the masthead needs a ground of its own.
+ *
+ * It used to float transparently and read as white-on-dark because the whole
+ * page canvas was hardcoded dark. With the canvas now following the colour
+ * mode, the header floats over a dark photograph while its nearest painted
+ * ancestor is a light body — so the eye saw white on black and the contrast
+ * audit correctly saw white on cream, at 1.10:1. A control whose legibility
+ * depends on a sibling it does not sit inside is not measurable, so the bar
+ * gets the poster's own colour and the two agree again. */
+body.style-cadence:has(.ride-poster) .site-header {
+  background: var(--poster);
+  border-radius: 0.75rem;
+  padding-inline: 1.25rem;
+}
+body.style-cadence:has(.ride-poster) .brand,
+body.style-cadence:has(.ride-poster) .site-nav a:not(.nav-cta),
+body.style-cadence:has(.ride-poster) .nav-toggle,
+body.style-cadence:has(.ride-poster) .nav-toggle span,
+body.style-cadence:has(.ride-poster) .mode-toggle { color:var(--scene-ink); }
+body.style-cadence:has(.ride-poster) .mode-toggle,
+body.style-cadence:has(.ride-poster) .nav-toggle { border-color:var(--scene-muted); }
 .style-cadence .brand-mark { display:none; }
-.style-cadence .mode-toggle { border-color:#aaa; }
-.ride-poster { position:relative; min-height:calc(100svh - 8rem); margin:4rem; overflow:clip; isolation:isolate; background:var(--black); }
-.ride-poster>img { position:absolute; inset:0 0 0 auto; z-index:-2; width:72%; height:100%; object-fit:cover; object-position:center; filter:brightness(.78) contrast(1.08); }
-.ride-glow { position:absolute; inset:auto 0 -35% 20%; z-index:-1; height:75%; background:radial-gradient(ellipse at 70% 70%,#fff62b,#f67800 36%,transparent 70%); filter:blur(18px); mix-blend-mode:screen; }
-.ride-copy { position:absolute; left:4%; top:22%; z-index:3; }
-.ride-copy>p { position:absolute; left:0; top:1rem; translate:0 -100%; font-size:.75rem; text-transform:uppercase; }
-.ride-copy h1 { max-width:9ch; margin:0 0 2rem 14vw; font-size:clamp(4rem,7.5vw,8rem); line-height:.82; letter-spacing:-.065em; }
-.ride-copy a { display:inline-flex; margin-left:14vw; padding:.8rem 1.35rem; border-radius:2rem; background:var(--orange); color:#111; font-weight:900; text-decoration:none; }
-.ride-preview { position:absolute; right:4%; top:42%; width:13rem; }
-.ride-preview>div { height:8rem; border-radius:1rem; background:linear-gradient(135deg,#e9e9e9,#333); opacity:.8; }
-.ride-preview p { display:flex; align-items:center; gap:.7rem; font-size:.75rem; }.ride-preview i{flex:1;height:2px;background:#fff}
-.ride-bottom { position:absolute; inset:auto 4% 3%; display:grid; grid-template-columns:10rem 1fr auto; gap:1rem; align-items:end; padding-top:1.2rem; border-top:1px solid #777; }
-.ride-bottom>span:nth-child(2){grid-column:2}.ride-bottom>span:nth-child(3){grid-column:3;text-align:right}
-.ride-bottom dl { grid-row:2; margin:0; padding:1.3rem; background:rgb(255 255 255/.1); backdrop-filter:blur(1rem); }.ride-bottom dl:nth-of-type(2){grid-column:2;width:12rem}.ride-bottom dt{font-size:.8rem}.ride-bottom dd{margin:0;font-size:2.8rem;letter-spacing:-.06em}
-.ride-bottom>p { grid-column:2/4; grid-row:2; align-self:end; justify-self:end; font-size:.7rem; font-weight:800; }
-.machines { padding:clamp(7rem,12vw,12rem) 0; background:#f1eee7; color:#111; }
-.orange-label { color:#7a3300; font-size:.75rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+.style-cadence .mode-toggle { border-color:var(--line); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.machines { padding:clamp(7rem,12vw,12rem) 0; background:var(--surface-soft); color:var(--ink); }
+.orange-label { color:var(--label); font-size:.75rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
 .machines h2,.ride-story h2,.ride-close h2 { max-width:14ch; margin:.8rem 0 4rem; font-size:clamp(3.5rem,7vw,7rem); line-height:.9; }
-.machine-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #777; }
-.machine-grid article { display:grid; min-height:23rem; padding:2rem; border-right:1px solid #777; }.machine-grid span{font-size:.7rem}.machine-grid h3{margin:auto 0 1rem;font-size:2.2rem}.machine-grid p{color:#333}.machine-grid b{font-size:1.4rem}
-.ride-bottom>p{font-size:.75rem}
-body:not(:has(.ride-poster)) .lead{color:#cbd6d0}
-body:not(:has(.ride-poster)) .eyebrow{color:#ffad70}
-.ride-story .orange-label{color:#ffad70}
-.ride-story { padding:9rem 0; background:#0c0d0f; }
+.machine-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); }
+.machine-grid article { display:grid; min-height:23rem; padding:2rem; border-right:1px solid var(--line); }.machine-grid span{font-size:.7rem}.machine-grid h3{margin:auto 0 1rem;font-size:2.2rem}.machine-grid p{color:var(--ink-soft)}.machine-grid b{font-size:1.4rem}
+
+body:not(:has(.ride-poster)) .lead{color:var(--ink-soft)}
+body:not(:has(.ride-poster)) .eyebrow{color:var(--label)}
+.ride-story .orange-label{color:var(--scene-accent)}
+.ride-story { padding:9rem 0; background:var(--scene); color:var(--scene-ink); }
 .ride-story .wrap { display:grid; grid-template-columns:1fr .8fr; gap:6rem; align-items:center; }
-.story-image { position:relative; min-height:38rem; overflow:hidden; }.story-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.ride-story>div>div:last-child>p:not(.orange-label){color:#d8d8d8}.ride-story ul{padding-left:1.25rem}.ride-story a{display:inline-flex;margin-top:2rem;color:#fff;font-weight:900}
-.ride-close { padding:10rem 0; background:linear-gradient(135deg,#ef6500,#ffbd22); color:#111; }.ride-close h2{margin-bottom:2rem}.ride-close a{display:inline-flex;padding:1rem 1.4rem;background:#111;color:#fff;text-decoration:none;font-weight:900}
-.style-cadence .site-footer{background:#07080a;color:#fff;border-color:#444}.style-cadence .site-footer a,.style-cadence .site-footer p,.style-cadence .site-footer h2{color:#fff}
+/* The frame takes the photograph's own proportion rather than forcing it
+   into a 38rem box with object-fit:cover, which cropped the subject away at
+   every width. The image is also a different frame of the same bicycle -- a
+   drivetrain detail -- because repeating the hero shot read as a mistake. */
+.story-image { position:relative; overflow:hidden; border-radius:1rem; }
+.story-image img { display:block; width:100%; height:auto; aspect-ratio:1200/742; object-fit:cover; }.ride-story>div>div:last-child>p:not(.orange-label){color:var(--scene-muted)}.ride-story ul{padding-left:1.25rem}.ride-story a{display:inline-flex;margin-top:2rem;color:var(--scene-ink);font-weight:900}
+.ride-close { padding:10rem 0; background:var(--cta); color:var(--cta-ink); }.ride-close h2{margin-bottom:2rem}.ride-close a{display:inline-flex;padding:1rem 1.4rem;background:var(--scene);color:var(--scene-ink);text-decoration:none;font-weight:900}
+.style-cadence .site-footer{background:var(--scene);color:var(--scene-ink);border-color:var(--line)}.style-cadence .site-footer a,.style-cadence .site-footer p,.style-cadence .site-footer h2{color:var(--scene-ink)}
 .machine-grid article>span{font-size:.75rem}
-.style-cadence .site-nav .nav-cta{color:#111}
-.style-cadence .skip-link{background:#000;color:#fff}
-.ride-story a{min-height:2.75rem;align-items:center}
-.ride-copy>p{padding:.3rem;background:#07080a;color:#fff}
-.ride-bottom dl{background:#252525}
-.machines h2{background:#f1eee7;color:#111}
-.ride-close .wrap>p,.ride-close h2{background:#f49a1d;color:#111}
-body:not(:has(.ride-poster)) .eyebrow{background:#130d08}
-@media(max-width:64rem){.style-cadence .site-header{position:relative;inset:auto;background:#07080a}.ride-poster{margin:0;min-height:58rem}.ride-copy h1,.ride-copy a{margin-left:0}.ride-bottom{grid-template-columns:1fr 1fr}.ride-bottom>span,.ride-bottom>p{display:none}.ride-bottom dl:nth-of-type(2){grid-column:2;width:auto}.ride-story .wrap{grid-template-columns:1fr}.machine-grid{grid-template-columns:1fr}.machine-grid article{min-height:14rem;border-right:0;border-bottom:1px solid #777}}
+.style-cadence .site-nav .nav-cta{color:var(--accent-ink)}
+.style-cadence .skip-link{background:var(--scene);color:var(--scene-ink)}
+.ride-story a{min-height:2.75rem;align-items:center;color:var(--scene-ink)}
+
+
+.machines h2{background:var(--surface-soft);color:var(--ink)}
+.ride-close .wrap>p,.ride-close h2{background:var(--cta);color:#111}
+body:not(:has(.ride-poster)) .eyebrow{background:var(--scene);color:var(--scene-accent)}
+@media(max-width:64rem){.style-cadence .site-header{position:relative;inset:auto;background:var(--poster);color:var(--scene-ink);border-radius:0;padding-inline:0}.style-cadence .site-header .brand,.style-cadence .site-header .site-nav a:not(.nav-cta),.style-cadence .site-header .nav-toggle,.style-cadence .site-header .nav-toggle span,.style-cadence .site-header .mode-toggle{color:var(--scene-ink)}.style-cadence .site-header .nav-toggle,.style-cadence .site-header .mode-toggle{border-color:var(--scene-muted)}.ride-story .wrap{grid-template-columns:1fr}.machine-grid{grid-template-columns:1fr}.machine-grid article{min-height:14rem;border-right:0;border-bottom:1px solid var(--line)}}
 @media(max-width:38rem){.ride-poster>img{width:100%;opacity:.65}.ride-copy{top:20%}.ride-copy h1{font-size:clamp(3.8rem,17vw,6rem)}.ride-preview{display:none}.ride-bottom dl{padding:1rem}.ride-bottom dd{font-size:2rem}}
 }
 
@@ -585,10 +657,10 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .art-halo { position: absolute; width: min(26rem, 90%); aspect-ratio: 1; border-radius: 50%; background: var(--glow); filter: blur(1px); inset: 8% 5% auto auto; }
 .art-object { position: absolute; z-index: 1; inset: 18% 12% 8% 16%; border-radius: 48% 48% 12% 12% / 34% 34% 10% 10%; background: var(--scene); transform: rotate(-5deg); box-shadow: 1.2rem 1.2rem 0 var(--scene-accent); }
 .art-object span { position: absolute; width: 44%; height: 18%; inset: 14% auto auto 28%; border: 0.7rem solid var(--scene-muted); border-inline-color: transparent; border-radius: 50%; }
-.art-card { position: absolute; z-index: 4; display: grid; gap: 0.25rem; padding: 1rem; border: 1px solid #6b6b6b; background: #ffffff; color: #0b0b0b; box-shadow: var(--shadow); }
-.art-card small { color: #333333; }
+.art-card { position: absolute; z-index: 4; display: grid; gap: 0.25rem; padding: 1rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.art-card small { color: var(--ink-soft); }
 .art-card strong { font-size: var(--step-1); }
-.art-card span { color: #333333; font-size: var(--step--1); }
+.art-card span { color: var(--ink-soft); font-size: var(--step--1); }
 .art-card-a { inset: auto auto 8% 5%; max-width: 16rem; }
 .art-card-b { inset: 8% 5% auto auto; }
 .art-line { position: absolute; z-index: 3; width: 45%; height: 2px; inset: 48% 5% auto auto; background: var(--scene-accent); transform: rotate(-18deg); }
@@ -602,7 +674,9 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .site-footer { padding-block: clamp(3rem, 6vw, 5rem); background: var(--bg-soft); border-block-start: 1px solid var(--line-soft); }
 #ssg-search-btn { --ssg-search-top: 18px; }
 #ssg-search-btn kbd { margin-block: 0; }
-.site-nav > #ssg-search-btn { position: static; inset: auto; flex: 0 0 auto; box-shadow: none; }
+.site-nav > #ssg-search-btn { position: static; inset: auto; flex: 0 0 auto; width: 2.75rem; padding: 0; box-shadow: none; }
+.site-nav > #ssg-search-btn span, .site-nav > #ssg-search-btn kbd { display: none; }
+.site-nav:not(:has(> #ssg-search-btn))::after { content: ""; flex: 0 0 2.75rem; width: 2.75rem; min-height: 2.75rem; }
 .footer-grid { display: grid; grid-template-columns: 1.2fr 0.7fr 1fr; gap: 3rem; }
 .footer-grid > div { display: grid; align-content: start; gap: 1rem; }
 .footer-grid h2 { font: 800 var(--step--1)/1.2 var(--font-sans); letter-spacing: 0.05em; text-transform: uppercase; }
@@ -767,10 +841,179 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
 }
 
 @media (color-gamut: p3) {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --accent: color(display-p3 0.42 0.28 0.00);
 }
 :root[data-theme="dark"] {
   --accent: color(display-p3 1.00 0.80 0.42);
 }
+}
+
+
+/* WCAG 2.5.5 Target Size (Enhanced, AAA) — 44x44 CSS px.
+ *
+ * Footer links are a list of controls rather than running text, so 2.5.5's
+ * inline exception does not cover them. A footer "About" measured
+ * 43.797x44.000 at 320px: tall enough, a fifth of a pixel too narrow. */
+footer a,
+.style-cadence .site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ---------------------------------------------------------------------
+   Poster hero, rebuilt on a grid.
+
+   It was seven absolutely-positioned boxes at fixed percentages inside a
+   `min-height:100svh` frame — `.ride-copy` at left:4%/top:22%, `.ride-bottom`
+   at bottom:3%, `.ride-preview` at right:4%/top:42%. Nothing reserved space
+   for anything else, so the headline crossed the statistics row, the CTA
+   landed on top of a card, and the photograph was cropped to whatever was
+   left. At narrow widths they simply stacked on top of each other.
+
+   Now it is one grid. Every element occupies a cell, so no two can collide
+   at any width, and the photograph is a sized element rather than a
+   background: it keeps its own aspect ratio and is never cut to fit.
+
+   The split is the golden section — 38.2% for the copy, the remainder for
+   the image — which is also why the type scale below steps by 1.618.
+   --------------------------------------------------------------------- */
+.ride-poster {
+  display: grid;
+  grid-template-areas: "copy" "photo" "stats";
+  gap: var(--space-m);
+  margin: var(--space-m);
+  padding: var(--space-m);
+  border-radius: 1.5rem;
+  background: var(--poster);
+  color: var(--scene-ink);
+  isolation: isolate;
+}
+
+.ride-poster > img {
+  grid-area: photo;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 1rem;
+  filter: var(--poster-exposure);
+}
+
+.ride-glow {
+  grid-area: photo;
+  align-self: end;
+  justify-self: center;
+  width: min(70%, 34rem);
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 70%, var(--glow), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* The headline is sized from its own column, not the viewport. At 1024 and
+   1280 a viewport-based clamp made "performance" 403px wide inside a 293px
+   column, so it pushed out over the photograph. A container query ties the
+   type to the space it actually has. */
+.ride-copy { grid-area: copy; display: grid; gap: var(--space-s); align-content: center; container-type: inline-size; }
+.ride-copy > p { margin: 0; font-size: var(--step--1); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--scene-muted); }
+.ride-copy h1 { margin: 0; font-size: clamp(2rem, 16cqi, 4.5rem); line-height: 0.95; letter-spacing: -0.04em; text-wrap: balance; overflow-wrap: break-word; }
+.ride-copy a {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.8rem 1.35rem;
+  border-radius: 2rem;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+/* A decorative index marker; it has no content a reader needs, so it is
+   simply withdrawn where there is no room for it. */
+.ride-preview { display: none; }
+
+.ride-bottom {
+  grid-area: stats;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--space-s);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--line);
+}
+/* The three bare labels are chips, not columns: on their own they carried no
+   value and an auto-fit grid stranded each one in its own cell. */
+.ride-bottom > span {
+  display: inline-flex;
+  align-items: center;
+  /* The row stretches its cards to equal height; a chip must not stretch
+     with them or a 2rem radius turns it into a tall oval. */
+  align-self: start;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  font-size: var(--step--1);
+  color: var(--scene-muted);
+}
+.ride-bottom dl {
+  flex: 1 1 11rem;
+  margin: 0;
+  padding: var(--space-s);
+  border-radius: 0.75rem;
+  background: var(--scene);
+  color: var(--scene-ink);
+}
+.ride-bottom dt { font-size: var(--step--1); color: var(--scene-muted); }
+.ride-bottom dd {
+  margin: 0.25rem 0 0;
+  font-size: var(--step-2);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  /* "150M+" was breaking after the M into a lone "+" on the next line. */
+  white-space: nowrap;
+}
+.ride-bottom > p {
+  flex: 1 0 100%;
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 800;
+  color: var(--scene-muted);
+}
+
+
+@media (min-width: 64rem) {
+  .ride-poster {
+    /* 38.2 / 61.8 — the golden section. */
+    grid-template-areas: "copy photo" "stats stats";
+    grid-template-columns: 38.2% 1fr;
+    align-items: center;
+    gap: var(--space-l);
+    margin: var(--space-l);
+    padding: var(--space-l);
+  }
+  .ride-poster > img { aspect-ratio: 16 / 10; }
+}
+
+/* The page headline is sized from its own column, not the viewport.
+ *
+ * `.page-grid` gives the header a 0.65fr track — about 409px at 1440 — while
+ * the headline was `clamp(2.25rem, 10vw, 2.75rem)` off the viewport. A single
+ * long word ("Recommendation") then rendered 698px wide and ran straight
+ * through the prose column beside it: text printed over text, which no
+ * contrast or reflow gate can see because nothing overflowed the page. */
+.page-grid header { container-type: inline-size; }
+.page-grid header h1 {
+  font-size: min(var(--step-4), 13cqi);
+  overflow-wrap: break-word;
 }

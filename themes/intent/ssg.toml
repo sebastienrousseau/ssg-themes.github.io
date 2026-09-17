@@ -8,6 +8,15 @@ content_dir = "themes/intent/content"
 template_dir = "themes/intent/_layouts"
 output_dir = "public/intent"
 
+# Slugs are translated, not prefixed: `/intent/about/` pairs with
+# `/intent/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
 [agents]
 agents_txt = true
 ai_plugin = true

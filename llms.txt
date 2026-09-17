@@ -1,6 +1,6 @@
 # SSG Themes
 
-> Twenty production themes for Static Site Generator (SSG), spanning
+> Twenty-two production themes for Static Site Generator (SSG), spanning
 > publishing, portfolios, finance, commerce, health, sport and SaaS. Each has
 > its own design system and layout set, built on a shared template
 > architecture, with every accessibility and performance claim enforced by
@@ -27,6 +27,7 @@
 - [Steward](https://themes.static-site-generator.com/steward/): institutional-finance theme. Editorial serif type, ledger grid and trust-led service narratives.
 - [Velocity](https://themes.static-site-generator.com/velocity/): product landing and starter theme. Slate and bronze, seven layouts.
 - [Visage](https://themes.static-site-generator.com/visage/): aesthetic-health theme. Clinical whitespace, consent-led copy and a private consultation journey.
+- [Vista](https://themes.static-site-generator.com/vista/): spatial-computing product theme. Full-bleed dark stage, snap-scrolling feature rail, silicon spec panel, four layouts.
 - [Voxt](https://themes.static-site-generator.com/voxt/): developer tools and AI environment showcase theme. Terminal IDE dock preview, feature grids, strict CSP.
 
 ## Verified properties

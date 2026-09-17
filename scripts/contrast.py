@@ -137,8 +137,8 @@ PAIRS = [
 
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "scout",
-    "signal", "stablo", "steward", "velocity", "visage",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "signal", "stablo", "steward", "velocity", "visage", "vista",
 )
 
 # Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`

@@ -54,28 +54,11 @@
     });
   }
 
-  /*
-   * SSG adds its search widget after the theme script. Adopt the trigger into
-   * the navigation row so it cannot cover adjacent controls or focused page
-   * content. On compact layouts it becomes the final control in the disclosed
-   * mobile menu instead of floating above the document.
-   */
-  if (menu && typeof MutationObserver === 'function') {
-    var searchObserver;
-    function placeSearch() {
-      var button = document.getElementById('ssg-search-btn');
-      if (!button) return false;
-      if (button.parentNode !== menu) menu.appendChild(button);
-      button.style.position = 'static';
-      button.style.inset = 'auto';
-      button.style.boxShadow = 'none';
-      return true;
-    }
-    if (!placeSearch()) {
-      searchObserver = new MutationObserver(function () {
-        if (placeSearch()) searchObserver.disconnect();
-      });
-      searchObserver.observe(document.body, { childList: true, subtree: true });
-    }
-  }
+  /* Search is deliberately absent from Visage's compact, trust-led
+   * navigation. Remove the generator widget instead of leaving a visually
+   * hidden fixed control in the accessibility and layout trees. */
+  var searchWidget = document.getElementById('ssg-search-widget');
+  var searchButton = document.getElementById('ssg-search-btn');
+  if (searchWidget) searchWidget.remove();
+  else if (searchButton) searchButton.remove();
 })();

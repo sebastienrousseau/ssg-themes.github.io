@@ -615,7 +615,8 @@
 
   .hero-image img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    aspect-ratio: 1200 / 742;
     object-fit: cover;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
@@ -1375,3 +1376,21 @@ html {
 .cta-row-centred {
   justify-content: center;
 }
+
+/* Stable, in-flow search trigger for both current and legacy SSG output. */
+.site-nav > [data-ssg-search] {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.site-nav > #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+}
+.site-nav > #ssg-search-btn span,
+.site-nav > #ssg-search-btn kbd { display: none; }

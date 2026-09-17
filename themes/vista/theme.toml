@@ -1,0 +1,20 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Vista"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Spatial-computing product theme: full-bleed hero, a snap-scrolling feature carousel, an immersive environment band and a silicon spec panel, on Apple's charcoal-on-white palette, AAA-gated."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://themes.static-site-generator.com/vista/"
+
+# Minimum generator version. Below this the layout named in front matter is
+# ignored and the bundled content schema aborts the compile.
+min_version = "0.0.50"
+
+tags = ["marketing","product","hardware","spatial","accessibility"]
+features = ["dark-mode","search","rss","json-ld","wcag-aa","no-build-step","contact-form","carousel"]
+
+[[authors]]
+name = "SSG Theme Suite"
+homepage = "https://github.com/sebastienrousseau"

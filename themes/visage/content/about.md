@@ -6,6 +6,7 @@ description: "The consent-led content model and inclusive foundations behind the
 keywords: "about Visage theme, inclusive health design"
 author: "SSG Theme Suite"
 date: "2026-09-13"
+news_publication_date: "2026-09-13"
 layout: "page"
 language: "en-GB"
 schema: "page"

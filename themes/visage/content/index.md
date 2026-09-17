@@ -6,6 +6,7 @@ description: "A calm clinical-aesthetics theme with generous whitespace, a centr
 keywords: "aesthetic clinic theme, wellness website, consultation, SSG theme"
 author: "SSG Theme Suite"
 date: "2026-09-13"
+news_publication_date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 schema: "page"

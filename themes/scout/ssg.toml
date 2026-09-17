@@ -1,12 +1,21 @@
 site_name = "Scout"
-site_title = "Scout — AI shopping assistant theme for SSG"
-site_description = "A bold AI shopping theme with oversized type, modular product cards and transparent recommendation principles."
+site_title = "Scout — diagnostic instrument theme for SSG"
+site_description = "A measured theme for verification tools: severity ledgers, evidence tables and a readout hero that puts the verdict first."
 base_url = "https://example.com"
 language = "en-GB"
 
 content_dir = "themes/scout/content"
 template_dir = "themes/scout/_layouts"
 output_dir = "public/scout"
+
+# Slugs are translated, not prefixed: `/scout/about/` pairs with
+# `/scout/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
 
 [agents]
 agents_txt = true

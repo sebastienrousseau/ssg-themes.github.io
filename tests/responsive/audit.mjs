@@ -332,11 +332,20 @@ for (const scheme of SCHEMES) {
     });
     for (const path of pages) {
       const url = `${BASE}${path}`;
-      const res = await page.goto(url, { waitUntil: 'networkidle' });
+      // These are self-contained static pages. `networkidle` adds a fixed
+      // 500ms quiet-window to every navigation (more than 20 minutes across
+      // this matrix) without making layout measurements more reliable.
+      // `load` waits for stylesheets and intrinsic image dimensions; fonts
+      // and two paint frames below settle the final text geometry.
+      const res = await page.goto(url, { waitUntil: 'load' });
       if (!res || res.status() >= 400) {
         failures.push({ scheme, vp: vp.name, path, kind: 'http', detail: `status ${res?.status()}` });
         continue;
       }
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      });
       const defects = await page.evaluate(probe);
       checks++;
       for (const d of defects) failures.push({ scheme, vp: vp.name, path, ...d });

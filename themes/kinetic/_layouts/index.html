@@ -2,13 +2,18 @@
 {{#block "main"}}
 <section class="hero">
   <div class="container hero-inner">
-    <p class="eyebrow">{{eyebrow}}</p>
-    <h1>{{headline}}</h1>
-    <p class="lead">{{lead}}</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
-      <a class="btn btn-secondary" href="{{locale_path}}platform/">{{cta_secondary}}</a>
+    <div class="hero-copy stack">
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1>{{headline}}</h1>
+      <p class="lead">{{lead}}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
+        <a class="btn btn-secondary" href="{{locale_path}}platform/">{{cta_secondary}}</a>
+      </div>
     </div>
+    <figure class="hero-photo">
+      <img src="{{site_path}}images/momentum-640.webp" srcset="{{site_path}}images/momentum-320.webp 320w, {{site_path}}images/momentum-480.webp 480w, {{site_path}}images/momentum-640.webp 640w, {{site_path}}images/momentum-768.webp 768w, {{site_path}}images/momentum-960.webp 960w, {{site_path}}images/momentum.webp 1200w" sizes="(max-width: 48rem) 100vw, 48vw" width="1200" height="742" alt="People moving through a luminous curved passageway" fetchpriority="high">
+    </figure>
   </div>
 </section>
 

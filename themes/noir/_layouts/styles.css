@@ -23,6 +23,12 @@
   --cl-grey-100: light-dark(oklch(0.98 0.01 250), oklch(0.15 0.01 250));
   --cl-grey-200: light-dark(oklch(0.9 0.01 250), oklch(0.25 0.01 250));
 }
+
+/* AAA correction for the generator-owned search label on light surfaces. */
+:root[data-theme="light"] #ssg-search-btn { color: #505057 !important; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #ssg-search-btn { color: #505057 !important; }
+}
 .text-primary {
   color: var(--cl-primary);
 }
@@ -328,7 +334,8 @@
 @layer theme.tokens, theme.base, theme.layout, theme.components, theme.variants;
 
 @layer theme.tokens {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --bg: #f5f4ef;
   --bg-soft: #e9e9e9;
   --surface: #ffffff;
@@ -432,12 +439,15 @@
 
 @layer theme.rebuild {
 html { overflow-x:clip; }
-.style-noir { --black:#101010; --panel:#181818; --white:#fff; --grey:#bdbdbd; --bg:#e8e8e8; --ink:#111; --ink-soft:#333; --accent:#202020; --accent-hover:#000; --accent-ink:#fff; --surface-soft:#ddd; background:#e8e8e8; color:#111; }
+.style-noir { --black:var(--scene); --panel:var(--surface); --white:var(--scene-ink); --grey:var(--ink-muted); background:var(--bg); color:var(--ink); }
 .style-noir .wrap { width:min(calc(100% - 3rem),92rem); margin-inline:auto; }
 .style-noir h1,.style-noir h2,.style-noir h3 { color:inherit; font-family:Arial,Helvetica,sans-serif; }
 .style-noir .site-header { position:absolute; inset:5rem 5% auto; z-index:20; width:90%; border:0; background:#111; backdrop-filter:none; }
 .style-noir .nav-toggle { color:#fff; }
-.style-noir .brand,.style-noir .site-nav a,.style-noir .mode-toggle { color:#fff; }
+.style-noir .brand,.style-noir .site-nav a,.style-noir .mode-toggle { color:var(--ink); }
+body.style-noir:has(.noir-showcase) .brand,
+body.style-noir:has(.noir-showcase) .site-nav a,
+body.style-noir:has(.noir-showcase) .mode-toggle { color:var(--scene-ink); }
 .style-noir .brand-mark { border-radius:.2rem; background:#fff; color:#111; }
 .style-noir .site-nav .nav-cta { background:transparent; }
 .style-noir .mode-toggle { border-color:#888; }
@@ -448,23 +458,23 @@ html { overflow-x:clip; }
 .product-copy { position:absolute; z-index:6; left:48%; top:27%; width:24%; }.product-copy>p{font-size:1.2rem}.swatches{display:flex;align-items:center;gap:.8rem;margin-top:1.2rem}.swatches span{display:grid;place-items:center;width:3rem;aspect-ratio:1;border:1px solid #666;border-radius:50%;font-size:.65rem}.swatches .active{background:#fff;color:#111}.swatches a{display:grid;place-items:center;width:2.7rem;aspect-ratio:1;border-radius:50%;background:#fff;color:#111;text-decoration:none}
 .noir-benefits { position:absolute; top:27%; right:3%; width:23%; margin:0; padding:0; list-style:none; }.noir-benefits li{display:flex;justify-content:space-between;padding:1rem 0;border-block-start:1px dashed #777;color:#ddd}.noir-benefits b{color:#fff}
 .noir-statement { position:absolute; left:48%; right:3%; bottom:5%; }.noir-statement>span{display:inline-block;padding:.6rem 1rem;border:1px solid #777;border-radius:3rem}.noir-statement h1{max-width:none;margin-top:1.5rem;font-size:clamp(2.3rem,4vw,4.8rem);font-weight:400;line-height:1.04}.noir-statement h1 em{color:#777;font-style:normal}.noir-statement h1 b{display:inline-grid;place-items:center;width:2.4rem;aspect-ratio:1;border-radius:50%;background:#fff;color:#111;font-size:1rem;vertical-align:middle}
-.noir-drop { padding:9rem 0; background:#f2f2f2; }.noir-drop header{display:flex;justify-content:space-between;align-items:end;margin-bottom:4rem}.noir-drop h2{font-size:clamp(3.5rem,7vw,7rem);text-transform:uppercase}.drop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.drop-grid article{padding:1rem;border:1px solid #aaa}.product-silhouette{position:relative;height:25rem;margin-bottom:1.5rem;background:#dfe3e5}.product-silhouette::before{content:"";position:absolute;inset:12% 25% 5%;border-radius:30% 30% 8% 8%;background:#1e2024}.product-silhouette::after{content:"";position:absolute;left:17%;right:17%;top:25%;height:40%;border-radius:50%;background:#1e2024}.product-silhouette.long::before{inset:8% 29% 2%}.product-silhouette.vest::after{display:none}.drop-grid h3{margin:.5rem 0;font-size:1.7rem}.drop-grid p{color:#333}.drop-grid strong{display:block;margin-top:1rem}
+.noir-drop { padding:9rem 0; background:var(--bg-soft); }.noir-drop header{display:flex;justify-content:space-between;align-items:end;margin-bottom:4rem}.noir-drop h2{font-size:clamp(3.5rem,7vw,7rem);text-transform:uppercase}.drop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.drop-grid article{padding:1rem;border:1px solid var(--line)}.product-silhouette{position:relative;height:25rem;margin-bottom:1.5rem;background:var(--surface-soft)}.product-silhouette::before{content:"";position:absolute;inset:12% 25% 5%;border-radius:30% 30% 8% 8%;background:var(--scene)}.product-silhouette::after{content:"";position:absolute;left:17%;right:17%;top:25%;height:40%;border-radius:50%;background:var(--scene)}.product-silhouette.long::before{inset:8% 29% 2%}.product-silhouette.vest::after{display:none}.drop-grid h3{margin:.5rem 0;font-size:1.7rem}.drop-grid p{color:var(--ink-soft)}.drop-grid strong{display:block;margin-top:1rem}
 .noir-manifesto { padding:10rem 0; background:#111; color:#fff; }.noir-manifesto .wrap{display:grid;grid-template-columns:.3fr 1.1fr .6fr;gap:4rem}.noir-manifesto h2{font-size:clamp(4rem,8vw,8rem);text-transform:uppercase;line-height:.86}.noir-manifesto p{color:#ddd}.noir-manifesto a{display:inline-flex;margin-top:2rem;color:#fff;font-weight:800}
-.noir-close { padding:10rem 4vw; background:#fff; color:#111; text-align:center; }.noir-close h2{margin:.7rem 0 2rem;font-size:clamp(4rem,9vw,9rem);text-transform:uppercase}.noir-close a{display:inline-flex;padding:1rem 1.5rem;background:#111;color:#fff;text-decoration:none;font-weight:900}
+.noir-close { padding:10rem 4vw; background:var(--surface); color:var(--ink); text-align:center; }.noir-close h2{margin:.7rem 0 2rem;font-size:clamp(4rem,9vw,9rem);text-transform:uppercase}.noir-close a{display:inline-flex;padding:1rem 1.5rem;background:var(--scene);color:var(--scene-ink);text-decoration:none;font-weight:900}
 .style-noir .site-footer{background:#111;color:#fff;border-color:#444}.style-noir .site-footer a,.style-noir .site-footer p,.style-noir .site-footer h2{color:#fff}
 @media(max-width:64rem){.style-noir .site-header{position:relative;inset:auto;width:auto;background:#111}.noir-showcase{margin:0;min-height:75rem}.product-frame{top:17%;width:55%;height:35rem;bottom:auto}.product-copy{left:62%;top:22%;width:33%}.noir-benefits{left:62%;right:3%;top:44%;width:auto}.noir-statement{left:3%;bottom:4%}.drop-grid{grid-template-columns:1fr}.noir-manifesto .wrap{grid-template-columns:1fr}}
 @media(max-width:42rem){.noir-tools{top:3%;left:1rem}.noir-tools a:last-child{display:none}.product-frame{left:1rem;right:1rem;top:10%;width:auto;height:34rem}.product-copy,.noir-benefits{display:none}.noir-statement{left:1rem;right:1rem}.noir-showcase{min-height:63rem}.noir-statement h1{font-size:2.5rem}.noir-drop header{align-items:flex-start;flex-direction:column}.noir-drop h2,.noir-manifesto h2{font-size:clamp(2.5rem,13vw,4rem)}.noir-manifesto .wrap>*{min-width:0}.style-noir .wrap{width:min(calc(100% - 2rem),92rem)}}
 .swatches span{font-size:.75rem}
-body:not(:has(.noir-showcase)) .site-header{background:#e8e8e8}
-body:not(:has(.noir-showcase)) .site-header .brand,body:not(:has(.noir-showcase)) .site-header .site-nav a,body:not(:has(.noir-showcase)) .site-header .mode-toggle{color:#111}
-body:not(:has(.noir-showcase)) .eyebrow{color:#202020}
-body:not(:has(.noir-showcase)) .lead{color:#333}
+body:not(:has(.noir-showcase)) .site-header{background:var(--bg)}
+body:not(:has(.noir-showcase)) .site-header .brand,body:not(:has(.noir-showcase)) .site-header .site-nav a,body:not(:has(.noir-showcase)) .site-header .mode-toggle{color:var(--ink)}
+body:not(:has(.noir-showcase)) .eyebrow{color:var(--accent)}
+body:not(:has(.noir-showcase)) .lead{color:var(--ink-soft)}
 .style-noir .skip-link{background:#000;color:#fff}
 .noir-statement h1 em{color:#fff}
 .swatches a{width:2.75rem}
 .swatches a{background:#fff!important;color:#000!important}
 .noir-benefits b{background:#101010;color:#fff}
-body:not(:has(.noir-showcase)) .eyebrow{background:#e8e8e8}
+body:not(:has(.noir-showcase)) .eyebrow{background:var(--bg)}
 }
 
 @layer theme.base {
@@ -590,7 +600,9 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .site-footer { padding-block: clamp(3rem, 6vw, 5rem); background: var(--bg-soft); border-block-start: 1px solid var(--line-soft); }
 #ssg-search-btn { --ssg-search-top: 18px; }
 #ssg-search-btn kbd { margin-block: 0; }
-.site-nav > #ssg-search-btn { position: static; inset: auto; flex: 0 0 auto; box-shadow: none; }
+.site-nav > #ssg-search-btn { position: static; inset: auto; flex: 0 0 auto; width: 2.75rem; padding: 0; box-shadow: none; }
+.site-nav > #ssg-search-btn span, .site-nav > #ssg-search-btn kbd { display: none; }
+.site-nav:not(:has(> #ssg-search-btn))::after { content: ""; flex: 0 0 2.75rem; width: 2.75rem; min-height: 2.75rem; }
 .footer-grid { display: grid; grid-template-columns: 1.2fr 0.7fr 1fr; gap: 3rem; }
 .footer-grid > div { display: grid; align-content: start; gap: 1rem; }
 .footer-grid h2 { font: 800 var(--step--1)/1.2 var(--font-sans); letter-spacing: 0.05em; text-transform: uppercase; }
@@ -755,10 +767,58 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
 }
 
 @media (color-gamut: p3) {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --accent: color(display-p3 0.08 0.08 0.08);
 }
 :root[data-theme="dark"] {
   --accent: color(display-p3 1.00 1.00 1.00);
 }
+}
+
+/* The page headline is sized from its own column, not the viewport.
+ *
+ * `.page-grid` gives the header a 0.65fr track — about 409px at 1440 — while
+ * the headline was `clamp(2.25rem, 10vw, 2.75rem)` off the viewport. A single
+ * long word ("Recommendation") then rendered 698px wide and ran straight
+ * through the prose column beside it: text printed over text, which no
+ * contrast or reflow gate can see because nothing overflowed the page. */
+.page-grid header { container-type: inline-size; }
+.page-grid header h1 {
+  font-size: min(var(--step-4), 13cqi);
+  overflow-wrap: break-word;
+}
+
+/* The disclosure label sits on the page header, which is light in light
+   mode: a white "Menu" measured 1.10:1 there. It takes the page ink, and
+   the scene ink only where the header is actually dark. */
+.style-noir .nav-toggle,
+.style-noir .nav-toggle span { color: var(--ink); }
+
+body.style-noir:has(.noir-showcase) .nav-toggle,
+body.style-noir:has(.noir-showcase) .nav-toggle span { color: var(--scene-ink); }
+
+/* WCAG 2.5.5 Target Size (Enhanced). A standalone call to action is a
+   control, not a phrase inside a sentence, so the inline exception does not
+   cover it; the manifesto link measured 262x30. */
+.noir-manifesto a,
+.style-noir .wrap > a,
+.style-noir .wrap > div > a:only-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Footer links are a list of controls, not running text. */
+.style-noir .site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Art-directed mobile hero: the desktop file is a tall portrait, and the
+   reserved box has to match the 3:2 crop or the swap shows as layout shift. */
+@media (max-width: 64rem) {
+  .art-mobile-crop { aspect-ratio: 3 / 2; object-fit: cover; height: auto; }
 }

@@ -3,6 +3,13 @@
   if (window.__theme_inited) return;
   window.__theme_inited = true;
 
+  /* Older SSG releases emit the search trigger at a fixed viewport position
+     instead of replacing the declared header slot. Normalise both generator
+     behaviours before interaction begins. */
+  var searchSlot = document.querySelector("[data-ssg-search]");
+  var searchButton = document.getElementById("ssg-search-btn");
+  if (searchSlot && searchButton) searchSlot.replaceWith(searchButton);
+
   /* Three states, not two: "system" is the absence of data-theme, so a
      visitor can hand the choice back to the operating system. The previous
      two-way switch stamped data-theme on the first click and never removed

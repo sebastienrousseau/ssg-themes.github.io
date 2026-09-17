@@ -1,0 +1,13 @@
+name = "curio"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "AI shopping-assistant theme with oversized type, product cards and transparent recommendations."
+homepage = "https://themes.static-site-generator.com/curio/"
+demosite = "https://themes.static-site-generator.com/curio/"
+tags = ["marketing", "commerce", "ai", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

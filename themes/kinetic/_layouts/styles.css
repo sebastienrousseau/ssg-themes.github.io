@@ -568,7 +568,28 @@
   .hero-inner {
     display: grid;
     gap: var(--gap);
-    max-width: 46rem;
+    align-items: center;
+  }
+
+  .hero-photo {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 742;
+    object-fit: cover;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
   }
 
   .eyebrow {
@@ -1135,3 +1156,21 @@ footer a,
 html {
   scroll-padding-top: 5.5rem;
 }
+
+/* Stable, in-flow search trigger for both current and legacy SSG output. */
+.site-nav > [data-ssg-search] {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.site-nav > #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+}
+.site-nav > #ssg-search-btn span,
+.site-nav > #ssg-search-btn kbd { display: none; }

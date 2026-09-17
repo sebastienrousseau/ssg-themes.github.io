@@ -1,0 +1,53 @@
+---
+name: "Noir"
+short_name: "NO"
+title: "À propos — Noir"
+description: "Les principes de contraste, de construction et d'accessibilité qui sous-tendent le thème catalogue Noir."
+keywords: "à propos Noir, design mode"
+author: "SSG Theme Suite"
+date: "2026-09-13"
+layout: "page"
+language: "fr-FR"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+theme_style: "style-noir"
+theme_colour: "#090a0b"
+brand_mark: "N"
+footer_note: "Un vestiaire sans saison, une construction précise et un catalogue plus calme."
+cta_primary: "View the collection"
+eyebrow: "À propos de Noir"
+headline: "Le contraste comme méthode."
+lead: "Noir pousse le contraste au maximum tout en gardant chaque information produit lisible et vérifiable."
+locale_path: "/noir/fr/"
+base_path: "/noir/"
+en_current: ""
+fr_current: ' aria-current="true"'
+label_home: "Accueil Noir"
+label_menu: "Menu"
+label_nav: "Principale"
+label_langs: "Langue"
+label_theme: "Changer le thème de couleur"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+label_theme_system: "Système"
+label_explore: "Explorer"
+label_start: "Engager la conversation"
+label_demo_content: "Contenu de démonstration."
+label_made_with: "Réalisé avec SSG"
+nav_services: "Principes de collection"
+nav_work: "Vestiaire"
+nav_work_long: "Pièces choisies"
+nav_about: "À propos"
+nav_contact: "Contact"
+slug_about: "a-propos"
+slug_contact: "contact"
+translation_key: "about"
+---
+
+## Un contraste tenu
+
+La palette se limite au noir et au blanc, ce qui rend chaque état d'interface
+explicite : disponibilité, taille sélectionnée, rupture. Aucun signal ne repose
+sur une nuance de gris que le contraste élevé effacerait.

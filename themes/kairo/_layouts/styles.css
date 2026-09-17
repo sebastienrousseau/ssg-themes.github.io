@@ -328,7 +328,8 @@
 @layer theme.tokens, theme.base, theme.layout, theme.components, theme.variants;
 
 @layer theme.tokens {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --bg: #f5f4ef;
   --bg-soft: #eee9e3;
   --surface: #ffffff;
@@ -443,7 +444,8 @@ html { overflow-x:clip; }
 .style-kairo .site-nav { position:absolute; inset:0 0 auto auto; align-items:stretch; flex-direction:column; gap:0; width:10rem; margin:0; }
 .style-kairo .site-nav a { justify-content:flex-start; min-height:2.75rem; padding:.25rem .5rem; }
 .style-kairo .site-nav .nav-cta { background:transparent; margin-left:0; }
-.style-kairo .site-nav>#ssg-search-btn { justify-content:flex-start; width:10rem; min-height:2.75rem; padding:.25rem .5rem; border:0; border-radius:0; background:transparent!important; color:#fff!important; }
+.style-kairo .site-nav>#ssg-search-btn { justify-content:flex-start; width:10rem; min-height:2.75rem; padding:.25rem .5rem; border:0; border-radius:0; background:var(--ka-chrome)!important; color:var(--ka-chrome-ink)!important; }
+.style-kairo .site-nav>#ssg-search-btn span { color:inherit!important; }
 .style-kairo .site-nav>#ssg-search-btn kbd { display:none; }
 .style-kairo .mode-toggle { position:absolute; top:16.8rem; right:0; z-index:30; border-color:#fff; border-radius:0; }
 .kairo-poster { position:relative; min-height:100svh; margin:clamp(.5rem,4vw,4rem); overflow:hidden; isolation:isolate; background:#222; }
@@ -551,6 +553,7 @@ html { overflow-x:clip; }
 .style-kairo .site-nav .nav-cta { margin:0; border-radius:0!important; background:#ff6a00; color:#000; }
 .style-kairo .search-slot { display:flex; width:100%; min-height:2.75rem; }
 .style-kairo .search-slot>#ssg-search-btn { position:static!important; inset:auto!important; justify-content:flex-start; width:100%; min-height:2.75rem; padding:.25rem .65rem; border:0; border-radius:0!important; background:var(--ka-chrome)!important; color:var(--ka-chrome-ink)!important; box-shadow:none!important; }
+.style-kairo .search-slot>#ssg-search-btn span { color:inherit!important; }
 .style-kairo .search-slot>#ssg-search-btn kbd { display:none; }
 .style-kairo .mode-toggle { position:absolute; top:18.25rem; right:0; z-index:30; min-height:2.75rem; border:1px solid var(--ka-chrome-line); border-radius:0; background:var(--ka-chrome); }
 .style-kairo .skip-link { background:var(--ka-chrome); color:var(--ka-chrome-ink); }
@@ -996,7 +999,8 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
 }
 
 @media (color-gamut: p3) {
-:root,:root[data-theme="light"] {
+:root,
+:root[data-theme="light"] {
   --accent: color(display-p3 0.46 0.14 0.00);
 }
 :root[data-theme="dark"] {
@@ -1095,4 +1099,54 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
   .style-kairo .work-heading h2,
   .style-kairo .section-heading h2,
   .style-kairo .kairo-close h2 { font-size:clamp(var(--ka-f2),15vw,var(--ka-f3)); }
+}
+
+/* The page headline is sized from its own column, not the viewport.
+ *
+ * `.page-grid` gives the header a 0.65fr track — about 409px at 1440 — while
+ * the headline was `clamp(2.25rem, 10vw, 2.75rem)` off the viewport. A single
+ * long word ("Recommendation") then rendered 698px wide and ran straight
+ * through the prose column beside it: text printed over text, which no
+ * contrast or reflow gate can see because nothing overflowed the page. */
+.page-grid header { container-type: inline-size; }
+.page-grid header h1 {
+  font-size: min(var(--step-4), 13cqi);
+  overflow-wrap: break-word;
+}
+
+/* Poster photograph: bounded crop. A `100svh` frame over a 16:10 source cut
+   away more than half of it at every width. */
+.kairo-poster > img { position: static; width: 100%; height: auto; aspect-ratio: 16 / 10; }
+.kairo-poster { min-height: 0; }
+@media (min-width: 64rem) {
+  .kairo-poster { min-height: 0; }
+}
+
+/* Project cards: bounded crop.
+ *
+ * A three-column grid with `min-height:44rem` gave each card a tall, narrow
+ * slot, and the photographs inside were `height:100%` under `cover` — one
+ * showed 39% of its frame. The cards keep their grid, but each photograph is
+ * now allowed its own proportion, so the grid row grows to the picture rather
+ * than the picture being cut to the row. */
+.project-grid { min-height: 0; }
+.project > img,
+.project.portrait img {
+  position: static;
+  width: 100%;
+  height: auto;
+  /* No forced ratio: the cards hold photographs of different shapes — one is
+     square — so imposing a single aspect merely moves the cropping around.
+     `height:auto` lets each keep its own. */
+  aspect-ratio: auto;
+}
+.project { display: grid; align-content: end; }
+
+/* Art-directed mobile hero.
+   The desktop file is a tall portrait; on a phone it would run to roughly
+   three screens of height and cost three times the bytes. A 3:2 crop is
+   served below 64rem, and the reserved box has to match it or the swap
+   shows up as layout shift. */
+@media (max-width: 64rem) {
+  .art-mobile-crop { aspect-ratio: 3 / 2; object-fit: cover; height: auto; }
 }

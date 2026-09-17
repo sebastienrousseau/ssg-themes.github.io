@@ -574,7 +574,8 @@
 
   .hero-image img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    aspect-ratio: 1200 / 900;
     object-fit: cover;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
@@ -1222,4 +1223,10 @@ html {
    same reason. */
 .cta-row-centred {
   justify-content: center;
+}
+
+/* AAA correction for the generator-owned search label on light surfaces. */
+:root[data-theme="light"] #ssg-search-btn { color: #505057 !important; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #ssg-search-btn { color: #505057 !important; }
 }
