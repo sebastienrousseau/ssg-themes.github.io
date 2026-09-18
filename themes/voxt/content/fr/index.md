@@ -9,6 +9,8 @@ name: Voxt
 headline: "Des environnements de développement IA portables et jetables"
 lead: "Des conteneurs de développement ultra-performants : IDE TMUX à quatre volets, agents Model Context Protocol (MCP) en stdio, appariement des worktrees Git et démarrage en moins de 500 ms."
 language: "fr-FR"
+logo_alt: "Logo de l'environnement de conteneurs Voxt"
+light_trace_alt: "Traînées lumineuses circulaires bleues et magenta tracées sur un fond noir"
 lang_code: "FR"
 lang_change: "Changer de langue"
 date: 2026-08-29

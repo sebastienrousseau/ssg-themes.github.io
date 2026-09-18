@@ -9,6 +9,8 @@ name: Voxt
 headline: Portable, Disposable AI Developer Environments
 lead: Ultra-performant dev containers featuring a 4-pane TMUX IDE, stdio Model Context Protocol (MCP) AI agents, git worktree pairing, and sub-500ms startup times.
 language: en-GB
+logo_alt: "Voxt container environment logo"
+light_trace_alt: "Circular blue and magenta light trails drawn against a black field"
 lang_code: "EN"
 lang_change: "Change language"
 date: 2026-08-29
