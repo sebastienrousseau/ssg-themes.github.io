@@ -29,7 +29,8 @@ PORT="${PORT:-8733}"
 MIN_URLS="${MIN_URLS:-90}"
 
 python3 - "$PORT" > /tmp/pa11yci.generated.json <<'PY'
-import json, os, re, sys
+import json
+import os, re, sys
 port = sys.argv[1]
 urls = []
 for d, _, fs in os.walk('public'):
@@ -87,12 +88,23 @@ overlay_text = [
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
     '.brand-mark', '.hero h1', '.hero .lead', *overlay_text,
 ])
+# Each worker is a full headless Chrome. The default fans out far enough to
+# be killed by the OS on a machine with little free memory, and a run that
+# dies partway reports nothing at all rather than a failure.
+cfg['concurrency'] = int(os.environ.get('PA11Y_CONCURRENCY', '2'))
 json.dump(cfg, open('/dev/stdout', 'w'), indent=2)
 PY
 
 COUNT=$(python3 -c "import json;print(len(json.load(open('/tmp/pa11yci.generated.json'))['urls']))")
 if (( COUNT < MIN_URLS )); then
   echo "error: only ${COUNT} URLs discovered, expected at least ${MIN_URLS} — the build is incomplete" >&2
+  exit 1
+fi
+
+# Refuse to run if something else already holds the port: a failed bind is
+# silent, and the suite would then measure whatever site that process serves.
+if lsof -nP -iTCP:"${PORT}" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "error: port ${PORT} is already in use; set PORT to a free port" >&2
   exit 1
 fi
 

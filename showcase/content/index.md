@@ -53,7 +53,7 @@ schema: "page"
         <div class="sc-body">
           <p class="eyebrow">Portfolio</p>
           <h3>Apex</h3>
-          <p>Portfolio and consulting. Cool neutrals with a deep blue accent, a portrait-led hero and a metric grid.</p>
+          <p>Portfolio and consulting. Cool neutrals with a deep blue accent, an image-led hero and a metric grid.</p>
           <ul class="sc-meta"><li>7 layouts</li><li>Advisors, directors, consultants</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="apex/">View demo</a>

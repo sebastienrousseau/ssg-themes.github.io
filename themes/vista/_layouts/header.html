@@ -2,7 +2,7 @@
   <div class="container header-inner">
     <a class="brand" href="{{locale_path}}">{{name}}</a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" aria-label="{{ui_primary}}">
       <!-- Always present; CSS hides it above 52rem. -->
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
         <span class="visually-hidden">Menu</span>
@@ -15,12 +15,23 @@
       </button>
 
       <ul class="nav-menu" id="navMenu">
-        <li><a class="nav-link" href="{{locale_path}}features/" {{#if nav_features}}aria-current="page"{{/if}}>Features</a></li>
-        <li><a class="nav-link" href="{{locale_path}}specs/" {{#if nav_specs}}aria-current="page"{{/if}}>Specifications</a></li>
-        <li><a class="nav-link" href="{{locale_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a></li>
+        <li><a class="nav-link" href="{{locale_path}}{{slug_features}}/" {{#if nav_features}}aria-current="page"{{/if}}>{{ui_features}}</a></li>
+        <li><a class="nav-link" href="{{locale_path}}{{slug_specs}}/" {{#if nav_specs}}aria-current="page"{{/if}}>{{ui_specifications}}</a></li>
+        <li><a class="nav-link" href="{{locale_path}}{{slug_contact}}/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a></li>
       </ul>
 
-      <div data-ssg-lang-switcher></div>
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{ui_language}}" aria-label="{{lang_code}}, {{lang_change}}">
+      <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
 
       <button class="theme-toggle" id="mode-toggle" type="button"

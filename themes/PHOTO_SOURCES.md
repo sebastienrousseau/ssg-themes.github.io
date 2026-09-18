@@ -4,7 +4,7 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 
 | Theme | Local theme asset | CloudCDN source |
 | --- | --- | --- |
-| Apex | `apex/assets/images/sebastienrousseau-{320,640,1200}.webp` | `https://cloudcdn.pro/stocks/images/sebastienrousseau-{320,640,1200}.webp` |
+| Apex | `apex/assets/images/rawpixel-com-369782-{320,640,1200}.webp` | `https://cloudcdn.pro/stocks/images/rawpixel-com-369782-{320,640,1200}.webp` |
 | Atlas | `atlas/images/research-{320,640}.webp`, `atlas/images/research.webp` | `https://cloudcdn.pro/stocks/images/markus-winkler-IrRbSND5EUc-unsplash-{320,640,1200}.webp` |
 | Cadence | `cadence/images/rider.webp` | `https://cloudcdn.pro/stocks/images/isaac-quesada-0-idx4o9_2o-1200.webp` |
 | Cadence | `cadence/images/motion-{320,640,1200}.webp`, `cadence/images/motion.webp` | `https://cloudcdn.pro/stocks/images/osman-rana-G7VN8NadjO0-{320,640,1200}.webp` |
@@ -19,7 +19,7 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Kaishi | `kaishi/images/release-{320,640}.webp`, `kaishi/images/release.webp` | `https://cloudcdn.pro/stocks/images/david-pisnoy-0nZwyizy7I4-unsplash-{320,640,1200}.webp` |
 | Kinetic | `kinetic/images/momentum-{320,640}.webp`, `kinetic/images/momentum.webp` | `https://cloudcdn.pro/stocks/images/tom-parkes-Ns-BIiW_cNU-{320,640,1200}.webp` |
 | Lucid | `lucid/images/handbook-{320,640}.webp`, `lucid/images/handbook.webp` | `https://cloudcdn.pro/stocks/images/austin-distel-Etxsv8WiFjM-{320,640,1200}.webp` |
-| Noir | `noir/images/coat-{320,640}.webp`, `noir/images/coat.webp` | `https://cloudcdn.pro/stocks/images/gage-skidmore-scarlett-johansson-2-{320,640,1200}.webp` |
+| Noir | `noir/images/silhouette.webp` and derived rungs | `https://cloudcdn.pro/stocks/images/marc-olivier-jodoin-eiMzJl3xj4o-1200.webp` |
 | Prism | `prism/images/institution-{320,640}.webp`, `prism/images/institution.webp` | `https://cloudcdn.pro/stocks/images/joel-filipe-jU9VAZDGMzs-{320,640,1200}.webp` |
 | Quill | `quill/images/feature-{320,640}.webp`, `quill/images/feature.webp` | `https://cloudcdn.pro/stocks/images/ash-from-modern-afflatus-NQ6Lh81BTRs-{320,640,1200}.webp` |
 | Quill | `quill/images/journal-{320,640}.webp`, `quill/images/journal.webp` | `https://cloudcdn.pro/stocks/images/masaaki-komori-3SWDMwyBFLI-{320,640,1200}.webp` |

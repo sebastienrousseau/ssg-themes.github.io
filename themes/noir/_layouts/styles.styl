@@ -126,7 +126,7 @@ body.style-noir:has(.noir-showcase) .mode-toggle { color:var(--scene-ink); }
 .style-noir .mode-toggle { border-color:#888; }
 .noir-showcase { position:relative; min-height:calc(100svh - 8rem); margin:4rem; overflow:hidden; background:var(--black); color:#fff; }
 .noir-tools { position:absolute; left:3%; top:17%; z-index:3; display:flex; gap:2rem; align-items:center; }
-.noir-tools a { display:inline-flex; min-height:3rem; align-items:center; color:#fff; font-weight:700; }.noir-tools .discover{padding:.7rem 1rem;background:#fff;color:#111;text-decoration:none}
+.noir-tools a { display:inline-flex; min-height:3rem; align-items:center; color:#fff; font-weight:700; }
 .product-frame { position:absolute; left:3%; top:25%; bottom:6%; width:34%; overflow:clip; border-radius:1rem; background:#e7ecee; }.product-frame::after{content:"";position:absolute;inset:1.5rem -1rem -1rem 1.5rem;border:1px solid #555;border-radius:1rem;z-index:-1}.product-frame picture,.product-frame img{display:block;width:100%;height:100%}.product-frame img{object-fit:cover;object-position:center top}
 .product-copy { position:absolute; z-index:6; left:48%; top:27%; width:24%; }.product-copy>p{font-size:1.2rem}.swatches{display:flex;align-items:center;gap:.8rem;margin-top:1.2rem}.swatches span{display:grid;place-items:center;width:3rem;aspect-ratio:1;border:1px solid #666;border-radius:50%;font-size:.65rem}.swatches .active{background:#fff;color:#111}.swatches a{display:grid;place-items:center;width:2.7rem;aspect-ratio:1;border-radius:50%;background:#fff;color:#111;text-decoration:none}
 .noir-benefits { position:absolute; top:27%; right:3%; width:23%; margin:0; padding:0; list-style:none; }.noir-benefits li{display:flex;justify-content:space-between;padding:1rem 0;border-block-start:1px dashed #777;color:#ddd}.noir-benefits b{color:#fff}
@@ -489,4 +489,251 @@ body.style-noir:has(.noir-showcase) .nav-toggle span { color: var(--scene-ink); 
   min-height: 44px;
   min-width: 44px;
 }
+}
+
+/* Colour swatches carry their name as text, which is the accessible choice —
+   colour alone would not identify them. The name therefore has to fit: a
+   fixed 3rem circle clipped "Graphite" and pushed it outside the ring, so
+   these are pills that size to their label and keep a circular minimum. */
+.swatches span {
+  width: auto;
+  min-width: 3rem;
+  aspect-ratio: auto;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* The copy column was narrow enough that the lead broke after three or four
+   words and crowded the swatch row beneath it. */
+.product-copy { width: 30%; }
+.swatches { gap: 0.6rem; margin-top: 1.6rem; }.style-noir .ap-lang-toggle { color: var(--ink); }body.style-noir:has(.noir-showcase) .ap-lang-toggle { color: var(--scene-ink); }
+
+/* The hero photograph is far taller than its frame, and `cover` crops from
+   the centre — which put the figure below the visible edge. Biasing the
+   crop downward keeps her in frame while still leading with the skylight. */
+.product-frame img { object-position: 50% 72%; }
+
+/* Hero column.
+   `product-copy` and `noir-statement` used to be separate absolutely
+   positioned blocks sharing a left edge — one growing downward from 27%,
+   the other upward from the bottom. On a short viewport they met in the
+   middle and the swatches ran through the eyebrow. They are one flow column
+   now, so they cannot overlap at any height.
+
+   Below 64rem the wrapper is `display: contents`, leaving the existing
+   mobile rules for the two children exactly as they were. */
+.noir-column { display: contents; }
+
+@media (min-width: 64.01rem) {
+  .noir-column {
+    position: absolute;
+    z-index: 6;
+    inset: 27% 3% 5% 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+  .noir-column .product-copy { position: static; inset: auto; width: auto; max-width: 34ch; }
+  .noir-column .noir-statement { position: static; inset: auto; }
+}
+
+/* The removed control left a single link in the tools row. */
+.noir-tools { gap: 0; }
+
+/* The statement headline is sized against viewport width only, so on a short
+   window four lines of it ran past the bottom of the hero, which clips its
+   overflow. Taking the smaller of a width- and a height-derived size keeps
+   the whole sentence inside the stage at any window shape. */
+@media (min-width: 64.01rem) {
+  .noir-column .noir-statement h1 {
+    font-size: clamp(2rem, min(4vw, 5.2vh), 4.8rem);
+  }
+}
+
+/* The stage used to clip its own overflow, which is safe only while the
+   content is a fixed size. With increased text spacing (WCAG 1.4.12) the
+   column grows and 103px of the statement was cut off. The column sizes to
+   its content now and the stage lets it through, so nothing is lost. */
+
+/* Bilingual safety net.
+   A heading that cannot break pushes its grid past the viewport as soon as
+   the translation is longer than the English — which is how Kairo and
+   Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
+   only acts when a word genuinely does not fit, so it changes nothing for
+   copy that already fits. */
+h1, h2, h3, h4 { overflow-wrap: break-word; }
+
+/* A sticky masthead can cover whatever the keyboard scrolls to, which is
+   what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll
+   padding means a focused element always comes to rest below it. */
+html { scroll-padding-block-start: 5.5rem; }
+
+@media (max-width: 48rem) {
+  html { scroll-padding-block-start: 4.5rem; }
+}
+
+/* Hero column layout.
+   The lead copy and the benefits share the top row; the statement spans the
+   full width beneath them. Previously the column was a single flex stack
+   that ran underneath the separately positioned benefits list, which left
+   that text obscured — axe cannot establish a contrast ratio for covered
+   text, and reported every item as a failure. */
+@media (min-width: 64.01rem) {
+  .noir-column {
+    display: grid;
+    grid-template-columns: minmax(0, 34ch) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 3.5rem 3rem;
+    align-items: start;
+    /* The frame beside this column is a 4:5 portrait and therefore taller
+       than the copy. Pinning the statement to the bottom of a `1fr` row
+       pooled every spare pixel into one gap in the middle of the hero;
+       centring the group as a whole splits that space above and below it
+       instead, which is what the composition wants. */
+    align-content: center;
+  }
+  .noir-column .product-copy { grid-column: 1; grid-row: 1; max-width: none; }
+  .noir-column .noir-benefits { position: static; inset: auto; width: auto; grid-column: 2; grid-row: 1; }
+  .noir-column .noir-statement { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* Desktop hero: a grid, not four absolutely positioned blocks.
+   The stage's height came from the viewport while its contents were taken
+   out of flow, so anything that grew — a longer translation, larger text,
+   a shorter window — spilled past the black panel onto the page. That is
+   what left the statement unreadable and stopped axe ruling on its
+   contrast. As a grid the panel measures its own contents, so it cannot
+   happen at any window size or in any language.
+
+   Below 64rem nothing changes: the existing mobile rules still apply. */
+@media (min-width: 64.01rem) {
+  .noir-showcase {
+    display: grid;
+    grid-template-areas: "tools tools" "frame column";
+    grid-template-columns: 34% minmax(0, 1fr);
+    gap: 2rem 3rem;
+    align-content: start;
+    /* The masthead is fixed over this panel at desktop widths, so the
+       first grid row needs to clear it; in the old absolute layout the
+       tools row did that with `top: 17%`. */
+    padding: 8rem 3rem 3rem;
+    min-height: calc(100svh - 8rem);
+    overflow: visible;
+  }
+
+  .noir-showcase .noir-tools { position: static; inset: auto; grid-area: tools; }
+
+  .noir-showcase .product-frame {
+    /* `relative`, not `static`: the frame carries a decorative ::after that
+       is positioned against it. Made static, that border anchored to the
+       stage instead and drew a stray outline across the whole panel. */
+    position: relative;
+    inset: auto;
+    width: auto;
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .noir-showcase .noir-column { position: static; inset: auto; grid-area: column; }
+}
+
+/* The masthead is absolutely positioned over the page, so a short page has
+   to start below it. The error page is the only one brief enough for its
+   first line to land under the bar. */
+.error-page { padding-block-start: 12rem; }
+
+/* Language switcher.
+   One control on all twenty-two themes: a globe, the current locale code,
+   and a panel anchored under the button. It was a bare inline list before,
+   positioned differently in every header.
+
+   A <details> disclosure, not a scripted menu. The themes enforce
+   `script-src 'self'` and the semantics gate renders every page with
+   JavaScript blocked, so anything script-driven would be a dead control in
+   the one rendering that has to keep working.
+
+   Colours come from `currentColor` and the two tokens every theme defines,
+   so a theme needs no palette of its own for this and dark mode follows the
+   header it sits in. The panel is opaque on purpose: the reference design
+   blurs the backdrop, but translucent text surfaces are exactly what the
+   AAA contrast gate cannot measure. */
+.ap-lang { position: relative; }
+.ap-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  list-style: none;
+}
+/* Both spellings: Safari still ships the WebKit pseudo-element. */
+.ap-lang-toggle::-webkit-details-marker { display: none; }
+.ap-lang-toggle::marker { content: ""; }
+.ap-lang-toggle:hover { border-color: currentColor; }
+.ap-lang-globe { font-size: 1rem; line-height: 1; }
+.ap-lang-current { line-height: 1; font-variant-numeric: tabular-nums; }
+/* A closed <details> hides its children through a UA rule that an
+   absolutely positioned box escapes: the panel was still laid out, and the
+   layout gate caught it overlapping the theme toggle and the nav links on
+   every theme. Hiding it explicitly is what actually takes it out of flow. */
+.ap-lang:not([open]) .ap-lang-menu { display: none; }
+.ap-lang-menu {
+  position: absolute;
+  top: calc(100% + .375rem);
+  /* Anchored to the button's left edge, not its right. The reference puts
+     this control last in its header, where opening leftwards is the only
+     way it fits; here the search and theme buttons always follow it, so
+     there is room to its right and opening left ran off the viewport. */
+  left: 0;
+  z-index: 60;
+  width: max-content;
+  min-width: 100%;
+  padding: .375rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: .6rem;
+  background: var(--surface, var(--bg, #fff));
+  box-shadow: 0 8px 28px rgb(0 0 0 / .18);
+  /* The toggle inherits the header's colour, which on a theme with a dark
+     stage is not the page's. The panel sits on the page surface, so it has
+     to reset rather than inherit it. */
+  color: var(--ink, CanvasText);
+}
+.ap-lang-menu-grid { display: grid; gap: .125rem; }
+.ap-lang-item {
+  display: block;
+  min-height: 44px;
+  padding: .6rem .75rem;
+  border-radius: .35rem;
+  color: inherit;
+  font-size: .85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ap-lang-item:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.ap-lang-item[aria-current] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .3em;
+  text-decoration-thickness: 2px;
+}
+
+/* Far enough along a narrow header that opening rightwards would overflow;
+   below this width the panel hangs from the button's right edge instead. */
+@media (max-width: 30rem) {
+  .ap-lang-menu { left: auto; right: 0; }
 }

@@ -23,9 +23,8 @@ function walk(dir, out = []) {
     if (statSync(full).isDirectory()) walk(full, out);
     else if (entry === '404.html') {
       // Not reachable by walking directories: a 404 page has no index.html.
-      // No theme emits one today - the _layouts/404.html templates are never
-      // built - so this finds nothing yet. It is here so that the day one is
-      // emitted it is measured, rather than shipping unlooked-at.
+      // Written by scripts/publish_404.py after the build, one per theme and
+      // per locale, plus the gallery's own.
       const rel = relative(ROOT, dir).split(sep).join('/');
       out.push(rel === '' ? '/404.html' : `/${rel}/404.html`);
     }

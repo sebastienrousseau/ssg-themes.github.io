@@ -1,52 +1,52 @@
 {{#extends "base"}}{{#block "main"}}
 <section class="visage-intro" aria-labelledby="hero-heading">
   <div class="wrap">
-    <p class="lilac-label">Specialist-led facial consultation</p>
-    <h1 id="hero-heading">Understand your <em>features.</em><br>Explore your options with confidence.</h1>
-    <p>Personalised facial analysis and consultation to help you understand proportion, balance and appropriate next steps—with professional review and no pressure to proceed.</p>
-    <div class="actions"><a class="primary" href="#consultation">Book a consultation</a><a href="#process">How it works</a></div>
-    <ul class="hero-assurances" aria-label="Consultation principles"><li>Specialist-led</li><li>Evidence-informed</li><li>Privacy-conscious</li></ul>
+    <p class="lilac-label">{{vis_specialist_led_facial_consultation}}</p>
+    <h1 id="hero-heading">{{vis_understand_your}} <em>{{vis_features}}</em><br>{{vis_explore_your_options_with}}</h1>
+    <p>{{vis_personalised_facial_analysis_and}}</p>
+    <div class="actions"><a class="primary" href="#consultation">{{vis_book_a_consultation}}</a><a href="#process">{{vis_how_it_works}}</a></div>
+    <ul class="hero-assurances" aria-label="Consultation principles"><li>{{vis_specialist_led}}</li><li>{{vis_evidence_informed}}</li><li>{{vis_privacy_conscious}}</li></ul>
   </div>
 </section>
 
 <section class="trust-strip" aria-label="Care commitments">
-  <div class="wrap"><ul><li><b>Professional review</b><span>Human judgment remains central.</span></li><li><b>Realistic guidance</b><span>Benefits, limits and alternatives explained.</span></li><li><b>Image privacy</b><span>Handling and deletion terms shown first.</span></li><li><b>No-pressure decisions</b><span>Pause, proceed or seek another view.</span></li></ul></div>
+  <div class="wrap"><ul><li><b>{{vis_professional_review}}</b><span>{{vis_human_judgment_remains_central}}</span></li><li><b>{{vis_realistic_guidance}}</b><span>{{vis_benefits_limits_and_alternatives}}</span></li><li><b>{{vis_image_privacy}}</b><span>{{vis_handling_and_deletion_terms}}</span></li><li><b>{{vis_no_pressure_decisions}}</b><span>{{vis_pause_proceed_or_seek}}</span></li></ul></div>
 </section>
 
 <section class="analysis-stage" id="consultation" aria-labelledby="consultation-heading">
   <div class="wrap image-shell">
     <picture><source media="(max-width: 40rem)" srcset="{{site_path}}images/consultation-320.webp 320w, {{site_path}}images/consultation-480.webp 480w, {{site_path}}images/consultation-640.webp 640w, {{site_path}}images/consultation-768.webp 768w, {{site_path}}images/consultation-960.webp 960w" sizes="100vw"><img src="{{site_path}}images/consultation-640.webp" srcset="{{site_path}}images/consultation-480.webp 480w, {{site_path}}images/consultation-640.webp 640w, {{site_path}}images/consultation-768.webp 768w, {{site_path}}images/consultation-960.webp 960w, {{site_path}}images/consultation.webp 1200w" sizes="(max-width: 80rem) 100vw, 80rem" width="1200" height="675" alt="Doctor listening attentively to a patient during a private consultation" loading="lazy" decoding="async"></picture>
     <div class="consultation-card">
-      <p class="lilac-label">What to expect</p>
-      <h2 id="consultation-heading">A private, 45-minute conversation.</h2>
-      <p>Discuss your goals, relevant history and suitable options before deciding anything.</p>
-      <a class="primary" href="#contact">Book your consultation <span aria-hidden="true">↗</span></a>
+      <p class="lilac-label">{{vis_what_to_expect}}</p>
+      <h2 id="consultation-heading">{{vis_a_private_45_minute}}</h2>
+      <p>{{vis_discuss_your_goals_relevant}}</p>
+      <a class="primary" href="#contact">{{vis_book_your_consultation}} <span aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
 
 <section class="visage-features" id="services" aria-labelledby="services-heading">
   <div class="wrap">
-    <header class="section-heading"><p class="lilac-label">A clearer way to choose</p><h2 id="services-heading">What you receive.</h2><p>Concrete guidance in plain language, centred on your goals rather than a universal idea of beauty.</p></header>
-    <div class="three-cells"><article><span>01</span><h3>Facial structure analysis</h3><p>Understand proportion, balance, expression and visible characteristics without scores or rankings.</p></article><article><span>02</span><h3>Personalised plan</h3><p>Compare suitable options, alternatives, likely limits, cost and recovery at your own pace.</p></article><article><span>03</span><h3>Professional guidance</h3><p>Ask questions directly and receive evidence-informed recommendations with realistic expectations.</p></article></div>
+    <header class="section-heading"><p class="lilac-label">{{vis_a_clearer_way_to}}</p><h2 id="services-heading">{{vis_what_you_receive}}</h2><p>{{vis_concrete_guidance_in_plain}}</p></header>
+    <div class="three-cells"><article><span>01</span><h3>{{vis_facial_structure_analysis}}</h3><p>{{vis_understand_proportion_balance_expression}}</p></article><article><span>02</span><h3>{{vis_personalised_plan}}</h3><p>{{vis_compare_suitable_options_alternatives}}</p></article><article><span>03</span><h3>{{vis_professional_guidance}}</h3><p>{{vis_ask_questions_directly_and}}</p></article></div>
   </div>
 </section>
 
 <section class="visage-process" id="process" aria-labelledby="process-heading">
-  <div class="wrap"><p class="lilac-label">The consultation journey</p><h2 id="process-heading">From a single portrait to an informed plan.</h2><div class="process-grid"><article><b>1</b><h3>Capture</h3><p>Upload a well-lit portrait or book an in-person scan.</p><small>Approximately 2–5 minutes</small></article><article><b>2</b><h3>Analyse</h3><p>A professional reviews structure, balance and your stated priorities.</p><small>Human-led; digital tools disclosed</small></article><article><b>3</b><h3>Consult</h3><p>Discuss suitability, alternatives and realistic outcomes.</p><small>Clear explanation, no pressure</small></article><article><b>4</b><h3>Decide</h3><p>Proceed, pause or request another opinion in your own time.</p><small>Your choice remains central</small></article></div></div>
+  <div class="wrap"><p class="lilac-label">{{vis_the_consultation_journey}}</p><h2 id="process-heading">{{vis_from_a_single_portrait}}</h2><div class="process-grid"><article><b>1</b><h3>Capture</h3><p>{{vis_upload_a_well_lit}}</p><small>{{vis_approximately_2_5_minutes}}</small></article><article><b>2</b><h3>Analyse</h3><p>{{vis_a_professional_reviews_structure}}</p><small>{{vis_human_led_digital_tools}}</small></article><article><b>3</b><h3>Consult</h3><p>{{vis_discuss_suitability_alternatives_and}}</p><small>{{vis_clear_explanation_no_pressure}}</small></article><article><b>4</b><h3>Decide</h3><p>{{vis_proceed_pause_or_request}}</p><small>{{vis_your_choice_remains_central}}</small></article></div></div>
 </section>
 
 <section class="visage-specialists" id="specialists" aria-labelledby="specialists-heading">
   <div class="wrap specialist-layout">
-    <header><p class="lilac-label">People behind the plan</p><h2 id="specialists-heading">Expertise you can verify.</h2><p>Every practitioner profile should state registration, qualifications, scope of practice and relevant experience before a visitor is asked to book.</p></header>
-    <div class="specialist-grid"><article><span aria-hidden="true">MO</span><p>Medical director</p><h3>Dr Maya Okafor</h3><p>Facial assessment · Treatment suitability · Shared decision-making</p></article><article><span aria-hidden="true">ES</span><p>Nurse prescriber</p><h3>Eleanor Shaw</h3><p>Skin health · Patient education · Continuity and aftercare</p></article></div>
-    <p class="demo-note">Illustrative practitioner profiles. Replace names, roles, registrations and qualifications with verified information before launch.</p>
+    <header><p class="lilac-label">{{vis_people_behind_the_plan}}</p><h2 id="specialists-heading">{{vis_expertise_you_can_verify}}</h2><p>{{vis_every_practitioner_profile_should}}</p></header>
+    <div class="specialist-grid"><article><span aria-hidden="true">MO</span><p>{{vis_medical_director}}</p><h3>{{vis_dr_maya_okafor}}</h3><p>{{vis_facial_assessment_treatment_suitability}}</p></article><article><span aria-hidden="true">ES</span><p>{{vis_nurse_prescriber}}</p><h3>{{vis_eleanor_shaw}}</h3><p>{{vis_skin_health_patient_education}}</p></article></div>
+    <p class="demo-note">{{vis_illustrative_practitioner_profiles_repla}}</p>
   </div>
 </section>
 
-<section class="privacy-panel" aria-labelledby="privacy-heading"><div class="wrap privacy-grid"><p class="lilac-label">Privacy before upload</p><div><h2 id="privacy-heading">Your image stays yours.</h2><p>A production consultation should explain who can review a portrait, whether automated tools are involved, how long the file is retained and how deletion works—before upload, not after.</p></div><a href="#faq">Read what to expect <span aria-hidden="true">↓</span></a></div></section>
+<section class="privacy-panel" aria-labelledby="privacy-heading"><div class="wrap privacy-grid"><p class="lilac-label">{{vis_privacy_before_upload}}</p><div><h2 id="privacy-heading">{{vis_your_image_stays_yours}}</h2><p>{{vis_a_production_consultation_should}}</p></div><a href="#faq">{{vis_read_what_to_expect}} <span aria-hidden="true">↓</span></a></div></section>
 
-<section class="visage-faq" id="faq" aria-labelledby="faq-heading"><div class="wrap faq-layout"><header><p class="lilac-label">Clear answers</p><h2 id="faq-heading">Before you decide.</h2></header><div><details><summary>Is this a diagnosis?</summary><p>No. Aesthetic consultation and medical diagnosis are different. Any clinical concern should be assessed through the appropriate healthcare pathway.</p></details><details><summary>Who reviews my portrait?</summary><p>A provider should identify the qualified professional responsible for review and clearly disclose any automated support.</p></details><details><summary>What happens to my image?</summary><p>Retention, access and deletion terms should be presented for consent before any file is submitted.</p></details><details><summary>Do I have to proceed?</summary><p>No. A consultation should leave room to pause, decline, request another opinion or take more time.</p></details></div></div></section>
+<section class="visage-faq" id="faq" aria-labelledby="faq-heading"><div class="wrap faq-layout"><header><p class="lilac-label">{{vis_clear_answers}}</p><h2 id="faq-heading">{{vis_before_you_decide}}</h2></header><div><details><summary>{{vis_is_this_a_diagnosis}}</summary><p>{{vis_no_aesthetic_consultation_and}}</p></details><details><summary>{{vis_who_reviews_my_portrait}}</summary><p>{{vis_a_provider_should_identify}}</p></details><details><summary>{{vis_what_happens_to_my}}</summary><p>{{vis_retention_access_and_deletion}}</p></details><details><summary>{{vis_do_i_have_to}}</summary><p>{{vis_no_a_consultation_should}}</p></details></div></div></section>
 
-<section class="visage-closing" aria-labelledby="visage-close"><div class="wrap"><div><p class="lilac-label">Your questions are welcome</p><h2 id="visage-close">Beauty is personal.<br><em>Your decisions should feel informed.</em></h2></div><div><p>Begin with a private conversation and a clearer understanding of your options.</p><a class="primary" href="#contact">Book a consultation</a></div></div></section>
+<section class="visage-closing" aria-labelledby="visage-close"><div class="wrap"><div><p class="lilac-label">{{vis_your_questions_are_welcome}}</p><h2 id="visage-close">{{vis_beauty_is_personal}}<br><em>{{vis_your_decisions_should_feel}}</em></h2></div><div><p>{{vis_begin_with_a_private}}</p><a class="primary" href="#contact">{{vis_book_a_consultation_2}}</a></div></div></section>
 {{/block}}

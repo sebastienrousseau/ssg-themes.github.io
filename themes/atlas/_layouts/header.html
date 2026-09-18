@@ -48,19 +48,23 @@
         </li>
       </ul>
 
-      <!-- Replaced by the generator with a <nav class="lang-switcher">
-           listing every locale that serves this page. Left as an inert
-           comment on single-locale sites. -->
-      <!-- An element, not a comment: html-generator minifies some pages
-           during generation and strips comments, which silently removed
-           the switcher from every minified page. -->
-      <div data-ssg-lang-switcher></div>
-
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <!-- Search trigger slot. The generator replaces this element with
            the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{label_langs}}" aria-label="{{lang_code}}, {{lang_change}}">
+      <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
       <button
         class="theme-toggle"

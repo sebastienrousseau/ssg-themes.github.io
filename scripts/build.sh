@@ -135,6 +135,9 @@ build_theme() {
   # The not-found page: written to the filename static hosts actually serve,
   # marked noindex, and removed from the sitemaps and feed it otherwise leaks
   # into. See scripts/publish_404.py for why each step is needed.
+  # One language switcher per page; see the script for why there can be two.
+  python3 scripts/dedupe_lang_nav.py "public/${theme}"
+
   python3 scripts/publish_404.py "public/${theme}"
 
   # The stylesheet and scripts that live in `_layouts/` beside the templates

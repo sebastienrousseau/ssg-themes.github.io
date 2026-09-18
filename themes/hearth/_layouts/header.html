@@ -15,12 +15,18 @@
       <a href="{{locale_path}}{{slug_contact}}/">{{nav_contact}}</a>
       <a class="nav-cta" href="{{locale_path}}#contact">{{cta_primary}}</a>
     </nav>
-    <nav class="lang-nav" aria-label="{{label_langs}}">
-      <ul class="lang-list">
-        <li><a href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a></li>
-        <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a></li>
-      </ul>
-    </nav>
+    <details class="ap-lang">
+    <summary class="ap-lang-toggle" title="{{label_langs}}" aria-label="{{lang_code}}, {{lang_change}}">
+    <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+    <span class="ap-lang-current">{{lang_code}}</span>
+    </summary>
+    <div class="ap-lang-menu">
+    <div class="ap-lang-menu-grid">
+    <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
+    <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+    </div>
+    </div>
+    </details>
     <button class="mode-toggle" id="mode-toggle" type="button" data-label-light="{{label_theme_light}}" data-label-dark="{{label_theme_dark}}" aria-label="{{label_theme}}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" /></svg>
       <span id="mode-state">{{label_theme_system}}</span>

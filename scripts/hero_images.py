@@ -58,10 +58,27 @@ def encode(src: Path, dest: Path, width: int, target_bpp: float) -> int:
     return best or dest.stat().st_size
 
 
-def source_for(images: Path, stem: str) -> Path | None:
-    """The widest available master for a family of variants."""
-    candidates = [p for p in images.glob(f"{stem}*.webp")
-                  if re.fullmatch(rf"{re.escape(stem)}(-\d+)?", p.stem)]
+# A variant is `<stem>-<width>` or, for an art-directed mobile crop,
+# `<stem>-<letter><width>` (m = mobile, d = desktop). They carry different aspect ratios, so they are
+# separate families: re-encoding one from the other's master would silently
+# replace a landscape rung with a portrait crop.
+VARIANT = re.compile(r"^(?P<stem>.+?)-(?P<crop>[a-z]?)(?P<width>\d+)$")
+
+
+def family_of(name: str) -> tuple[str, str]:
+    """(stem, crop) for a variant filename stem; crop is a letter or ""."""
+    m = VARIANT.fullmatch(name)
+    return (m["stem"], m["crop"]) if m else (name, "")
+
+
+def rung_name(stem: str, crop: str, width: int) -> str:
+    return f"{stem}-{crop}{width}.webp"
+
+
+def source_for(images: Path, stem: str, crop: str) -> Path | None:
+    """The widest existing master for one family of variants."""
+    candidates = [p for p in images.glob(f"{stem}-*.webp")
+                  if family_of(p.stem) == (stem, crop)]
     if not candidates:
         return None
     return max(candidates, key=lambda p: (dimensions(p) or (0, 0))[0])
@@ -82,25 +99,30 @@ def main() -> int:
         images = Path("themes") / theme / "images"
         if not (index.exists() and images.is_dir()):
             continue
-        stems = sorted({re.sub(r"-\d+$", "", Path(m).stem)
-                        for m in re.findall(r"images/([\w-]+\.webp)", index.read_text())})
-        for stem in stems:
-            master = source_for(images, stem)
+        families = sorted({family_of(Path(m).stem)
+                           for m in re.findall(r"images/([\w-]+\.webp)",
+                                               index.read_text())})
+        for stem, crop in families:
+            master = source_for(images, stem, crop)
             if not master:
                 continue
+            dims = dimensions(master)
+            if not dims:
+                continue
             for width in RUNGS:
-                dims = dimensions(master)
-                if not dims or dims[0] < width:
+                if dims[0] < width:
                     continue
-                dest = images / f"{stem}-{width}.webp"
-                before = dest.stat().st_size if dest.exists() else 0
-                if args.apply:
-                    after = encode(master, dest, width, args.bpp)
-                else:
-                    after = before
+                dest = images / rung_name(stem, crop, width)
+                # Only re-encode rungs the theme already ships. Inventing one
+                # writes a file nothing references, and for an art-directed
+                # family it would invent it at the wrong aspect ratio.
+                if not dest.exists():
+                    continue
+                before = dest.stat().st_size
+                after = encode(master, dest, width, args.bpp) if args.apply else before
                 total_before += before
                 total_after += after
-        print(f"  {theme}: {len(stems)} image family/families")
+        print(f"  {theme}: {len(families)} image family/families")
     if args.apply:
         print(f"hero images: {total_before // 1024} KiB -> {total_after // 1024} KiB "
               f"at {args.bpp} bpp")

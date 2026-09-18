@@ -5,7 +5,7 @@
       <span class="brand-text">{{name}}</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" aria-label="{{ui_primary}}">
       <!-- Always present; CSS hides it above 48rem. -->
       <button
         class="nav-toggle"
@@ -31,29 +31,40 @@
           <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}platform/" {{#if nav_platform}}aria-current="page"{{/if}}>Platform</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_platform}}/" {{#if nav_platform}}aria-current="page"{{/if}}>{{ui_platform}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}solutions/" {{#if nav_solutions}}aria-current="page"{{/if}}>Solutions</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_solutions}}/" {{#if nav_solutions}}aria-current="page"{{/if}}>{{ui_solutions}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}pricing/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_pricing}}/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_contact}}/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
         </li>
       </ul>
 
       <!-- Replaced by the generator with a real switcher on a multi-locale
            site. An element rather than a comment: minifiers strip comments,
            and some pages are minified during generation. -->
-      <div data-ssg-lang-switcher></div>
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <!-- Search trigger slot. The generator replaces this element with
            the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{ui_language}}" aria-label="{{lang_code}}, {{lang_change}}">
+      <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
       <button
         class="theme-toggle"

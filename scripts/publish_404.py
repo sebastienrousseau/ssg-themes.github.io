@@ -58,8 +58,60 @@ def publish(root: Path) -> int:
         strip_entry(root / "sitemap.xml", "url")
         + strip_entry(root / "news-sitemap.xml", "url")
         + strip_entry(root / "rss.xml", "item")
+        + strip_entry(root / "atom.xml", "entry")
+        + strip_json_feed(root / "feed.json")
     )
+    drop_empty_feeds(root)
     return removed
+
+
+def strip_json_feed(path: Path) -> int:
+    """Remove the not-found item from a JSON Feed."""
+    if not path.exists():
+        return 0
+    import json
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except ValueError:
+        return 0
+    items = data.get("items") or []
+    kept = [i for i in items if not str(i.get("url", "")).rstrip("/").endswith("/404")]
+    if len(kept) == len(items):
+        return 0
+    data["items"] = kept
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    return len(items) - len(kept)
+
+
+def drop_empty_feeds(root: Path) -> None:
+    """Withdraw a feed that has nothing left to syndicate.
+
+    A site whose only non-home page is the error page ends up with an empty
+    <channel> once that entry is removed. Advertising a feed with no items
+    is worse than having none: readers subscribe and get nothing, and the
+    audit flags it. So the file is deleted and the <link> withdrawn from
+    every page in this root.
+    """
+    rss = root / "rss.xml"
+    if not rss.exists() or "<item>" in rss.read_text(encoding="utf-8"):
+        return
+    for name in ("rss.xml", "atom.xml", "feed.json"):
+        target = root / name
+        if target.exists():
+            target.unlink()
+    # Withdraw every reference: the <link> elements in the head and the
+    # visible list items in the footer. A link to a file that is no longer
+    # published is a broken link, which is worse than the empty feed was.
+    pattern_link = re.compile(
+        r'\s*<link[^>]+(?:rss\+xml|atom\+xml|feed\+json)[^>]*>')
+    pattern_item = re.compile(
+        r'\s*<li>\s*<a[^>]+href="[^"]*(?:rss\.xml|atom\.xml|feed\.json)"[^>]*>.*?</a>\s*</li>',
+        re.S)
+    for page in list(root.glob("*.html")) + list(root.glob("*/index.html")):
+        text = page.read_text(encoding="utf-8")
+        cleaned = pattern_item.sub("", pattern_link.sub("", text))
+        if cleaned != text:
+            page.write_text(cleaned, encoding="utf-8")
 
 
 def main() -> int:

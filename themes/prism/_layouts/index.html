@@ -7,8 +7,8 @@
       <h1 id="hero-heading">{{headline}}</h1>
       <p class="lead hero-lead">{{lead}}</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
-        <a class="btn btn-hero-secondary" href="{{locale_path}}products/">{{cta_secondary}}</a>
+        <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
+        <a class="btn btn-hero-secondary" href="{{locale_path}}{{slug_products}}/">{{cta_secondary}}</a>
       </div>
     </div>
 
@@ -26,16 +26,16 @@
           <span class="mock-chip"></span>
           <svg class="mock-icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>
         </div>
-        <p class="mock-label">Treasury balance</p>
+        <p class="mock-label">{{pri_treasury_balance}}</p>
         <p class="mock-amount">$14,820,500</p>
         <div class="mock-row">
-          <span class="mock-mono">IBAN •••• 9842</span>
-          <span class="mock-pill">Settled · Multi-asset</span>
+          <span class="mock-mono">{{pri_iban_9842}}</span>
+          <span class="mock-pill">{{pri_settled_multi_asset}}</span>
         </div>
       </div>
       <div class="mock mock-growth">
-        <p class="mock-label mock-label-clay">Sustainable net growth</p>
-        <p class="mock-amount">+$2.48M <span class="mock-pill">+18.4% ESG</span></p>
+        <p class="mock-label mock-label-clay">{{pri_sustainable_net_growth}}</p>
+        <p class="mock-amount">+$2.48M <span class="mock-pill">{{pri_18_4_esg}}</span></p>
         <svg class="mock-chart" viewBox="0 0 300 95" preserveAspectRatio="none">
           <defs>
             <linearGradient id="prismGrowth" x1="0" y1="0" x2="0" y2="1">
@@ -51,9 +51,9 @@
       <div class="mock mock-phone">
         <span class="mock-notch"></span>
         <div class="mock-notice">
-          <p class="mock-notice-title">Disbursement approved</p>
-          <p class="mock-notice-amount">€450,000 EUR</p>
-          <p class="mock-notice-meta">Recipient: Meridian Capital Trust</p>
+          <p class="mock-notice-title">{{pri_disbursement_approved}}</p>
+          <p class="mock-notice-amount">{{pri_450_000_eur}}</p>
+          <p class="mock-notice-meta">{{pri_recipient_meridian_capital_trust}}</p>
         </div>
       </div>
     </div>
@@ -63,16 +63,16 @@
 
 <section class="section section-partners" aria-labelledby="partners-heading">
   <div class="container">
-    <h2 class="section-label" id="partners-heading">Trusted by financial institutions and digital platforms — illustrative</h2>
+    <h2 class="section-label" id="partners-heading">{{pri_trusted_by_financial_institutions}}</h2>
     <ul class="partners">
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 3v18" /></svg><span>Aura Capital</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /></svg><span>Nexus Global</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><line x1="3" y1="9" x2="21" y2="9" /></svg><span>Vertex Pay</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg><span>Helios Cloud</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="21" x2="21" y2="21" /><line x1="3" y1="10" x2="21" y2="10" /><polygon points="12 3 2 10 22 10 12 3" /></svg><span>Meridian Bank</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg><span>Equity Trust</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m4.93 4.93 4.24 4.24" /><path d="m14.83 9.17 4.24-4.24" /></svg><span>Orion Logistics</span></li>
-      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg><span>Zenith SaaS</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 3v18" /></svg><span>{{pri_aura_capital}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /></svg><span>{{pri_nexus_global}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><line x1="3" y1="9" x2="21" y2="9" /></svg><span>{{pri_vertex_pay}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg><span>{{pri_helios_cloud}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="21" x2="21" y2="21" /><line x1="3" y1="10" x2="21" y2="10" /><polygon points="12 3 2 10 22 10 12 3" /></svg><span>{{pri_meridian_bank}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg><span>{{pri_equity_trust}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m4.93 4.93 4.24 4.24" /><path d="m14.83 9.17 4.24-4.24" /></svg><span>{{pri_orion_logistics}}</span></li>
+      <li class="partner"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg><span>{{pri_zenith_saas}}</span></li>
     </ul>
   </div>
 </section>
@@ -80,46 +80,46 @@
 <section class="section" id="products" aria-labelledby="products-heading">
   <div class="container stack">
     <div class="section-head">
-      <p class="eyebrow">Modular architecture</p>
-      <h2 id="products-heading">A unified suite of enterprise financial products</h2>
-      <p class="lead">Each module runs standalone or together. Every card below links to its section on the products page.</p>
+      <p class="eyebrow">{{pri_modular_architecture}}</p>
+      <h2 id="products-heading">{{pri_a_unified_suite_of}}</h2>
+      <p class="lead">{{pri_each_module_runs_standalone}}</p>
     </div>
     <div class="grid grid-3">
       <article class="card">
         <span class="icon-badge badge-blue" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg></span>
-        <h3>Core Ledger Engine</h3>
-        <p>An immutable double-entry ledger recording millions of daily asset movements with a cryptographic audit trail and sub-second reconciliation.</p>
-        <a class="card-link" href="{{locale_path}}products/#core-ledger-engine">Explore the ledger</a>
+        <h3>{{pri_core_ledger_engine}}</h3>
+        <p>{{pri_an_immutable_double_entry}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#core-ledger-engine">{{pri_explore_the_ledger}}</a>
       </article>
       <article class="card">
         <span class="icon-badge badge-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg></span>
-        <h3>Global Treasury</h3>
-        <p>Multi-currency reserve balances across 140 jurisdictions, with automated FX hedging and real-time inter-entity rebalancing.</p>
-        <a class="card-link" href="{{locale_path}}products/#global-treasury">Explore treasury</a>
+        <h3>{{pri_global_treasury}}</h3>
+        <p>{{pri_multi_currency_reserve_balances}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#global-treasury">{{pri_explore_treasury}}</a>
       </article>
       <article class="card">
         <span class="icon-badge badge-clay" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg></span>
-        <h3>Subscription Billing</h3>
-        <p>Recurring billing for seat-based tiers, consumption meters and hybrid contracts, with automated tax remittance and readable dunning.</p>
-        <a class="card-link" href="{{locale_path}}products/#subscription-billing">Explore billing</a>
+        <h3>{{pri_subscription_billing}}</h3>
+        <p>{{pri_recurring_billing_for_seat}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#subscription-billing">{{pri_explore_billing}}</a>
       </article>
       <article class="card">
         <span class="icon-badge badge-green" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg></span>
-        <h3>Marketplace Settlements</h3>
-        <p>Payouts to tens of thousands of vendors with programmable split fees and local bank rails, settled atomically or not at all.</p>
-        <a class="card-link" href="{{locale_path}}products/#marketplace-settlements">Explore settlements</a>
+        <h3>{{pri_marketplace_settlements}}</h3>
+        <p>{{pri_payouts_to_tens_of}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#marketplace-settlements">{{pri_explore_settlements}}</a>
       </article>
       <article class="card">
         <span class="icon-badge badge-burgundy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg></span>
-        <h3>Risk &amp; Heuristic Guard</h3>
-        <p>Adaptive models score each transaction in under twenty milliseconds, with every decision explained in a sentence rather than a score.</p>
-        <a class="card-link" href="{{locale_path}}products/#risk-and-heuristic-guard">Explore risk guard</a>
+        <h3>{{pri_risk_amp_heuristic_guard}}</h3>
+        <p>{{pri_adaptive_models_score_each}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#risk-and-heuristic-guard">{{pri_explore_risk_guard}}</a>
       </article>
       <article class="card">
         <span class="icon-badge badge-navy" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg></span>
-        <h3>Static Frontend Architecture</h3>
-        <p>Deterministic static delivery with no layout shift, subresource integrity on every asset and a same-origin content security policy.</p>
-        <a class="card-link" href="{{locale_path}}products/#static-frontend-architecture">Explore the frontend</a>
+        <h3>{{pri_static_frontend_architecture}}</h3>
+        <p>{{pri_deterministic_static_delivery_with}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_products}}/#static-frontend-architecture">{{pri_explore_the_frontend}}</a>
       </article>
     </div>
   </div>
@@ -128,34 +128,34 @@
 <section class="section section-soft" id="solutions" aria-labelledby="solutions-heading">
   <div class="container stack">
     <div class="section-head">
-      <p class="eyebrow">Enterprise solutions</p>
-      <h2 id="solutions-heading">Engineered for complex commercial requirements</h2>
-      <p class="lead">The same six modules, configured for four sectors.</p>
+      <p class="eyebrow">{{pri_enterprise_solutions}}</p>
+      <h2 id="solutions-heading">{{pri_engineered_for_complex_commercial}}</h2>
+      <p class="lead">{{pri_the_same_six_modules}}</p>
     </div>
     <div class="grid grid-2">
       <article class="card">
-        <p class="tag tag-blue">Ecosystems</p>
-        <h3>Multi-Tenant Software Platforms</h3>
-        <p>Native payments, merchant accounts and embedded banking inside your software, with instant onboarding and a fee structure you set yourself.</p>
-        <a class="card-link" href="{{locale_path}}solutions/#multi-tenant-software-platforms">Platform architecture guide</a>
+        <p class="tag tag-blue">{{pri_ecosystems}}</p>
+        <h3>{{pri_multi_tenant_software_platforms}}</h3>
+        <p>{{pri_native_payments_merchant_accounts}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_solutions}}/#multi-tenant-software-platforms">{{pri_platform_architecture_guide}}</a>
       </article>
       <article class="card">
-        <p class="tag tag-green">ESG &amp; growth</p>
-        <h3>Sustainable Asset Management</h3>
-        <p>Carbon-audited settlement rails and automated governance reporting, tracked against the general ledger rather than beside it.</p>
-        <a class="card-link" href="{{locale_path}}solutions/#sustainable-asset-management">ESG framework overview</a>
+        <p class="tag tag-green">{{pri_esg_amp_growth}}</p>
+        <h3>{{pri_sustainable_asset_management}}</h3>
+        <p>{{pri_carbon_audited_settlement_rails}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_solutions}}/#sustainable-asset-management">{{pri_esg_framework_overview}}</a>
       </article>
       <article class="card">
-        <p class="tag tag-gold">Private wealth</p>
-        <h3>Institutional Wealth Custody</h3>
-        <p>Digital custody for private banks, family offices and endowments: multi-signatory authorisation and line-level audit controls.</p>
-        <a class="card-link" href="{{locale_path}}solutions/#institutional-wealth-custody">Custody whitepaper</a>
+        <p class="tag tag-gold">{{pri_private_wealth}}</p>
+        <h3>{{pri_institutional_wealth_custody}}</h3>
+        <p>{{pri_digital_custody_for_private}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_solutions}}/#institutional-wealth-custody">{{pri_custody_whitepaper}}</a>
       </article>
       <article class="card">
-        <p class="tag tag-clay">Cross-border</p>
-        <h3>Global Direct-to-Consumer Commerce</h3>
-        <p>Localised checkout in 140 markets with native currencies, dynamic tax calculation and the payment methods customers already use.</p>
-        <a class="card-link" href="{{locale_path}}solutions/#global-direct-to-consumer-commerce">Global commerce playbook</a>
+        <p class="tag tag-clay">{{pri_cross_border}}</p>
+        <h3>{{pri_global_direct_to_consumer}}</h3>
+        <p>{{pri_localised_checkout_in_140}}</p>
+        <a class="card-link" href="{{locale_path}}{{slug_solutions}}/#global-direct-to-consumer-commerce">{{pri_global_commerce_playbook}}</a>
       </article>
     </div>
   </div>
@@ -164,25 +164,25 @@
 <section class="section section-dark" id="developers" aria-labelledby="dev-heading">
   <div class="container dev-grid">
     <div class="dev-copy stack">
-      <p class="eyebrow eyebrow-clay">Developer-first</p>
-      <h2 id="dev-heading">Integrate financial primitives in minutes, not months</h2>
-      <p class="lead dev-lead">Clean OpenAPI specifications, type-safe SDKs and a local sandbox that runs the whole platform in one binary.</p>
-      <ul class="pills" aria-label="SDK languages">
-        <li class="pill">TypeScript</li>
-        <li class="pill">Python 3.12</li>
+      <p class="eyebrow eyebrow-clay">{{pri_developer_first}}</p>
+      <h2 id="dev-heading">{{pri_integrate_financial_primitives_in}}</h2>
+      <p class="lead dev-lead">{{pri_clean_openapi_specifications_type}}</p>
+      <ul class="pills" aria-label="{{pri_sdk_languages}}">
+        <li class="pill">{{pri_typescript}}</li>
+        <li class="pill">{{pri_python_3_12}}</li>
         <li class="pill">Rust</li>
         <li class="pill">Go 1.23</li>
         <li class="pill">cURL</li>
       </ul>
       <div class="cta-row">
-        <a class="btn btn-hero-primary" href="{{locale_path}}developers/">Read the developer guide</a>
+        <a class="btn btn-hero-primary" href="{{locale_path}}{{slug_developers}}/">{{pri_read_the_developer_guide}}</a>
       </div>
     </div>
 
     <figure class="code-window">
       <figcaption class="code-titlebar">
         <span class="traffic" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span class="code-filename">settlement_pipeline.ts</span>
+        <span class="code-filename">{{pri_settlement_pipeline_ts}}</span>
       </figcaption>
       <pre class="code-body"><code><span class="syn-comment">// Initialise the client with mutual TLS credentials</span>
 <span class="syn-keyword">import</span> { <span class="syn-variable">PrismClient</span> } <span class="syn-keyword">from</span> <span class="syn-string">"@prism/sdk"</span>;
@@ -209,30 +209,30 @@
   <div class="container">
     <div class="card governance-card">
       <div class="stack">
-        <p class="eyebrow eyebrow-green">Institutional governance</p>
-        <h2 id="governance-heading">Ethical infrastructure for sustainable growth</h2>
-        <p class="lead">Modern trust needs more than capability. It needs ethical stewardship, carbon accountability and verifiable governance.</p>
-        <p>Every transaction can be paired with real-time carbon-offset accounting and certified supply-chain validation, giving investors and boards a clear audit trail.</p>
+        <p class="eyebrow eyebrow-green">{{pri_institutional_governance}}</p>
+        <h2 id="governance-heading">{{pri_ethical_infrastructure_for_sustainable}}</h2>
+        <p class="lead">{{pri_modern_trust_needs_more}}</p>
+        <p>{{pri_every_transaction_can_be}}</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="{{locale_path}}governance/">Read the governance page</a>
+          <a class="btn btn-primary" href="{{locale_path}}{{slug_governance}}/">{{pri_read_the_governance_page}}</a>
         </div>
       </div>
       <dl class="metrics">
         <div class="metric">
-          <dt>Sustainable assets tracked across verified portfolios</dt>
+          <dt>{{pri_sustainable_assets_tracked_across}}</dt>
           <dd>$1.8B+</dd>
         </div>
         <div class="metric">
-          <dt>Carbon-neutral compute and edge delivery</dt>
+          <dt>{{pri_carbon_neutral_compute_and}}</dt>
           <dd>100%</dd>
         </div>
         <div class="metric">
-          <dt>Continuous security attestation</dt>
-          <dd>SOC 2 Type II</dd>
+          <dt>{{pri_continuous_security_attestation}}</dt>
+          <dd>{{pri_soc_2_type_ii}}</dd>
         </div>
         <div class="metric">
-          <dt>Contrast and target-size conformance, measured</dt>
-          <dd>WCAG 2.2 AAA</dd>
+          <dt>{{pri_contrast_and_target_size}}</dt>
+          <dd>{{pri_wcag_2_2_aaa}}</dd>
         </div>
       </dl>
     </div>
@@ -242,35 +242,35 @@
 <section class="section section-soft" id="scale" aria-labelledby="scale-heading">
   <div class="container stack">
     <div class="section-head section-head-centred">
-      <p class="eyebrow">Global reach</p>
-      <h2 id="scale-heading">Institutional reliability at planetary scale</h2>
-      <p class="lead mx-auto">99.999% availability across redundant regions, with cross-border settlements cleared in under a second. Illustrative figures.</p>
+      <p class="eyebrow">{{pri_global_reach}}</p>
+      <h2 id="scale-heading">{{pri_institutional_reliability_at_planetary}}</h2>
+      <p class="lead mx-auto">{{pri_99_999_availability_across}}</p>
     </div>
     <dl class="grid grid-4 stats">
       <div class="stat">
-        <dt>Daily ledger entries, zero-loss</dt>
+        <dt>{{pri_daily_ledger_entries_zero}}</dt>
         <dd>250M+</dd>
       </div>
       <div class="stat">
-        <dt>Operational uptime, trailing year</dt>
+        <dt>{{pri_operational_uptime_trailing_year}}</dt>
         <dd>99.999%</dd>
       </div>
       <div class="stat">
-        <dt>Currencies and clearing protocols</dt>
+        <dt>{{pri_currencies_and_clearing_protocols}}</dt>
         <dd>140+</dd>
       </div>
       <div class="stat">
-        <dt>Median edge handshake, 260 nodes</dt>
+        <dt>{{pri_median_edge_handshake_260}}</dt>
         <dd>&lt;8 ms</dd>
       </div>
     </dl>
-    <ul class="stream" aria-label="Recent settlements, illustrative">
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Zurich to London: £2,850,000 in 0.04 s</li>
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Singapore to Tokyo: ¥14,200,000 in 0.06 s</li>
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Frankfurt to New York: $1,450,000 in 0.05 s</li>
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Sydney to Toronto: CA$620,000 in 0.08 s</li>
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Paris to Amsterdam: €1,120,000 in 0.03 s</li>
-      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>Stockholm to Oslo: 3,400,000 kr in 0.04 s</li>
+    <ul class="stream" aria-label="{{pri_recent_settlements_illustrative}}">
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_zurich_to_london_2}}</li>
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_singapore_to_tokyo_14}}</li>
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_frankfurt_to_new_york}}</li>
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_sydney_to_toronto_ca}}</li>
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_paris_to_amsterdam_1}}</li>
+      <li class="stream-pill"><span class="status-dot" aria-hidden="true"></span>{{pri_stockholm_to_oslo_3}}</li>
     </ul>
   </div>
 </section>
@@ -279,8 +279,8 @@
   <div class="container stack">
     <div class="prose">{{!content}}</div>
     <div class="cta-row">
-      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
-      <a class="btn btn-secondary" href="{{locale_path}}products/">{{cta_secondary}}</a>
+      <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
+      <a class="btn btn-secondary" href="{{locale_path}}{{slug_products}}/">{{cta_secondary}}</a>
     </div>
   </div>
 </section>

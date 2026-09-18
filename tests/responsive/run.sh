@@ -29,6 +29,16 @@ else
   trap 'kill "${SERVER}" 2>/dev/null || true' EXIT
 fi
 
+# Refuse to run if something else already holds the port. Without this the
+# `http.server` below fails to bind, its error goes to /dev/null, and the
+# suite happily measures whatever site the other process is serving — which
+# is how this gate once reported defects for a project that is not this one.
+if lsof -nP -iTCP:"${PORT}" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "error: port ${PORT} is already in use; set RESPONSIVE_PORT to a free port" >&2
+  lsof -nP -iTCP:"${PORT}" -sTCP:LISTEN >&2
+  exit 1
+fi
+
 python3 -m http.server "${PORT}" --directory "${ROOT}" >/dev/null 2>&1 &
 SERVER=$!
 

@@ -4,15 +4,15 @@
       <div>
         <h2>Work</h2>
         <ul>
-          <li><a href="{{locale_path}}projects/">Case studies</a></li>
-          <li><a href="{{locale_path}}frameworks/">Frameworks</a></li>
+          <li><a href="{{locale_path}}{{slug_projects}}/">{{ui_case_studies}}</a></li>
+          <li><a href="{{locale_path}}{{slug_frameworks}}/">{{ui_frameworks}}</a></li>
         </ul>
       </div>
       <div>
         <h2>Theme</h2>
         <ul>
-          <li><a href="{{locale_path}}about/">Specifications</a></li>
-          <li><a href="{{locale_path}}contact/">Contact</a></li>
+          <li><a href="{{locale_path}}{{slug_about}}/">{{ui_specifications}}</a></li>
+          <li><a href="{{locale_path}}{{slug_contact}}/">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -20,14 +20,14 @@
         <ul>
           <li><a href="{{site_path}}rss.xml">RSS</a></li>
           <li><a href="{{site_path}}atom.xml">Atom</a></li>
-          <li><a href="{{site_path}}feed.json">JSON Feed</a></li>
+          <li><a href="{{site_path}}feed.json">{{ui_json_feed}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Built with</h2>
+        <h2>{{ui_built_with}}</h2>
         <ul>
           <li>
-            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">{{ui_static_site_generator}}</a>
           </li>
           <li><a href="{{site_path}}sitemap.xml">Sitemap</a></li>
         </ul>
@@ -36,7 +36,7 @@
 
     <div class="footer-legal">
       <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
-      <span>Built with <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">Made with SSG</a>. WCAG 2.2 AA verified in CI.</span>
+      <span>{{ui_built_with_2}} <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">{{ui_made_with_ssg}}</a>{{ui_wcag_2_2_aa}}</span>
     </div>
   </div>
 </footer>

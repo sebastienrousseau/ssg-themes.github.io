@@ -6,8 +6,8 @@
     <h1 id="hero-heading">{{headline}}</h1>
     <p class="lead stage-lead">{{lead}}</p>
     <div class="cta-row cta-row-centred">
-      <a class="btn btn-stage" href="{{locale_path}}features/">{{cta_primary}}</a>
-      <a class="btn btn-stage-quiet" href="{{locale_path}}specs/">{{cta_secondary}}</a>
+      <a class="btn btn-stage" href="{{locale_path}}{{slug_features}}/">{{cta_primary}}</a>
+      <a class="btn btn-stage-quiet" href="{{locale_path}}{{slug_specs}}/">{{cta_secondary}}</a>
     </div>
   </div>
 
@@ -24,16 +24,16 @@
   <div class="container">
     <div class="rail-head">
       <div>
-        <p class="eyebrow">A closer look</p>
-        <h2 id="carousel-heading">Built around what you actually do</h2>
+        <p class="eyebrow">{{vis_a_closer_look}}</p>
+        <h2 id="carousel-heading">{{vis_built_around_what_you}}</h2>
       </div>
       <div class="rail-controls">
         <button id="railPrev" type="button" aria-controls="featureRail">
-          <span class="visually-hidden">Show previous features</span>
+          <span class="visually-hidden">{{vis_show_previous_features}}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
         </button>
         <button id="railNext" type="button" aria-controls="featureRail">
-          <span class="visually-hidden">Show more features</span>
+          <span class="visually-hidden">{{vis_show_more_features}}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
         </button>
       </div>
@@ -46,36 +46,36 @@
       a pause control under WCAG 2.2.2, and a feature list has no reason to
       move without being asked.
     -->
-    <div class="rail" id="featureRail" role="region" aria-label="Features, scrollable horizontally" tabindex="0">
+    <div class="rail" id="featureRail" role="region" aria-label="{{vis_features_scrollable_horizontally}}" tabindex="0">
       <article class="rail-card">
         <p class="rail-index">01</p>
-        <h3>An display for every task</h3>
-        <p>Two panels the size of a postage stamp carry more pixels each than a 4K television, so text stays text at any distance.</p>
+        <h3>{{vis_an_display_for_every}}</h3>
+        <p>{{vis_two_panels_the_size}}</p>
       </article>
       <article class="rail-card">
         <p class="rail-index">02</p>
-        <h3>Input without hardware</h3>
-        <p>Look at a control and pinch. No wand, no glove, nothing to charge on a second cable overnight.</p>
+        <h3>{{vis_input_without_hardware}}</h3>
+        <p>{{vis_look_at_a_control}}</p>
       </article>
       <article class="rail-card">
         <p class="rail-index">03</p>
-        <h3>Sound that stays put</h3>
-        <p>Audio is placed in the room rather than in your ears, so a window you moved to the left still sounds as though it is there.</p>
+        <h3>{{vis_sound_that_stays_put}}</h3>
+        <p>{{vis_audio_is_placed_in}}</p>
       </article>
       <article class="rail-card">
         <p class="rail-index">04</p>
-        <h3>Environments on demand</h3>
-        <p>Replace the room with a landscape when you need to concentrate, and dial it back when somebody walks in.</p>
+        <h3>{{vis_environments_on_demand}}</h3>
+        <p>{{vis_replace_the_room_with}}</p>
       </article>
       <article class="rail-card">
         <p class="rail-index">05</p>
-        <h3>Privacy at the sensor</h3>
-        <p>Eye data never leaves the device and is never handed to an app. What you looked at is not a signal anybody else receives.</p>
+        <h3>{{vis_privacy_at_the_sensor}}</h3>
+        <p>{{vis_eye_data_never_leaves}}</p>
       </article>
       <article class="rail-card">
         <p class="rail-index">06</p>
-        <h3>Passthrough that convinces</h3>
-        <p>Cameras rebuild the room with low enough latency that reaching for a cup is not a calculation.</p>
+        <h3>{{vis_passthrough_that_convinces}}</h3>
+        <p>{{vis_cameras_rebuild_the_room}}</p>
       </article>
     </div>
   </div>
@@ -85,13 +85,13 @@
   <div class="container silicon-grid">
     <div class="stack">
       <p class="eyebrow eyebrow-stage">Silicon</p>
-      <h2 id="silicon-heading">Two chips, one of them doing nothing but listening</h2>
-      <p class="silicon-lead">One runs the system. The second does nothing but process twelve cameras, five sensors and six microphones, so the picture is on the panels before your inner ear notices the delay.</p>
+      <h2 id="silicon-heading">{{vis_two_chips_one_of}}</h2>
+      <p class="silicon-lead">{{vis_one_runs_the_system}}</p>
       <dl class="specs">
-        <div class="spec"><dt>Sensor-to-photon latency</dt><dd>12 ms</dd></div>
-        <div class="spec"><dt>Cameras and sensors</dt><dd>17</dd></div>
-        <div class="spec"><dt>Pixels across both panels</dt><dd>23M</dd></div>
-        <div class="spec"><dt>Refresh, sustained</dt><dd>90–100 Hz</dd></div>
+        <div class="spec"><dt>{{vis_sensor_to_photon_latency}}</dt><dd>12 ms</dd></div>
+        <div class="spec"><dt>{{vis_cameras_and_sensors}}</dt><dd>17</dd></div>
+        <div class="spec"><dt>{{vis_pixels_across_both_panels}}</dt><dd>23M</dd></div>
+        <div class="spec"><dt>{{vis_refresh_sustained}}</dt><dd>90–100 Hz</dd></div>
       </dl>
     </div>
     <figure class="silicon-shot">
@@ -113,7 +113,7 @@
     <h2 id="close-heading">{{close_heading}}</h2>
     <p class="lead mx-auto">{{close_lead}}</p>
     <div class="cta-row cta-row-centred">
-      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
+      <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
     </div>
   </div>
 </section>

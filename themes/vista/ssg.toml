@@ -30,6 +30,15 @@ output_dir = "public/vista"
 # below is permissive: these are demo sites whose whole purpose is to be
 # read. A real site should decide deliberately — the same file is where you
 # would deny a crawler.
+# Slugs are translated, not prefixed: `/vista/about/` pairs with
+# `/vista/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
 [agents]
 agents_txt = true
 ai_plugin = true

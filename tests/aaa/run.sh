@@ -55,6 +55,13 @@ if [[ "${NM}" != "${PWD}/tests/aaa/node_modules" ]]; then
 fi
 echo "playwright: ${NM}"
 
+# Refuse to run if something else already holds the port: a failed bind is
+# silent, and the suite would then measure whatever site that process serves.
+if lsof -nP -iTCP:"${PORT}" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "error: port ${PORT} is already in use; set PORT to a free port" >&2
+  exit 1
+fi
+
 python3 -m http.server "${PORT}" --directory public >/dev/null 2>&1 &
 SERVER=$!
 trap 'kill "${SERVER}" 2>/dev/null || true' EXIT

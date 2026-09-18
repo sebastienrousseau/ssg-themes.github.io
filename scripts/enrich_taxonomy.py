@@ -10,6 +10,11 @@ description long enough to survive a search result snippet.
 This runs after `ssg build` and adds exactly those three, leaving the
 generator's own markup untouched. It is idempotent: a page that already
 carries a piece keeps the one it has.
+
+It also swaps the generator's own language switcher for the one the rest of
+the suite uses. The injected version lists two-letter codes in 19x24 links,
+under the 44px target every other control on these themes clears, and it is
+the only place in the suite where the switcher looks different.
 """
 import html
 import json
@@ -64,6 +69,33 @@ def canonical_csp(root: Path) -> str | None:
         r'<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"',
         landing.read_text(encoding="utf-8"))
     return m.group(1) if m else None
+
+
+SWITCHER = re.compile(r'<nav class="lang-switcher".*?</nav>\s*', re.S)
+
+LANG_STRINGS = {
+    "en": ("EN", "Change language", "Language"),
+    "fr": ("FR", "Changer de langue", "Langue"),
+}
+
+
+def shared_switcher(markup: str, lang: str, base_path: str) -> str:
+    """The suite's switcher, in place of the generator's own."""
+    code, action, label = LANG_STRINGS.get(lang, LANG_STRINGS["en"])
+    current = ' aria-current="true"'
+    return SWITCHER.sub(
+        '<details class="ap-lang">'
+        f'<summary class="ap-lang-toggle" title="{label}" '
+        f'aria-label="{code}, {action}">'
+        '<span class="ap-lang-globe" aria-hidden="true">\U0001F310</span>'
+        f'<span class="ap-lang-current">{code}</span></summary>'
+        '<div class="ap-lang-menu"><div class="ap-lang-menu-grid">'
+        f'<a class="ap-lang-item" href="{base_path}" hreflang="en" lang="en"'
+        f'{current if lang == "en" else ""}>English</a>'
+        f'<a class="ap-lang-item" href="{base_path}fr/" hreflang="fr" lang="fr"'
+        f'{current if lang == "fr" else ""}>Français</a>'
+        '</div></div></details>',
+        markup, count=1)
 
 
 def enrich(path: Path, csp: str | None = None) -> bool:
@@ -184,6 +216,11 @@ def enrich(path: Path, csp: str | None = None) -> bool:
                  + json.dumps(graph, ensure_ascii=False, separators=(",", ":"))
                  + "</script> ")
         markup = markup.replace("</head>", block + "</head>", 1)
+
+    # The theme root is the first path segment: /atlas/tags/ -> /atlas/.
+    root_seg = path.as_posix().split("public/", 1)[-1].split("/", 1)[0]
+    if 'class="lang-switcher"' in markup:
+        markup = shared_switcher(markup, lang, f"/{root_seg}/")
 
     if markup == before:
         return False

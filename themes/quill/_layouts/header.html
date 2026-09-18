@@ -22,16 +22,22 @@
     </nav>
 
     <div class="masthead-tools">
-      <nav class="lang-nav" aria-label="{{label_langs}}">
-        <ul class="lang-list">
-          <li><a href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a></li>
-          <li><a href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a></li>
-        </ul>
-      </nav>
       <!-- Search trigger slot. The generator replaces this element with
            the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{label_langs}}" aria-label="{{lang_code}}, {{lang_change}}">
+      <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
       <button class="mode-btn" type="button" id="mode-toggle"
               data-label-light="{{label_light}}" data-label-dark="{{label_dark}}">

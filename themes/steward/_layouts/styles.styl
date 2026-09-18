@@ -360,7 +360,6 @@
   }
 }
 
-
 @layer theme.base {
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -670,4 +669,136 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
   font-size: min(var(--step-4), 13cqi);
   overflow-wrap: break-word;
 }
+}
+
+/* Headings must survive a longer word at 200% text zoom. "Gouvernance
+   familiale" needs half again the width of its English counterpart, and a
+   heading that cannot break pushes the grid past the viewport — a WCAG
+   1.4.4 failure. */
+.style-steward h1,
+.style-steward h2,
+.style-steward h3,
+.domain-grid h3,
+.discipline-list h3 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Bilingual safety net.
+   A heading that cannot break pushes its grid past the viewport as soon as
+   the translation is longer than the English — which is how Kairo and
+   Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
+   only acts when a word genuinely does not fit, so it changes nothing for
+   copy that already fits. */
+h1, h2, h3, h4 { overflow-wrap: break-word; }
+
+/* The closing row is a two-column flex: text on the left, button on the
+   right. At 320px the button was allotted 180px and needs 204, so it ran
+   past the edge in both languages. Stacking below 30rem gives it the full
+   width, and letting it shrink keeps it inside whatever the label says. */
+@media (max-width: 30rem) {
+  .steward-close .wrap { flex-direction: column; align-items: flex-start; }
+  .steward-close .paper-button { flex: 0 1 auto; max-width: 100%; }
+}
+
+/* A sticky masthead can cover whatever the keyboard scrolls to, which is
+   what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll
+   padding means a focused element always comes to rest below it. */
+html { scroll-padding-block-start: 5.5rem; }
+
+@media (max-width: 48rem) {
+  html { scroll-padding-block-start: 4.5rem; }
+}
+
+/* Language switcher.
+   One control on all twenty-two themes: a globe, the current locale code,
+   and a panel anchored under the button. It was a bare inline list before,
+   positioned differently in every header.
+
+   A <details> disclosure, not a scripted menu. The themes enforce
+   `script-src 'self'` and the semantics gate renders every page with
+   JavaScript blocked, so anything script-driven would be a dead control in
+   the one rendering that has to keep working.
+
+   Colours come from `currentColor` and the two tokens every theme defines,
+   so a theme needs no palette of its own for this and dark mode follows the
+   header it sits in. The panel is opaque on purpose: the reference design
+   blurs the backdrop, but translucent text surfaces are exactly what the
+   AAA contrast gate cannot measure. */
+.ap-lang { position: relative; }
+.ap-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  list-style: none;
+}
+/* Both spellings: Safari still ships the WebKit pseudo-element. */
+.ap-lang-toggle::-webkit-details-marker { display: none; }
+.ap-lang-toggle::marker { content: ""; }
+.ap-lang-toggle:hover { border-color: currentColor; }
+.ap-lang-globe { font-size: 1rem; line-height: 1; }
+.ap-lang-current { line-height: 1; font-variant-numeric: tabular-nums; }
+/* A closed <details> hides its children through a UA rule that an
+   absolutely positioned box escapes: the panel was still laid out, and the
+   layout gate caught it overlapping the theme toggle and the nav links on
+   every theme. Hiding it explicitly is what actually takes it out of flow. */
+.ap-lang:not([open]) .ap-lang-menu { display: none; }
+.ap-lang-menu {
+  position: absolute;
+  top: calc(100% + .375rem);
+  /* Anchored to the button's left edge, not its right. The reference puts
+     this control last in its header, where opening leftwards is the only
+     way it fits; here the search and theme buttons always follow it, so
+     there is room to its right and opening left ran off the viewport. */
+  left: 0;
+  z-index: 60;
+  width: max-content;
+  min-width: 100%;
+  padding: .375rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: .6rem;
+  background: var(--surface, var(--bg, #fff));
+  box-shadow: 0 8px 28px rgb(0 0 0 / .18);
+  /* The toggle inherits the header's colour, which on a theme with a dark
+     stage is not the page's. The panel sits on the page surface, so it has
+     to reset rather than inherit it. */
+  color: var(--ink, CanvasText);
+}
+.ap-lang-menu-grid { display: grid; gap: .125rem; }
+.ap-lang-item {
+  display: block;
+  min-height: 44px;
+  padding: .6rem .75rem;
+  border-radius: .35rem;
+  color: inherit;
+  font-size: .85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ap-lang-item:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.ap-lang-item[aria-current] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .3em;
+  text-decoration-thickness: 2px;
+}
+
+/* Far enough along a narrow header that opening rightwards would overflow;
+   below this width the panel hangs from the button's right edge instead. */
+@media (max-width: 30rem) {
+  .ap-lang-menu { left: auto; right: 0; }
 }

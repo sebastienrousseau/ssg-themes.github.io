@@ -9,12 +9,38 @@ name: Voxt
 headline: Portable, Disposable AI Developer Environments
 lead: Ultra-performant dev containers featuring a 4-pane TMUX IDE, stdio Model Context Protocol (MCP) AI agents, git worktree pairing, and sub-500ms startup times.
 language: en-GB
+lang_code: "EN"
+lang_change: "Change language"
 date: 2026-08-29
 news_publication_date: 2026-08-29
 label_theme: "Theme"
 label_theme_system: "System"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+locale_path: "/voxt/"
+base_path: "/voxt/"
+en_current: ' aria-current="true"'
+fr_current: ""
+label_home: "Voxt home"
+label_menu: "Menu"
+label_menu_toggle: "Toggle navigation menu"
+label_nav: "Main navigation"
+label_langs: "Language"
+label_github: "View Voxt on GitHub"
+label_suite: "Hyperbox Suite"
+label_docs: "Documentation"
+label_security_model: "Security Model"
+label_security_policy: "Security Policy"
+label_contributing: "Contributing"
+label_made_with: "Made with SSG"
+nav_overview: "Overview"
+nav_features: "Features"
+nav_ai_ide: "AI IDE"
+nav_suite: "Suite"
+nav_security: "Security"
+nav_faq: "FAQ"
+cta_primary: "Get Started"
+translation_key: "home"
 ---
 
 <section id="overview" class="section">
