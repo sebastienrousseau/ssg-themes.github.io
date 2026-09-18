@@ -12,7 +12,7 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Hearth | `hearth/images/sofa.webp` | `https://cloudcdn.pro/stocks/images/sinclair-creates-xKi8yLviaSw-1200.webp` |
 | Hearth | `hearth/images/craft-{320,640,1200}.webp`, `hearth/images/craft.webp` | `https://cloudcdn.pro/stocks/images/ylanite-koppens-1445419-{320,640,1200}.webp` |
 | Intent | `intent/images/portrait.webp` | `https://cloudcdn.pro/stocks/images/getty-images-LbYCH5UYkWw-1200.webp` |
-| Kairo | `kairo/images/portrait-{320,640}.webp`, `kairo/images/portrait.webp` | `https://cloudcdn.pro/stocks/images/harald-krichel-scarlett-johansson-8531-{320,640,1200}.webp` |
+| Kairo | `kairo/images/portrait-{320,640}.webp`, `kairo/images/portrait.webp` | `https://cloudcdn.pro/stocks/images/sound-on-3394650-{320,640,1200}.webp` |
 | Kairo | `kairo/images/hero-{320,640}.webp`, `kairo/images/hero.webp` | `https://cloudcdn.pro/stocks/images/simone-hutsch-IylbHVX6MmQ-{320,640,1200}.webp` |
 | Kairo | `kairo/images/uncommon-{320,640}.webp`, `kairo/images/uncommon.webp` | `https://cloudcdn.pro/stocks/images/michael-dziedzic--LFxVNhopfs-{320,640,1200}.webp` |
 | Kairo | `kairo/images/moving-{320,640}.webp`, `kairo/images/moving.webp` | `https://cloudcdn.pro/stocks/images/milad-fakurian-9waPFLIzs1E-{320,640,1200}.webp` |
@@ -35,7 +35,6 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Steward | `steward/images/adviser-{320,640}.webp`, `steward/images/adviser.webp` | `https://cloudcdn.pro/stocks/images/thisisengineering-raeng-TXxiFuQLBKQ-{320,640,1200}.webp` |
 | Velocity | `velocity/images/horizon-{320,640}.webp`, `velocity/images/horizon.webp` | `https://cloudcdn.pro/stocks/images/alessio-soggetti-C4HO6MzEWrU-{320,640,1200}.webp` |
 | Visage | `visage/images/consultation-{320,640}.webp`, `visage/images/consultation.webp` | `https://cloudcdn.pro/stocks/images/getty-images-1IY3Nd85K-A-{320,640,1200}.webp` |
-| Visage | `visage/images/face.webp` (unused source alternative) | `https://cloudcdn.pro/stocks/images/paul-bird-scarlett-johansson-2012-1200.webp` |
 | Voxt | `voxt/images/light-trace-{320,640}.webp`, `voxt/images/light-trace.webp` | `https://cloudcdn.pro/stocks/images/daniele-franchi-Vl6YuVBLEys-{320,640,1200}.webp` |
 
 Responsive derivatives (`-320`, `-640`, `-960`, `-1200`) are resized from the
