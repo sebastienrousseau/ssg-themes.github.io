@@ -977,3 +977,14 @@ html { scroll-padding-block-start: 5.5rem; }
 @media (max-width: 30rem) {
   .ap-lang-menu { left: auto; right: 0; }
 }
+
+
+/* A project tile with no photograph.
+   The tile's `::after` gradient exists to lift text off an image; with no
+   image behind it the card rendered as a pale box fading to black, which
+   reads as a failed load rather than a choice. Giving those tiles a solid
+   field from the theme's own palette makes them deliberate colour blocks,
+   and because the gradient and the text treatment are untouched every
+   contrast pair in the card stays exactly as it was measured. */
+.project-uncommon:not(:has(img)) { background: var(--accent); }
+.project-moving:not(:has(img)) { background: #2b2f33; }
