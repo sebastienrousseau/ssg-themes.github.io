@@ -68,6 +68,10 @@
     }
     </script>
 
+    <!-- Skeletonic Stylus core, loaded before the theme's own
+         stylesheet so its @layer skeletonic.* blocks are declared
+         first and the theme wins every overlap. -->
+    <link rel="stylesheet" href="{{base_path}}skeletonic.min.css" />
     <link rel="stylesheet" href="{{base_path}}styles.css" />
     <script src="{{base_path}}theme-init.js"></script>
   </head>
