@@ -700,3 +700,24 @@ h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
 @media (max-width: 30rem) {
   .ap-lang-menu { left: auto; right: 0; }
 }
+
+/* Skeletonic Stylus compatibility.
+ *
+ * The library's reset paints a canvas and a face on <body>, and a colour on
+ * <h1>. This theme paints those on <html> and lets the rest inherit, so with
+ * the library loaded underneath it the library's values would apply unopposed
+ * — the theme declares nothing on <body> for them to lose to. Measured: the
+ * canvas went white in both colour schemes and the heading ink stopped
+ * changing with the mode.
+ *
+ * Inheriting rather than restating avoids naming this theme's tokens twice.
+ */
+body {
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+h1 {
+  color: inherit;
+}
