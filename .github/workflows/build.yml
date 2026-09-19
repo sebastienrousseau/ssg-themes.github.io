@@ -129,6 +129,9 @@ jobs:
       # it failed all 25 pages with "This version of ChromeDriver only
       # supports Chrome version 151".
       - name: Browser gates (layout, interaction, semantics, axe)
+        # Single pass, for the reason given on the AAA step below.
+        env:
+          RESPONSIVE_BATCHES: "1"
         run: |
           npm --prefix tests/responsive install --no-audit --no-fund
           npx --prefix tests/responsive playwright install --with-deps chromium
@@ -139,6 +142,12 @@ jobs:
       # rendered on a ground it was never paired with. Reuses the Chromium
       # installed by the step above.
       - name: AAA gates (rendered contrast, target size, reflow, focus)
+        # A single pass here. The suites batch by default so they survive a
+        # developer machine with little free memory, and restarting the
+        # browser between groups is pure overhead on a runner that has
+        # plenty — it roughly doubled this step's wall time.
+        env:
+          AAA_BATCHES: "1"
         run: bash tests/aaa/run.sh
 
       - name: Install link checker
