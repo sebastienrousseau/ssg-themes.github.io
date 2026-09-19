@@ -22,7 +22,7 @@ nav_home: "Accueil"
 nav_archive: "Archives"
 nav_about: "À propos"
 cur_home: ""
-cur_archive: ' aria-current="page"'
+cur_archive: ""
 cur_about: ""
 label_skip: "Aller au contenu principal"
 label_menu: "Menu"
@@ -45,23 +45,33 @@ nf_cta: "Retour au blog"
 footer_note: "Un thème de blog pour Static Site Generator, publié sous licence MIT."
 copyright: "© 2026 SSG Theme Suite. Sous licence MIT."
 screenshot_alt: "La page d'accueil du blog : articles en vedette avec catégories, auteurs et dates."
-translation_key: "archive"
-title: "Archives — Stablo"
-description: "Tous les articles de Stablo au même endroit, du plus récent au plus ancien. Parcourez les archives par date, lisez les résumés et ouvrez un article."
-keywords: "archive, blog"
-eyebrow: "Archives"
-headline: "Archives"
-lead: "Tous les articles publiés ici, du plus récent au plus ancien."
+translation_key: "contact"
+title: "Contact — Stablo"
+description: "Comment joindre la rédaction de ce site de démonstration, et quoi indiquer."
+keywords: "contact, corrections"
+eyebrow: "Contact"
+headline: "Contact"
+lead: "Les corrections et les questions sur le thème, et où les adresser."
 layout: "page"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+cur_contact: ' aria-current="page"'
 slug_contact: "contact"
 nav_contact: "Contact"
-cur_contact: ""
 ---
 
-| Article | Catégorie | Auteur | Date |
-| --- | --- | --- | --- |
-| [Mesurer plutôt que déclarer](/stablo/fr/posts/mesurer-plutot-que-declarer/) | Artisanat | Ada Whitfield | 21 août 2026 |
-| [Le coût réel d'un en-tête fixe](/stablo/fr/posts/le-cout-d-un-en-tete-fixe/) | Design | Ada Whitfield | 12 août 2026 |
-| [Écrire pour deux langues dès le départ](/stablo/fr/posts/ecrire-pour-deux-langues/) | Écriture | Inès Moreau | 3 août 2026 |
+Ce site démontre le thème **Stablo** : l'adresse ci-dessous n'est donc pas
+relevée. Remplacez-la par la vôtre avant publication, et supprimez ce
+paragraphe.
+
+## Écrire à la rédaction
+
+Les corrections sur un article, et tout ce que le thème fait mal, sont les
+bienvenues à [hello@example.com](mailto:hello@example.com).
+
+## Avant d'écrire
+
+Une correction est plus rapide à traiter lorsqu'elle nomme l'article et
+cite la phrase concernée. Il n'y a volontairement pas de formulaire : un
+site statique n'a nulle part où l'envoyer, et un formulaire qui perd
+silencieusement ce que l'on y écrit vaut moins qu'une adresse.

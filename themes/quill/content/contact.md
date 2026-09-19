@@ -23,7 +23,7 @@ nav_archive: "Archive"
 nav_about: "About"
 cur_home: ""
 cur_archive: ""
-cur_about: ' aria-current="page"'
+cur_about: ""
 label_skip: "Skip to main content"
 label_menu: "Menu"
 label_nav: "Main"
@@ -45,40 +45,33 @@ nf_cta: "Back to the blog"
 footer_note: "A blog theme for Static Site Generator, published under MIT."
 copyright: "© 2026 SSG Theme Suite. Licensed under MIT."
 screenshot_alt: "The blog home page: featured posts with category labels, author bylines and dates."
-translation_key: "about"
-title: "About — Quill"
-description: "About this demonstration site and what the theme verifies."
-keywords: "about, colophon"
-eyebrow: "About"
-headline: "About"
-lead: "A demonstration site for the theme, and a note on what is actually verified."
+translation_key: "contact"
+title: "Contact — Quill"
+description: "How to reach the editor of this demonstration site, and what to include."
+keywords: "contact, corrections"
+eyebrow: "Contact"
+headline: "Contact"
+lead: "Corrections and questions about the theme, and where they go."
 layout: "page"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+cur_contact: ' aria-current="page"'
 slug_contact: "contact"
 nav_contact: "Contact"
-cur_contact: ""
 ---
 
-This is a demonstration site for the **Quill** theme. The posts are
-real prose rather than filler, because a theme that has only been tested
-against *lorem ipsum* has not been tested against the thing it is for.
+This site is a demonstration of the **Quill** theme, so the address below
+is not monitored. Replace it with your own before you publish, and delete
+this paragraph.
 
-## What the theme provides
+## Write to the editor
 
-- A post index, an archive, and an about page
-- English and French, with a `translation_key` on every page and `hreflang`
-  alternates emitted from it
-- A colour scheme the reader chooses: system, light or dark
-- No client-side framework, and nothing that requires JavaScript to read
+Corrections to a post, and anything you think the theme gets wrong, are
+both welcome at [hello@example.com](mailto:hello@example.com).
 
-## What is verified
+## Before you write
 
-Every colour pair is checked at WCAG AAA — 7:1 for text — in both schemes
-before the site builds. Borders and focus rings are held to 4.5:1, which is
-stricter than the 3:1 that criterion asks, because it has no AAA level.
-
-Beyond the tokens, the built pages are measured in a real browser: the
-computed colour of every text run against the background it is actually
-painted on, every target at 44 by 44 pixels, no horizontal overflow at any
-width, and no focus ring that another element covers.
+A correction is quickest to act on when it names the post and quotes the
+sentence. There is no form here on purpose: a static site has nowhere to
+send one, and a form that silently discards what people write is worse
+than an address.

@@ -62,6 +62,9 @@ next_label: "Écrire pour deux langues dès le départ"
 layout: "post"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 Un en-tête qui vous suit au fil de la page est une décision qui semble

@@ -55,6 +55,9 @@ lead: "Un site de démonstration pour le thème, et une note sur ce qui est rée
 layout: "page"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 Ceci est un site de démonstration pour le thème **Stablo**. Les

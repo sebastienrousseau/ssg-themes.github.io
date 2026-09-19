@@ -62,6 +62,9 @@ next_label: "Writing for two languages from the start"
 layout: "post"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 A header that follows you down the page is one of those decisions that

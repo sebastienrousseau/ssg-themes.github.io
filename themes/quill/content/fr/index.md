@@ -79,4 +79,7 @@ p3_excerpt: "Ajouter une seconde langue après coup révèle chaque endroit où 
 layout: "index"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---

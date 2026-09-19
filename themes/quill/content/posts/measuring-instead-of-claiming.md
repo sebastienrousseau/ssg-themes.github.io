@@ -62,6 +62,9 @@ next_label: "The real cost of a sticky header"
 layout: "post"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 A stylesheet is a set of claims. Each rule says that when this pattern

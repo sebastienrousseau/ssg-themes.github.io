@@ -55,6 +55,9 @@ lead: "Every post published here, newest first."
 layout: "page"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 | Post | Category | Author | Date |

@@ -55,6 +55,9 @@ lead: "Tous les articles publiés ici, du plus récent au plus ancien."
 layout: "page"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 | Article | Catégorie | Auteur | Date |

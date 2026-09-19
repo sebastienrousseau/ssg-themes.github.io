@@ -78,4 +78,7 @@ p3_excerpt: "Retrofitting a second locale finds every place a layout assumed the
 layout: "index"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---

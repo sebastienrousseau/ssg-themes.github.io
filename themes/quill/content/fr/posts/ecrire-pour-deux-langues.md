@@ -62,6 +62,9 @@ next_label: "Archives"
 layout: "post"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+slug_contact: "contact"
+nav_contact: "Contact"
+cur_contact: ""
 ---
 
 Ajouter une seconde langue à un site terminé est un audit que vous n'avez
