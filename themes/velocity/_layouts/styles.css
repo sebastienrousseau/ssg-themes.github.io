@@ -1210,6 +1210,15 @@ h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
    column instead of the longest word. */
 .hero-copy, .hero-stage, .eyebrow-hero, .hero-lead, .cta-row { min-width: 0; }
 
+/* `overflow-wrap: break-word` stops a long word painting outside its box but
+   deliberately does not change the element's min-content size, so a grid
+   track sized from that content is still as wide as the longest word —
+   which is why the rule above was not enough on its own. `anywhere` is the
+   one that reduces min-content, and it still only breaks a word that cannot
+   otherwise fit. French "L'infrastructure" at hero size is 254px against a
+   288px column here, and wider than that on CI's font metrics. */
+.hero-copy :is(h1, h2, p) { overflow-wrap: anywhere; }
+
 /* A sticky masthead can cover whatever the keyboard scrolls to, which is
    what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll
    padding means a focused element always comes to rest below it. */
