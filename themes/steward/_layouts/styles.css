@@ -1016,7 +1016,7 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
    Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
    only acts when a word genuinely does not fit, so it changes nothing for
    copy that already fits. */
-h1, h2, h3, h4 { overflow-wrap: break-word; }
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
 
 /* The closing row is a two-column flex: text on the left, button on the
    right. At 320px the button was allotted 180px and needs 204, so it ran

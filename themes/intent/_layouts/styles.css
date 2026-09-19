@@ -789,7 +789,7 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
    Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
    only acts when a word genuinely does not fit, so it changes nothing for
    copy that already fits. */
-h1, h2, h3, h4 { overflow-wrap: break-word; }/* The header bar is near-black and sets its colour on the nav links alone, so a switcher inheriting page ink renders black on black. It follows the
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }/* The header bar is near-black and sets its colour on the nav links alone, so a switcher inheriting page ink renders black on black. It follows the
    nav links explicitly instead. */
 .site-header .ap-lang-toggle { color: #fff; }
 

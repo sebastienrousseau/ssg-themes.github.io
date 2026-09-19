@@ -1313,7 +1313,16 @@ html {
    Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
    only acts when a word genuinely does not fit, so it changes nothing for
    copy that already fits. */
-h1, h2, h3, h4 { overflow-wrap: break-word; }
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
+
+/* A grid or flex item's automatic minimum size is its min-content width, so
+   one long word can push its track wider than the viewport however narrow
+   the column is meant to be. Prism's French home page overflowed by three
+   pixels at 320px on CI and not at all locally: the same markup, different
+   font metrics, a min-content floor that landed either side of the track on
+   each platform. `min-width: 0` removes the floor so the track honours the
+   column instead of the longest word. */
+.hero-copy, .hero-stage, .eyebrow-hero, .hero-lead, .cta-row { min-width: 0; }
 
 /* A sticky masthead can cover whatever the keyboard scrolls to, which is
    what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll

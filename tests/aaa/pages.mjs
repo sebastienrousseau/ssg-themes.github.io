@@ -51,5 +51,18 @@ export const PAGES = (() => {
   if (missing.length) {
     throw new Error(`themes built but never visited by the gate: ${missing.join(', ')}`);
   }
-  return pages;
+  // Optional slice, as "index/total": the runner uses it to restart the
+  // browser between groups of pages. A long-lived Chromium grows past what
+  // a memory-pressured machine has free and the OS kills it, and a gate
+  // killed partway reports nothing at all rather than a failure. Every
+  // check above runs against the whole discovered set first, so slicing
+  // cannot weaken the floor or let an unvisited theme through.
+  const slice = process.env.AAA_SLICE;
+  if (!slice) return pages;
+  const [i, n] = slice.split('/').map(Number);
+  if (!Number.isInteger(i) || !Number.isInteger(n) || n < 1 || i < 0 || i >= n) {
+    throw new Error(`AAA_SLICE must be "index/total" with 0 <= index < total, got "${slice}"`);
+  }
+  const size = Math.ceil(pages.length / n);
+  return pages.slice(i * size, (i + 1) * size);
 })();

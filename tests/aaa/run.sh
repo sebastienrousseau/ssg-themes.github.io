@@ -83,10 +83,24 @@ done
 node tests/aaa/selftest.mjs
 node tests/aaa/composition-selftest.mjs
 node tests/aaa/modes.mjs
-node tests/aaa/a11y.mjs
-node tests/aaa/reflow.mjs
-node tests/aaa/focus.mjs
+
+# The page-walking gates run in AAA_BATCHES groups, each in its own browser.
+# One Chromium held open across every page grows past what a constrained
+# machine has free and the OS kills it — and a gate killed partway reports
+# nothing at all, which reads as silence rather than as failure. Restarting
+# between groups bounds the peak. Set AAA_BATCHES=1 for a single pass.
+BATCHES="${AAA_BATCHES:-4}"
+run_batched() {
+  local gate="$1" i
+  for (( i = 0; i < BATCHES; i++ )); do
+    AAA_SLICE="${i}/${BATCHES}" node "tests/aaa/${gate}.mjs"
+  done
+}
+
+run_batched a11y
+run_batched reflow
+run_batched focus
 # Composition: cropped or stretched images, a photograph used twice on one
 # page, and text laid over text. None of the suites above can see any of it.
-node tests/aaa/gradient.mjs
-node tests/aaa/composition.mjs
+run_batched gradient
+run_batched composition

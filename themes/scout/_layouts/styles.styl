@@ -577,7 +577,7 @@ a[href]::after { content: " (" attr(href) ")"; overflow-wrap: anywhere; }
    Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
    only acts when a word genuinely does not fit, so it changes nothing for
    copy that already fits. */
-h1, h2, h3, h4 { overflow-wrap: break-word; }
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
 
 /* The masthead is sticky, so anything scrolled to by keyboard can land
    underneath it — WCAG 2.4.11 and 2.4.12. Reserving the header's height as

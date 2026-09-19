@@ -35,12 +35,23 @@ if [[ -n "${PREFIX}" ]]; then
   ROOT="$(mktemp -d)"
   cp -R public "${ROOT}/${PREFIX}"
   BASE="http://127.0.0.1:${PORT}/${PREFIX}"
-  trap 'kill "${SERVER}" 2>/dev/null || true; rm -rf "${ROOT}"' EXIT
+  TMP_ROOT="${ROOT}"
 else
   ROOT="public"
   BASE="http://127.0.0.1:${PORT}"
-  trap 'kill "${SERVER}" 2>/dev/null || true' EXIT
 fi
+# A single cleanup: a second `trap ... EXIT` later in the file replaces this
+# one outright rather than adding to it, which is how the temporary root
+# above came to be left behind once.
+PAGES_BACKUP=""
+cleanup() {
+  kill "${SERVER}" 2>/dev/null || true
+  [[ -n "${TMP_ROOT:-}" ]] && rm -rf "${TMP_ROOT}"
+  [[ -n "${PAGES_BACKUP}" && -f "${PAGES_BACKUP}" ]] \
+    && cp "${PAGES_BACKUP}" tests/responsive/pages.txt && rm -f "${PAGES_BACKUP}"
+  return 0
+}
+trap cleanup EXIT
 
 # Refuse to run if something else already holds the port. Without this the
 # `http.server` below fails to bind, its error goes to /dev/null, and the
@@ -65,7 +76,31 @@ find public -name '*.html' ! -path '*_islands*' -print0 \
   | xargs -0 grep -L 'http-equiv="refresh"' \
   | sed 's|^public||' | sort > tests/responsive/pages.txt
 
-node tests/responsive/audit.mjs --base "${BASE}"
-node tests/responsive/interaction.mjs --base "${BASE}"
-node tests/responsive/semantics.mjs   --base "${BASE}"
-node tests/responsive/axe.mjs         --base "${BASE}"
+# Each gate runs over RESPONSIVE_BATCHES groups of pages, restarting its
+# browser between them. A single Chromium held open across every page grows
+# past what a constrained machine has free and the OS kills it; a gate that
+# dies partway prints nothing, which reads as silence rather than failure.
+# `pages.txt` is the full list and is restored on exit, so a batch cannot
+# leave the suite measuring a subset next time. RESPONSIVE_BATCHES=1 gives
+# the old single pass.
+BATCHES="${RESPONSIVE_BATCHES:-5}"
+ALL="$(mktemp)"
+cp tests/responsive/pages.txt "${ALL}"
+PAGES_BACKUP="${ALL}"
+
+total="$(wc -l < "${ALL}" | tr -d ' ')"
+per=$(( (total + BATCHES - 1) / BATCHES ))
+for gate in audit interaction semantics axe; do
+  for (( i = 0; i < BATCHES; i++ )); do
+    # The blocked-island check looks for a pricing page and falls back to
+    # the first page in the list when it finds none, so every batch keeps
+    # one rather than asserting a pricing table on whatever came first.
+    {
+      sed -n "$(( i * per + 1 )),$(( (i + 1) * per ))p" "${ALL}"
+      grep -E 'pricing' "${ALL}" || true
+    } | sort -u > tests/responsive/pages.txt
+    [[ -s tests/responsive/pages.txt ]] || continue
+    node "tests/responsive/${gate}.mjs" --base "${BASE}"
+  done
+done
+cp "${ALL}" tests/responsive/pages.txt
