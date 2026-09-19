@@ -109,10 +109,6 @@ def main() -> int:
         if any(is_referenced(member, THEMES / theme) for member in members):
             referenced_themes.add(theme)
 
-        photographic_themes.add(theme)
-        if is_referenced(asset, THEMES / theme):
-            referenced_themes.add(theme)
-
     if failures:
         print(
             f"cloudcdn-images: FAIL — {len(failures)} raster asset(s) do not trace to CloudCDN",

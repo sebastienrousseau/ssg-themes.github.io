@@ -1,4 +1,8 @@
-# Site-level configuration for the Apex theme.
+# Site-level configuration for the gallery landing page.
+#
+# The gallery is rendered with Apex's layouts — see scripts/build.sh —
+# which is why this file began as a copy of that theme's and described
+# itself as one for a long time. It configures the showcase, not Apex.
 #
 # Passed to the generator with `ssg build -f themes/apex/ssg.toml`. Without
 # it the build falls back to the compiled-in defaults, which is how earlier

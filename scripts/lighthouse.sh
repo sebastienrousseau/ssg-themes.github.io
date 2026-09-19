@@ -9,11 +9,19 @@ set -euo pipefail
 # are stricter than Google's own "good" thresholds, and they had never actually
 # run - the CI step that was meant to enforce them was continue-on-error with
 # performance switched off - so nothing regressed to make them warnings.
-# Apex is the one page that misses: its hero portrait puts LCP at ~1.36s, of
-# which 458ms is simulated TTFB and ~570ms is waiting on the stylesheet. A
-# srcset took it from 1.51s; a preload made it worse, not better, because the
-# image then competed with the render-blocking CSS. Raising it further means
-# inlining critical CSS, which style-src 'self' rules out.
+#
+# They stay warnings because they are not a property of the build. Repeat
+# runs of an unchanged tree move LCP by roughly 150ms, the granularity of
+# the simulator's round trip, and consecutive runs failed four different
+# themes each on total blocking time, first paint and speed index. What
+# errors instead is `resource-summary:total:size` in .lighthouserc.json,
+# which is identical on every machine: 50 KiB for a theme page, and a
+# budget of its own for the gallery.
+#
+# TTFB is ~455ms and first paint ~920ms on every theme, so the spread that
+# remains is whether a theme's largest element is a photograph or a
+# headline. Raising a paint budget further would mean inlining critical
+# CSS, which style-src 'self' rules out.
 #
 # lhci's staticDistDir walks the whole tree, which at 99 pages is far more than
 # a gate needs. One representative page per theme keeps it finite; the per-page
