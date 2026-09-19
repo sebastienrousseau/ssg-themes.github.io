@@ -12,8 +12,8 @@ From the repository root:
 ssg build -f themes/kairo/ssg.toml
 ```
 
-The committed `styles.css` is compiled from `styles.styl`, which imports the
-local Skeletonic Stylus core. Change `base_url`, the demonstration content and
+`styles.css` is the stylesheet this theme ships and the one to edit. It is
+not generated from anything at build time: the build copies it as it stands. Change `base_url`, the demonstration content and
 the contact address before deployment.
 
 ## Accessibility and resilience
