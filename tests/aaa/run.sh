@@ -88,4 +88,5 @@ node tests/aaa/reflow.mjs
 node tests/aaa/focus.mjs
 # Composition: cropped or stretched images, a photograph used twice on one
 # page, and text laid over text. None of the suites above can see any of it.
+node tests/aaa/gradient.mjs
 node tests/aaa/composition.mjs

@@ -20,7 +20,10 @@ THEMES = REPO / "themes"
 DEFAULT_CDN = REPO.parents[1] / "JavaScript" / "cloudcdn.pro"
 CDN = Path(os.environ.get("CLOUDCDN_ROOT", DEFAULT_CDN)).expanduser().resolve()
 RASTER_EXTENSIONS = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".webp"}
-GENERATED_PREVIEWS = {"screenshot.png", "screenshot.webp", "tn.png", "tn.webp"}
+GENERATED_PREVIEWS = {"screenshot.png", "screenshot.webp", "tn.png", "tn.webp",
+                      # The rung the gallery cards render, derived from
+                      # screenshot.png by scripts/screenshots.sh.
+                      "card.webp"}
 # A local size rung derived from a CloudCDN master: `coat-768.webp` and the
 # art-directed `coat-m768.webp` both come from `coat.webp`. The suite encodes
 # its own ladder to a fixed bits-per-pixel budget, so these cannot be

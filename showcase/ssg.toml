@@ -23,6 +23,17 @@ content_dir = "showcase/content"
 template_dir = "SHOWCASE_LAYOUTS"
 output_dir = "SHOWCASE_OUT"
 
+# The gallery is bilingual for the same reason the themes are: it is the
+# page that introduces them, and shipping it in one language while every
+# theme it lists ships in two would be the odd exception.
+#
+# Without this block `translation_key` pairs nothing and no `hreflang`
+# alternates are emitted at all.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
 # Agentic discovery (2026). Emits /agents.txt, /.well-known/ai-plugin.json
 # and /.well-known/mcp.json.
 #

@@ -96,8 +96,11 @@ def main() -> int:
         and not d.name.startswith((".", "_"))
         # "404" is the gallery's own not-found page, which the generator
         # writes as a directory like any other page. It is not a theme and
-        # has no llms.txt of its own.
-        and d.name not in ("downloads", "assets", "images", "404")
+        # has no llms.txt of its own. "fr" is the gallery's French locale,
+        # which is the same page in another language rather than a theme;
+        # the themes' own locales sit inside them and are already excluded
+        # by this loop only looking one level down.
+        and d.name not in ("downloads", "assets", "images", "404", "fr")
         # Rename stubs redirect and carry no site of their own.
         and 'http-equiv="refresh"'
         not in (d / "index.html").read_text(encoding="utf-8", errors="replace")

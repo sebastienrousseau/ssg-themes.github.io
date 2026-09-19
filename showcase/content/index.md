@@ -28,6 +28,18 @@ copyright_year: "2026"
 form_origin: "https://example.com"
 changefreq: "weekly"
 schema: "page"
+lang_code: "EN"
+lang_change: "Change language"
+label_langs: "Language"
+base_path: "/"
+en_current: ' aria-current="true"'
+fr_current: ""
+translation_key: "home"
+locale_path: "/"
+stat_tokens: "colour token pairs passing AAA contrast, light and dark"
+stat_a11y: "accessibility issues across all theme pages"
+stat_weight: "heaviest page, gzipped, including CSS and JS"
+stat_thirdparty: "third-party requests, on every page"
 ---
 
 <section class="section sc-gallery" aria-labelledby="themes-heading">
@@ -422,11 +434,11 @@ schema: "page"
             </tr>
             <tr>
               <th scope="row">Page weight</th>
-              <td>Every page under 20 KB gzipped including its CSS and JS; zero third-party subresources</td>
+              <td>Every page under 20 KB gzipped including its CSS and JS; every theme under 50 KiB transferred including its images; zero third-party subresources</td>
             </tr>
             <tr>
               <th scope="row">Accessibility</th>
-              <td>The generator's report shows 0 issues, and axe-core passes <code>wcag22aa</code></td>
+              <td>The generator's report shows 0 issues; axe-core passes <code>wcag22aa</code> and <code>wcag2aaa</code>; pa11y passes <code>WCAG2AAA</code> in both its runners; and text over a gradient or photograph is measured from rendered pixels</td>
             </tr>
             <tr>
               <th scope="row">Generator audit</th>

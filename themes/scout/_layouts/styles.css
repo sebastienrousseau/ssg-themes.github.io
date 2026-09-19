@@ -442,7 +442,7 @@ html { overflow-x:clip; }
 .style-scout { --purple:var(--accent); --black:var(--scene); --paper:var(--bg); background:var(--bg); color:var(--ink); }
 .style-scout .wrap { width:min(calc(100% - 3rem),82rem); margin-inline:auto; }
 .style-scout h1,.style-scout h2,.style-scout h3 { color:inherit; font-family:Arial,Helvetica,sans-serif; }
-.style-scout .site-header { background:color-mix(in srgb,var(--bg) 96%,transparent); }.style-scout .brand-mark{border-radius:.2rem;background:var(--scene)}.style-scout .site-nav .nav-cta{background:var(--purple);color:var(--accent-ink)}
+.style-scout .site-header { background:color-mix(in srgb,var(--bg) 96%,transparent); }.style-scout .brand-mark{border-radius:.2rem;background:var(--scene);color:var(--scene-ink)}.style-scout .site-nav .nav-cta{background:var(--purple);color:var(--accent-ink)}
 .style-scout .site-header .brand,.style-scout .site-header .site-nav a,.style-scout .site-header .mode-toggle{color:var(--ink)}
 .style-scout .site-header .site-nav .nav-cta{color:var(--accent-ink)}
 .style-scout .skip-link{background:#000;color:#fff}

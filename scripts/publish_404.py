@@ -107,6 +107,22 @@ def drop_empty_feeds(root: Path) -> None:
     pattern_item = re.compile(
         r'\s*<li>\s*<a[^>]+href="[^"]*(?:rss\.xml|atom\.xml|feed\.json)"[^>]*>.*?</a>\s*</li>',
         re.S)
+    # Pages one level down link the withdrawn feed by its absolute URL: the
+    # gallery's French error page advertised `/rss.xml` after the root feed
+    # had been deleted for being empty, because the sweep below only looked
+    # at this directory and the index of each child. `rglob` reaches those,
+    # and matching the exact href keeps a locale's own feed — `/fr/rss.xml`,
+    # which does have an item — untouched.
+    here = "/" if root.name == "public" else f"/{root.name}/"
+    withdrawn = re.compile(
+        r'\s*<(?:link[^>]+href|a[^>]+href)="'
+        + re.escape(here)
+        + r'(?:rss\.xml|atom\.xml|feed\.json)"[^>]*>(?:.*?</a>)?')
+    for page in root.rglob("*.html"):
+        text = page.read_text(encoding="utf-8")
+        cleaned = withdrawn.sub("", text)
+        if cleaned != text:
+            page.write_text(cleaned, encoding="utf-8")
     for page in list(root.glob("*.html")) + list(root.glob("*/index.html")):
         text = page.read_text(encoding="utf-8")
         cleaned = pattern_item.sub("", pattern_link.sub("", text))

@@ -448,7 +448,7 @@
 .signal-hero { position:relative; overflow:hidden; padding:clamp(7rem,13vw,13rem) 0 8rem; background:radial-gradient(circle at 50% 100%,var(--glow),transparent 42%); text-align:center; }
 .signal-hero .wrap { position:relative; display:grid; justify-items:center; }
 .signal-hero h1 { max-width:14ch; margin:.9rem 0 1.5rem; font-size:clamp(3.3rem,7vw,7rem); line-height:.94; }
-.signal-hero h1 em { display:inline-grid; place-items:center; width:.8em; aspect-ratio:1; border-radius:.2em; background:var(--blue); color:#fff; font-style:normal; font-size:.65em; vertical-align:.1em; }
+.signal-hero h1 em { display:inline-grid; place-items:center; width:.8em; aspect-ratio:1; border-radius:.2em; background:var(--blue); color:var(--accent-ink); font-style:normal; font-size:.65em; vertical-align:.1em; }
 .signal-hero>div>p:not(.blue-label) { max-width:50ch; color:var(--muted); }
 .style-signal .actions { display:flex; gap:.75rem; margin-top:1.5rem; }
 .style-signal .actions a,.blue-button { display:inline-flex; min-height:3rem; align-items:center; padding:.7rem 1.25rem; border:1px solid var(--line); border-radius:.45rem; background:var(--surface); color:var(--ink); font-weight:800; text-decoration:none; }
