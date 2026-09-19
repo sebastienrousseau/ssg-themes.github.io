@@ -176,16 +176,24 @@ jobs:
           for theme in themes/*/; do
             urls+=("--collect.url=http://localhost/$(basename "${theme}")/index.html")
           done
-          # The thresholds live in .lighthouserc.json (1.0 across the board) so
-          # a local `make check-lighthouse` and CI assert the same thing.
-          # Performance is the one category left off here and only here: it
-          # measures the runner, not the site, and a loaded shared runner moves
-          # it by more than any change to these themes ever has.
+          # The thresholds live in .lighthouserc.json so a local
+          # `make check-lighthouse` and CI assert exactly the same thing —
+          # nothing is switched off here any more.
+          #
+          # The performance *category* is a warning, in the config, for both.
+          # It is a function of the runner: consecutive runs of an unchanged
+          # tree failed four different themes each time on total blocking
+          # time, first paint and speed index. What gates instead is total
+          # transfer weight, which is a property of the build and identical
+          # on every machine — 50 KiB per theme, and the gallery's own budget
+          # for the page whose job is to show twenty-two screenshots.
+          #
+          # numberOfRuns is 3 in the config, so the timing metrics reported
+          # here are medians rather than a single sample.
           npx lhci autorun \
             --config=.lighthouserc.json \
             --collect.staticDistDir=public \
             "${urls[@]}" \
-            --assert.assertions.categories:performance=off \
             --upload.target=filesystem \
             --upload.outputDir=./lhci
 

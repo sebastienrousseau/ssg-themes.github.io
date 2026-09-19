@@ -167,9 +167,13 @@ clean:
 # Serve the built site the way it is published: at the root of its own
 # host. Previously the showcase lived under a path, so a preview had to
 # mirror that prefix or every root-absolute URL 404'd.
+# Served by python rather than `npx http-server`. Every gate already serves
+# the site this way, so previewing it needs no second mechanism and no
+# network fetch; `npx --yes` downloads a package to hand over a static file
+# server the standard library already provides.
 preview: build ## Serve the built site as published, on :8099
 	@echo "  http://127.0.0.1:8099/"
-	@npx --yes http-server public -p 8099 --silent
+	@$(PYTHON) -m http.server 8099 --bind 127.0.0.1 -d public
 
 contrast:
 	@$(PYTHON) scripts/audit-contrast.py

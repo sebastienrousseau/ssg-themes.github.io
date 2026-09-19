@@ -8,6 +8,19 @@ set -euo pipefail
 # audit would measure unstyled pages.
 
 cd "$(git rev-parse --show-toplevel)"
+
+# The install has disappeared mid-run more than once on a memory-pressured
+# machine; the suite then dies with a module-not-found trace that says
+# nothing about why. `npm ci` is idempotent and the lockfile sits beside
+# this script, so restore it rather than making a person read a stack trace.
+if [[ ! -d tests/responsive/node_modules/@playwright/test ]]; then
+  echo "playwright: not installed, restoring from package-lock.json" >&2
+  (cd tests/responsive && npm ci >/dev/null 2>&1) || true
+fi
+if [[ ! -d tests/responsive/node_modules/@playwright/test ]]; then
+  echo "error: @playwright/test not installed (cd tests/responsive && npm ci)" >&2
+  exit 1
+fi
 PREFIX="${SHOWCASE_PATH_PREFIX-}"
 PORT="${RESPONSIVE_PORT:-8765}"
 

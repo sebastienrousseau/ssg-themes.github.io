@@ -4,7 +4,8 @@
 #
 # The registry needs four files per theme: screenshot.png/webp at 1500x1000
 # and tn.png/webp at 900x600. `validate.py` enforces the dimensions, and the
-# gallery serves the WebP with the PNG as fallback.
+# gallery serves the WebP with the PNG as fallback. A fifth, `card.webp` at
+# 640px, is the rung the gallery's own cards render at.
 #
 # Capturing from the built site rather than drawing by hand is the whole
 # point: a screenshot cannot drift from what the theme actually renders.
@@ -83,7 +84,12 @@ for t in "${THEMES[@]}"; do
     optimise_png "${src}" "${BUDGET}"
     magick "${src}" -quality "${QUALITY}" "themes/${t}/images/${f}.webp"
   done
-  printf '  %s: png optimised, webp derived from it\n' "${t}"
+  # The rung the gallery actually renders. Its cards are 319-430 CSS px
+  # wide, so the 1500px capture was roughly three times the pixels any of
+  # them displays, and the page paid for it twenty-two times over.
+  magick "themes/${t}/images/screenshot.png" -strip -resize 640x \
+    -quality "${CARD_QUALITY:-76}" "themes/${t}/images/card.webp"
+  printf '  %s: png optimised, webp and 640px card derived from it\n' "${t}"
 done
 
 # The gallery's own preview, used as its og:image. Captured the same way as

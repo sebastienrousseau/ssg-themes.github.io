@@ -46,6 +46,16 @@ for candidate in node_modules tests/responsive/node_modules; do
     break
   fi
 done
+# The install has disappeared mid-run more than once on a memory-pressured
+# machine, and the failure surfaces as a module-not-found trace that says
+# nothing about its cause. `npm ci` is idempotent and the lockfile is right
+# here, so restore it rather than making a person read a stack trace.
+if [[ -z "${NM}" && -f tests/responsive/package-lock.json ]]; then
+  echo "playwright: not installed, restoring from tests/responsive/package-lock.json" >&2
+  (cd tests/responsive && npm ci >/dev/null 2>&1) || true
+  [[ -d "tests/responsive/node_modules/@playwright/test" ]] \
+    && NM="${PWD}/tests/responsive/node_modules"
+fi
 if [[ -z "${NM}" ]]; then
   echo "error: @playwright/test not installed — see the header of this file" >&2
   exit 1

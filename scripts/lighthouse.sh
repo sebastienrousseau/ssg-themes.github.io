@@ -81,6 +81,6 @@ fi
 ${LHCI} autorun \
   "${ARGS[@]}" \
   "${SETTINGS[@]}" \
-  --collect.numberOfRuns=1 \
+  --collect.numberOfRuns="${LIGHTHOUSE_RUNS:-3}" \
   --upload.target=filesystem \
   --upload.outputDir=./.lighthouse
