@@ -70,7 +70,7 @@ fi
 publish_missing_layout_assets() {
   local layouts="$1" output="$2" asset generated
 
-  for asset in styles.css theme-init.js main.js; do
+  for asset in skeletonic.min.css styles.css theme-init.js main.js; do
     [[ -f "${layouts}/${asset}" ]] || continue
     # Theme output directories are recreated by SSG, but the showcase is
     # merged into the existing public root so its stable compatibility files
