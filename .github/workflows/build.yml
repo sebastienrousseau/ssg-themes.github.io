@@ -142,12 +142,10 @@ jobs:
       # rendered on a ground it was never paired with. Reuses the Chromium
       # installed by the step above.
       - name: AAA gates (rendered contrast, target size, reflow, focus)
-        # A single pass here. The suites batch by default so they survive a
-        # developer machine with little free memory, and restarting the
-        # browser between groups is pure overhead on a runner that has
-        # plenty — it roughly doubled this step's wall time.
-        env:
-          AAA_BATCHES: "1"
+        # Keep the runner's default bounded batches. A single Chromium over
+        # all 264 pages accumulates enough renderer state to exit 1 late in
+        # the focus suite; restarting between groups is part of the gate's
+        # memory-safety contract, not merely a developer-machine workaround.
         run: bash tests/aaa/run.sh
 
       - name: Install link checker
