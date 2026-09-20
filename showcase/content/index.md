@@ -60,7 +60,7 @@ stat_thirdparty: "third-party requests, on every page"
     <div class="sc-track" id="themeTrack" role="region" aria-label="Themes, scrollable horizontally" tabindex="0">
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="apex/images/card.webp" srcset="apex/images/card.webp 640w, apex/images/tn.webp 900w, apex/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Apex home page: a portrait beside a large headline, with a row of metric cards below." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="apex/images/card.webp" srcset="apex/images/card.webp 640w, apex/images/tn.webp 900w, apex/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Apex theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Portfolio</p>
@@ -76,7 +76,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="atlas/images/card.webp" srcset="atlas/images/card.webp 640w, atlas/images/tn.webp 900w, atlas/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Atlas home page: a serif headline over a standfirst, with three article cards beneath." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="atlas/images/card.webp" srcset="atlas/images/card.webp 640w, atlas/images/tn.webp 900w, atlas/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Atlas theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Publication</p>
@@ -92,7 +92,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="kaishi/images/card.webp" srcset="kaishi/images/card.webp 640w, kaishi/images/tn.webp 900w, kaishi/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Kaishi home page: a centred headline over a translucent sticky header, with a grid of feature cards below." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="kaishi/images/card.webp" srcset="kaishi/images/card.webp 640w, kaishi/images/tn.webp 900w, kaishi/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kaishi theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -108,7 +108,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="kinetic/images/card.webp" srcset="kinetic/images/card.webp 640w, kinetic/images/tn.webp 900w, kinetic/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Kinetic home page: a violet gradient hero above a row of figures and a tabbed platform tour." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="kinetic/images/card.webp" srcset="kinetic/images/card.webp 640w, kinetic/images/tn.webp 900w, kinetic/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kinetic theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -124,7 +124,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="lucid/images/card.webp" srcset="lucid/images/card.webp 640w, lucid/images/tn.webp 900w, lucid/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Lucid documentation page: side navigation, a reading column and an in-page contents list." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="lucid/images/card.webp" srcset="lucid/images/card.webp 640w, lucid/images/tn.webp 900w, lucid/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Lucid documentation theme." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Documentation</p>
@@ -140,7 +140,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="prism/images/card.webp" srcset="prism/images/card.webp 640w, prism/images/tn.webp 900w, prism/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Prism home page: a navy masthead and sloped hero with three product mock-up cards, above a row of partner badges." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="prism/images/card.webp" srcset="prism/images/card.webp 640w, prism/images/tn.webp 900w, prism/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Prism theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -156,7 +156,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="quill/images/card.webp" srcset="quill/images/card.webp 640w, quill/images/tn.webp 900w, quill/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Quill home page: a large wordmark, a full-bleed hero image and a two-column post header." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="quill/images/card.webp" srcset="quill/images/card.webp 640w, quill/images/tn.webp 900w, quill/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Quill theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Blog</p>
@@ -172,7 +172,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="stablo/images/card.webp" srcset="stablo/images/card.webp 640w, stablo/images/tn.webp 900w, stablo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Stablo home page: a centred wordmark with featured post cards, category labels and author bylines." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="stablo/images/card.webp" srcset="stablo/images/card.webp 640w, stablo/images/tn.webp 900w, stablo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Stablo theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Blog</p>
@@ -188,7 +188,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="velocity/images/card.webp" srcset="velocity/images/card.webp 640w, velocity/images/tn.webp 900w, velocity/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Velocity home page: a centred product headline above a grid of six feature cards." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="velocity/images/card.webp" srcset="velocity/images/card.webp 640w, velocity/images/tn.webp 900w, velocity/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Velocity theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -204,7 +204,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="vista/images/card.webp" srcset="vista/images/card.webp 640w, vista/images/tn.webp 900w, vista/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Vista home page: a dark stage with a large headline above a pale dune landscape, and a feature rail below." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="vista/images/card.webp" srcset="vista/images/card.webp 640w, vista/images/tn.webp 900w, vista/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Vista theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -220,7 +220,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="voxt/images/card.webp" srcset="voxt/images/card.webp 640w, voxt/images/tn.webp 900w, voxt/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Voxt home page: a high-contrast terminal IDE preview above feature grids and security specifications." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="voxt/images/card.webp" srcset="voxt/images/card.webp 640w, voxt/images/tn.webp 900w, voxt/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Voxt theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -236,7 +236,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="steward/images/card.webp" srcset="steward/images/card.webp 640w, steward/images/tn.webp 900w, steward/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Steward home page: an institutional finance headline beside an abstract architectural composition and mandate cards." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="steward/images/card.webp" srcset="steward/images/card.webp 640w, steward/images/tn.webp 900w, steward/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Steward theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -252,7 +252,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="kairo/images/card.webp" srcset="kairo/images/card.webp 640w, kairo/images/tn.webp 900w, kairo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Kairo home page: oversized black typography over orange balconies against a cyan sky, framed by warm ivory." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="kairo/images/card.webp" srcset="kairo/images/card.webp 640w, kairo/images/tn.webp 900w, kairo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kairo theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Portfolio</p>
@@ -268,7 +268,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="visage/images/card.webp" srcset="visage/images/card.webp 640w, visage/images/tn.webp 900w, visage/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Visage home page: a centred specialist-consultation headline above four clear care commitments." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="visage/images/card.webp" srcset="visage/images/card.webp 640w, visage/images/tn.webp 900w, visage/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Visage theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -284,7 +284,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="signal/images/card.webp" srcset="signal/images/card.webp 640w, signal/images/tn.webp 900w, signal/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Signal home page: a centred revenue-intelligence headline above a luminous blue dashboard abstraction." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="signal/images/card.webp" srcset="signal/images/card.webp 640w, signal/images/tn.webp 900w, signal/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Signal theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -300,7 +300,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="cadence/images/card.webp" srcset="cadence/images/card.webp 640w, cadence/images/tn.webp 900w, cadence/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Cadence home page: a high-contrast cycling headline beside an abstract rider and orange road flare." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="cadence/images/card.webp" srcset="cadence/images/card.webp 640w, cadence/images/tn.webp 900w, cadence/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Cadence theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -316,7 +316,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="noir/images/card.webp" srcset="noir/images/card.webp 640w, noir/images/tn.webp 900w, noir/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Noir home page: a monochrome streetwear headline beside a sculptural jacket silhouette." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="noir/images/card.webp" srcset="noir/images/card.webp 640w, noir/images/tn.webp 900w, noir/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Noir theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -332,7 +332,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="covenant/images/card.webp" srcset="covenant/images/card.webp 640w, covenant/images/tn.webp 900w, covenant/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Covenant home page: an ivory serif investment headline beside black and red architectural geometry." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="covenant/images/card.webp" srcset="covenant/images/card.webp 640w, covenant/images/tn.webp 900w, covenant/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Covenant theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -348,7 +348,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="hearth/images/card.webp" srcset="hearth/images/card.webp 640w, hearth/images/tn.webp 900w, hearth/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Hearth home page: an airy furniture headline above an abstract upholstered chair study." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="hearth/images/card.webp" srcset="hearth/images/card.webp 640w, hearth/images/tn.webp 900w, hearth/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Hearth theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -364,7 +364,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="intent/images/card.webp" srcset="intent/images/card.webp 640w, intent/images/tn.webp 900w, intent/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Intent home page: an editorial serif portfolio headline beside a monochrome studio study crossed by yellow ribbon." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="intent/images/card.webp" srcset="intent/images/card.webp 640w, intent/images/tn.webp 900w, intent/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Intent theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Portfolio</p>
@@ -380,7 +380,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="curio/images/card.webp" srcset="curio/images/card.webp 640w, curio/images/tn.webp 900w, curio/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Curio home page: an oversized AI-shopping headline beside a purple product-query composition." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="curio/images/card.webp" srcset="curio/images/card.webp 640w, curio/images/tn.webp 900w, curio/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Curio theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Marketing</p>
@@ -396,7 +396,7 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="scout/images/card.webp" srcset="scout/images/card.webp 640w, scout/images/tn.webp 900w, scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="The Scout home page: a diagnostic headline beside a blue server-analysis image." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="scout/images/card.webp" srcset="scout/images/card.webp 640w, scout/images/tn.webp 900w, scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Scout theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Developer Tools</p>

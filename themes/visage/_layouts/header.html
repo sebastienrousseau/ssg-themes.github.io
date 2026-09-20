@@ -17,20 +17,22 @@
       <a class="nav-cta" href="{{site_path}}#contact">{{cta_primary}}</a>
     </nav>
     <details class="ap-lang">
-    <summary class="ap-lang-toggle" title="{{label_langs}}" aria-label="{{lang_code}}, {{lang_change}}">
-    <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+    <summary class="ap-lang-toggle" title="{{label_langs}}">
+    <span class="ap-lang-globe">🌐</span>
     <span class="ap-lang-current">{{lang_code}}</span>
+    <span class="visually-hidden">, {{lang_change}}</span>
     </summary>
     <div class="ap-lang-menu">
     <div class="ap-lang-menu-grid">
-    <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
-    <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+    <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+    <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
     </div>
     </div>
     </details>
-    <button class="mode-toggle" id="mode-toggle" type="button" data-label-light="Light" data-label-dark="Dark" aria-label="{{label_theme}}">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" /></svg>
-      <span id="mode-state">{{label_theme_short}}</span>
+    <button class="theme-toggle" id="mode-toggle" type="button" data-label-light="Light" data-label-dark="Dark">
+      <span class="visually-hidden">{{label_theme}}</span>
+      <span class="visually-hidden" id="mode-state" data-label-system="System">System</span>
+        <span class="theme-icon" aria-hidden="true"></span>
     </button>
   </div>
 </header>

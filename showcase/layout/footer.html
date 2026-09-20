@@ -1,8 +1,5 @@
-<!-- The showcase's own footer.
-     It overrides Apex's for the same reason header.html does: Apex's footer
-     links to projects/, frameworks/, about/, contact/, atom.xml and feed.json,
-     which exist under /apex/ and nowhere else. Rendered at the site root those
-     became six broken links on the landing page. Everything below resolves. -->
+<!-- The standalone showcase footer. Every link resolves from the host root;
+     the exact attribution is gated alongside all distributable themes. -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-cols">
@@ -34,9 +31,12 @@
         <h2>Built with</h2>
         <ul>
           <li>
-            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+            <a href="https://static-site-generator.com/">Static Site Generator</a>
           </li>
-          <li><a href="{{site_path}}rss.xml">RSS</a></li>
+          <li><a href="https://skeletonic.com/">Skeletonic CSS</a></li>
+          <li>
+            <a href="https://github.com/sebastienrousseau/ssg-themes.github.io" rel="noopener noreferrer">Source repository</a>
+          </li>
           <li><a href="{{site_path}}sitemap.xml">Sitemap</a></li>
         </ul>
       </div>
@@ -44,7 +44,7 @@
 
     <div class="footer-legal">
       <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
-      <span>Built with <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">Made with SSG</a>. WCAG 2.2 AA verified in CI.</span>
+      <span class="footer-credit">Made with ❤️ in London. Built with <a href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</span>
     </div>
   </div>
 </footer>

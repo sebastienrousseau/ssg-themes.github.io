@@ -85,14 +85,14 @@ def shared_switcher(markup: str, lang: str, base_path: str) -> str:
     current = ' aria-current="true"'
     return SWITCHER.sub(
         '<details class="ap-lang">'
-        f'<summary class="ap-lang-toggle" title="{label}" '
-        f'aria-label="{code}, {action}">'
-        '<span class="ap-lang-globe" aria-hidden="true">\U0001F310</span>'
-        f'<span class="ap-lang-current">{code}</span></summary>'
+        f'<summary class="ap-lang-toggle" title="{label}">'
+        '<span class="ap-lang-globe">\U0001F310</span>'
+        f'<span class="ap-lang-current">{code}</span>'
+        f'<span class="visually-hidden">, {action}</span></summary>'
         '<div class="ap-lang-menu"><div class="ap-lang-menu-grid">'
-        f'<a class="ap-lang-item" href="{base_path}" hreflang="en" lang="en"'
+        f'<a class="ap-lang-item" href="{base_path}?lang=en" hreflang="en" lang="en"'
         f'{current if lang == "en" else ""}>English</a>'
-        f'<a class="ap-lang-item" href="{base_path}fr/" hreflang="fr" lang="fr"'
+        f'<a class="ap-lang-item" href="{base_path}fr/?lang=fr" hreflang="fr" lang="fr"'
         f'{current if lang == "fr" else ""}>Français</a>'
         '</div></div></details>',
         markup, count=1)

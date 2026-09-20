@@ -237,7 +237,7 @@
 .style-cadence { background:var(--bg); color:var(--ink); }
 .style-cadence .wrap { width:min(calc(100% - 3rem),80rem); margin-inline:auto; }
 .style-cadence h1,.style-cadence h2,.style-cadence h3 { color:inherit; font-family:Arial,Helvetica,sans-serif; font-weight:500; }
-.style-cadence .site-header { position:absolute; inset:5rem 4rem auto; width:auto; z-index:20; border:0; background:transparent; backdrop-filter:none; }
+.style-cadence .site-header { position:absolute; inset:4rem 4rem auto; width:auto; z-index:20; border:0; background:transparent; backdrop-filter:none; }
 .style-cadence .brand,.style-cadence .site-nav a,.style-cadence .mode-toggle { color:var(--ink); }
 /* Over the poster the masthead sits on a photograph, so it takes the
    scene ink in both modes; on every other page it takes the page ink. */
@@ -283,7 +283,7 @@ body:not(:has(.ride-poster)) .eyebrow{color:var(--label)}
 .story-image { position:relative; overflow:hidden; border-radius:1rem; }
 .story-image img { display:block; width:100%; height:auto; aspect-ratio:1200/742; object-fit:cover; }.ride-story>div>div:last-child>p:not(.orange-label){color:var(--scene-muted)}.ride-story ul{padding-left:1.25rem}.ride-story a{display:inline-flex;margin-top:2rem;color:var(--scene-ink);font-weight:900}
 .ride-close { padding:10rem 0; background:var(--cta); color:var(--cta-ink); }.ride-close h2{margin-bottom:2rem}.ride-close a{display:inline-flex;padding:1rem 1.4rem;background:var(--scene);color:var(--scene-ink);text-decoration:none;font-weight:900}
-.style-cadence .site-footer{background:var(--scene);color:var(--scene-ink);border-color:var(--line)}.style-cadence .site-footer a,.style-cadence .site-footer p,.style-cadence .site-footer h2{color:var(--scene-ink)}
+.style-cadence .site-footer{background:var(--scene);color:var(--scene-ink);border-color:var(--line)}.style-cadence .site-footer a,.style-cadence .site-footer p,.style-cadence .site-footer h2,.style-cadence .site-footer .footer-brand{color:var(--scene-ink)}
 .machine-grid article>span{font-size:.75rem}
 .style-cadence .site-nav .nav-cta{color:var(--accent-ink)}
 .style-cadence .skip-link{background:var(--scene);color:var(--scene-ink)}
@@ -604,7 +604,7 @@ footer a,
 .style-cadence .site-footer a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 2.75rem;
   min-width: 44px;
 }
 
@@ -804,7 +804,7 @@ html { scroll-padding-block-start: 5.5rem; }
   align-items: center;
   justify-content: center;
   gap: .5rem;
-  min-height: 44px;
+  min-height: 2.75rem;
   padding: .5rem 1rem;
   border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
   border-radius: 999px;
@@ -853,7 +853,7 @@ html { scroll-padding-block-start: 5.5rem; }
 .ap-lang-menu-grid { display: grid; gap: .125rem; }
 .ap-lang-item {
   display: block;
-  min-height: 44px;
+  min-height: 2.75rem;
   padding: .6rem .75rem;
   border-radius: .35rem;
   color: inherit;
@@ -874,4 +874,57 @@ html { scroll-padding-block-start: 5.5rem; }
    below this width the panel hangs from the button's right edge instead. */
 @media (max-width: 30rem) {
   .ap-lang-menu { left: auto; right: 0; }
+}
+
+/* A consistent proportional rhythm below every heading level. */
+:where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
+.site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
+
+/* Voxt is the canonical three-state mode control for every theme. */
+#mode-toggle.theme-toggle {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #5d6375;
+  border-radius: 50%;
+  background: #151928;
+  color: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+#mode-toggle .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+#mode-toggle .theme-icon { line-height: 1; }
+#mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1.2rem; }
+:root[data-theme="light"] #mode-toggle.theme-toggle {
+  border-color: #878d9b;
+  background: #f3f4f6;
+  color: #090a0f;
+}
+:root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
+:root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #mode-toggle.theme-toggle {
+    border-color: #878d9b;
+    background: #f3f4f6;
+    color: #090a0f;
+  }
 }

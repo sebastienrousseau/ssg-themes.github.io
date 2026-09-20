@@ -10,7 +10,7 @@
           "matchingUrlPattern": "^https?://[^/]+/$",
           "assertions": {
             "categories:performance": [
-              "warn",
+              "error",
               {
                 "minScore": 1.0
               }
@@ -34,19 +34,19 @@
               }
             ],
             "first-contentful-paint": [
-              "warn",
+              "error",
               {
-                "maxNumericValue": 1000
+                "maxNumericValue": 1800
               }
             ],
             "largest-contentful-paint": [
-              "warn",
+              "error",
               {
-                "maxNumericValue": 1200
+                "maxNumericValue": 2500
               }
             ],
             "cumulative-layout-shift": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 0
               }
@@ -67,7 +67,7 @@
           "matchingUrlPattern": "^https?://[^/]+/.+",
           "assertions": {
             "categories:performance": [
-              "warn",
+              "error",
               {
                 "minScore": 1.0
               }
@@ -91,19 +91,19 @@
               }
             ],
             "first-contentful-paint": [
-              "warn",
+              "error",
               {
-                "maxNumericValue": 1000
+                "maxNumericValue": 1800
               }
             ],
             "largest-contentful-paint": [
-              "warn",
+              "error",
               {
-                "maxNumericValue": 1200
+                "maxNumericValue": 2500
               }
             ],
             "cumulative-layout-shift": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 0
               }

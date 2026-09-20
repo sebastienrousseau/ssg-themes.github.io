@@ -13,10 +13,9 @@
   /* Three states, not two: "system" is the absence of data-theme, so a
      visitor can hand the choice back to the operating system. The previous
      two-way switch stamped data-theme on the first click and never removed
-     it. Voxt drives an emoji icon rather than paired SVGs, so the icon is
-     set here rather than by CSS. */
+     it. The mode icon is rendered by CSS so its dimensions are reserved
+     before this deferred script runs, preventing a header layout shift. */
   var ORDER = ["system", "light", "dark"];
-  var ICONS = { system: "\u{1F5A5}\uFE0F", light: "\u2600\uFE0F", dark: "\u{1F319}" };
 
   function currentMode() {
     var set = document.documentElement.getAttribute("data-theme");
@@ -38,8 +37,6 @@
     }
     var btn = document.getElementById("mode-toggle");
     if (!btn) return;
-    var icon = btn.querySelector(".theme-icon");
-    if (icon) icon.textContent = ICONS[mode];
     var state = document.getElementById("mode-state");
     if (state) state.textContent = labelFor(mode, btn, state);
   }

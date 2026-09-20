@@ -180,31 +180,11 @@ jobs:
       - name: Lighthouse CI
         run: |
           npm install --no-save @lhci/cli
-          # Same derivation as the accessibility gate, for the same reason.
-          urls=()
-          for theme in themes/*/; do
-            urls+=("--collect.url=http://localhost/$(basename "${theme}")/index.html")
-          done
           # The thresholds live in .lighthouserc.json so a local
           # `make check-lighthouse` and CI assert exactly the same thing —
-          # nothing is switched off here any more.
-          #
-          # The performance *category* is a warning, in the config, for both.
-          # It is a function of the runner: consecutive runs of an unchanged
-          # tree failed four different themes each time on total blocking
-          # time, first paint and speed index. What gates instead is total
-          # transfer weight, which is a property of the build and identical
-          # on every machine — 50 KiB per theme, and the gallery's own budget
-          # for the page whose job is to show twenty-two screenshots.
-          #
-          # numberOfRuns is 3 in the config, so the timing metrics reported
-          # here are medians rather than a single sample.
-          npx lhci autorun \
-            --config=.lighthouserc.json \
-            --collect.staticDistDir=public \
-            "${urls[@]}" \
-            --upload.target=filesystem \
-            --upload.outputDir=./lhci
+          # both mobile and desktop run three times and hard-gate all four
+          # categories at 1.0, with the transfer and raw-metric budgets too.
+          bash scripts/lighthouse.sh
 
       - name: Upload build
         uses: actions/upload-artifact@v4

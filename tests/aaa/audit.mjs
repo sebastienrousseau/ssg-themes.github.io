@@ -87,7 +87,13 @@ export const AUDIT = () => {
   // box it lives in. Navigation links are not exempt and are still checked.
   const inlineExempt = e => {
     const p = e.parentElement;
-    return !!(p && e.closest('.prose') && ['P','LI','TD','TH'].includes(p.tagName));
+    return !!(p && (
+      (e.closest('.prose') && ['P','LI','TD','TH'].includes(p.tagName)) ||
+      // The two attribution links are words in one footer sentence. They
+      // are the criterion's inline-text case, not standalone footer-nav
+      // controls; forcing a 44px box around “SSG” visibly inserts whitespace.
+      p.classList.contains('footer-credit')
+    ));
   };
   /* A visually hidden input whose label is the visible control: the label is
    * what a finger lands on, so that is the target to measure. The exemption is

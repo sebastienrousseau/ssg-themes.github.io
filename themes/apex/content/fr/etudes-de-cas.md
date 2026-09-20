@@ -81,7 +81,7 @@ repeated markup.
 
 ## Choosing between the three
 
-| | Consulting | Research | Advisory |
+| Mission | Conseil | Recherche | Accompagnement |
 | --- | --- | --- | --- |
 | Pages | 5 | 4 | 3 |
 | Feeds | Optional | Recommended | Not needed |

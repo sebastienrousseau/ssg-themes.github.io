@@ -12,9 +12,10 @@ From the repository root:
 ssg build -f themes/visage/ssg.toml
 ```
 
-The committed `styles.css` is compiled from `styles.styl`, which imports the
-local Skeletonic Stylus core. Change `base_url`, the demonstration content and
-the contact address before deployment.
+The committed `skeletonic.min.css` is the published Skeletonic Stylus v3.0.0
+core. It loads before the hand-authored `styles.css`, so the theme's cascade
+layers override the framework. Change `base_url`, the demonstration content
+and the contact address before deployment.
 
 ## Accessibility and resilience
 

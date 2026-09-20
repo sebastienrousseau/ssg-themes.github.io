@@ -140,7 +140,7 @@ work on one thing.
 make build              # build all themes into public/
 make check              # every gate: structure, contrast, weight, audit,
                         # responsive, AAA, links, pa11y, schema
-make check-lighthouse   # Lighthouse over the gallery and all themes
+make check-lighthouse   # Mobile + desktop Lighthouse over gallery and themes
 make screenshots        # recapture the gallery screenshots from the build
 ```
 

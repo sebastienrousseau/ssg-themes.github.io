@@ -151,8 +151,8 @@ check-aaa:
 check-pa11y:
 	@bash scripts/pa11y.sh
 
-# Lighthouse at minScore 1.0. Kept out of `check` because it wants three runs
-# per page and a quiet machine; CI runs it on its own.
+# Mobile and desktop Lighthouse at minScore 1.0. Kept out of `check` because
+# each profile wants three runs per page and a quiet machine; CI runs it alone.
 .PHONY: screenshots
 
 screenshots: build ## Recapture the gallery screenshots from the built themes

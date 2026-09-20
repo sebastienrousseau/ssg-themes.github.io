@@ -32,9 +32,6 @@
              `nous-contacter/`), so a hard-coded English slug here would
              404 under `/atlas/fr/`. -->
         <li>
-          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>{{label_home}}</a>
-        </li>
-        <li>
           <a class="nav-link" href="{{locale_path}}{{slug_articles}}" {{#if nav_articles}}aria-current="page"{{/if}}>{{label_articles}}</a>
         </li>
         <li>
@@ -54,14 +51,15 @@
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
       <details class="ap-lang">
-      <summary class="ap-lang-toggle" title="{{label_langs}}" aria-label="{{lang_code}}, {{lang_change}}">
-      <span class="ap-lang-globe" aria-hidden="true">🌐</span>
+      <summary class="ap-lang-toggle" title="{{label_langs}}">
+      <span class="ap-lang-globe">🌐</span>
       <span class="ap-lang-current">{{lang_code}}</span>
+      <span class="visually-hidden">, {{lang_change}}</span>
       </summary>
       <div class="ap-lang-menu">
       <div class="ap-lang-menu-grid">
-      <a class="ap-lang-item" href="{{base_path}}" hreflang="en" lang="en"{{!en_current}}>English</a>
-      <a class="ap-lang-item" href="{{base_path}}fr/" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
       </div>
       </div>
       </details>
@@ -74,17 +72,8 @@
         data-label-dark="{{label_theme_dark}}"
       >
         <span class="visually-hidden">{{label_theme}}</span>
-        <span class="visually-hidden" id="mode-state">{{label_theme_system}}</span>
-        <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="5" />
-          <line x1="12" y1="19" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="5" y2="12" />
-          <line x1="19" y1="12" x2="22" y2="12" />
-        </svg>
-        <svg class="icon-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-        </svg>
+        <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
     </nav>
   </div>

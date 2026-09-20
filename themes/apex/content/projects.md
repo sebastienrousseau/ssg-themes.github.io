@@ -82,7 +82,7 @@ repeated markup.
 
 ## Choosing between the three
 
-| | Consulting | Research | Advisory |
+| Engagement | Consulting | Research | Advisory |
 | --- | --- | --- | --- |
 | Pages | 5 | 4 | 3 |
 | Feeds | Optional | Recommended | Not needed |

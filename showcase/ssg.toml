@@ -1,6 +1,6 @@
-# Site-level configuration for the Apex theme.
+# Site-level configuration for the theme showcase.
 #
-# Passed to the generator with `ssg build -f themes/apex/ssg.toml`. Without
+# Passed to the generator by `scripts/build.sh`. Without
 # it the build falls back to the compiled-in defaults, which is how earlier
 # releases shipped an `llms.txt` reading "MySsgSite — A site built with SSG"
 # and JSON-LD pointing at http://127.0.0.1:8000.
@@ -20,7 +20,7 @@ base_url = "https://example.com"
 language = "en-GB"
 
 content_dir = "showcase/content"
-template_dir = "SHOWCASE_LAYOUTS"
+template_dir = "showcase/layout"
 output_dir = "SHOWCASE_OUT"
 
 # The gallery is bilingual for the same reason the themes are: it is the

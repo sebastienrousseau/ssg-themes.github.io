@@ -39,6 +39,52 @@ const read = async (page) =>
     return { canvas, ink: getComputedStyle(h).color };
   });
 
+const readControl = async (page) =>
+  page.evaluate(() => {
+    const button = document.getElementById('mode-toggle');
+    const icon = button?.querySelector('.theme-icon');
+    if (!button || !icon) return null;
+    const style = getComputedStyle(button);
+    const pseudo = getComputedStyle(icon, '::before').content.replace(/^['"]|['"]$/g, '');
+    return {
+      className: button.className,
+      width: style.width,
+      height: style.height,
+      minWidth: style.minWidth,
+      minHeight: style.minHeight,
+      borderRadius: style.borderRadius,
+      borderWidth: style.borderWidth,
+      borderColor: style.borderColor,
+      background: style.backgroundColor,
+      pseudo
+    };
+  });
+
+const assertVoxtControl = (site, mode, control, fails) => {
+  if (!control) {
+    fails.push(`${site}: ${mode} is missing Voxt's #mode-toggle.theme-toggle / .theme-icon contract`);
+    return;
+  }
+  const expected = mode === 'dark'
+    ? { borderColor: 'rgb(93, 99, 117)', background: 'rgb(21, 25, 40)', pseudo: '🌙' }
+    : { borderColor: 'rgb(135, 141, 155)', background: 'rgb(243, 244, 246)', pseudo: mode === 'light' ? '☀️' : '🖥️' };
+  const exact = {
+    className: 'theme-toggle',
+    width: '44px',
+    height: '44px',
+    minWidth: '44px',
+    minHeight: '44px',
+    borderRadius: '50%',
+    borderWidth: '1px',
+    ...expected
+  };
+  for (const [property, wanted] of Object.entries(exact)) {
+    if (control[property] !== wanted) {
+      fails.push(`${site}: ${mode} control ${property} expected ${wanted}, got ${control[property]}`);
+    }
+  }
+};
+
 const browser = await chromium.launch();
 const fails = [];
 let checked = 0;
@@ -60,6 +106,7 @@ for (const site of SITES) {
       if (await mode.count() !== 1 || await state.count() !== 1) {
         fails.push(`${site.name}: missing the #mode-toggle / #mode-state control contract`);
       } else {
+        assertVoxtControl(site.name, 'system', await readControl(page), fails);
         const actual = [];
         for (let click = 0; click < 3; click++) {
           await mode.click();
@@ -67,6 +114,7 @@ for (const site of SITES) {
             attr: document.documentElement.getAttribute('data-theme') || 'system',
             state: document.getElementById('mode-state')?.textContent.trim() || ''
           }));
+          assertVoxtControl(site.name, clicked.attr, await readControl(page), fails);
           await page.reload({ waitUntil: 'domcontentloaded' });
           clicked.persisted = await page.evaluate(() =>
             document.documentElement.getAttribute('data-theme') || 'system');

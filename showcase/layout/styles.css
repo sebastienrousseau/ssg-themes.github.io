@@ -1,5 +1,5 @@
 /*!
- * Apex — executive portfolio theme for Static Site Generator (SSG).
+ * SSG Themes — gallery design system for Static Site Generator (SSG).
  *
  * Token contract
  * --------------
@@ -665,7 +665,6 @@
    * body size in grey -- the one element on the card meant to be large and
    * accented. Visible on the theme's own demo, not just the showcase. */
   .metric .metric-value {
-    display: block;
     font-size: var(--step-3);
     font-weight: 800;
     color: var(--accent);
@@ -801,7 +800,7 @@
     gap: var(--space-xs) var(--space-m);
     justify-content: space-between;
   }/* ---------- generated language switcher ---------- */
-  
+
 
   /* ---------- built-in search widget ---------- */
   /* `ssg` injects #ssg-search-widget together with its own fingerprinted,

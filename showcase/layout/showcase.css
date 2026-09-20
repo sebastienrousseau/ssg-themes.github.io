@@ -1,15 +1,10 @@
 
 /* ======================================================================
-   Showcase-only presentation.
+   Showcase gallery components.
    ----------------------------------------------------------------------
-   Appended to a staged copy of the Apex stylesheet at build time, never
-   written into themes/apex/, because that theme ships to users as a
-   downloadable archive and a gallery-only carousel would ship with it.
-
-   Everything below consumes Apex's own gated tokens, so the colour gate
-   already covers every pair used here. Apex's palette is deep charcoal
-   (#1d1d1f) on near-white and a true black canvas in dark mode, which is
-   the treatment this gallery wants anyway.
+   Loaded by the showcase's own base template after its design system.
+   Everything below consumes that template's gated tokens: deep charcoal
+   (#1d1d1f) on near-white and a true black canvas in dark mode.
    ====================================================================== */
 
 /* ---- rhythm on the golden ratio -------------------------------------- */

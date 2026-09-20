@@ -3,7 +3,7 @@
 <section class="wrap hero-post" aria-labelledby="hero-h">
   <h1 id="hero-h" class="vh">{{headline}}</h1>
   <span class="hero-media">
-    <img src="{{site_path}}images/feature-640.webp" srcset="{{site_path}}images/feature-320.webp 320w, {{site_path}}images/feature-480.webp 480w, {{site_path}}images/feature-640.webp 640w, {{site_path}}images/feature-768.webp 768w, {{site_path}}images/feature-960.webp 960w, {{site_path}}images/feature.webp 1200w" sizes="(min-width: 80rem) 76rem, calc(100vw - 2.5rem)" width="1200" height="742" alt="{{feature_alt}}" fetchpriority="high">
+    <img src="{{site_path}}images/feature-640.webp" srcset="{{site_path}}images/feature-320.webp 320w, {{site_path}}images/feature-480.webp 480w, {{site_path}}images/feature-640.webp 640w, {{site_path}}images/feature-768.webp 768w, {{site_path}}images/feature-960.webp 960w, {{site_path}}images/feature.webp 1200w" sizes="(min-width: 48rem) 48rem, calc(100vw - 2.5rem)" width="1200" height="742" alt="{{feature_alt}}" fetchpriority="high">
   </span>
   <div class="hero-grid">
     <div>
@@ -12,7 +12,7 @@
     </div>
     <div>
       <p class="hero-excerpt">{{p1_excerpt}}</p>
-      <p class="byline"><span class="byline-name">{{p1_author}}</span></p>
+      <cite class="byline"><span class="byline-name">{{p1_author}}</span></cite>
     </div>
   </div>
 </section>
@@ -27,7 +27,7 @@
       <h3 class="story-h"><a href="{{p2_href}}">{{p2_title}}</a></h3>
       <p class="story-date"><time datetime="{{p2_iso}}">{{p2_date}}</time></p>
       <p class="story-excerpt">{{p2_excerpt}}</p>
-      <p class="byline"><span class="byline-name">{{p2_author}}</span></p>
+      <cite class="byline"><span class="byline-name">{{p2_author}}</span></cite>
     </li>
     <li class="story">
       <span class="story-media">
@@ -36,7 +36,7 @@
       <h3 class="story-h"><a href="{{p3_href}}">{{p3_title}}</a></h3>
       <p class="story-date"><time datetime="{{p3_iso}}">{{p3_date}}</time></p>
       <p class="story-excerpt">{{p3_excerpt}}</p>
-      <p class="byline"><span class="byline-name">{{p3_author}}</span></p>
+      <cite class="byline"><span class="byline-name">{{p3_author}}</span></cite>
     </li>
   </ul>
   <p class="more-cta"><a class="btn btn-secondary" href="{{locale_path}}{{slug_archive}}/">{{more_cta}}</a></p>

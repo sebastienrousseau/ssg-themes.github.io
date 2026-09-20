@@ -3,16 +3,12 @@
 <!--
   The showcase landing page.
 
-  Everything structural comes from the Apex theme: this file is overlaid onto
-  a staged copy of `themes/apex/_layouts/` at build time, so `base`, `header`,
-  `footer` and `styles.css` are Apex's own. The gallery's own presentation
-  lives in `showcase/layout/showcase.css`, appended to that staged stylesheet
-  by scripts/build.sh — never written into `themes/apex/`, which ships to
-  users as a downloadable archive and must not carry a carousel that exists
-  on one page.
+  The root is a standalone SSG site. Its base, header, footer, page layouts,
+  design system and gallery assets all live together in `showcase/layout/`;
+  the build does not borrow or patch a distributable theme.
 
-  Apex's palette is already the one this page wants: deep charcoal (#1d1d1f)
-  on near-white, and a true black canvas in dark mode.
+  Its palette is deep charcoal (#1d1d1f) on near-white, with a true black
+  canvas in dark mode.
 -->
 <div class="showcase">
   <section class="sc-hero" aria-labelledby="hero-heading">
