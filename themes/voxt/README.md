@@ -2,6 +2,8 @@
 
 Voxt is a modern, single-page developer and AI showcase theme for Static Site Generator (SSG).
 
+![Voxt screenshot](images/screenshot.png)
+
 ## Features
 - **Hero Terminal Mockup**: Pre-configured 4-pane TMUX IDE visual grid with live badges.
 - **Dark/Light Mode**: AAA-contrast CSS color variables with zero flash.

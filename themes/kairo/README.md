@@ -4,6 +4,8 @@ Kairo is an expressive creative-portfolio theme for Static Site Generator.
 It translates cinematic type, energetic geometry and studio pacing into an
 original, image-free composition.
 
+![Kairo screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

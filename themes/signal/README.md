@@ -4,6 +4,8 @@ Signal is a revenue-intelligence SaaS theme for Static Site Generator. It
 translates luminous dashboards and modular product storytelling into an
 original, explainable composition.
 
+![Signal screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

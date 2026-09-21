@@ -4,6 +4,8 @@ Covenant is a private-capital theme for Static Site Generator. It translates
 strict black, ivory and red editorial systems into an original, image-free
 portfolio composition.
 
+![Covenant screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

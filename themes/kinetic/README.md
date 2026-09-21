@@ -4,6 +4,8 @@ A work-platform marketing theme for [Static Site Generator][ssg]: the
 front-of-house pages a multi-product SaaS needs, with none of the weight
 that category usually carries.
 
+![Kinetic screenshot](images/screenshot.png)
+
 - **Five pages** — home, platform, solutions, pricing, contact, plus a 404.
 - **No build step.** No `package.json`, no bundler. Hand-authored CSS using
   cascade layers and custom properties.

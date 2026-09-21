@@ -4,6 +4,8 @@ Curio is an AI shopping-assistant theme for Static Site Generator. It
 translates oversized commerce type and modular recommendation cards into an
 original, transparent product experience.
 
+![Curio screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

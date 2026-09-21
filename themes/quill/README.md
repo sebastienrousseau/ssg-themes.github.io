@@ -4,6 +4,8 @@ An typographic blog theme for [Static Site Generator](https://github.com/sebasti
 
 A large tight-tracked wordmark, full-bleed hero images, two-column post headers, and a deliberately monochrome palette where hierarchy is carried by size and space rather than hue.
 
+![Quill screenshot](images/screenshot.png)
+
 **Best for:** Writing-led blogs, essays, changelogs
 
 ## What it ships

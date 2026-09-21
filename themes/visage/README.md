@@ -4,6 +4,8 @@ Visage is an evidence-led aesthetic-health theme for Static Site Generator.
 It translates clinical whitespace and a centred consultation journey into an
 original, privacy-first composition.
 
+![Visage screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

@@ -4,6 +4,8 @@ Noir is a monochrome streetwear-commerce theme for Static Site Generator. It
 translates sculptural product staging and hard editorial rules into an
 original, image-free catalogue.
 
+![Noir screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

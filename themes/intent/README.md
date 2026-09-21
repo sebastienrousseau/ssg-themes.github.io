@@ -4,6 +4,8 @@ Intent is an editorial design-portfolio theme for Static Site Generator. It
 translates monochrome studio publishing and expressive serif type into an
 original, image-free composition.
 
+![Intent screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

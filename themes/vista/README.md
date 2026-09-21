@@ -4,6 +4,8 @@ A spatial-computing product theme for [Static Site Generator][ssg]: the
 front-of-house page a flagship device needs, with none of the motion that
 category usually carries.
 
+![Vista screenshot](images/screenshot.png)
+
 - **Four pages** — home, features, specifications, contact, plus a 404.
 - **No build step.** No `package.json`, no bundler. Hand-authored CSS using
   cascade layers and custom properties.

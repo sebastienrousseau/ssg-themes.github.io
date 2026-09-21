@@ -4,6 +4,8 @@ An airy editorial blog theme for [Static Site Generator](https://github.com/seba
 
 A centred wordmark with navigation either side, large featured cards with category labels, author bylines and dates, on a white ground with an indigo accent.
 
+![Stablo screenshot](images/screenshot.png)
+
 **Best for:** Editorial blogs, magazines, personal writing
 
 ## What it ships

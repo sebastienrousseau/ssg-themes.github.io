@@ -4,6 +4,8 @@ Cadence is a performance-cycling theme for Static Site Generator. It translates
 cinematic road energy and technical product storytelling into an original,
 image-free composition.
 
+![Cadence screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

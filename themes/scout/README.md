@@ -4,6 +4,8 @@ Scout is a diagnostic-instrument theme for Static Site Generator. It presents
 technical verification as a readable verdict, severity ledger and inspectable
 evidence trail.
 
+![Scout screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

@@ -2,6 +2,8 @@
 
 A documentation theme for [Static Site Generator](https://github.com/sebastienrousseau/static-site-generator), built on the layout the U.S. Web Design System recommends for a [documentation page](https://designsystem.digital.gov/templates/documentation-page/): persistent side navigation, in-page contents, and a reading column that does not sprawl.
 
+![Lucid screenshot](images/screenshot.png)
+
 ## What it is for
 
 Handbooks, API references, runbooks — anything read once in order and then returned to by search. The layout answers the two questions a reader arrives with: *where am I in this document*, and *what else is in this section*.

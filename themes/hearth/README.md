@@ -4,6 +4,8 @@ Hearth is a considered furniture-catalogue theme for Static Site Generator. It
 translates airy product layouts and material-led storytelling into an original,
 image-free composition.
 
+![Hearth screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:

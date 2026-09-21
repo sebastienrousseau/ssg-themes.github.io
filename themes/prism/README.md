@@ -4,6 +4,8 @@ A financial-infrastructure marketing theme for [Static Site Generator][ssg]:
 the front-of-house pages a payments, treasury or banking-rails product needs,
 with none of the weight that category usually carries.
 
+![Prism screenshot](images/screenshot.png)
+
 - **Six pages** — home, products, solutions, developers, governance,
   contact, plus a 404.
 - **No build step.** No `package.json`, no bundler. Hand-authored CSS using

@@ -4,6 +4,8 @@ Steward is an institutional financial-advisory theme for Static Site Generator.
 It translates the calm grid, sober typography and trust-led pacing of the
 reference direction into an original, image-free composition.
 
+![Steward screenshot](images/screenshot.png)
+
 ## Build
 
 From the repository root:
