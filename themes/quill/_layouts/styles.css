@@ -724,6 +724,9 @@ h1 {
 
 /* A consistent proportional rhythm below every heading level. */
 :where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
+/* Keep credit links truly inline: Skeletonic's enhanced target box is correct
+ * for standalone navigation, but inside this sentence it made the adjacent
+ * anchors' painted boxes overlap under Linux font metrics at 480px. */
 .site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
 
 /* Voxt is the canonical three-state mode control for every theme. */

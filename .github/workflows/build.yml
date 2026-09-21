@@ -133,21 +133,6 @@ jobs:
           npm --prefix tests/responsive install --no-audit --no-fund
           npx --prefix tests/responsive playwright install --with-deps chromium
 
-      # Temporary differential canary while GitHub's Linux Chromium reports
-      # a focus defect that the identical slice does not reproduce on macOS.
-      # Per-defect annotations in focus.mjs make the public failure actionable.
-      - name: Linux focus differential (batch 8/12)
-        run: |
-          ln -sfn "${PWD}/tests/responsive/node_modules" tests/aaa/node_modules
-          python3 -m http.server 8734 --directory public >/tmp/aaa-focus-server.log 2>&1 &
-          server_pid=$!
-          trap 'kill "${server_pid}" 2>/dev/null || true' EXIT
-          for _ in $(seq 1 40); do
-            curl -sf http://127.0.0.1:8734/prism/ >/dev/null && break
-            sleep 0.25
-          done
-          BASE=http://127.0.0.1:8734 AAA_SLICE=7/12 node tests/aaa/focus.mjs
-
       - name: Browser gates (layout, interaction, semantics, axe)
         # Single pass, for the reason given on the AAA step below.
         env:
