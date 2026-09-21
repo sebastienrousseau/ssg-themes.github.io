@@ -132,6 +132,16 @@ if (fails.length) {
   const uniq = [...new Set(fails)];
   console.log(`FAIL ${uniq.length}:`);
   (process.env.AAA_ALL?uniq:uniq.slice(0,15)).forEach((f) => console.log('  ' + f));
+  // Public Actions pages hide raw logs from signed-out readers. Emit each
+  // sampled defect as an annotation as well, so a Linux-only rendering
+  // difference remains diagnosable without weakening or rerunning the gate.
+  const commandValue = (value) => value
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A');
+  uniq.slice(0, 15).forEach((f) => {
+    console.log(`::error title=Focus visibility defect::${commandValue(f)}`);
+  });
   process.exit(1);
 }
 console.log('PASS - 2.4.11 Focus Not Obscured (Minimum) + 2.4.12 (Enhanced)');
