@@ -128,10 +128,16 @@ jobs:
       # the runner's system Chrome through ChromeDriver, and the two drift:
       # it failed all 25 pages with "This version of ChromeDriver only
       # supports Chrome version 151".
-      - name: Browser gates (layout, interaction, semantics, axe)
+      - name: Install browser test dependencies
         run: |
           npm --prefix tests/responsive install --no-audit --no-fund
           npx --prefix tests/responsive playwright install --with-deps chromium
+
+      - name: Browser gates (layout, interaction, semantics, axe)
+        # Single pass, for the reason given on the AAA step below.
+        env:
+          RESPONSIVE_BATCHES: "1"
+        run: |
           bash tests/responsive/run.sh
 
       # The AAA suites measure what the browser paints, which the stylesheet
@@ -139,6 +145,10 @@ jobs:
       # rendered on a ground it was never paired with. Reuses the Chromium
       # installed by the step above.
       - name: AAA gates (rendered contrast, target size, reflow, focus)
+        # Keep the runner's default bounded batches. A single Chromium over
+        # all 264 pages accumulates enough renderer state to exit 1 late in
+        # the focus suite; restarting between groups is part of the gate's
+        # memory-safety contract, not merely a developer-machine workaround.
         run: bash tests/aaa/run.sh
 
       - name: Install link checker
@@ -171,23 +181,11 @@ jobs:
       - name: Lighthouse CI
         run: |
           npm install --no-save @lhci/cli
-          # Same derivation as the accessibility gate, for the same reason.
-          urls=()
-          for theme in themes/*/; do
-            urls+=("--collect.url=http://localhost/$(basename "${theme}")/index.html")
-          done
-          # The thresholds live in .lighthouserc.json (1.0 across the board) so
-          # a local `make check-lighthouse` and CI assert the same thing.
-          # Performance is the one category left off here and only here: it
-          # measures the runner, not the site, and a loaded shared runner moves
-          # it by more than any change to these themes ever has.
-          npx lhci autorun \
-            --config=.lighthouserc.json \
-            --collect.staticDistDir=public \
-            "${urls[@]}" \
-            --assert.assertions.categories:performance=off \
-            --upload.target=filesystem \
-            --upload.outputDir=./lhci
+          # The thresholds live in .lighthouserc.json so a local
+          # `make check-lighthouse` and CI assert exactly the same thing —
+          # both mobile and desktop run three times and hard-gate all four
+          # categories at 1.0, with the transfer and raw-metric budgets too.
+          bash scripts/lighthouse.sh
 
       - name: Upload build
         uses: actions/upload-artifact@v4

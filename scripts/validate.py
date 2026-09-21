@@ -9,6 +9,9 @@ specific regressions that shipped in 1.0.0:
   * every layout inherits from `base.html` rather than duplicating a shell
   * page copy uses `{{!content}}` (unescaped), never `{{content}}`
   * the navigation disclosure button that the stylesheet reveals exists
+  * every heading level has the same proportional bottom rhythm
+  * every footer carries the required linked SSG and Skeletonic credit
+  * every theme uses Voxt's canonical system/light/dark mode control
   * no third-party host, tracker or CDN reference anywhere in the sources
   * no leftover personal identifiers from the 1.0.0 Atlas snapshot
   * every `translation_key` resolves in every locale a theme declares
@@ -22,6 +25,7 @@ here.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -29,9 +33,13 @@ import sys
 import tomllib
 from pathlib import Path
 
-CATEGORIES = ("Blog", "Documentation", "Marketing", "Portfolio", "Publication")
+CATEGORIES = ("Blog", "Developer Tools", "Documentation", "Marketing", "Portfolio", "Publication")
 
-THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "prism", "quill", "stablo", "velocity", "voxt")
+THEMES = (
+    "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "signal", "stablo", "steward", "velocity", "visage", "vista", "voxt",
+)
 
 REQUIRED_FILES = (
     "theme.toml",
@@ -48,9 +56,32 @@ REQUIRED_FILES = (
     "_layouts/page.html",
     "_layouts/index.html",
     "_layouts/404.html",
+    "_layouts/skeletonic.min.css",
     "_layouts/styles.css",
     "_layouts/main.js",
     "_layouts/theme-init.js",
+)
+
+# Published @sebastienrousseau/skeletonic-stylus 3.0.0 core.  Keeping the
+# digest here makes the framework version measurable: a missing, stale or
+# locally edited copy fails all theme builds instead of relying on a comment
+# or filename that can drift independently from the CSS bytes.
+SKELETONIC_VERSION = "3.0.0"
+SKELETONIC_CORE_SHA256 = (
+    "116dcdcf51009485eb2dbb6f5c773856f437d972ef277b31e2ee4ef587e1fb09"
+)
+
+HEADING_RHYTHM_RULE = (
+    ":where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }"
+)
+FOOTER_CREDIT_LINK_RULE = (
+    ".site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; "
+    "padding: 0; margin: 0; white-space: nowrap; }"
+)
+FOOTER_CREDIT_MARKUP = (
+    'Made with ❤️ in London. Built with '
+    '<a href="https://static-site-generator.com/">SSG</a> and '
+    '<a href="https://skeletonic.com/">Skeletonic CSS</a>.'
 )
 
 # Hosts and vendor names that must never reappear in theme sources.
@@ -265,6 +296,35 @@ def check_theme(root: Path, name: str) -> list[str]:
         if not (theme / rel).is_file():
             errors.append(f"{name}: missing {rel}")
 
+    # --- every theme ships the exact v3 core, before its own overrides ---
+    skeletonic = theme / "_layouts" / "skeletonic.min.css"
+    base = theme / "_layouts" / "base.html"
+    if skeletonic.is_file():
+        digest = hashlib.sha256(skeletonic.read_bytes()).hexdigest()
+        if digest != SKELETONIC_CORE_SHA256:
+            errors.append(
+                f"{name}: skeletonic.min.css is not the published "
+                f"Skeletonic Stylus {SKELETONIC_VERSION} core "
+                f"(sha256 {digest})"
+            )
+    if base.is_file():
+        base_text = base.read_text(encoding="utf-8")
+        core_link = re.search(
+            r'href="[^"]*skeletonic\.min\.css"', base_text
+        )
+        theme_link = re.search(r'href="[^"]*styles\.css"', base_text)
+        if core_link is None:
+            errors.append(
+                f"{name}: base.html does not load skeletonic.min.css"
+            )
+        elif theme_link is None:
+            errors.append(f"{name}: base.html does not load styles.css")
+        elif core_link.start() > theme_link.start():
+            errors.append(
+                f"{name}: base.html loads styles.css before Skeletonic; "
+                "the v3 core must load first so theme overrides win"
+            )
+
     # --- manifests agree with each other and with the directory ---
     tj = theme / "theme.json"
     if tj.is_file():
@@ -342,6 +402,7 @@ def check_theme(root: Path, name: str) -> list[str]:
 
     # --- the control the stylesheet reveals must exist ---
     header = theme / "_layouts" / "header.html"
+    footer = theme / "_layouts" / "footer.html"
     css = theme / "_layouts" / "styles.css"
     if header.is_file() and css.is_file():
         header_text = header.read_text(encoding="utf-8")
@@ -358,6 +419,52 @@ def check_theme(root: Path, name: str) -> list[str]:
         if "prefers-reduced-motion" not in css_text:
             errors.append(
                 f"{name}: styles.css has no prefers-reduced-motion block"
+            )
+        for fragment in (
+            'class="theme-toggle"',
+            'id="mode-toggle"',
+            'id="mode-state" data-label-system=',
+            '<span class="theme-icon" aria-hidden="true"></span>',
+        ):
+            if header_text.count(fragment) != 1:
+                errors.append(
+                    f"{name}: header.html must contain Voxt mode-control "
+                    f"fragment {fragment!r} exactly once"
+                )
+        for legacy in ('class="mode-toggle"', 'class="mode-btn"', 'icon-light', 'icon-dark'):
+            if legacy in header_text:
+                errors.append(
+                    f"{name}: header.html retains legacy mode-control "
+                    f"markup {legacy!r} instead of Voxt's control"
+                )
+        for fragment in (
+            "#mode-toggle.theme-toggle {",
+            '#mode-toggle .theme-icon::before { content: "🖥️";',
+            ':root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }',
+            ':root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }',
+        ):
+            if fragment not in css_text:
+                errors.append(
+                    f"{name}: styles.css must contain Voxt mode-control "
+                    f"rule {fragment!r}"
+                )
+        if css_text.count(HEADING_RHYTHM_RULE) != 1:
+            errors.append(
+                f"{name}: styles.css must contain the shared proportional "
+                "h1-h6 bottom-padding rule exactly once"
+            )
+        if css_text.count(FOOTER_CREDIT_LINK_RULE) != 1:
+            errors.append(
+                f"{name}: styles.css must normalize the linked footer "
+                "credit as inline sentence text exactly once"
+            )
+
+    if footer.is_file():
+        footer_text = footer.read_text(encoding="utf-8")
+        if footer_text.count(FOOTER_CREDIT_MARKUP) != 1:
+            errors.append(
+                f"{name}: footer.html must contain the exact linked SSG and "
+                "Skeletonic CSS credit once"
             )
 
     errors.extend(check_translations(theme, name))
@@ -519,26 +626,71 @@ def check_registration(root: Path) -> list[str]:
     layout = root / "showcase" / "layout" / "index.html"
     if layout.is_file():
         html = layout.read_text(encoding="utf-8")
-        facts = re.search(r'<div class="grid">(.*?)</div>\s*</div>\s*</section>',
-                          html, re.S)
-        if not facts:
-            errors.append("showcase/layout/index.html has no facts grid")
-        else:
-            # In the source every entry carries data-fact and an em-dash
-            # placeholder; scripts/facts.py substitutes the real value into
-            # the built page. A value typed here would ship as-is.
-            for attrs, value in re.findall(r"<b([^>]*)>([^<]*)</b>", facts.group(1)):
-                if "data-fact=" not in attrs:
-                    errors.append(
-                        "showcase/layout/index.html: a facts entry does not use "
-                        f'data-fact (found "{value.strip()}")'
-                    )
-                elif value.strip() not in ("", "\u2014", "-"):
-                    errors.append(
-                        f'showcase/layout/index.html: facts list has a typed value '
-                        f'"{value.strip()}"; leave the placeholder so '
-                        "scripts/facts.py fills it"
-                    )
+        # Matched on the `data-fact` attributes rather than on the class of
+        # the box that holds them. The check used to look for a `<div
+        # class="grid">`, which tied a claim about *generated numbers* to one
+        # particular piece of layout: redesigning the landing page into a
+        # carousel failed this gate while every number was still a
+        # placeholder. What matters is that no value is typed here.
+        # Comments first: the layout documents the contract by quoting
+        # `<b data-fact="KEY">…</b>` in prose, and scanning the raw file
+        # reported that example as a typed value.
+        markup = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+        entries = re.findall(r"<b([^>]*data-fact=[^>]*)>([^<]*)</b>", markup)
+        if not entries:
+            errors.append(
+                "showcase/layout/index.html declares no data-fact entries; "
+                "scripts/facts.py has nothing to fill"
+            )
+        for _attrs, value in entries:
+            if value.strip() not in ("", "\u2014", "-"):
+                errors.append(
+                    f'showcase/layout/index.html: facts list has a typed value '
+                    f'"{value.strip()}"; leave the placeholder so '
+                    "scripts/facts.py fills it"
+                )
+        for stray in re.findall(r"<b(?![^>]*data-fact=)[^>]*>([^<]*)</b>", markup):
+            if stray.strip():
+                errors.append(
+                    "showcase/layout/index.html: a bold value without "
+                    f'data-fact ("{stray.strip()}") would ship as typed'
+                )
+
+    # The gallery is a site in its own right, not fragments overlaid onto one
+    # of the distributable themes during the build. Requiring the complete
+    # template here prevents the root from silently falling back to another
+    # site's base, header, footer or assets.
+    showcase_layout = root / "showcase" / "layout"
+    required_showcase_files = {
+        "base.html",
+        "index.html",
+        "404.html",
+        "header.html",
+        "footer.html",
+        "skeletonic.min.css",
+        "styles.css",
+        "showcase.css",
+        "theme-init.js",
+        "main.js",
+        "showcase.js",
+    }
+    for required in sorted(required_showcase_files):
+        if not (showcase_layout / required).is_file():
+            errors.append(f"showcase/layout/{required} is missing")
+
+    # Keep the standalone footer on the same exact attribution as every
+    # distributable theme; otherwise the root can drift while all theme
+    # footer gates remain green.
+    showcase_footer = showcase_layout / "footer.html"
+    if showcase_footer.is_file():
+        footer_text = showcase_footer.read_text(encoding="utf-8")
+        if footer_text.count(FOOTER_CREDIT_MARKUP) != 1:
+            errors.append(
+                "showcase/layout/footer.html must contain the exact linked "
+                "SSG and Skeletonic CSS credit once"
+            )
+    else:
+        errors.append("showcase/layout/footer.html is missing")
 
     readme = root / "README.md"
     if readme.is_file():

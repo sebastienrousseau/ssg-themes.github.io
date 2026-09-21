@@ -1,7 +1,7 @@
 # Generated site-level configuration for ssg-themes.github.io
 site_name = "SSG Theme Suite"
-site_title = "SSG Themes | 10 Accessible, Production-Ready Theme Archetypes"
-site_description = "A collection of 10 curated, WCAG AAA compliant theme archetypes designed for Shokunin Static Site Generator."
+site_title = "SSG Themes | 20 Accessible, Production-Ready Theme Archetypes"
+site_description = "A collection of 20 curated, accessibility-gated theme archetypes designed for Static Site Generator."
 base_url = "https://themes.static-site-generator.com"
 language = "en-GB"
 

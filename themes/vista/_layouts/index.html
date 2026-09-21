@@ -1,0 +1,120 @@
+{{#extends "base"}}
+{{#block "main"}}
+<section class="stage" aria-labelledby="hero-heading">
+  <div class="container stage-copy">
+    <p class="eyebrow eyebrow-stage">{{eyebrow}}</p>
+    <h1 id="hero-heading">{{headline}}</h1>
+    <p class="lead stage-lead">{{lead}}</p>
+    <div class="cta-row cta-row-centred">
+      <a class="btn btn-stage" href="{{locale_path}}{{slug_features}}/">{{cta_primary}}</a>
+      <a class="btn btn-stage-quiet" href="{{locale_path}}{{slug_specs}}/">{{cta_secondary}}</a>
+    </div>
+  </div>
+
+  <figure class="stage-shot">
+    <img src="{{site_path}}images/environment.webp"
+         srcset="{{site_path}}images/environment-320.webp 320w, {{site_path}}images/environment-480.webp 480w, {{site_path}}images/environment-640.webp 640w, {{site_path}}images/environment-768.webp 768w, {{site_path}}images/environment-960.webp 960w, {{site_path}}images/environment-1200.webp 1200w"
+         sizes="(min-width: 64rem) 48rem, 100vw"
+         width="1200" height="742" fetchpriority="high" decoding="async"
+         alt="{{environment_alt}}" />
+  </figure>
+</section>
+
+<section class="section" aria-labelledby="carousel-heading">
+  <div class="container">
+    <div class="rail-head">
+      <div>
+        <p class="eyebrow">{{vis_a_closer_look}}</p>
+        <h2 id="carousel-heading">{{vis_built_around_what_you}}</h2>
+      </div>
+      <div class="rail-controls">
+        <button id="railPrev" type="button" aria-controls="featureRail">
+          <span class="visually-hidden">{{vis_show_previous_features}}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+        <button id="railNext" type="button" aria-controls="featureRail">
+          <span class="visually-hidden">{{vis_show_more_features}}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <!--
+      A scroll region, not a slideshow. It scrolls with a trackpad, a drag,
+      the arrow keys once focused, and the two buttons above. Nothing
+      advances on its own: motion lasting more than five seconds would need
+      a pause control under WCAG 2.2.2, and a feature list has no reason to
+      move without being asked.
+    -->
+    <div class="rail" id="featureRail" role="region" aria-label="{{vis_features_scrollable_horizontally}}" tabindex="0">
+      <article class="rail-card">
+        <p class="rail-index">01</p>
+        <h3>{{vis_an_display_for_every}}</h3>
+        <p>{{vis_two_panels_the_size}}</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">02</p>
+        <h3>{{vis_input_without_hardware}}</h3>
+        <p>{{vis_look_at_a_control}}</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">03</p>
+        <h3>{{vis_sound_that_stays_put}}</h3>
+        <p>{{vis_audio_is_placed_in}}</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">04</p>
+        <h3>{{vis_environments_on_demand}}</h3>
+        <p>{{vis_replace_the_room_with}}</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">05</p>
+        <h3>{{vis_privacy_at_the_sensor}}</h3>
+        <p>{{vis_eye_data_never_leaves}}</p>
+      </article>
+      <article class="rail-card">
+        <p class="rail-index">06</p>
+        <h3>{{vis_passthrough_that_convinces}}</h3>
+        <p>{{vis_cameras_rebuild_the_room}}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-silicon" aria-labelledby="silicon-heading">
+  <div class="container silicon-grid">
+    <div class="stack">
+      <p class="eyebrow eyebrow-stage">Silicon</p>
+      <h2 id="silicon-heading">{{vis_two_chips_one_of}}</h2>
+      <p class="silicon-lead">{{vis_one_runs_the_system}}</p>
+      <dl class="specs">
+        <div class="spec"><dt>{{vis_sensor_to_photon_latency}}</dt><dd>12 ms</dd></div>
+        <div class="spec"><dt>{{vis_cameras_and_sensors}}</dt><dd>17</dd></div>
+        <div class="spec"><dt>{{vis_pixels_across_both_panels}}</dt><dd>23M</dd></div>
+        <div class="spec"><dt>{{vis_refresh_sustained}}</dt><dd>90–100 Hz</dd></div>
+      </dl>
+    </div>
+    <figure class="silicon-shot">
+      <picture><source media="(max-width: 64rem)" srcset="{{site_path}}images/silicon-m320.webp 320w, {{site_path}}images/silicon-m480.webp 480w, {{site_path}}images/silicon-m640.webp 640w, {{site_path}}images/silicon-m768.webp 768w" sizes="100vw"><img class="art-mobile-crop" src="{{site_path}}images/silicon.webp"
+           srcset="{{site_path}}images/silicon-320.webp 320w, {{site_path}}images/silicon-480.webp 480w, {{site_path}}images/silicon-640.webp 640w, {{site_path}}images/silicon-768.webp 768w, {{site_path}}images/silicon-960.webp 960w"
+           sizes="(min-width: 64rem) 30rem, 92vw"
+           width="1200" height="1920" loading="lazy" decoding="async"
+           alt="{{silicon_alt}}" /></picture>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose">{{!content}}</div>
+</section>
+
+<section class="section section-close" aria-labelledby="close-heading">
+  <div class="container stack text-center">
+    <h2 id="close-heading">{{close_heading}}</h2>
+    <p class="lead mx-auto">{{close_lead}}</p>
+    <div class="cta-row cta-row-centred">
+      <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
+    </div>
+  </div>
+</section>
+{{/block}}

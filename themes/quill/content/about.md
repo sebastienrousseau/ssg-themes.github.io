@@ -1,7 +1,10 @@
 ---
+form_origin: "https://example.com"
 author: "SSG Theme Suite"
 date: "2026-08-30"
 language: "en-GB"
+lang_code: "EN"
+lang_change: "Change language"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"

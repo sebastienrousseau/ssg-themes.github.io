@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * axe-core (WCAG 2.2 AA) over every built page.
+ * axe-core (WCAG 2.2 AA, plus the three AAA rules axe implements)
+ * over every built page.
  *
  * This runs axe through the same pinned Playwright Chromium as the other
  * three suites, rather than through `@axe-core/cli`. The CLI drives the
@@ -25,7 +26,11 @@ const BASE =
     ? process.argv[process.argv.indexOf('--base') + 1]
     : 'http://127.0.0.1:8765/ssg-themes.github.io';
 
-const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+// `wcag2aaa` adds the three AAA rules axe implements: contrast at 7:1,
+// links with the same name serving the same purpose, and meta refresh.
+// The suite claims AAA on its own gallery page, so AA was the wrong bar
+// to check it at.
+const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'wcag2aaa'];
 
 const pages = readFileSync(new URL('./pages.txt', import.meta.url), 'utf8')
   .split('\n').map((s) => s.trim()).filter(Boolean);
@@ -55,7 +60,7 @@ for (const path of pages) {
 await browser.close();
 
 if (findings.length === 0) {
-  console.log(`axe: ${pages.length} pages, WCAG 2.2 AA — 0 violations`);
+  console.log(`axe: ${pages.length} pages, WCAG 2.2 AA + AAA rules — 0 violations`);
   process.exit(0);
 }
 

@@ -41,7 +41,6 @@
     --shadow-sm: 0 1px 2px rgb(20 24 21 / 6%);
     --shadow-md: 0 6px 20px -8px rgb(20 24 21 / 16%);
 
-
     /* The generator's search trigger is `position: fixed` over the page,
        not a child of the header, so it cannot inherit the header's
        vertical centring — it sat 4px below every other header control.
@@ -326,7 +325,6 @@
     margin-block-start: 1.6lh;
   }
 
-
   .prose h2 {
     margin-block-start: var(--space-l);
   }
@@ -474,60 +472,6 @@
     text-decoration-thickness: 2px;
   }
 
-  /* ------------------------------------------------------------------
-     Language switcher.
-
-     Injected by the generator's i18n plugin in place of the
-     `<!-- ssg:lang-switcher -->` marker in `header.html`, so the markup
-     below is not authored in this theme:
-
-       <nav class="lang-switcher" aria-label="Language">
-         <ul><li><a href=… lang="fr" hreflang="fr">fr</a></li>…</ul>
-       </nav>
-
-     One locale per `<li>`; the current locale carries
-     `aria-current="page"`. Styled to read as a compact set of switches
-     rather than primary navigation — it is a fallback for readers whose
-     `Accept-Language` did not land them where they wanted.
-     ------------------------------------------------------------------ */
-  .lang-switcher ul {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .lang-switcher a {
-    /* 24x24 CSS px minimum target (WCAG 2.5.8), same rule the nav and
-       theme toggles follow. */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2rem;
-    min-height: 2rem;
-    padding-inline: 0.375rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    color: var(--ink-soft);
-    font-size: var(--step--1);
-    font-weight: 600;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  .lang-switcher a:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .lang-switcher a[aria-current="page"] {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--on-accent-soft);
-  }
-
   /* WCAG 2.5.8 — every control clears the 24x24 CSS px minimum target. */
   .nav-toggle,
   .theme-toggle {
@@ -615,7 +559,8 @@
 
   .hero-image img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    aspect-ratio: 1200 / 742;
     object-fit: cover;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
@@ -864,40 +809,8 @@
     flex-wrap: wrap;
     gap: var(--space-xs) var(--space-m);
     justify-content: space-between;
-  }
-
-  /* ---------- generated language switcher ---------- */
-  /* Emitted by the i18n plugin. Its links measured 32x32, under the 44px
-     this theme claims, so they are sized here rather than left to inherit. */
-  .ssg-lang-switcher,
-  [class*="lang-switcher"] {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .ssg-lang-switcher a,
-  [class*="lang-switcher"] a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding-inline: 0.5rem;
-    border-radius: var(--radius-sm);
-    font-size: var(--step--1);
-    font-weight: 650;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  .ssg-lang-switcher a[aria-current] {
-    background: var(--accent-soft);
-    color: var(--on-accent-soft);
-  }
+  }/* ---------- generated language switcher ---------- */
+  
 
   /* ---------- built-in search widget ---------- */
   /* `ssg` injects #ssg-search-widget together with its own fingerprinted,
@@ -1374,4 +1287,203 @@ html {
    no gate visits - a 404 page has no index.html for the page set to find. */
 .cta-row-centred {
   justify-content: center;
+}
+
+/* Stable, in-flow search trigger for both current and legacy SSG output. */
+.site-nav > [data-ssg-search] {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.site-nav > #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+}
+.site-nav > #ssg-search-btn span,
+.site-nav > #ssg-search-btn kbd { display: none; }
+
+/* Bilingual safety net.
+   A heading that cannot break pushes its grid past the viewport as soon as
+   the translation is longer than the English — which is how Kairo and
+   Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
+   only acts when a word genuinely does not fit, so it changes nothing for
+   copy that already fits. */
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
+
+/* A grid or flex item's automatic minimum size is its min-content width, so
+   one long word can push its track wider than the viewport however narrow
+   the column is meant to be. Prism's French home page overflowed by three
+   pixels at 320px on CI and not at all locally: the same markup, different
+   font metrics, a min-content floor that landed either side of the track on
+   each platform. `min-width: 0` removes the floor so the track honours the
+   column instead of the longest word. */
+.hero-copy, .hero-stage, .eyebrow-hero, .hero-lead, .cta-row { min-width: 0; }
+
+/* `overflow-wrap: break-word` stops a long word painting outside its box but
+   deliberately does not change the element's min-content size, so a grid
+   track sized from that content is still as wide as the longest word —
+   which is why the rule above was not enough on its own. `anywhere` is the
+   one that reduces min-content, and it still only breaks a word that cannot
+   otherwise fit. French "L'infrastructure" at hero size is 254px against a
+   288px column here, and wider than that on CI's font metrics. */
+.hero-copy :is(h1, h2, p) { overflow-wrap: anywhere; }
+
+/* A sticky masthead can cover whatever the keyboard scrolls to, which is
+   what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll
+   padding means a focused element always comes to rest below it. */
+html { scroll-padding-block-start: 5.5rem; }
+
+@media (max-width: 48rem) {
+  html { scroll-padding-block-start: 4.5rem; }
+}
+
+/* Language switcher.
+   One control on all twenty-two themes: a globe, the current locale code,
+   and a panel anchored under the button. It was a bare inline list before,
+   positioned differently in every header.
+
+   A <details> disclosure, not a scripted menu. The themes enforce
+   `script-src 'self'` and the semantics gate renders every page with
+   JavaScript blocked, so anything script-driven would be a dead control in
+   the one rendering that has to keep working.
+
+   Colours come from `currentColor` and the two tokens every theme defines,
+   so a theme needs no palette of its own for this and dark mode follows the
+   header it sits in. The panel is opaque on purpose: the reference design
+   blurs the backdrop, but translucent text surfaces are exactly what the
+   AAA contrast gate cannot measure. */
+.ap-lang { position: relative; }
+.ap-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  list-style: none;
+}
+/* Both spellings: Safari still ships the WebKit pseudo-element. */
+.ap-lang-toggle::-webkit-details-marker { display: none; }
+.ap-lang-toggle::marker { content: ""; }
+.ap-lang-toggle:hover { border-color: currentColor; }
+.ap-lang-globe { font-size: 1rem; line-height: 1; }
+.ap-lang-current { line-height: 1; font-variant-numeric: tabular-nums; }
+/* A closed <details> hides its children through a UA rule that an
+   absolutely positioned box escapes: the panel was still laid out, and the
+   layout gate caught it overlapping the theme toggle and the nav links on
+   every theme. Hiding it explicitly is what actually takes it out of flow. */
+.ap-lang:not([open]) .ap-lang-menu { display: none; }
+.ap-lang-menu {
+  position: absolute;
+  top: calc(100% + .375rem);
+  /* Anchored to the button's left edge, not its right. The reference puts
+     this control last in its header, where opening leftwards is the only
+     way it fits; here the search and theme buttons always follow it, so
+     there is room to its right and opening left ran off the viewport. */
+  left: 0;
+  z-index: 60;
+  width: max-content;
+  min-width: 100%;
+  padding: .375rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: .6rem;
+  background: var(--surface, var(--bg, #fff));
+  box-shadow: 0 8px 28px rgb(0 0 0 / .18);
+  /* The toggle inherits the header's colour, which on a theme with a dark
+     stage is not the page's. The panel sits on the page surface, so it has
+     to reset rather than inherit it. */
+  color: var(--ink, CanvasText);
+}
+.ap-lang-menu-grid { display: grid; gap: .125rem; }
+.ap-lang-item {
+  display: block;
+  min-height: 44px;
+  padding: .6rem .75rem;
+  border-radius: .35rem;
+  color: inherit;
+  font-size: .85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ap-lang-item:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.ap-lang-item[aria-current] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .3em;
+  text-decoration-thickness: 2px;
+}
+
+/* Far enough along a narrow header that opening rightwards would overflow;
+   below this width the panel hangs from the button's right edge instead. */
+@media (max-width: 30rem) {
+  .ap-lang-menu { left: auto; right: 0; }
+}
+
+/* A consistent proportional rhythm below every heading level. */
+:where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
+.site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
+
+/* Voxt is the canonical three-state mode control for every theme. */
+#mode-toggle.theme-toggle {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #5d6375;
+  border-radius: 50%;
+  background: #151928;
+  color: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+#mode-toggle .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+#mode-toggle .theme-icon { line-height: 1; }
+#mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1.2rem; }
+:root[data-theme="light"] #mode-toggle.theme-toggle {
+  border-color: #878d9b;
+  background: #f3f4f6;
+  color: #090a0f;
+}
+:root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
+:root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #mode-toggle.theme-toggle {
+    border-color: #878d9b;
+    background: #f3f4f6;
+    color: #090a0f;
+  }
 }

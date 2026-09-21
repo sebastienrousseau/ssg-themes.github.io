@@ -1,0 +1,13 @@
+{
+  "name": "visage",
+  "display_name": "Visage",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Evidence-led aesthetic-health theme with a calm consultation journey and generous whitespace.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/visage/",
+  "demosite": "https://themes.static-site-generator.com/visage/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

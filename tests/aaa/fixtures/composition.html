@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- Known-answer fixture for composition.mjs. Each block carries exactly one
+     fault, and the self-test asserts the probe finds that fault and no other.
+     A 4:1 SVG is used as the source so intrinsic ratio is known exactly. -->
+<html lang="en"><head><meta charset="utf-8"><title>composition fixture</title>
+<style>
+  body { margin: 0; font: 16px/1.4 system-ui, sans-serif; }
+  section { position: relative; padding: 20px; }
+  /* 1. stretched: object-fit defaults to fill, box is 1:1, source is 4:1 */
+  #stretched .c-stretched { width: 200px; height: 200px; }
+  /* 2. over-cropped: cover, box 1:1 against a 4:1 source -> shows 25% */
+  #cropped .c-cropped { width: 200px; height: 200px; object-fit: cover; }
+  /* 3. framed: cover, box 3.4:1 against 4:1 -> shows 85%, allowed */
+  #framed .c-framed { width: 340px; height: 100px; object-fit: cover; }
+  /* 4. duplicated: the same source twice at display size */
+  #duplicated .c-dup { width: 200px; height: 50px; }
+  /* 5. collision: two text-bearing boxes laid over each other */
+  #collision p { position: absolute; top: 20px; left: 20px; width: 300px; margin: 0; }
+  #collision p + p { top: 30px; left: 40px; }
+  /* 6. unsized: a large image with no width/height attributes */
+  #unsized .c-unsized { width: 300px; height: 75px; }
+  /* clean control: correct ratio, sized, unique */
+  #clean .c-clean { width: 400px; height: 100px; }
+</style></head><body>
+<section id="stretched"><img class="c-stretched" src="a.svg" width="400" height="100" alt="stretched"></section>
+<section id="cropped"><img class="c-cropped" src="b.svg" width="400" height="100" alt="cropped"></section>
+<section id="framed"><img class="c-framed" src="c.svg" width="400" height="100" alt="framed"></section>
+<section id="duplicated"><img class="c-dup" src="d.svg" width="400" height="100" alt="one"><img class="c-dup" src="d.svg" width="400" height="100" alt="two"></section>
+<section id="collision" style="height:120px"><p class="c-hit-a">First paragraph of text</p><p class="c-hit-b">Second paragraph of text</p></section>
+<section id="unsized"><img class="c-unsized" src="e.svg" alt="unsized"></section>
+<section id="clean"><img class="c-clean" src="f.svg" width="400" height="100" alt="clean"></section>
+</body></html>

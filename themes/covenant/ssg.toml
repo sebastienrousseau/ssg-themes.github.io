@@ -1,0 +1,28 @@
+site_name = "Covenant"
+site_title = "Covenant — private equity and capital theme for SSG"
+site_description = "A rigorous private-capital theme with black, ivory and red geometry, editorial type and evidence-led portfolio storytelling."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/covenant/content"
+template_dir = "themes/covenant/_layouts"
+output_dir = "public/covenant"
+
+# Slugs are translated, not prefixed: `/covenant/about/` pairs with
+# `/covenant/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

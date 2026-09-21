@@ -1,0 +1,51 @@
+---
+name: "Kaishi"
+short_name: "KA"
+title: "Contact — Kaishi"
+description: "Comment joindre l'équipe au sujet du thème Kaishi : poser une question, signaler un problème ou demander une adaptation."
+keywords: "kaishi contact"
+author: "SSG Theme Suite"
+date: "2026-08-11"
+news_publication_date: "2026-08-11"
+layout: "contact"
+language: "fr-FR"
+lang_code: "FR"
+lang_change: "Changer de langue"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+nav_contact: "true"
+form_action: "https://example.com/your-form-endpoint"
+eyebrow: "Contact"
+headline: "Nous écrire"
+lead: "Dites-nous ce que vous construisez et nous vous dirons si ce thème est le bon."
+label_theme: "Thème"
+label_theme_system: "Système"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+ui_features: "Fonctionnalités"
+ui_primary: "Principale"
+ui_features_2: "Fonctionnalités"
+ui_json_feed: "JSON Feed"
+ui_built_with: "Construit avec"
+ui_static_site_generator: "Static Site Generator"
+ui_built_with_2: "Construit avec"
+ui_made_with_ssg: "Réalisé avec SSG"
+ui_wcag_2_2_aa: ". Conformité WCAG 2.2 AA vérifiée en intégration continue."
+ui_language: "Langue"
+locale_path: "/kaishi/fr/"
+base_path: "/kaishi/"
+en_current: ""
+fr_current: ' aria-current="true"'
+translation_key: "contact"
+slug_about: "a-propos"
+slug_contact: "contact"
+slug_features: "fonctionnalites"
+---
+Set `form_action` in `content/contact.md` to your own endpoint before
+deploying. Any service accepting a standard `POST` works — this form ships
+no JavaScript, so it degrades to a plain browser submission.
+
+Nothing you type here is stored by the theme, and no third-party script
+runs on this page.

@@ -1,0 +1,15 @@
+{
+  "name": "vista",
+  "title": "Vista",
+  "category": "Marketing",
+  "version": "1.0.0",
+  "description": "Spatial-computing product theme: full-bleed hero, a snap-scrolling feature carousel, an immersive environment band and a silicon spec panel, on Apple's charcoal-on-white palette, AAA-gated.",
+  "author": "SSG Theme Suite",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/vista/",
+  "min_ssg_version": "0.0.50",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}

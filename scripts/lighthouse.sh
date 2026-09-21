@@ -3,19 +3,12 @@ set -euo pipefail
 # Lighthouse against the built site, asserting the thresholds in
 # .lighthouserc.json (all four categories at 1.0).
 #
-# On the thresholds in .lighthouserc.json: the four category scores gate, and
-# all ten pages hold 1.0 on every one of them. The three raw-timing budgets
-# (FCP 1000ms, LCP 1200ms, CLS 0) are warnings, at their original values. They
-# are stricter than Google's own "good" thresholds, and they had never actually
-# run - the CI step that was meant to enforce them was continue-on-error with
-# performance switched off - so nothing regressed to make them warnings.
-# Apex is the one page that misses: its hero portrait puts LCP at ~1.36s, of
-# which 458ms is simulated TTFB and ~570ms is waiting on the stylesheet. A
-# srcset took it from 1.51s; a preload made it worse, not better, because the
-# image then competed with the render-blocking CSS. Raising it further means
-# inlining critical CSS, which style-src 'self' rules out.
+# On the thresholds in .lighthouserc.json: all four category scores are hard
+# gates at 1.0. FCP (1800ms), LCP (2500ms), and CLS (0) are also hard gates at
+# Lighthouse's mobile "good" boundaries. Keeping the category scores and raw
+# budgets as errors means a successful run has no hidden warning-only escape.
 #
-# lhci's staticDistDir walks the whole tree, which at 71 pages is far more than
+# lhci's staticDistDir walks the whole tree, which at 99 pages is far more than
 # a gate needs. One representative page per theme keeps it finite; the per-page
 # detail is pa11y's job and tests/aaa's. The theme list is read from disk so a
 # new theme is covered the day it lands.
@@ -40,32 +33,50 @@ THEMES=()
 while IFS= read -r t; do THEMES+=("${t}"); done < <(
   find themes -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
 )
-if (( ${#THEMES[@]} < 10 )); then
-  echo "error: found ${#THEMES[@]} themes, expected at least 10" >&2
+if (( ${#THEMES[@]} < 20 )); then
+  echo "error: found ${#THEMES[@]} themes, expected at least 20" >&2
   exit 1
 fi
 
-PORT="${PORT:-8734}"
-python3 -m http.server "${PORT}" --bind 127.0.0.1 -d public >/dev/null 2>&1 &
-SRV=$!
-trap 'kill "${SRV}" 2>/dev/null || true' EXIT
-for _ in $(seq 1 40); do
-  curl -sf "http://127.0.0.1:${PORT}/" >/dev/null && break
-  sleep 0.25
-done
-
-ARGS=(--collect.url="http://127.0.0.1:${PORT}/")
+# With staticDistDir, LHCI owns the temporary server and replaces this origin
+# while preserving each path. A stable placeholder avoids starting a second,
+# unused server and makes the same command work locally and in CI.
+ARGS=(--collect.url="http://localhost/")
 for t in "${THEMES[@]}"; do
   if [[ ! -d "public/${t}" ]]; then
     echo "error: theme ${t} is not in the build" >&2
     exit 1
   fi
-  ARGS+=(--collect.url="http://127.0.0.1:${PORT}/${t}/")
+  ARGS+=(--collect.url="http://localhost/${t}/")
 done
 
 echo "lighthouse: $(( ${#THEMES[@]} + 1 )) pages (showcase + ${#THEMES[@]} themes)"
-${LHCI} autorun \
-  "${ARGS[@]}" \
-  --collect.numberOfRuns=1 \
-  --upload.target=filesystem \
-  --upload.outputDir=./.lighthouse
+
+run_profile() {
+  local profile="$1"
+  local settings=()
+  if [[ "${profile}" == "desktop" ]]; then
+    settings+=(--collect.settings.preset=desktop)
+  fi
+  echo "lighthouse profile: ${profile}"
+  ${LHCI} autorun \
+    "${ARGS[@]}" \
+    "${settings[@]}" \
+    --collect.numberOfRuns="${LIGHTHOUSE_RUNS:-3}" \
+    --upload.target=filesystem \
+    --upload.outputDir="./.lighthouse/${profile}"
+}
+
+case "${LIGHTHOUSE_PRESET:-both}" in
+  both)
+    run_profile mobile
+    run_profile desktop
+    ;;
+  mobile|desktop)
+    run_profile "${LIGHTHOUSE_PRESET}"
+    ;;
+  *)
+    echo "error: LIGHTHOUSE_PRESET must be mobile, desktop, or both" >&2
+    exit 1
+    ;;
+esac

@@ -1,7 +1,12 @@
 ---
+form_origin: "https://example.com"
 author: "SSG Theme Suite"
 date: "2026-08-30"
 language: "en-GB"
+city_alt: "London skyline seen from above at first light"
+architecture_alt: "Blue glass tower rising into a cloud-filled sky"
+lang_code: "EN"
+lang_change: "Change language"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"

@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — ten gated themes for Static Site Generator"
-description: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity and Voxt: ten themes for Static Site Generator, each claim checked by a gate."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, kaishi, kinetic, lucid, prism, quill, stablo, velocity, voxt"
+title: "SSG Themes — twenty-two gated themes for Static Site Generator"
+description: "Twenty-two distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Ten themes. One architecture. Every claim gated."
-lead: "Apex, Atlas, Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity, and Voxt each have their own design system and layout set, built on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
+headline: "Twenty-two themes. One architecture. Every claim gated."
+lead: "Twenty-two themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
 news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
@@ -19,203 +19,402 @@ nav_label_repo: "Repository"
 repo_url: "https://github.com/sebastienrousseau/ssg-themes.github.io"
 label_nav: "Primary"
 label_menu: "Menu"
-label_theme: "Dark theme"
+label_theme: "Appearance"
+label_theme_system: "System"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
 label_made_with: "Made with SSG"
 copyright_year: "2026"
 form_origin: "https://example.com"
 changefreq: "weekly"
 schema: "page"
+lang_code: "EN"
+lang_change: "Change language"
+label_langs: "Language"
+base_path: "/"
+en_current: ' aria-current="true"'
+fr_current: ""
+translation_key: "home"
+locale_path: "/"
+stat_tokens: "colour token pairs passing AAA contrast, light and dark"
+stat_a11y: "accessibility issues across all theme pages"
+stat_weight: "heaviest page, gzipped, including CSS and JS"
+stat_thirdparty: "third-party requests, on every page"
 ---
 
-<section class="section" aria-labelledby="themes-heading">
-  <div class="container stack">
-    <h2 id="themes-heading">Choose a theme</h2>
-    <div class="grid">
-      <article class="card">
-        <picture>
-          <source srcset="apex/images/screenshot.webp" type="image/webp" />
-          <img src="apex/images/screenshot.png" alt="The Apex home page: a portrait beside a large headline, with a row of metric cards below." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Portfolio</p>
-        <h3>Apex</h3>
-        <p>Portfolio and consulting. Cool neutrals with a deep blue accent, a portrait-led hero and a metric grid.</p>
-        <dl>
-          <dt>Layouts</dt><dd>7</dd>
-          <dt>Best for</dt><dd>Advisors, directors, consultants</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="apex/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/apex.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/apex.tar.gz" download>.tar.gz</a>
+<section class="section sc-gallery" aria-labelledby="themes-heading">
+  <div class="container">
+    <div class="sc-gallery-head">
+      <h2 id="themes-heading">Choose a theme</h2>
+      <div class="sc-controls">
+        <button id="trackPrev" type="button" aria-controls="themeTrack">
+          <span class="visually-hidden">Scroll to previous themes</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+        <button id="trackNext" type="button" aria-controls="themeTrack">
+          <span class="visually-hidden">Scroll to more themes</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </div>
+    <div class="sc-track" id="themeTrack" role="region" aria-label="Themes, scrollable horizontally" tabindex="0">
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="apex/images/card.webp" srcset="apex/images/card.webp 640w, apex/images/tn.webp 900w, apex/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Apex theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Portfolio</p>
+          <h3>Apex</h3>
+          <p>Portfolio and consulting. Cool neutrals with a deep blue accent, an image-led hero and a metric grid.</p>
+          <ul class="sc-meta"><li>7 layouts</li><li>Advisors, directors, consultants</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="apex/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/apex.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/apex.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="atlas/images/screenshot.webp" type="image/webp" />
-          <img src="atlas/images/screenshot.png" alt="The Atlas home page: a serif headline over a standfirst, with three article cards beneath." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Publication</p>
-        <h3>Atlas</h3>
-        <p>Editorial and knowledge hubs. A serif reading column at a 72-character measure, with a forest-green accent.</p>
-        <dl>
-          <dt>Layouts</dt><dd>8</dd>
-          <dt>Best for</dt><dd>Research, essays, reference</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="atlas/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/atlas.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/atlas.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="atlas/images/card.webp" srcset="atlas/images/card.webp 640w, atlas/images/tn.webp 900w, atlas/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Atlas theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Publication</p>
+          <h3>Atlas</h3>
+          <p>Editorial and knowledge hubs. A serif reading column at a 72-character measure, with a forest-green accent.</p>
+          <ul class="sc-meta"><li>8 layouts</li><li>Research, essays, reference</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="atlas/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/atlas.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/atlas.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="kaishi/images/screenshot.webp" type="image/webp" />
-          <img src="kaishi/images/screenshot.png" alt="The Kaishi home page: a centred headline over a translucent sticky header, with a grid of feature cards below." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Marketing</p>
-        <h3>Kaishi</h3>
-        <p>An Apple-inspired starter. Translucent sticky header, pill controls and generous type, on a palette gated at AAA.</p>
-        <dl>
-          <dt>Layouts</dt><dd>6</dd>
-          <dt>Best for</dt><dd>New sites, starters, prototypes</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="kaishi/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/kaishi.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/kaishi.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="kaishi/images/card.webp" srcset="kaishi/images/card.webp 640w, kaishi/images/tn.webp 900w, kaishi/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kaishi theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Kaishi</h3>
+          <p>An Apple-inspired starter. Translucent sticky header, pill controls and generous type, on a palette gated at AAA.</p>
+          <ul class="sc-meta"><li>6 layouts</li><li>New sites, starters, prototypes</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="kaishi/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/kaishi.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/kaishi.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="kinetic/images/screenshot.webp" type="image/webp" />
-          <img src="kinetic/images/screenshot.png" alt="The Kinetic home page: a violet gradient hero above a row of figures and a tabbed platform tour." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Marketing</p>
-        <h3>Kinetic</h3>
-        <p>Work-platform marketing. Violet-to-cyan gradients used as decoration only, with a tabbed platform tour and an island-enhanced pricing table.</p>
-        <dl>
-          <dt>Layouts</dt><dd>5</dd>
-          <dt>Best for</dt><dd>Multi-product SaaS, launch sites</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="kinetic/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/kinetic.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/kinetic.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="kinetic/images/card.webp" srcset="kinetic/images/card.webp 640w, kinetic/images/tn.webp 900w, kinetic/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kinetic theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Kinetic</h3>
+          <p>Work-platform marketing. Violet-to-cyan gradients used as decoration only, with a tabbed platform tour and an island-enhanced pricing table.</p>
+          <ul class="sc-meta"><li>5 layouts</li><li>Multi-product SaaS, launch sites</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="kinetic/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/kinetic.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/kinetic.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="lucid/images/screenshot.webp" type="image/webp" />
-          <img src="lucid/images/screenshot.png" alt="The Lucid documentation page: side navigation, a reading column and an in-page contents list." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Documentation</p>
-        <h3>Lucid</h3>
-        <p>Technical documentation in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, breadcrumbs, English and French.</p>
-        <dl>
-          <dt>Layouts</dt><dd>4</dd>
-          <dt>Best for</dt><dd>Software docs, handbooks, references</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="lucid/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/lucid.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/lucid.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="lucid/images/card.webp" srcset="lucid/images/card.webp 640w, lucid/images/tn.webp 900w, lucid/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Lucid documentation theme." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Documentation</p>
+          <h3>Lucid</h3>
+          <p>Technical documentation in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, breadcrumbs, English and French.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Software docs, handbooks, references</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="lucid/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/lucid.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/lucid.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="prism/images/screenshot.webp" type="image/webp" />
-          <img src="prism/images/screenshot.png" alt="The Prism home page: a navy masthead and sloped hero with three product mock-up cards, above a row of partner badges." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Marketing</p>
-        <h3>Prism</h3>
-        <p>Financial infrastructure. A navy masthead with a disclosure mega-menu, a sloped hero with product mock-ups, and four semantic tints on a warm off-white ground.</p>
-        <dl>
-          <dt>Layouts</dt><dd>4</dd>
-          <dt>Best for</dt><dd>Fintech, payments, enterprise platforms</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="prism/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/prism.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/prism.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="prism/images/card.webp" srcset="prism/images/card.webp 640w, prism/images/tn.webp 900w, prism/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Prism theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Prism</h3>
+          <p>Financial infrastructure. A navy masthead with a disclosure mega-menu, a sloped hero with product mock-ups, and four semantic tints on a warm off-white ground.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Fintech, payments, enterprise platforms</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="prism/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/prism.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/prism.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="quill/images/screenshot.webp" type="image/webp" />
-          <img src="quill/images/screenshot.png" alt="The Quill home page: a large wordmark, a full-bleed hero image and a two-column post header." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Blog</p>
-        <h3>Quill</h3>
-        <p>Typographic and monochrome. A large tight-tracked wordmark, full-bleed hero, two-column post headers.</p>
-        <dl>
-          <dt>Layouts</dt><dd>4</dd>
-          <dt>Best for</dt><dd>Writing-led blogs, essays, changelogs</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="quill/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/quill.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/quill.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="quill/images/card.webp" srcset="quill/images/card.webp 640w, quill/images/tn.webp 900w, quill/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Quill theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Blog</p>
+          <h3>Quill</h3>
+          <p>Typographic and monochrome. A large tight-tracked wordmark, full-bleed hero, two-column post headers.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Writing-led blogs, essays, changelogs</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="quill/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/quill.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/quill.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="stablo/images/screenshot.webp" type="image/webp" />
-          <img src="stablo/images/screenshot.png" alt="The Stablo home page: a centred wordmark with featured post cards, category labels and author bylines." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Blog</p>
-        <h3>Stablo</h3>
-        <p>Airy and editorial. A centred wordmark with navigation either side, large featured cards with category labels.</p>
-        <dl>
-          <dt>Layouts</dt><dd>4</dd>
-          <dt>Best for</dt><dd>Editorial blogs, magazines, personal writing</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="stablo/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/stablo.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/stablo.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="stablo/images/card.webp" srcset="stablo/images/card.webp 640w, stablo/images/tn.webp 900w, stablo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Stablo theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Blog</p>
+          <h3>Stablo</h3>
+          <p>Airy and editorial. A centred wordmark with navigation either side, large featured cards with category labels.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Editorial blogs, magazines, personal writing</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="stablo/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/stablo.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/stablo.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="velocity/images/screenshot.webp" type="image/webp" />
-          <img src="velocity/images/screenshot.png" alt="The Velocity home page: a centred product headline above a grid of six feature cards." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Marketing</p>
-        <h3>Velocity</h3>
-        <p>Product landings and starters. Slate with a bronze accent, tight radii, and a deliberately small layout set.</p>
-        <dl>
-          <dt>Layouts</dt><dd>7</dd>
-          <dt>Best for</dt><dd>SaaS pages, project sites</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="velocity/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/velocity.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/velocity.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="velocity/images/card.webp" srcset="velocity/images/card.webp 640w, velocity/images/tn.webp 900w, velocity/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Velocity theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Velocity</h3>
+          <p>Product landings and starters. Slate with a bronze accent, tight radii, and a deliberately small layout set.</p>
+          <ul class="sc-meta"><li>7 layouts</li><li>SaaS pages, project sites</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="velocity/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/velocity.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/velocity.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
-      <article class="card">
-        <picture>
-          <source srcset="voxt/images/screenshot.webp" type="image/webp" />
-          <img src="voxt/images/screenshot.png" alt="The Voxt home page: a high-contrast terminal IDE preview above feature grids and security specifications." width="1500" height="1000" loading="lazy" />
-        </picture>
-        <p class="eyebrow">Marketing</p>
-        <h3>Voxt</h3>
-        <p>Developer tools and AI environment showcase. High-contrast terminal IDE preview, clean feature grids, and strict security compliance.</p>
-        <dl>
-          <dt>Layouts</dt><dd>3</dd>
-          <dt>Best for</dt><dd>Developer tools, CLI &amp; AI showcase, single-page landing</dd>
-        </dl>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="voxt/">View demo</a>
-          <a class="btn btn-secondary" href="downloads/voxt.zip" download>.zip</a>
-          <a class="btn btn-outline" href="downloads/voxt.tar.gz" download>.tar.gz</a>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="vista/images/card.webp" srcset="vista/images/card.webp 640w, vista/images/tn.webp 900w, vista/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Vista theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Vista</h3>
+          <p>Spatial-computing hardware. A dark full-bleed stage, a snap-scrolling feature rail and a silicon panel, on charcoal and near-white.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Devices, hardware, product launches</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="vista/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/vista.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/vista.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="voxt/images/card.webp" srcset="voxt/images/card.webp 640w, voxt/images/tn.webp 900w, voxt/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Voxt theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Voxt</h3>
+          <p>Developer tools and AI environment showcase. High-contrast terminal IDE preview, clean feature grids, and strict security compliance.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Developer tools, CLI &amp; AI showcase, single-page landing</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="voxt/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/voxt.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/voxt.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="steward/images/card.webp" srcset="steward/images/card.webp 640w, steward/images/tn.webp 900w, steward/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Steward theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Steward</h3>
+          <p>Institutional finance. Editorial serif type, a disciplined ledger grid and trust-led service narratives.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Advisers, family offices, institutions</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="steward/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/steward.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/steward.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="kairo/images/card.webp" srcset="kairo/images/card.webp 640w, kairo/images/tn.webp 900w, kairo/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Kairo theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Portfolio</p>
+          <h3>Kairo</h3>
+          <p>Creative direction. Cinematic type, energetic orange geometry and substantial case-study framing.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Designers, studios, art directors</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="kairo/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/kairo.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/kairo.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="visage/images/card.webp" srcset="visage/images/card.webp 640w, visage/images/tn.webp 900w, visage/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Visage theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Visage</h3>
+          <p>Aesthetic health. Calm clinical whitespace, consent-led copy and a private consultation journey.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Clinics, practitioners, wellness services</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="visage/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/visage.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/visage.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="signal/images/card.webp" srcset="signal/images/card.webp 640w, signal/images/tn.webp 900w, signal/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Signal theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Signal</h3>
+          <p>Revenue intelligence. Luminous dashboard surfaces, modular capabilities and explainable AI copy.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>SaaS, analytics, revenue platforms</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="signal/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/signal.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/signal.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="cadence/images/card.webp" srcset="cadence/images/card.webp 640w, cadence/images/tn.webp 900w, cadence/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Cadence theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Cadence</h3>
+          <p>Performance cycling. Dark cinematic staging, oversized type and evidence-led specification content.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Cycle makers, teams, endurance brands</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="cadence/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/cadence.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/cadence.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="noir/images/card.webp" srcset="noir/images/card.webp 640w, noir/images/tn.webp 900w, noir/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Noir theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Noir</h3>
+          <p>Streetwear commerce. Near-black catalogue staging, hard rules and transparent product information.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Fashion labels, lookbooks, catalogues</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="noir/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/noir.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/noir.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="covenant/images/card.webp" srcset="covenant/images/card.webp 640w, covenant/images/tn.webp 900w, covenant/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Covenant theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Covenant</h3>
+          <p>Private capital. Black, ivory and red geometry with rigorous portfolio and disclosure narratives.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Investment firms, portfolio groups, institutions</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="covenant/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/covenant.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/covenant.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="hearth/images/card.webp" srcset="hearth/images/card.webp 640w, hearth/images/tn.webp 900w, hearth/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Hearth theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Hearth</h3>
+          <p>Furniture catalogue. Airy product staging, warm material tones and practical ownership content.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Furniture makers, interiors, product studios</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="hearth/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/hearth.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/hearth.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="intent/images/card.webp" srcset="intent/images/card.webp 640w, intent/images/tn.webp 900w, intent/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Intent theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Portfolio</p>
+          <h3>Intent</h3>
+          <p>Editorial design. Expressive serif typography, monochrome fields and a vivid studio-ribbon motif.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Designers, illustrators, creative directors</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="intent/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/intent.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/intent.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="curio/images/card.webp" srcset="curio/images/card.webp 640w, curio/images/tn.webp 900w, curio/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Curio theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Marketing</p>
+          <h3>Curio</h3>
+          <p>AI shopping. Bold commerce type, modular product cards and transparent recommendation principles.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Comparison tools, marketplaces, shopping agents</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="curio/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/curio.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/curio.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="scout/images/card.webp" srcset="scout/images/card.webp 640w, scout/images/tn.webp 900w, scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Scout theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Developer Tools</p>
+          <h3>Scout</h3>
+          <p>Protocol diagnostics. A verdict-first readout, severity ledger and request-level evidence for local verification tools.</p>
+          <ul class="sc-meta"><li>3 layouts</li><li>Scanners, protocol tools, engineering reports</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="scout/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/scout.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/scout.tar.gz" download>.tar.gz</a>
+          </div>
         </div>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section section-soft" aria-labelledby="gates-heading">
+<section class="section sc-gates" aria-labelledby="gates-heading">
   <div class="container stack">
       <h2 id="gates-heading">What each gate checks</h2>
       <div class="scroll">
@@ -235,11 +434,11 @@ schema: "page"
             </tr>
             <tr>
               <th scope="row">Page weight</th>
-              <td>Every page under 20 KB gzipped including its CSS and JS; zero third-party subresources</td>
+              <td>Every page under 20 KB gzipped including its CSS and JS; every theme under 50 KiB transferred including its images; zero third-party subresources</td>
             </tr>
             <tr>
               <th scope="row">Accessibility</th>
-              <td>The generator's report shows 0 issues, and axe-core passes <code>wcag22aa</code></td>
+              <td>The generator's report shows 0 issues; axe-core passes <code>wcag22aa</code> and <code>wcag2aaa</code>; pa11y passes <code>WCAG2AAA</code> in both its runners; and text over a gradient or photograph is measured from rendered pixels</td>
             </tr>
             <tr>
               <th scope="row">Generator audit</th>

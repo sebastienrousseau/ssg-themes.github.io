@@ -1,0 +1,38 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{site_path}}" aria-label="{{label_home}}">
+      <span class="brand-mark" aria-hidden="true">{{brand_mark}}</span>
+      <span>{{name}}</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
+      <span>{{label_menu}}</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+    </button>
+    <nav class="site-nav" id="navMenu" aria-label="{{label_nav}}">
+      <a href="{{site_path}}#services">{{nav_services}}</a>
+      <a href="{{site_path}}#process">{{nav_how}}</a>
+      <a href="{{site_path}}#specialists">{{nav_specialists}}</a>
+      <a href="{{site_path}}#faq">{{nav_faqs}}</a>
+      <a href="{{site_path}}about/">{{nav_about}}</a>
+      <a class="nav-cta" href="{{site_path}}#contact">{{cta_primary}}</a>
+    </nav>
+    <details class="ap-lang">
+    <summary class="ap-lang-toggle" title="{{label_langs}}">
+    <span class="ap-lang-globe">🌐</span>
+    <span class="ap-lang-current">{{lang_code}}</span>
+    <span class="visually-hidden">, {{lang_change}}</span>
+    </summary>
+    <div class="ap-lang-menu">
+    <div class="ap-lang-menu-grid">
+    <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+    <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+    </div>
+    </div>
+    </details>
+    <button class="theme-toggle" id="mode-toggle" type="button" data-label-light="Light" data-label-dark="Dark">
+      <span class="visually-hidden">{{label_theme}}</span>
+      <span class="visually-hidden" id="mode-state" data-label-system="System">System</span>
+        <span class="theme-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>

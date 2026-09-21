@@ -4,14 +4,14 @@
       <div>
         <h2>Product</h2>
         <ul>
-          <li><a href="{{locale_path}}features/">Features</a></li>
+          <li><a href="{{locale_path}}{{slug_features}}/">{{ui_features_2}}</a></li>
         </ul>
       </div>
       <div>
         <h2>Company</h2>
         <ul>
-          <li><a href="{{locale_path}}about/">About</a></li>
-          <li><a href="{{locale_path}}contact/">Contact</a></li>
+          <li><a href="{{locale_path}}{{slug_about}}/">About</a></li>
+          <li><a href="{{locale_path}}{{slug_contact}}/">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -19,14 +19,14 @@
         <ul>
           <li><a href="{{site_path}}rss.xml">RSS</a></li>
           <li><a href="{{site_path}}atom.xml">Atom</a></li>
-          <li><a href="{{site_path}}feed.json">JSON Feed</a></li>
+          <li><a href="{{site_path}}feed.json">{{ui_json_feed}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Built with</h2>
+        <h2>{{ui_built_with}}</h2>
         <ul>
           <li>
-            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+            <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">{{ui_static_site_generator}}</a>
           </li>
           <li><a href="{{site_path}}sitemap.xml">Sitemap</a></li>
         </ul>
@@ -35,7 +35,7 @@
 
     <div class="footer-legal">
       <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
-      <span>Built with <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">Made with SSG</a>. WCAG 2.2 AA verified in CI.</span>
+      <span class="footer-credit">Made with ❤️ in London. Built with <a href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</span>
     </div>
   </div>
 </footer>

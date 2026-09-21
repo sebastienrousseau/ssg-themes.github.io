@@ -135,7 +135,11 @@ PAIRS = [
     ("--line", "--bg", UI_NONTEXT, "control border against ground"),
 ]
 
-THEMES = ("apex", "atlas", "kaishi", "kinetic", "lucid", "prism", "quill", "stablo", "velocity")
+THEMES = (
+    "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "signal", "stablo", "steward", "velocity", "visage", "vista",
+)
 
 # Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
 # / `--primary` / `--border` where the other eight use `--ink` / `--surface`

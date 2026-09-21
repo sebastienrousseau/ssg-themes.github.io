@@ -1,0 +1,13 @@
+name = "signal"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Revenue-intelligence SaaS theme with a luminous dashboard composition and grounded AI copy."
+homepage = "https://themes.static-site-generator.com/signal/"
+demosite = "https://themes.static-site-generator.com/signal/"
+tags = ["marketing", "saas", "analytics", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "responsive navigation"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

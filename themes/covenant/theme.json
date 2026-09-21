@@ -1,0 +1,13 @@
+{
+  "name": "covenant",
+  "display_name": "Covenant",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Private-capital theme with black, ivory and red geometry and evidence-led portfolio storytelling.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/covenant/",
+  "demosite": "https://themes.static-site-generator.com/covenant/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

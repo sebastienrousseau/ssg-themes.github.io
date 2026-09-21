@@ -1,0 +1,13 @@
+{
+  "name": "curio",
+  "display_name": "Curio",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "AI shopping-assistant theme with oversized type, product cards and transparent recommendations.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/curio/",
+  "demosite": "https://themes.static-site-generator.com/curio/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

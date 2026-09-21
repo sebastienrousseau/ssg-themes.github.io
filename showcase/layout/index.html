@@ -3,52 +3,48 @@
 <!--
   The showcase landing page.
 
-  Everything visual here comes from the Apex theme: this file is overlaid
-  onto a staged copy of `themes/apex/_layouts/` at build time, so `base`,
-  `header`, `footer` and `styles.css` are Apex's own. Only this one block —
-  a nine-card gallery no theme ships — is specific to the showcase, and it
-  is written entirely in Apex's existing class vocabulary (`section`,
-  `container`, `stack`, `grid`, `card`, `metric`, `eyebrow`, `lead`,
-  `cta-row`, `btn`) so it inherits the theme's design rather than defining
-  one of its own.
+  The root is a standalone SSG site. Its base, header, footer, page layouts,
+  design system and gallery assets all live together in `showcase/layout/`;
+  the build does not borrow or patch a distributable theme.
 
-  The overlay is staged rather than committed into the theme because
-  `themes/apex/` ships to users as a downloadable archive; a showcase-only
-  layout inside it would be shipped to everyone who downloads Apex.
+  Its palette is deep charcoal (#1d1d1f) on near-white, with a true black
+  canvas in dark mode.
 -->
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="container stack">
-    <p class="eyebrow">{{eyebrow}}</p>
-    <h1 id="hero-heading">{{headline}}</h1>
-    <p class="lead">{{lead}}</p>
+<div class="showcase">
+  <section class="sc-hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1 id="hero-heading">{{headline}}</h1>
+      <p class="lead">{{lead}}</p>
 
-    <!--
-      Filled in after the build by scripts/facts.py, from the gates that
-      produce them. Do not type a number here: the lead promises these are
-      generated, and two of them had silently gone stale when they were
-      hand-written. facts.py matches `<b data-fact="KEY">…</b>`, so that
-      element must survive any edit to this block.
-    -->
-    <div class="grid">
-      <div class="card metric">
-        <p class="metric-value"><b data-fact="tokens">—</b></p>
-        <p class="metric-title">colour token pairs passing AAA contrast, light and dark</p>
-      </div>
-      <div class="card metric">
-        <p class="metric-value"><b data-fact="a11y">—</b></p>
-        <p class="metric-title">accessibility issues across all theme pages</p>
-      </div>
-      <div class="card metric">
-        <p class="metric-value"><b data-fact="thirdparty">—</b></p>
-        <p class="metric-title">third-party requests, on every page</p>
-      </div>
-      <div class="card metric">
-        <p class="metric-value"><b data-fact="heaviest">—</b></p>
-        <p class="metric-title">heaviest page, gzipped, including CSS and JS</p>
+      <!--
+        Filled in after the build by scripts/facts.py, from the gates that
+        produce them. Do not type a number here: the lead promises these are
+        generated, and two of them had silently gone stale when they were
+        hand-written. facts.py matches `<b data-fact="KEY">…</b>`, so that
+        element must survive any edit to this block.
+      -->
+      <div class="sc-facts">
+        <div>
+          <b data-fact="tokens">—</b>
+          <p>{{stat_tokens}}</p>
+        </div>
+        <div>
+          <b data-fact="a11y">—</b>
+          <p>{{stat_a11y}}</p>
+        </div>
+        <div>
+          <b data-fact="thirdparty">—</b>
+          <p>{{stat_thirdparty}}</p>
+        </div>
+        <div>
+          <b data-fact="heaviest">—</b>
+          <p>{{stat_weight}}</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-{{!content}}
+  {{!content}}
+</div>
 {{/block}}

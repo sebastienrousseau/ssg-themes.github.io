@@ -1,0 +1,60 @@
+---
+name: "Velocity"
+short_name: "VL"
+title: "Contact — Velocity"
+description: "Joindre l'équipe au sujet du thème Velocity : demander une démonstration, poser une question d'intégration ou signaler un problème, avec les délais de réponse."
+keywords: "velocity contact"
+author: "SSG Theme Suite"
+date: "2026-08-11"
+news_publication_date: "2026-08-11"
+layout: "contact"
+language: "fr-FR"
+lang_code: "FR"
+lang_change: "Changer de langue"
+schema: "page"
+changefreq: "yearly"
+copyright_year: "2026"
+form_origin: "https://example.com"
+nav_contact: "true"
+form_action: "https://example.com/your-form-endpoint"
+eyebrow: "Contact"
+headline: "Des questions sur Velocity"
+lead: "Dites-nous ce que vous construisez et nous vous dirons si ce thème est le bon."
+label_theme: "Changer le thème de couleur"
+label_theme_system: "Système"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+locale_path: "/velocity/fr/"
+base_path: "/velocity/"
+en_current: ""
+fr_current: ' aria-current="true"'
+label_nav: "Principale"
+label_menu: "Menu"
+label_langs: "Langue"
+label_product: "Produit"
+label_company: "Société"
+label_feeds: "Flux"
+label_built_with: "Construit avec"
+label_sitemap: "Plan du site"
+label_licence: "Publié sous licence MIT."
+label_built_prefix: "Construit avec"
+label_wcag: "Conformité WCAG 2.2 AA vérifiée en intégration continue."
+nav_label_home: "Accueil"
+nav_label_features: "Fonctionnalités"
+nav_label_pricing: "Tarifs"
+nav_label_about: "À propos"
+nav_label_contact: "Contact"
+slug_features: "fonctionnalites"
+slug_pricing: "tarifs"
+slug_about: "a-propos"
+slug_contact: "contact"
+translation_key: "contact"
+---
+
+Renseignez `form_action` dans `content/contact.md` avec votre propre point
+d'accès avant tout déploiement. Tout service acceptant un `POST` standard
+convient : ce formulaire n'embarque aucun JavaScript et se comporte donc comme
+un envoi de navigateur ordinaire.
+
+Rien de ce que vous saisissez ici n'est conservé par le thème, et aucun script
+tiers ne s'exécute sur cette page.

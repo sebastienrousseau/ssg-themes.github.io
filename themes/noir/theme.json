@@ -1,0 +1,13 @@
+{
+  "name": "noir",
+  "display_name": "Noir",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Monochrome streetwear-commerce theme with a sculptural product silhouette and clear catalogue content.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/noir/",
+  "demosite": "https://themes.static-site-generator.com/noir/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

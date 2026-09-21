@@ -5,7 +5,7 @@
       <span class="brand-text">{{name}}</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" aria-label="{{ui_primary}}">
       <!-- Always present; CSS hides it above 48rem. -->
       <button
         class="nav-toggle"
@@ -28,32 +28,41 @@
 
       <ul class="nav-menu" id="navMenu">
         <li>
-          <a class="nav-link" href="{{locale_path}}" {{#if nav_home}}aria-current="page"{{/if}}>Home</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_platform}}/" {{#if nav_platform}}aria-current="page"{{/if}}>{{ui_platform}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}platform/" {{#if nav_platform}}aria-current="page"{{/if}}>Platform</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_solutions}}/" {{#if nav_solutions}}aria-current="page"{{/if}}>{{ui_solutions}}</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}solutions/" {{#if nav_solutions}}aria-current="page"{{/if}}>Solutions</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_pricing}}/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
         </li>
         <li>
-          <a class="nav-link" href="{{locale_path}}pricing/" {{#if nav_pricing}}aria-current="page"{{/if}}>Pricing</a>
-        </li>
-        <li>
-          <a class="nav-link" href="{{locale_path}}contact/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
+          <a class="nav-link" href="{{locale_path}}{{slug_contact}}/" {{#if nav_contact}}aria-current="page"{{/if}}>Contact</a>
         </li>
       </ul>
 
       <!-- Replaced by the generator with a real switcher on a multi-locale
            site. An element rather than a comment: minifiers strip comments,
            and some pages are minified during generation. -->
-      <div data-ssg-lang-switcher></div>
 
       <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <!-- Search trigger slot. The generator replaces this element with
            the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{ui_language}}">
+      <span class="ap-lang-globe">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      <span class="visually-hidden">, {{lang_change}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
       <button
         class="theme-toggle"
@@ -63,17 +72,8 @@
         data-label-dark="{{label_theme_dark}}"
       >
         <span class="visually-hidden">{{label_theme}}</span>
-        <span class="visually-hidden" id="mode-state">{{label_theme_system}}</span>
-        <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="5" />
-          <line x1="12" y1="19" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="5" y2="12" />
-          <line x1="19" y1="12" x2="22" y2="12" />
-        </svg>
-        <svg class="icon-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-        </svg>
+        <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
     </nav>
   </div>

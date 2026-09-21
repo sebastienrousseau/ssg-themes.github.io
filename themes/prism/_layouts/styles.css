@@ -1066,6 +1066,20 @@
     overflow: hidden;
   }
 
+  .hero-stage-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    /* This is the stage's decorative background, so it must fill the frame.
+       `contain` letterboxed the portrait asset and left navy gutters at both
+       inline edges on wide screens. */
+    object-fit: cover;
+    opacity: 0.28;
+    filter: saturate(0.55) contrast(1.1);
+  }
+
   /* The mesh, confined to the stage. Behind the cards, which are solid. */
   .hero-glow {
     position: absolute;
@@ -1096,6 +1110,7 @@
 
   .mock {
     position: relative;
+    z-index: 1;
     padding: 1.25rem;
     border-radius: var(--radius-lg);
     background: var(--surface);
@@ -1164,6 +1179,7 @@
   }
 
   .mock-amount {
+    display: block;
     margin-block-start: 0.25rem;
     font-size: var(--step-2);
     font-weight: 800;
@@ -1222,6 +1238,7 @@
   }
 
   .mock-notice-amount {
+    display: block;
     font-weight: 800;
     margin-block-start: 0.2rem;
   }
@@ -1654,33 +1671,6 @@
     font-size: var(--step--1);
   }
 
-  /* ---- language switcher (injected by the generator) ---- */
-  .lang-switcher ul {
-    display: flex;
-    gap: 0.25rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .lang-switcher a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    border-radius: 10px;
-    color: var(--hero-ink-soft);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: var(--step--1);
-  }
-
-  .lang-switcher a[aria-current="page"] {
-    background: var(--hero-surface);
-    color: var(--hero-ink);
-  }
-
   /* Without JavaScript the disclosure buttons cannot open anything: the
      drawer is shown expanded and the chevrons withdrawn. The top-level
      links still navigate, which is the whole menu without scripting. */
@@ -1842,6 +1832,13 @@
    button reads as a light pill on the navy band either way.
    --------------------------------------------------------------------- */
 .site-header .header-inner .site-nav #ssg-search-btn {
+  position: static;
+  inset: auto;
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  justify-content: center;
   background: #ffffff;
   color: #0b192c;
   border: 1px solid #ffffff;
@@ -1850,6 +1847,21 @@
   box-shadow: none;
   font-family: var(--font-sans);
   font-weight: 600;
+}
+
+.site-header .header-inner .site-nav #ssg-search-btn span,
+.site-header .header-inner .site-nav #ssg-search-btn kbd {
+  display: none;
+}
+
+/* Reserve the exact trigger box before the legacy generator moves its
+   appended search button into this slot at DOM ready. The replacement then
+   changes no header geometry and produces no layout shift. */
+.site-header .header-inner .site-nav [data-ssg-search] {
+  display: block;
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 
 .site-header .header-inner .site-nav #ssg-search-btn:hover {
@@ -1966,7 +1978,7 @@
 .made-with-ssg {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 2.75rem;
   color: inherit;
 }
 
@@ -2080,7 +2092,7 @@ footer a,
 .made-with-ssg {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 2.75rem;
   min-width: 44px;
 }
 
@@ -2088,7 +2100,7 @@ footer a,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 2.75rem;
   min-width: 44px;
 }
 
@@ -2097,7 +2109,7 @@ footer a,
 .container > p > a:only-child {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 2.75rem;
 }
 
 /* WCAG 2.4.11/2.4.12 Focus Not Obscured. The header is sticky, so scrolling
@@ -2105,4 +2117,200 @@ footer a,
    clears this header at its tallest single row (68px) with room to spare. */
 html {
   scroll-padding-top: 6rem;
+}
+
+/* Art-directed mobile hero.
+   The desktop file is a tall portrait; on a phone it would run to roughly
+   three screens of height and cost three times the bytes. A 3:2 crop is
+   served below 64rem, and the reserved box has to match it or the swap
+   shows up as layout shift. */
+@media (max-width: 64rem) {
+  .art-mobile-crop { aspect-ratio: 3 / 2; object-fit: cover; height: auto; }
+}
+
+/* The navigation has to survive a longer translation. Without wrapping, a
+   label that is 50% wider in French pushes the whole bar past the viewport
+   at increased text spacing, which is a WCAG 1.4.12 failure. */
+.site-nav { flex-wrap: wrap; }
+.site-nav .btn { max-width: 100%; }
+
+/* Bilingual safety net.
+   A heading that cannot break pushes its grid past the viewport as soon as
+   the translation is longer than the English — which is how Kairo and
+   Steward failed 1.4.4 and 1.4.10 once French pages existed. `break-word`
+   only acts when a word genuinely does not fit, so it changes nothing for
+   copy that already fits. */
+h1, h2, h3, h4, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
+
+/* A grid or flex item's automatic minimum size is its min-content width, so
+   one long word can push its track wider than the viewport however narrow
+   the column is meant to be. Prism's French home page overflowed by three
+   pixels at 320px on CI and not at all locally: the same markup, different
+   font metrics, a min-content floor that landed either side of the track on
+   each platform. `min-width: 0` removes the floor so the track honours the
+   column instead of the longest word. */
+.hero-copy, .hero-stage, .eyebrow-hero, .hero-lead, .cta-row { min-width: 0; }
+
+/* `overflow-wrap: break-word` stops a long word painting outside its box but
+   deliberately does not change the element's min-content size, so a grid
+   track sized from that content is still as wide as the longest word —
+   which is why `min-width: 0` above was not enough on its own. `anywhere`
+   is the one that reduces min-content, and it still only breaks a word that
+   cannot otherwise fit. French "L'infrastructure" at hero size measures
+   254px against a 288px column here, and wider on CI's font metrics. */
+.hero-copy :is(h1, h2, p) { overflow-wrap: anywhere; }
+
+/* A sticky masthead can cover whatever the keyboard scrolls to, which is
+   what WCAG 2.4.11 and 2.4.12 forbid. Reserving its height as scroll
+   padding means a focused element always comes to rest below it. */
+html { scroll-padding-block-start: 5.5rem; }
+
+@media (max-width: 48rem) {
+  html { scroll-padding-block-start: 4.5rem; }
+}
+
+/* Language switcher.
+   One control on all twenty-two themes: a globe, the current locale code,
+   and a panel anchored under the button. It was a bare inline list before,
+   positioned differently in every header.
+
+   A <details> disclosure, not a scripted menu. The themes enforce
+   `script-src 'self'` and the semantics gate renders every page with
+   JavaScript blocked, so anything script-driven would be a dead control in
+   the one rendering that has to keep working.
+
+   Colours come from `currentColor` and the two tokens every theme defines,
+   so a theme needs no palette of its own for this and dark mode follows the
+   header it sits in. The panel is opaque on purpose: the reference design
+   blurs the backdrop, but translucent text surfaces are exactly what the
+   AAA contrast gate cannot measure. */
+.ap-lang { position: relative; }
+.ap-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .5rem 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  list-style: none;
+}
+/* Both spellings: Safari still ships the WebKit pseudo-element. */
+.ap-lang-toggle::-webkit-details-marker { display: none; }
+.ap-lang-toggle::marker { content: ""; }
+.ap-lang-toggle:hover { border-color: currentColor; }
+.ap-lang-globe { font-size: 1rem; line-height: 1; }
+.ap-lang-current { line-height: 1; font-variant-numeric: tabular-nums; }
+/* A closed <details> hides its children through a UA rule that an
+   absolutely positioned box escapes: the panel was still laid out, and the
+   layout gate caught it overlapping the theme toggle and the nav links on
+   every theme. Hiding it explicitly is what actually takes it out of flow. */
+.ap-lang:not([open]) .ap-lang-menu { display: none; }
+.ap-lang-menu {
+  position: absolute;
+  top: calc(100% + .375rem);
+  /* Anchored to the button's left edge, not its right. The reference puts
+     this control last in its header, where opening leftwards is the only
+     way it fits; here the search and theme buttons always follow it, so
+     there is room to its right and opening left ran off the viewport. */
+  left: 0;
+  z-index: 60;
+  width: max-content;
+  min-width: 100%;
+  padding: .375rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: .6rem;
+  background: var(--surface, var(--bg, #fff));
+  box-shadow: 0 8px 28px rgb(0 0 0 / .18);
+  /* The toggle inherits the header's colour, which on a theme with a dark
+     stage is not the page's. The panel sits on the page surface, so it has
+     to reset rather than inherit it. */
+  color: var(--ink, CanvasText);
+}
+.ap-lang-menu-grid { display: grid; gap: .125rem; }
+.ap-lang-item {
+  display: block;
+  min-height: 2.75rem;
+  padding: .6rem .75rem;
+  border-radius: .35rem;
+  color: inherit;
+  font-size: .85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ap-lang-item:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.ap-lang-item[aria-current] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .3em;
+  text-decoration-thickness: 2px;
+}
+
+/* Far enough along a narrow header that opening rightwards would overflow;
+   below this width the panel hangs from the button's right edge instead. */
+@media (max-width: 30rem) {
+  .ap-lang-menu { left: auto; right: 0; }
+}
+
+/* A consistent proportional rhythm below every heading level. */
+:where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
+.site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
+
+/* Voxt is the canonical three-state mode control for every theme. */
+#mode-toggle.theme-toggle {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #5d6375;
+  border-radius: 50%;
+  background: #151928;
+  color: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+#mode-toggle .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+#mode-toggle .theme-icon { line-height: 1; }
+#mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1.2rem; }
+:root[data-theme="light"] #mode-toggle.theme-toggle {
+  border-color: #878d9b;
+  background: #f3f4f6;
+  color: #090a0f;
+}
+:root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
+:root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #mode-toggle.theme-toggle {
+    border-color: #878d9b;
+    background: #f3f4f6;
+    color: #090a0f;
+  }
 }

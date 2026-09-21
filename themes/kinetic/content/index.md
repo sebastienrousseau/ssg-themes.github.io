@@ -9,6 +9,9 @@ date: "2026-08-15"
 news_publication_date: "2026-08-15"
 layout: "index"
 language: "en-GB"
+momentum_alt: "People moving through a luminous curved passageway"
+lang_code: "EN"
+lang_change: "Change language"
 schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
@@ -23,6 +26,77 @@ label_theme: "Theme"
 label_theme_system: "System"
 label_theme_light: "Light"
 label_theme_dark: "Dark"
+ui_platform: "Platform"
+ui_solutions: "Solutions"
+ui_primary: "Primary"
+ui_platform_2: "Platform"
+ui_platform_tour: "Platform tour"
+ui_solutions_2: "Solutions"
+ui_by_team: "By team"
+ui_talk_to_us: "Talk to us"
+ui_json_feed: "JSON Feed"
+ui_built_with: "Built with"
+ui_static_site_generator: "Static Site Generator"
+ui_made_with_ssg: "Made with SSG"
+ui_language: "Language"
+locale_path: "/kinetic/"
+base_path: "/kinetic/"
+en_current: ' aria-current="true"'
+fr_current: ""
+kin_by_the_numbers: "By the numbers"
+kin_teams_onboarded: "Teams onboarded"
+kin_median_setup_time: "Median setup time"
+kin_18_min: "18 min"
+kin_integrations: "Integrations"
+kin_uptime_trailing_year: "Uptime, trailing year"
+kin_one_workspace_four_surfaces: "One workspace, four surfaces"
+kin_each_surface_is_a: "Each surface is a full page of content on its own. The tab strip is an
+      enhancement, not the structure."
+kin_break_an_objective_into: "Break an objective into work that fits in a week. Dependencies
+            are declared once and drawn everywhere, so a slipped date shows
+            up on the plan it affects rather than in someone's inbox."
+kin_boards_lists_and_a: "Boards, lists and a calendar over the same records. Changing the
+            view never changes the data, so two teams can look at one
+            backlog through the lens each prefers."
+kin_comments_resolve_against_a: "Comments resolve against a revision rather than floating free,
+            and an approval records who approved what, not merely that
+            somebody did."
+kin_dashboards_read_from_the: "Dashboards read from the same records the work lives in. There
+            is no export step, so a number on a dashboard is never a
+            fortnight behind the thing it describes."
+kin_what_you_get_on: "What you get on day one"
+kin_structured_work: "Structured work"
+kin_tasks_docs_and_decisions: "Tasks, docs and decisions in one record type, so a search returns
+          the decision as readily as the ticket that prompted it."
+kin_views_that_compose: "Views that compose"
+kin_filter_group_and_sort: "Filter, group and sort are independent. Any combination is a URL,
+          which means a view is something you can send to a colleague."
+kin_automation_you_can_read: "Automation you can read"
+kin_rules_are_stated_as: "Rules are stated as sentences and shown in full before they run.
+          An automation nobody can read is an outage waiting for a quiet
+          afternoon."
+kin_history_that_survives: "History that survives"
+kin_every_field_keeps_its: "Every field keeps its previous values. Reverting is reading the
+          record, not restoring a backup."
+kin_permissions_by_default: "Permissions by default"
+kin_a_workspace_starts_closed: "A workspace starts closed. Sharing is a deliberate act with an
+          audit line attached to it."
+kin_exports_that_round_trip: "Exports that round-trip"
+kin_what_you_export_imports: "What you export imports again. Leaving is supported rather than
+          merely permitted."
+kin_built_for_the_way: "Built for the way teams actually split up"
+kin_roadmaps_that_survive_contact: "Roadmaps that survive contact with a shipping date."
+kin_marketing: "Marketing"
+kin_campaign_calendars_with_the: "Campaign calendars with the assets attached to the dates."
+kin_operations: "Operations"
+kin_recurring_work_that_does: "Recurring work that does not depend on anyone remembering it."
+kin_see_all_team_templates: "See all team templates"
+kin_see_pricing: "See pricing"
+translation_key: "home"
+slug_contact: "contact"
+slug_platform: "platform"
+slug_pricing: "pricing"
+slug_solutions: "solutions"
 ---
 
 ## What this theme is

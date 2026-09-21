@@ -1,7 +1,7 @@
 <header class="site-header" role="banner">
   <div class="container header-inner">
-    <a class="brand" href="#hero" aria-label="{{name}} Home">
-      <img src="{{site_path}}assets/logo.svg" alt="{{name}} container environment logo" class="brand-logo" width="32" height="32" />
+    <a class="brand" href="{{locale_path}}#hero" aria-label="{{label_home}}">
+      <img src="{{site_path}}assets/logo.svg" alt="{{logo_alt}}" class="brand-logo" width="32" height="32" />
       <span class="brand-text">{{name}}</span>
     </a>
     <button
@@ -10,24 +10,37 @@
       type="button"
       aria-expanded="false"
       aria-controls="navMenu"
-      aria-label="Toggle navigation menu"
+      aria-label="{{label_menu_toggle}}"
     >
-      <span class="visually-hidden">Menu</span>
+      <span class="visually-hidden">{{label_menu}}</span>
       <span class="nav-toggle-icon" aria-hidden="true">☰</span>
     </button>
-    <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
-      <a class="nav-link" href="#overview">Overview</a>
-      <a class="nav-link" href="#features">Features</a>
-      <a class="nav-link" href="#ai-ide">AI IDE</a>
-      <a class="nav-link" href="#suite">Suite</a>
-      <a class="nav-link" href="#security">Security</a>
-      <a class="nav-link" href="#faq">FAQ</a>
+    <nav class="nav-menu" id="navMenu" aria-label="{{label_nav}}">
+      <a class="nav-link" href="{{locale_path}}#overview">{{nav_overview}}</a>
+      <a class="nav-link" href="{{locale_path}}#features">{{nav_features}}</a>
+      <a class="nav-link" href="{{locale_path}}#ai-ide">{{nav_ai_ide}}</a>
+      <a class="nav-link" href="{{locale_path}}#suite">{{nav_suite}}</a>
+      <a class="nav-link" href="{{locale_path}}#security">{{nav_security}}</a>
+      <a class="nav-link" href="{{locale_path}}#faq">{{nav_faq}}</a>
     </nav>
     <div class="header-actions">
       <!-- Search trigger slot. The generator replaces this element with
            the search button (see SEARCH_SLOT_ATTR in src/plugins/search.rs);
            with no slot the button is position:fixed in the viewport corner
            and cannot align with this header. -->
+      <details class="ap-lang">
+      <summary class="ap-lang-toggle" title="{{label_langs}}">
+      <span class="ap-lang-globe">🌐</span>
+      <span class="ap-lang-current">{{lang_code}}</span>
+      <span class="visually-hidden">, {{lang_change}}</span>
+      </summary>
+      <div class="ap-lang-menu">
+      <div class="ap-lang-menu-grid">
+      <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+      <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+      </div>
+      </div>
+      </details>
       <span data-ssg-search></span>
       <button
         class="theme-toggle"
@@ -38,10 +51,10 @@
       >
         <span class="visually-hidden">{{label_theme}}</span>
         <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
-        <span class="theme-icon" aria-hidden="true">◐</span>
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
-      <a class="btn btn-outline btn-sm" href="https://github.com/sebastienrousseau/{{name}}" target="_blank" rel="noopener noreferrer" aria-label="View {{name}} on GitHub">GitHub</a>
-      <a class="btn btn-primary btn-sm" href="#quickstart">Get Started</a>
+      <a class="btn btn-outline btn-sm" href="https://github.com/sebastienrousseau/{{name}}" target="_blank" rel="noopener noreferrer" aria-label="{{label_github}}">GitHub</a>
+      <a class="btn btn-primary btn-sm" href="{{locale_path}}#quickstart">{{cta_primary}}</a>
     </div>
   </div>
 </header>

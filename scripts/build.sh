@@ -28,7 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-THEMES=(apex atlas kaishi kinetic lucid prism quill stablo velocity voxt)
+THEMES=(apex atlas cadence covenant hearth intent kairo kaishi kinetic lucid noir prism quill curio scout signal stablo steward velocity visage vista voxt)
 TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:
@@ -46,7 +46,12 @@ trap 'rm -rf "${BUILD_TMP}"' EXIT
 
 # Prefer a locally built binary when present so the repo can be built
 # against an unreleased generator; otherwise use whatever is on PATH.
-if [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
+if [[ -n "${SSG:-}" ]]; then
+  if [[ ! -x "${SSG}" ]]; then
+    echo "error: SSG override is not executable: ${SSG}" >&2
+    exit 1
+  fi
+elif [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
   SSG="/tmp/builds/cargo/release/ssg"
 elif command -v ssg >/dev/null 2>&1; then
   SSG="ssg"
@@ -54,6 +59,44 @@ else
   echo "error: no \`ssg\` binary found on PATH" >&2
   exit 1
 fi
+
+# ssg 0.0.62 fingerprints layout-owned CSS and JavaScript and rewrites the
+# generated references. The currently published 0.0.56 binary fingerprints
+# only part of that set: its HTML still points at stable layout paths such as
+# `styles.css` and `theme-init.js`, but it does not copy those files. Keep the
+# build compatible with both releases by publishing a stable asset only when
+# the generated HTML references it and the generator did not emit it. Newer
+# releases therefore retain their fingerprint-only output with no dead copies.
+publish_missing_layout_assets() {
+  local layouts="$1" output="$2" asset generated
+
+  for asset in skeletonic.min.css styles.css theme-init.js main.js; do
+    [[ -f "${layouts}/${asset}" ]] || continue
+    # Theme output directories are recreated by SSG, but the showcase is
+    # merged into the existing public root so its stable compatibility files
+    # can otherwise survive from an older build. Refresh only assets the new
+    # HTML still references; fingerprint-only output remains untouched.
+    if [[ "${output}" == "public" ]] &&
+       rg -q "(?:href|src)=\"[^\"]*/${asset}\"" "${output}" -g '*.html'; then
+      cp -f "${layouts}/${asset}" "${output}/${asset}"
+      echo "==> refreshed compatibility asset ${output}/${asset}"
+      continue
+    fi
+    [[ -f "${output}/${asset}" ]] && continue
+    if rg -q "(?:href|src)=\"[^\"]*/${asset}\"" "${output}" -g '*.html'; then
+      generated=""
+      if [[ "${asset}" == "main.js" ]]; then
+        generated="$(find "${output}" -maxdepth 1 -type f -name 'main.*.js' -print -quit)"
+      fi
+      if [[ -n "${generated}" ]]; then
+        cp -f "${generated}" "${output}/${asset}"
+      else
+        cp -f "${layouts}/${asset}" "${output}/${asset}"
+      fi
+      echo "==> compatibility asset ${output}/${asset}"
+    fi
+  done
+}
 
 build_theme() {
   local theme="$1"
@@ -80,6 +123,22 @@ build_theme() {
     "${config}" > "${staged_config}"
 
   "${SSG}" build -f "${staged_config}"
+
+  publish_missing_layout_assets "themes/${theme}/_layouts" "public/${theme}"
+
+  # Tag and term listings are written by the generator, not by the theme's
+  # own templates, so they never pass through `base.html`. This gives them
+  # the robots directive, structured data and full-length description that
+  # every authored page in the suite already carries.
+  python3 scripts/enrich_taxonomy.py "public/${theme}"
+
+  # The not-found page: written to the filename static hosts actually serve,
+  # marked noindex, and removed from the sitemaps and feed it otherwise leaks
+  # into. See scripts/publish_404.py for why each step is needed.
+  # One language switcher per page; see the script for why there can be two.
+  python3 scripts/dedupe_lang_nav.py "public/${theme}"
+
+  python3 scripts/publish_404.py "public/${theme}"
 
   # The stylesheet and scripts that live in `_layouts/` beside the templates
   # referencing them are staged and fingerprinted by the generator itself, so
@@ -145,6 +204,30 @@ fi
 emit_legacy_redirect() {
   local legacy="$1" target="$2"
   mkdir -p "public/${legacy}"
+
+  # An external stylesheet rather than an inline <style>: an inline block
+  # would force `style-src 'unsafe-inline'` on this page alone, and one page
+  # with a looser policy than the other 103 is exactly the drift the audit
+  # reports. Same-origin, so `style-src 'self'` covers it.
+  cat > "public/${legacy}/redirect.css" <<'CSS'
+body {
+  margin: 4rem auto;
+  max-width: 40rem;
+  padding-inline: 1.5rem;
+  color: #1d1d1f;
+  background: #fbfbfd;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+a { color: #00458f; }
+
+@media (prefers-color-scheme: dark) {
+  body { color: #f5f5f7; background: #000; }
+  a { color: #4db0ff; }
+}
+CSS
+
   cat > "public/${legacy}/index.html" <<HTML
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -154,21 +237,15 @@ emit_legacy_redirect() {
     <title>Moved to ${target} — SSG Themes</title>
     <meta name="description" content="The ${legacy} theme was renamed to ${target}. This page redirects to its new home." />
 
-    <!-- Hand-authored, so the generator's inline-extraction pass never sees
-         it and the one <style> block below stays inline. Everything else
-         stays strict; there is no script on the page at all. -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self';
-               base-uri 'none';
-               object-src 'none';
-               script-src 'none';
-               style-src 'self' 'unsafe-inline';
-               img-src 'self' data:;
-               font-src 'self';
-               connect-src 'self';
-               form-action 'none'"
-    />
+    <!-- The same policy every theme page carries. This stub used to relax
+         style-src to 'unsafe-inline' for the one inline style block it
+         held; those rules are an external stylesheet now, so nothing here
+         needs the exception. Keeping the policy identical to the themes' also means
+         the site serves exactly one CSP, which is what the audit checks.
+         (No backticks in this heredoc: it is unquoted so that the theme
+         names interpolate, which means a backtick would run a command and
+         paste its output into the page. That happened.) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';base-uri 'none';object-src 'none';script-src 'self';style-src 'self';img-src 'self' data:;font-src 'self';connect-src 'self';manifest-src 'self';form-action 'self' https://example.com" />
 
     <link rel="canonical" href="${SHOWCASE_BASE_URL}/${target}/" />
     <meta name="robots" content="noindex, follow" />
@@ -184,14 +261,7 @@ emit_legacy_redirect() {
     <meta name="twitter:title" content="${target} — SSG Themes" />
     <meta name="twitter:image" content="${SHOWCASE_BASE_URL}/${target}/images/screenshot.png" />
     <meta http-equiv="refresh" content="0; url=${SHOWCASE_BASE_URL}/${target}/" />
-    <style>
-      body { font-family: system-ui, sans-serif; margin: 4rem auto; max-width: 40rem;
-             padding-inline: 1.5rem; line-height: 1.6; color: #1d1d1f; background: #fbfbfd; }
-      a { color: #00458f; }
-      @media (prefers-color-scheme: dark) {
-        body { color: #f5f5f7; background: #000; } a { color: #4db0ff; }
-      }
-    </style>
+    <link rel="stylesheet" href="redirect.css" />
   </head>
   <body>
     <main>
@@ -212,39 +282,26 @@ fi
 
 # Gallery landing page.
 #
-# Generated by ssg from `showcase/content/index.md`, using the Apex theme
-# for its design. It used to be `cp -f public_index.html public/index.html`
+# Generated by ssg from `showcase/content/index.md`, using the showcase's
+# complete template in `showcase/layout/`. It used to be
+# `cp -f public_index.html public/index.html`
 # -- a hand-authored file with its own inline stylesheet, which never went
 # through the generator at all. That is how a third-party CSS framework
 # (Skeletonic v2.0.0) came to be pasted over the showcase's own styles
 # without any gate noticing: nothing about the page was generated, so
 # nothing about it was checked.
 #
-# Apex's layouts are staged into BUILD_TMP and the showcase's own `index`
-# layout is overlaid on top. The theme directory is never written to --
-# `themes/apex/` ships to users as a downloadable archive, and a
-# showcase-only layout inside it would ship to all of them.
+# The showcase used to overlay a few fragments onto a temporary copy of Apex
+# and append CSS and JavaScript during the build. That made the root depend on
+# another site's template and allowed its header and footer to drift. It now
+# owns its base, header, footer, layouts and assets as a first-class SSG site.
 if [[ -f "showcase/ssg.toml" && -d "showcase/layout" ]]; then
-  echo "==> building the gallery landing page (Apex)"
+  echo "==> building the gallery landing page (showcase template)"
 
-  SHOWCASE_LAYOUTS="${BUILD_TMP}/showcase-layouts"
   SHOWCASE_OUT="${BUILD_TMP}/showcase-out"
-  mkdir -p "${SHOWCASE_LAYOUTS}" "${SHOWCASE_OUT}"
-
-  cp -R "themes/apex/_layouts/." "${SHOWCASE_LAYOUTS}/"
-  cp -f "showcase/layout/"*.html "${SHOWCASE_LAYOUTS}/"
-
-  # Apex's <head> advertises RSS, Atom and JSON Feed. Apex generates all three;
-  # the showcase is a one-page gallery with no posts and generates only
-  # rss.xml, so those two links 404'd on the landing page. Stripped from the
-  # staged copy rather than by forking base.html - a forked head is how the old
-  # hand-written landing page drifted out of date in the first place.
-  sed -i.bak -e '/application\/atom+xml/d' -e '/application\/feed+json/d' \
-    "${SHOWCASE_LAYOUTS}/base.html"
-  rm -f "${SHOWCASE_LAYOUTS}/base.html.bak"
+  mkdir -p "${SHOWCASE_OUT}"
 
   sed -e "s|^base_url = .*|base_url = \"${SHOWCASE_BASE_URL}\"|" \
-      -e "s|SHOWCASE_LAYOUTS|${SHOWCASE_LAYOUTS}|" \
       -e "s|SHOWCASE_OUT|${SHOWCASE_OUT}|" \
       "showcase/ssg.toml" > "${BUILD_TMP}/showcase.ssg.toml"
 
@@ -254,6 +311,21 @@ if [[ -f "showcase/ssg.toml" && -d "showcase/layout" ]]; then
   # holds every built theme, and handing it to the generator as an output
   # directory risks it being treated as one to manage.
   cp -R "${SHOWCASE_OUT}/." "public/"
+  publish_missing_layout_assets "showcase/layout" "public"
+
+  # The gallery's own social preview. Without it, `og:image` and
+  # `twitter:image` resolve to <base_url>/images/screenshot.png — the
+  # generator's default — and that file did not exist, so every share of the
+  # landing page unfurled with no picture at all.
+  # The gallery's own not-found page. This is the one a static host actually
+  # serves for an unmatched path anywhere on the domain, so it matters more
+  # than the per-theme copies.
+  python3 scripts/publish_404.py "public"
+
+  if [[ -d "showcase/images" ]]; then
+    mkdir -p "public/images"
+    cp -f "showcase/images/"* "public/images/"
+  fi
 else
   echo "error: showcase/ssg.toml and showcase/layout/ are required to build" >&2
   echo "       the landing page. The hand-authored public_index.html fallback" >&2

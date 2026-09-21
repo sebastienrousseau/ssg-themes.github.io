@@ -1,0 +1,13 @@
+{
+  "name": "cadence",
+  "display_name": "Cadence",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Marketing",
+  "description": "Performance cycling theme with cinematic type, an original rider abstraction and technical detail.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/cadence/",
+  "demosite": "https://themes.static-site-generator.com/cadence/",
+  "screenshot": "images/screenshot.png",
+  "features": ["dark-mode", "wcag-aaa-tokens", "structured-data", "agent-discovery", "responsive-navigation"]
+}

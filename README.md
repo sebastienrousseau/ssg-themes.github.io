@@ -30,7 +30,7 @@
 
 - [Features](#features) — core capabilities and performance highlights
 - [Technology Stack](#technology-stack) — SSG, Rust, and modern web standards
-- [Accessibility & Compliance](#accessibility--compliance) — 100% WCAG 2.1 AAA and Lighthouse scores
+- [Accessibility & Compliance](#accessibility--compliance) — 100% WCAG 2.2 AAA and Lighthouse scores
 
 **Operational**
 
@@ -42,7 +42,7 @@
 
 ## Themes
 
-Ten themes ship in this repository. Every one is held to the same
+Twenty-two themes ship in this repository. Every one is held to the same
 gates: WCAG AAA colour, a page-weight budget, and no third-party
 requests.
 
@@ -50,13 +50,25 @@ requests.
 | --- | --- | --- |
 | [Apex](themes/apex/) | Portfolio | Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests. |
 | [Atlas](themes/atlas/) | Publication | Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens. |
+| [Cadence](themes/cadence/) | Marketing | Performance-cycling theme: cinematic dark stage, rider abstraction and evidence-led specifications. |
+| [Covenant](themes/covenant/) | Marketing | Private-capital theme: black, ivory and red geometry with rigorous portfolio narratives. |
+| [Hearth](themes/hearth/) | Marketing | Furniture-catalogue theme: airy product staging, warm materials and practical ownership content. |
+| [Intent](themes/intent/) | Portfolio | Editorial design portfolio: expressive serif type, monochrome fields and a studio-ribbon motif. |
+| [Kairo](themes/kairo/) | Portfolio | Creative-direction portfolio: cinematic type, energetic orange geometry and substantial case studies. |
 | [Kaishi](themes/kaishi/) | Portfolio | Apple-inspired starter theme: translucent sticky header, pill controls and a soft card geometry, on a colour system gated at WCAG AAA. |
 | [Kinetic](themes/kinetic/) | Marketing | Work-platform marketing theme: hero, tabbed platform tour, feature grid and island-enhanced pricing, AAA-gated tokens. |
 | [Lucid](themes/lucid/) | Documentation | Documentation theme in the U.S. Web Design System documentation-page pattern: side navigation, in-page contents, prev/next pagination, AAA-gated tokens, multilingual. |
+| [Noir](themes/noir/) | Marketing | Streetwear-commerce theme: near-black product staging, hard rules and transparent catalogue information. |
 | [Prism](themes/prism/) | Marketing | Financial-infrastructure marketing theme: navy masthead with disclosure menus, sloped hero with product mock-ups, product and solution grids, developer code panel and governance metrics, AAA-gated tokens. |
 | [Quill](themes/quill/) | Blog | Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French. |
+| [Curio](themes/curio/) | Marketing | AI-shopping theme: bold commerce type, modular product cards and transparent recommendations. |
+| [Scout](themes/scout/) | Developer Tools | Diagnostic-instrument theme: verdict-first readouts, severity ledgers and request-level evidence. |
+| [Signal](themes/signal/) | Marketing | Revenue-intelligence theme: luminous dashboard surfaces and grounded, explainable AI copy. |
 | [Stablo](themes/stablo/) | Blog | Editorial blog theme: centred wordmark, large featured cards, category labels and author bylines. AAA-gated tokens, English and French. |
+| [Steward](themes/steward/) | Marketing | Institutional-finance theme: editorial serif type, a ledger grid and trust-led service narratives. |
 | [Velocity](themes/velocity/) | Marketing | Product and starter theme: smallest useful layout set, no build toolchain, AAA-gated tokens. |
+| [Visage](themes/visage/) | Marketing | Aesthetic-health theme: clinical whitespace, consent-led copy and a private consultation journey. |
+| [Vista](themes/vista/) | Marketing | Spatial-computing product theme: full-bleed dark stage, snap-scrolling feature rail, immersive environment band and silicon spec panel, AAA-gated tokens. |
 | [Voxt](themes/voxt/) | Marketing | Developer tools and AI environment showcase theme: high-contrast terminal IDE dock preview, AAA colour tokens, zero third-party requests. |
 
 Each links to its own README for installation and layout details.
@@ -120,15 +132,21 @@ make serve
 
 ## Development
 
-Run automated regression tests and the 10-pillar quality audit:
+Build every theme, then run the gates. `make check` is the whole suite and is
+what CI runs; the individual targets are there for a faster loop while you
+work on one thing.
 
 ```bash
-# Run repository regression test
-python3 scripts/regression-test.py
-
-# Run portfolio master quality gate
-make test
+make build              # build all themes into public/
+make check              # every gate: structure, contrast, weight, audit,
+                        # responsive, AAA, links, pa11y, schema
+make check-lighthouse   # Mobile + desktop Lighthouse over gallery and themes
+make screenshots        # recapture the gallery screenshots from the build
 ```
+
+Each gate reports what it measured, not just a pass: `make check` prints the
+number of pages audited, token pairs compared and renders checked, so a gate
+that silently stopped testing anything is visible as a dropped count.
 
 ---
 

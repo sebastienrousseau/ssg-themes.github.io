@@ -1,0 +1,13 @@
+name = "scout"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Diagnostic-instrument theme for protocol and server verification tools: evidence tables, severity ledgers and a readout hero."
+homepage = "https://themes.static-site-generator.com/scout/"
+demosite = "https://themes.static-site-generator.com/scout/"
+tags = ["developer-tools", "security", "documentation", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "severity ledger", "evidence tables", "print stylesheet"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

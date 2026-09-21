@@ -2,19 +2,24 @@
 {{#block "main"}}
 <section class="hero">
   <div class="container hero-inner">
-    <p class="eyebrow">{{eyebrow}}</p>
-    <h1>{{headline}}</h1>
-    <p class="lead">{{lead}}</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
-      <a class="btn btn-secondary" href="{{locale_path}}platform/">{{cta_secondary}}</a>
+    <div class="hero-copy stack">
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1>{{headline}}</h1>
+      <p class="lead">{{lead}}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
+        <a class="btn btn-secondary" href="{{locale_path}}{{slug_platform}}/">{{cta_secondary}}</a>
+      </div>
     </div>
+    <figure class="hero-photo">
+      <img src="{{site_path}}images/momentum-640.webp" srcset="{{site_path}}images/momentum-320.webp 320w, {{site_path}}images/momentum-480.webp 480w, {{site_path}}images/momentum-640.webp 640w, {{site_path}}images/momentum-768.webp 768w, {{site_path}}images/momentum-960.webp 960w, {{site_path}}images/momentum.webp 1200w" sizes="(max-width: 48rem) 100vw, 48vw" width="1200" height="742" alt="{{momentum_alt}}" fetchpriority="high">
+    </figure>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <h2 class="visually-hidden">By the numbers</h2>
+    <h2 class="visually-hidden">{{kin_by_the_numbers}}</h2>
     <!--
       Illustrative figures for a fictional product. They are marked up as a
       description list rather than headings so a screen-reader user gets the
@@ -22,19 +27,19 @@
     -->
     <dl class="grid grid-4">
       <div class="stat">
-        <dt class="stat-label">Teams onboarded</dt>
+        <dt class="stat-label">{{kin_teams_onboarded}}</dt>
         <dd><span class="stat-figure">1,200+</span></dd>
       </div>
       <div class="stat">
-        <dt class="stat-label">Median setup time</dt>
-        <dd><span class="stat-figure">18 min</span></dd>
+        <dt class="stat-label">{{kin_median_setup_time}}</dt>
+        <dd><span class="stat-figure">{{kin_18_min}}</span></dd>
       </div>
       <div class="stat">
-        <dt class="stat-label">Integrations</dt>
+        <dt class="stat-label">{{kin_integrations}}</dt>
         <dd><span class="stat-figure">60</span></dd>
       </div>
       <div class="stat">
-        <dt class="stat-label">Uptime, trailing year</dt>
+        <dt class="stat-label">{{kin_uptime_trailing_year}}</dt>
         <dd><span class="stat-figure">99.98%</span></dd>
       </div>
     </dl>
@@ -43,10 +48,9 @@
 
 <section class="section" id="platform">
   <div class="container stack">
-    <h2>One workspace, four surfaces</h2>
+    <h2>{{kin_one_workspace_four_surfaces}}</h2>
     <p class="lead">
-      Each surface is a full page of content on its own. The tab strip is an
-      enhancement, not the structure.
+      {{kin_each_surface_is_a}}
     </p>
 
     <!--
@@ -60,33 +64,25 @@
         <section class="tab-panel" id="panel-plan" data-tab-title="Plan">
           <h3>Plan</h3>
           <p>
-            Break an objective into work that fits in a week. Dependencies
-            are declared once and drawn everywhere, so a slipped date shows
-            up on the plan it affects rather than in someone's inbox.
+            {{kin_break_an_objective_into}}
           </p>
         </section>
         <section class="tab-panel" id="panel-build" data-tab-title="Build">
           <h3>Build</h3>
           <p>
-            Boards, lists and a calendar over the same records. Changing the
-            view never changes the data, so two teams can look at one
-            backlog through the lens each prefers.
+            {{kin_boards_lists_and_a}}
           </p>
         </section>
         <section class="tab-panel" id="panel-review" data-tab-title="Review">
           <h3>Review</h3>
           <p>
-            Comments resolve against a revision rather than floating free,
-            and an approval records who approved what, not merely that
-            somebody did.
+            {{kin_comments_resolve_against_a}}
           </p>
         </section>
         <section class="tab-panel" id="panel-report" data-tab-title="Report">
           <h3>Report</h3>
           <p>
-            Dashboards read from the same records the work lives in. There
-            is no export step, so a number on a dashboard is never a
-            fortnight behind the thing it describes.
+            {{kin_dashboards_read_from_the}}
           </p>
         </section>
       </div>
@@ -96,67 +92,60 @@
 
 <section class="section section-soft">
   <div class="container stack">
-    <h2>What you get on day one</h2>
+    <h2>{{kin_what_you_get_on}}</h2>
     <div class="grid grid-3">
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7" /></svg>
         </div>
-        <h3>Structured work</h3>
+        <h3>{{kin_structured_work}}</h3>
         <p>
-          Tasks, docs and decisions in one record type, so a search returns
-          the decision as readily as the ticket that prompted it.
+          {{kin_tasks_docs_and_decisions}}
         </p>
       </article>
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" /></svg>
         </div>
-        <h3>Views that compose</h3>
+        <h3>{{kin_views_that_compose}}</h3>
         <p>
-          Filter, group and sort are independent. Any combination is a URL,
-          which means a view is something you can send to a colleague.
+          {{kin_filter_group_and_sort}}
         </p>
       </article>
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
         </div>
-        <h3>Automation you can read</h3>
+        <h3>{{kin_automation_you_can_read}}</h3>
         <p>
-          Rules are stated as sentences and shown in full before they run.
-          An automation nobody can read is an outage waiting for a quiet
-          afternoon.
+          {{kin_rules_are_stated_as}}
         </p>
       </article>
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
         </div>
-        <h3>History that survives</h3>
+        <h3>{{kin_history_that_survives}}</h3>
         <p>
-          Every field keeps its previous values. Reverting is reading the
-          record, not restoring a backup.
+          {{kin_every_field_keeps_its}}
         </p>
       </article>
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z" /></svg>
         </div>
-        <h3>Permissions by default</h3>
+        <h3>{{kin_permissions_by_default}}</h3>
         <p>
-          A workspace starts closed. Sharing is a deliberate act with an
-          audit line attached to it.
+          {{kin_a_workspace_starts_closed}}
         </p>
       </article>
       <article class="card">
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M4 17V7l8 5 8-5v10" /></svg>
         </div>
-        <h3>Exports that round-trip</h3>
+        <h3>{{kin_exports_that_round_trip}}</h3>
         <p>
-          What you export imports again. Leaving is supported rather than
-          merely permitted.
+          {{kin_what_you_export_imports}}
         </p>
       </article>
     </div>
@@ -165,23 +154,23 @@
 
 <section class="section">
   <div class="container stack">
-    <h2>Built for the way teams actually split up</h2>
+    <h2>{{kin_built_for_the_way}}</h2>
     <div class="grid grid-3">
       <article class="card">
         <h3>Product</h3>
-        <p>Roadmaps that survive contact with a shipping date.</p>
+        <p>{{kin_roadmaps_that_survive_contact}}</p>
       </article>
       <article class="card">
-        <h3>Marketing</h3>
-        <p>Campaign calendars with the assets attached to the dates.</p>
+        <h3>{{kin_marketing}}</h3>
+        <p>{{kin_campaign_calendars_with_the}}</p>
       </article>
       <article class="card">
-        <h3>Operations</h3>
-        <p>Recurring work that does not depend on anyone remembering it.</p>
+        <h3>{{kin_operations}}</h3>
+        <p>{{kin_recurring_work_that_does}}</p>
       </article>
     </div>
     <p>
-      <a href="{{locale_path}}solutions/">See all team templates</a>
+      <a href="{{locale_path}}{{slug_solutions}}/">{{kin_see_all_team_templates}}</a>
     </p>
   </div>
 </section>
@@ -190,8 +179,8 @@
   <div class="container stack">
     <div class="prose">{{!content}}</div>
     <div class="cta-row">
-      <a class="btn btn-primary" href="{{locale_path}}contact/">{{cta_primary}}</a>
-      <a class="btn btn-secondary" href="{{locale_path}}pricing/">See pricing</a>
+      <a class="btn btn-primary" href="{{locale_path}}{{slug_contact}}/">{{cta_primary}}</a>
+      <a class="btn btn-secondary" href="{{locale_path}}{{slug_pricing}}/">{{kin_see_pricing}}</a>
     </div>
   </div>
 </section>

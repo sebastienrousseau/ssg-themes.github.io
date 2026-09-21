@@ -1,7 +1,7 @@
 # SSG Themes
 
-> Ten production themes for Static Site Generator (SSG): Apex, Atlas,
-> Kaishi, Kinetic, Lucid, Prism, Quill, Stablo, Velocity and Voxt. Each has
+> Twenty-two production themes for Static Site Generator (SSG), spanning
+> publishing, portfolios, finance, commerce, health, sport and SaaS. Each has
 > its own design system and layout set, built on a shared template
 > architecture, with every accessibility and performance claim enforced by
 > a CI gate.
@@ -10,13 +10,24 @@
 
 - [Apex](https://themes.static-site-generator.com/apex/): portfolio and consulting theme. Cool neutrals, deep blue accent, seven layouts.
 - [Atlas](https://themes.static-site-generator.com/atlas/): editorial and knowledge-hub theme. Serif reading column at a 72-character measure, forest-green accent, eight layouts.
+- [Cadence](https://themes.static-site-generator.com/cadence/): performance-cycling theme. Dark cinematic stage, rider abstraction and evidence-led specifications.
+- [Covenant](https://themes.static-site-generator.com/covenant/): private-capital theme. Black, ivory and red geometry with rigorous portfolio narratives.
+- [Hearth](https://themes.static-site-generator.com/hearth/): furniture-catalogue theme. Airy product staging, warm materials and practical ownership content.
+- [Intent](https://themes.static-site-generator.com/intent/): editorial design portfolio. Expressive serif type, monochrome fields and a studio-ribbon motif.
+- [Kairo](https://themes.static-site-generator.com/kairo/): creative-direction portfolio. Cinematic type, energetic orange geometry and substantial case studies.
 - [Kaishi](https://themes.static-site-generator.com/kaishi/): Apple-inspired starter theme. Translucent sticky header, pill controls, soft card geometry.
 - [Kinetic](https://themes.static-site-generator.com/kinetic/): multi-product SaaS and launch theme. Violet-to-cyan decoration, tabbed tour, five layouts.
 - [Lucid](https://themes.static-site-generator.com/lucid/): documentation theme in the U.S. Web Design System documentation-page pattern. Side navigation, in-page contents, English and French.
+- [Noir](https://themes.static-site-generator.com/noir/): streetwear-commerce theme. Near-black staging, hard editorial rules and transparent product information.
 - [Prism](https://themes.static-site-generator.com/prism/): financial-infrastructure marketing theme. Navy masthead with a disclosure mega-menu, sloped hero with product mock-ups, four semantic tints, four layouts.
 - [Quill](https://themes.static-site-generator.com/quill/): typographic blog theme. Large tight-tracked wordmark, full-bleed hero, monochrome palette, English and French.
+- [Scout](https://themes.static-site-generator.com/scout/): AI-shopping theme. Bold commerce type, modular product cards and transparent recommendations.
+- [Signal](https://themes.static-site-generator.com/signal/): revenue-intelligence theme. Luminous dashboard surfaces and explainable AI content.
 - [Stablo](https://themes.static-site-generator.com/stablo/): editorial blog theme. Centred wordmark, large featured cards, category labels and bylines, English and French.
+- [Steward](https://themes.static-site-generator.com/steward/): institutional-finance theme. Editorial serif type, ledger grid and trust-led service narratives.
 - [Velocity](https://themes.static-site-generator.com/velocity/): product landing and starter theme. Slate and bronze, seven layouts.
+- [Visage](https://themes.static-site-generator.com/visage/): aesthetic-health theme. Clinical whitespace, consent-led copy and a private consultation journey.
+- [Vista](https://themes.static-site-generator.com/vista/): spatial-computing product theme. Full-bleed dark stage, snap-scrolling feature rail, silicon spec panel, four layouts.
 - [Voxt](https://themes.static-site-generator.com/voxt/): developer tools and AI environment showcase theme. Terminal IDE dock preview, feature grids, strict CSP.
 
 ## Verified properties

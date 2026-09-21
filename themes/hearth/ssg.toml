@@ -1,0 +1,28 @@
+site_name = "Hearth"
+site_title = "Hearth — considered furniture catalogue theme for SSG"
+site_description = "An airy furniture catalogue with an original CSS chair study, generous product grids and material-led storytelling."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/hearth/content"
+template_dir = "themes/hearth/_layouts"
+output_dir = "public/hearth"
+
+# Slugs are translated, not prefixed: `/hearth/about/` pairs with
+# `/hearth/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

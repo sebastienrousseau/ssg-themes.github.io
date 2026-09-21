@@ -15,7 +15,7 @@ import { join, relative, sep } from 'node:path';
 export const BASE = process.env.BASE || 'http://127.0.0.1:8732';
 
 const ROOT = 'public';
-const MIN_PAGES = 70;
+const MIN_PAGES = 90;
 
 function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {
@@ -23,9 +23,8 @@ function walk(dir, out = []) {
     if (statSync(full).isDirectory()) walk(full, out);
     else if (entry === '404.html') {
       // Not reachable by walking directories: a 404 page has no index.html.
-      // No theme emits one today - the _layouts/404.html templates are never
-      // built - so this finds nothing yet. It is here so that the day one is
-      // emitted it is measured, rather than shipping unlooked-at.
+      // Written by scripts/publish_404.py after the build, one per theme and
+      // per locale, plus the gallery's own.
       const rel = relative(ROOT, dir).split(sep).join('/');
       out.push(rel === '' ? '/404.html' : `/${rel}/404.html`);
     }
@@ -52,5 +51,18 @@ export const PAGES = (() => {
   if (missing.length) {
     throw new Error(`themes built but never visited by the gate: ${missing.join(', ')}`);
   }
-  return pages;
+  // Optional slice, as "index/total": the runner uses it to restart the
+  // browser between groups of pages. A long-lived Chromium grows past what
+  // a memory-pressured machine has free and the OS kills it, and a gate
+  // killed partway reports nothing at all rather than a failure. Every
+  // check above runs against the whole discovered set first, so slicing
+  // cannot weaken the floor or let an unvisited theme through.
+  const slice = process.env.AAA_SLICE;
+  if (!slice) return pages;
+  const [i, n] = slice.split('/').map(Number);
+  if (!Number.isInteger(i) || !Number.isInteger(n) || n < 1 || i < 0 || i >= n) {
+    throw new Error(`AAA_SLICE must be "index/total" with 0 <= index < total, got "${slice}"`);
+  }
+  const size = Math.ceil(pages.length / n);
+  return pages.slice(i * size, (i + 1) * size);
 })();

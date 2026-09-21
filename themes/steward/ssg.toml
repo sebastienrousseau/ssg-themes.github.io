@@ -1,0 +1,28 @@
+site_name = "Steward"
+site_title = "Steward — institutional financial advisory theme for SSG"
+site_description = "An assured institutional-finance theme with editorial typography, disciplined grids and original architectural compositions."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/steward/content"
+template_dir = "themes/steward/_layouts"
+output_dir = "public/steward"
+
+# Slugs are translated, not prefixed: `/steward/about/` pairs with
+# `/steward/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

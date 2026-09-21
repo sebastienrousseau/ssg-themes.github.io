@@ -28,43 +28,49 @@
 
       <!--
         The showcase is a single page, so its nav is in-page anchors plus the
-        repository, rather than Apex's five-page site nav. Both fragments
-        resolve to ids in the landing layout, and scripts/build.sh checks
+        repository. Both fragments resolve to ids in the landing layout, and
+        scripts/build.sh checks
         every fragment on every page, so a renamed heading fails the build
         rather than shipping a dead link.
       -->
       <ul class="nav-menu" id="navMenu">
         <li>
-          <a class="nav-link" href="{{locale_path}}" aria-current="page">{{nav_label_home}}</a>
+          <a class="nav-link" href="{{locale_path}}#themes-heading">{{nav_label_themes}}</a>
         </li>
         <li>
-          <a class="nav-link" href="#themes-heading">{{nav_label_themes}}</a>
-        </li>
-        <li>
-          <a class="nav-link" href="#gates-heading">{{nav_label_gates}}</a>
+          <a class="nav-link" href="{{locale_path}}#gates-heading">{{nav_label_gates}}</a>
         </li>
         <li>
           <a class="nav-link" href="{{repo_url}}" rel="noopener noreferrer">{{nav_label_repo}}</a>
         </li>
       </ul>
 
-      <!-- ssg:lang-switcher -->
+      <details class="ap-lang">
+        <summary class="ap-lang-toggle" title="{{label_langs}}">
+          <span class="ap-lang-globe">🌐</span>
+          <span class="ap-lang-current">{{lang_code}}</span>
+          <span class="visually-hidden">, {{lang_change}}</span>
+        </summary>
+        <div class="ap-lang-menu">
+          <div class="ap-lang-menu-grid">
+            <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+            <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+          </div>
+        </div>
+      </details>
 
-      <!-- Icon swapped by CSS on [data-theme]; no scripted relabelling. -->
       <!-- Search trigger slot; see src/plugins/search.rs. -->
       <span data-ssg-search></span>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+      <button
+        class="theme-toggle"
+        id="mode-toggle"
+        type="button"
+        data-label-light="{{label_theme_light}}"
+        data-label-dark="{{label_theme_dark}}"
+      >
         <span class="visually-hidden">{{label_theme}}</span>
-        <svg class="icon-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="5" />
-          <line x1="12" y1="19" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="5" y2="12" />
-          <line x1="19" y1="12" x2="22" y2="12" />
-        </svg>
-        <svg class="icon-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-        </svg>
+        <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
     </nav>
   </div>

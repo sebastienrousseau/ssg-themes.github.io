@@ -1,0 +1,28 @@
+site_name = "Curio"
+site_title = "Curio — AI shopping assistant theme for SSG"
+site_description = "A bold AI shopping theme with oversized type, modular product cards and transparent recommendation principles."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/curio/content"
+template_dir = "themes/curio/_layouts"
+output_dir = "public/curio"
+
+# Slugs are translated, not prefixed: `/curio/about/` pairs with
+# `/curio/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does
+# not resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

@@ -1,0 +1,113 @@
+{{#extends "base"}}{{#block "preload"}}<link rel="preload" as="image" href="{{site_path}}images/hero-640.webp" imagesrcset="{{site_path}}images/hero-320.webp 320w, {{site_path}}images/hero-480.webp 480w, {{site_path}}images/hero-640.webp 640w, {{site_path}}images/hero-768.webp 768w, {{site_path}}images/hero-960.webp 960w, {{site_path}}images/hero.webp 1200w" imagesizes="(max-width: 42rem) 85vw, 40rem" fetchpriority="high">{{/block}}{{#block "main"}}
+<section class="kairo-poster" aria-labelledby="hero-heading">
+  <img src="{{site_path}}images/hero-640.webp" srcset="{{site_path}}images/hero-320.webp 320w, {{site_path}}images/hero-480.webp 480w, {{site_path}}images/hero-640.webp 640w, {{site_path}}images/hero-768.webp 768w, {{site_path}}images/hero-960.webp 960w, {{site_path}}images/hero.webp 1200w" sizes="(max-width: 42rem) 85vw, 40rem" width="1200" height="927" alt="{{kai_alt_hero}}" fetchpriority="high">
+  <div class="poster-shade" aria-hidden="true"></div>
+  <h1 class="poster-title" id="hero-heading"><span>{{kai_creative}}</span><span>{{kai_designer}}</span></h1>
+  <div class="poster-intro">
+    <p>{{kai_independent_creative_direction_for}}</p>
+    <a href="#work">{{kai_see_selected_work}} <span aria-hidden="true">↓</span></a>
+  </div>
+  <p class="poster-place">{{kai_kairo_lane}}<br>{{kai_london_worldwide}}</p>
+  <p class="poster-tags">{{kai_brand_identity}} <i></i> {{kai_digital_products}} <i></i> {{kai_creative_direction}}</p>
+</section>
+
+<section class="kairo-about" id="about" aria-labelledby="about-heading">
+  <div class="wrap kairo-split">
+    <p class="section-index">{{kai_01_positioning}}</p>
+    <h2 id="about-heading">{{kai_independent_direction_for_brands}}</h2>
+    <div class="about-copy">
+      <p>{{kai_strategy_identity_and_digital}}</p>
+      <a href="#process">{{kai_how_i_work}} <span aria-hidden="true">↘</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="kairo-work" id="work" aria-labelledby="work-heading">
+  <div class="wrap">
+    <header class="work-heading">
+      <p class="section-index">{{kai_02_selected_work}}</p>
+      <h2 id="work-heading">{{kai_built_loud}}<br>{{kai_made_useful}}</h2>
+      <p>{{kai_three_fictional_flagship_projects}}</p>
+    </header>
+    <div class="project-grid">
+      <a class="project project-uncommon" href="#case-uncommon">
+        <span>{{kai_hospitality_identity_2026}}</span>
+        <h3>{{kai_uncommon_ground}}</h3>
+        <p>{{kai_reframing_an_independent_hospitality}}</p>
+        <b>{{kai_view_the_thinking}} <span aria-hidden="true">↘</span></b>
+      </a>
+      <a class="project project-afterglow" href="#case-afterglow">
+        <picture><source media="(max-width: 64rem)" srcset="{{site_path}}images/portrait-m320.webp 320w, {{site_path}}images/portrait-m480.webp 480w, {{site_path}}images/portrait-m640.webp 640w, {{site_path}}images/portrait-m768.webp 768w" sizes="100vw"><img class="art-mobile-crop" src="{{site_path}}images/portrait-640.webp" srcset="{{site_path}}images/portrait-320.webp 320w, {{site_path}}images/portrait-480.webp 480w, {{site_path}}images/portrait-640.webp 640w, {{site_path}}images/portrait-768.webp 768w, {{site_path}}images/portrait-960.webp 960w, {{site_path}}images/portrait.webp 1200w" sizes="(max-width: 64rem) 100vw, 29vw" width="1200" height="1200" alt="{{kai_alt_afterglow}}" loading="lazy"></picture>
+        <span>{{kai_culture_campaign_2026}}</span>
+        <h3>{{kai_afterglow}}</h3>
+        <p>{{kai_a_campaign_system_designed}}</p>
+        <b>{{kai_view_the_thinking_2}} <span aria-hidden="true">↘</span></b>
+      </a>
+      <a class="project project-moving" href="#case-moving">
+        <span>{{kai_technology_digital_2025}}</span>
+        <h3>{{kai_moving_type}}</h3>
+        <p>{{kai_turning_a_dense_creative}}</p>
+        <b>{{kai_view_the_thinking_3}} <span aria-hidden="true">↘</span></b>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="case-proof" id="project-proof" aria-labelledby="case-proof-heading">
+  <div class="wrap">
+    <header class="proof-heading">
+      <p class="section-index">{{kai_03_the_work_behind}}</p>
+      <h2 id="case-proof-heading">{{kai_context_before_decoration}}</h2>
+      <p>{{kai_every_case_starts_with}}</p>
+    </header>
+    <div class="case-ledger">
+      <article id="case-uncommon"><p>01</p><h3>{{kai_uncommon_ground_2}}</h3><dl><dt>{{kai_challenge}}</dt><dd>{{kai_stand_apart_without_losing}}</dd><dt>Role</dt><dd>{{kai_positioning_identity_launch}}</dd><dt>Outcome</dt><dd>{{kai_a_flexible_system_prepared}}</dd></dl></article>
+      <article id="case-afterglow"><p>02</p><h3>{{kai_afterglow_2}}</h3><dl><dt>{{kai_challenge_2}}</dt><dd>{{kai_give_a_changing_cultural}}</dd><dt>Role</dt><dd>{{kai_creative_direction_campaign_motion}}</dd><dt>Outcome</dt><dd>{{kai_a_modular_toolkit_for}}</dd></dl></article>
+      <article id="case-moving"><p>03</p><h3>{{kai_moving_type_2}}</h3><dl><dt>{{kai_challenge_3}}</dt><dd>{{kai_make_professional_complexity_feel}}</dd><dt>Role</dt><dd>{{kai_product_strategy_ux_interface}}</dd><dt>Outcome</dt><dd>{{kai_a_calmer_path_through}}</dd></dl></article>
+    </div>
+    <p class="demo-note">{{kai_illustrative_case_studies_and}}</p>
+  </div>
+</section>
+
+<section class="kairo-services" id="services" aria-labelledby="services-heading">
+  <div class="wrap">
+    <header class="section-heading"><p class="section-index">{{kai_04_capabilities}}</p><h2 id="services-heading">{{kai_one_idea}}<br>{{kai_every_expression}}</h2></header>
+    <div class="capability-grid">
+      <article><span>01</span><h3>{{kai_brand_strategy}}</h3><p>{{kai_positioning_naming_narrative_creative}}</p></article>
+      <article><span>02</span><h3>{{kai_identity}}</h3><p>{{kai_visual_systems_typography_campaign}}</p></article>
+      <article><span>03</span><h3>Digital</h3><p>{{kai_websites_products_interaction_design}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="kairo-process" id="process" aria-labelledby="process-heading">
+  <div class="wrap process-grid">
+    <header><p class="section-index">{{kai_05_process}}</p><h2 id="process-heading">{{kai_a_repeatable_way_to}}</h2></header>
+    <ol>
+      <li><b>{{kai_01_understand}}</b><span>{{kai_find_the_real_problem}}</span></li>
+      <li><b>{{kai_02_direction}}</b><span>{{kai_define_the_idea_worth}}</span></li>
+      <li><b>{{kai_03_design}}</b><span>{{kai_turn_that_direction_into}}</span></li>
+      <li><b>{{kai_04_ship}}</b><span>{{kai_prepare_the_work_for}}</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="kairo-trust" aria-labelledby="trust-heading">
+  <div class="wrap trust-grid">
+    <header><p class="section-index">{{kai_06_proof}}</p><h2 id="trust-heading">{{kai_taste_gets_attention_useful}}</h2></header>
+    <div class="trust-numbers"><dl><dt>{{kai_projects_shipped}}</dt><dd>120+</dd></dl><dl><dt>{{kai_businesses_partnered}}</dt><dd>100+</dd></dl><dl><dt>{{kai_markets_reached}}</dt><dd>14</dd></dl></div>
+    <blockquote>{{kai_kairo_made_the_strategy}}</blockquote>
+    <p class="quote-credit">{{kai_amara_bell_founder_illustrative}}</p>
+    <p class="demo-note">{{kai_demonstration_proof_only_replace}}</p>
+  </div>
+</section>
+
+<section class="kairo-close" id="inquiry" aria-labelledby="kairo-close-heading">
+  <div class="wrap">
+    <p class="section-index">{{kai_07_next_project}}</p>
+    <h2 id="kairo-close-heading">{{kai_have_a_useful_problem}}</h2>
+    <a href="mailto:hello@example.com?subject=A%20useful%20problem">{{kai_tell_me_about_it}} <span aria-hidden="true">↗</span></a>
+    <p>{{kai_brand_digital_creative_direction}}<br>{{kai_london_worldwide_2}}</p>
+  </div>
+</section>
+{{/block}}

@@ -2,21 +2,21 @@
   <div class="container">
     <div class="footer-cols">
       <div>
-        <h2>Product</h2>
+        <h2>{{label_product}}</h2>
         <ul>
-          <li><a href="{{locale_path}}features/">Features</a></li>
-          <li><a href="{{locale_path}}pricing/">Pricing</a></li>
+          <li><a href="{{locale_path}}{{slug_features}}/">{{nav_label_features}}</a></li>
+          <li><a href="{{locale_path}}{{slug_pricing}}/">{{nav_label_pricing}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Company</h2>
+        <h2>{{label_company}}</h2>
         <ul>
-          <li><a href="{{locale_path}}about/">About</a></li>
-          <li><a href="{{locale_path}}contact/">Contact</a></li>
+          <li><a href="{{locale_path}}{{slug_about}}/">{{nav_label_about}}</a></li>
+          <li><a href="{{locale_path}}{{slug_contact}}/">{{nav_label_contact}}</a></li>
         </ul>
       </div>
       <div>
-        <h2>Feeds</h2>
+        <h2>{{label_feeds}}</h2>
         <ul>
           <li><a href="{{site_path}}rss.xml">RSS</a></li>
           <li><a href="{{site_path}}atom.xml">Atom</a></li>
@@ -24,19 +24,19 @@
         </ul>
       </div>
       <div>
-        <h2>Built with</h2>
+        <h2>{{label_built_with}}</h2>
         <ul>
           <li>
             <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
           </li>
-          <li><a href="{{site_path}}sitemap.xml">Sitemap</a></li>
+          <li><a href="{{site_path}}sitemap.xml">{{label_sitemap}}</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-legal">
-      <span>&copy; {{copyright_year}} {{name}}. Released under the MIT licence.</span>
-      <span>Built with <a class="made-with-ssg" href="https://static-site-generator.com/" rel="noopener noreferrer">Made with SSG</a>. WCAG 2.2 AA verified in CI.</span>
+      <span>&copy; {{copyright_year}} {{name}}. {{label_licence}}</span>
+      <span class="footer-credit">Made with ❤️ in London. Built with <a href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</span>
     </div>
   </div>
 </footer>

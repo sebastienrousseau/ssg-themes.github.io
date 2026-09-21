@@ -1,0 +1,32 @@
+site_name = "Cadence"
+site_title = "Cadence — performance cycling theme for SSG"
+site_description = "A dark, kinetic cycling theme with oversized typography, an original rider abstraction and high-contrast performance data."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/cadence/content"
+template_dir = "themes/cadence/_layouts"
+output_dir = "public/cadence"
+
+# Slugs are translated, not prefixed: `/cadence/about/` pairs with
+# `/cadence/fr/a-propos/`. The pairing comes from the `translation_key`
+# front-matter field, not from the path, and `scripts/validate.py` fails
+# the build if any key does not resolve in every locale listed here.
+#
+# Declaring the locales is also what makes the generator inject the
+# alternate-language links; without this block `translation_key` pairs
+# nothing and no hreflang is emitted.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]
