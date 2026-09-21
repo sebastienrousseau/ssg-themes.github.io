@@ -138,6 +138,7 @@ jobs:
       # Per-defect annotations in focus.mjs make the public failure actionable.
       - name: Linux focus differential (batch 8/12)
         run: |
+          ln -sfn "${PWD}/tests/responsive/node_modules" tests/aaa/node_modules
           python3 -m http.server 8734 --directory public >/tmp/aaa-focus-server.log 2>&1 &
           server_pid=$!
           trap 'kill "${server_pid}" 2>/dev/null || true' EXIT
