@@ -88,12 +88,18 @@ node tests/aaa/modes.mjs
 # One Chromium held open across every page grows past what a constrained
 # machine has free and the OS kills it — and a gate killed partway reports
 # nothing at all, which reads as silence rather than as failure. Restarting
-# between groups bounds the peak. Set AAA_BATCHES=1 for a single pass.
-BATCHES="${AAA_BATCHES:-4}"
+# between groups bounds the peak. Twelve groups keep even the focus walk to
+# roughly 22 pages per Chromium on GitHub's constrained hosted runners. Set
+# AAA_BATCHES=1 for a single pass on a machine with ample memory.
+BATCHES="${AAA_BATCHES:-12}"
 run_batched() {
   local gate="$1" i
   for (( i = 0; i < BATCHES; i++ )); do
-    AAA_SLICE="${i}/${BATCHES}" node "tests/aaa/${gate}.mjs"
+    echo "${gate}: batch $((i + 1))/${BATCHES}"
+    if ! AAA_SLICE="${i}/${BATCHES}" node "tests/aaa/${gate}.mjs"; then
+      echo "::error title=AAA ${gate} batch failed::${gate} batch $((i + 1))/${BATCHES} exited unsuccessfully"
+      return 1
+    fi
   done
 }
 
