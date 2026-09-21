@@ -93,13 +93,29 @@ node tests/aaa/modes.mjs
 # AAA_BATCHES=1 for a single pass on a machine with ample memory.
 BATCHES="${AAA_BATCHES:-12}"
 run_batched() {
-  local gate="$1" i
+  local gate="$1" i attempt log
   for (( i = 0; i < BATCHES; i++ )); do
-    echo "${gate}: batch $((i + 1))/${BATCHES}"
-    if ! AAA_SLICE="${i}/${BATCHES}" node "tests/aaa/${gate}.mjs"; then
-      echo "::error title=AAA ${gate} batch failed::${gate} batch $((i + 1))/${BATCHES} exited unsuccessfully"
-      return 1
-    fi
+    log="$(mktemp -t "aaa-${gate}-${i}.XXXXXX")"
+    for attempt in 1 2; do
+      echo "${gate}: batch $((i + 1))/${BATCHES} (attempt ${attempt}/2)"
+      if AAA_SLICE="${i}/${BATCHES}" node "tests/aaa/${gate}.mjs" 2>&1 | tee "${log}"; then
+        break
+      fi
+      # Accessibility failures are deterministic and must never be retried
+      # away. Hosted Chromium can occasionally exit without an assertion,
+      # however; one fresh process distinguishes that from a real defect.
+      if grep -Eq '(^| )FAIL([ :]|$)' "${log}" || (( attempt == 2 )); then
+        echo "::error title=AAA ${gate} batch failed::${gate} batch $((i + 1))/${BATCHES} exited unsuccessfully"
+        rm -f "${log}"
+        return 1
+      fi
+      echo "::warning title=AAA ${gate} browser retry::${gate} batch $((i + 1))/${BATCHES} exited without an assertion; retrying in a fresh browser"
+      sleep 2
+    done
+    rm -f "${log}"
+    # Give the runner a moment to reap Chromium's renderer processes before
+    # the next isolated browser starts.
+    sleep 1
   done
 }
 
