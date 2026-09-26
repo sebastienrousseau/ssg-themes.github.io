@@ -109,6 +109,18 @@ make mosh</code></pre>
             <td>v0.0.4</td>
           </tr>
           <tr>
+            <td><a href="https://github.com/sebastienrousseau/tsdev/" class="suite-link"><strong>tsdev</strong></a></td>
+            <td>TypeScript 5.8+</td>
+            <td>pnpm, vtsls, Biome, Vitest, TMUX IDE</td>
+            <td>v0.0.1</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/sebastienrousseau/jsdev/" class="suite-link"><strong>jsdev</strong></a></td>
+            <td>Node.js 22 LTS</td>
+            <td>Biome, ESLint, Prettier, testeur Node natif</td>
+            <td>v0.0.1</td>
+          </tr>
+          <tr>
             <td><a href="https://github.com/sebastienrousseau/pythondev/" class="suite-link"><strong>pythondev</strong></a></td>
             <td>Python 3.12+</td>
             <td>uv, ruff, mypy, pytest, debugpy, Pyright</td>
@@ -123,7 +135,7 @@ make mosh</code></pre>
           <tr>
             <td><a href="https://github.com/sebastienrousseau/godev/" class="suite-link"><strong>godev</strong></a></td>
             <td>Go 1.24+</td>
-            <td>gopls, golangci-lint, delve, Go toolchain</td>
+            <td>gopls, golangci-lint, delve, chaîne Go</td>
             <td>v0.0.4</td>
           </tr>
           <tr>
@@ -141,8 +153,14 @@ make mosh</code></pre>
           <tr>
             <td><a href="https://github.com/sebastienrousseau/swiftdev/" class="suite-link"><strong>swiftdev</strong></a></td>
             <td>Swift 6.0+</td>
-            <td>Swift toolchain, SourceKit-LSP, swift-format</td>
+            <td>Chaîne Swift, SourceKit-LSP, swift-format</td>
             <td>v0.0.4</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/sebastienrousseau/llamadev/" class="suite-link"><strong>llamadev</strong></a></td>
+            <td>Ollama &amp; LLMs locaux</td>
+            <td>Ollama, Python 3.12, LiteLLM, HF CLI</td>
+            <td>v0.0.1</td>
           </tr>
         </tbody>
       </table>
