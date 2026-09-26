@@ -69,7 +69,10 @@ def add_ids(html: str) -> tuple[str, set[str]]:
 
 def main() -> int:
     root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else "public")
-    pages = sorted(root.rglob("index.html"))
+    # `404.html` is the copy of `404/index.html` that static hosts serve.
+    # publish_404.py writes it before this script runs, so without it here
+    # the page a visitor actually sees was the one page left without ids.
+    pages = sorted([*root.rglob("index.html"), *root.rglob("404.html")])
     if not pages:
         print(f"anchor: no pages under {root}", file=sys.stderr)
         return 1
