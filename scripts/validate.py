@@ -78,9 +78,12 @@ FOOTER_CREDIT_LINK_RULE = (
     ".site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; "
     "padding: 0; margin: 0; white-space: nowrap; }"
 )
+# The SSG link carries `made-with-ssg` because SSG's own quality gate looks
+# for that class in every footer; without it each theme page fails pillar 6
+# ("Footer missing 'Made with SSG' link") in the generator's audit report.
 FOOTER_CREDIT_MARKUP = (
     'Made with ❤️ in London. Built with '
-    '<a href="https://static-site-generator.com/">SSG</a> and '
+    '<a class="made-with-ssg" href="https://static-site-generator.com/">SSG</a> and '
     '<a href="https://skeletonic.com/">Skeletonic CSS</a>.'
 )
 
