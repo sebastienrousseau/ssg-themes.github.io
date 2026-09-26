@@ -102,30 +102,35 @@ def drop_empty_feeds(root: Path) -> None:
     # Withdraw every reference: the <link> elements in the head and the
     # visible list items in the footer. A link to a file that is no longer
     # published is a broken link, which is worse than the empty feed was.
-    pattern_link = re.compile(
-        r'\s*<link[^>]+(?:rss\+xml|atom\+xml|feed\+json)[^>]*>')
+    #
+    # Every pattern is scoped to *this root's* feed URLs. The sweep used to
+    # strip any feed link from `*/index.html` regardless of whose feed it
+    # was, and the gallery's own run (`publish_404.py public`) withdraws the
+    # gallery's empty feed - so it reached into every theme's home page and
+    # deleted that theme's live feeds from the footer and the <head>. The
+    # same happened to a theme's French home when its /fr/ feed was empty.
+    #
+    # `here` is the root's URL path, taken from its path under `public/`:
+    # `public` is `/`, `public/prism/fr` is `/prism/fr/`. Pages link a feed
+    # either root-relative or by absolute URL, so an origin is optional.
+    parts = root.parts[root.parts.index("public") + 1:] if "public" in root.parts else (root.name,)
+    here = "/" + "".join(f"{part}/" for part in parts)
+    feed = (r'(?:https?://[^"/]+)?' + re.escape(here)
+            + r'(?:rss\.xml|atom\.xml|feed\.json)')
     pattern_item = re.compile(
-        r'\s*<li>\s*<a[^>]+href="[^"]*(?:rss\.xml|atom\.xml|feed\.json)"[^>]*>.*?</a>\s*</li>',
-        re.S)
+        r'\s*<li>\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>\s*</li>', re.S)
+    pattern_link = re.compile(r'\s*<link[^>]+href="' + feed + r'"[^>]*>')
+    pattern_anchor = re.compile(r'\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>', re.S)
     # Pages one level down link the withdrawn feed by its absolute URL: the
     # gallery's French error page advertised `/rss.xml` after the root feed
     # had been deleted for being empty, because the sweep below only looked
     # at this directory and the index of each child. `rglob` reaches those,
     # and matching the exact href keeps a locale's own feed — `/fr/rss.xml`,
     # which does have an item — untouched.
-    here = "/" if root.name == "public" else f"/{root.name}/"
-    withdrawn = re.compile(
-        r'\s*<(?:link[^>]+href|a[^>]+href)="'
-        + re.escape(here)
-        + r'(?:rss\.xml|atom\.xml|feed\.json)"[^>]*>(?:.*?</a>)?')
     for page in root.rglob("*.html"):
         text = page.read_text(encoding="utf-8")
-        cleaned = withdrawn.sub("", text)
-        if cleaned != text:
-            page.write_text(cleaned, encoding="utf-8")
-    for page in list(root.glob("*.html")) + list(root.glob("*/index.html")):
-        text = page.read_text(encoding="utf-8")
-        cleaned = pattern_item.sub("", pattern_link.sub("", text))
+        cleaned = pattern_anchor.sub(
+            "", pattern_link.sub("", pattern_item.sub("", text)))
         if cleaned != text:
             page.write_text(cleaned, encoding="utf-8")
 

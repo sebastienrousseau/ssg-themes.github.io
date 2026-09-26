@@ -6,51 +6,41 @@
  * theme's own script-src 'self' then blocked it. The dialog and the toggle
  * had never worked on these eight pages. As a file it is simply allowed. */
 (function() {
-  // 1. Theme Switcher Engine (Light / Dark / System)
-  const storedTheme = localStorage.getItem('theme-mode') || 'system';
-  function applyTheme(mode) {
-    if (mode === 'system') {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.setAttribute('data-theme-mode', isDark ? 'dark' : 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme-mode', mode);
-    }
-    localStorage.setItem('theme-mode', mode);
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-theme-mode') === mode);
-    });
-  }
-  
-  applyTheme(storedTheme);
-  
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if ((localStorage.getItem('theme-mode') || 'system') === 'system') {
-      applyTheme('system');
-    }
-  });
+  // 1. The mode toggle is main.js's, exactly as on every authored page.
+  //    This file used to carry its own engine keyed on `theme-mode` and
+  //    `.theme-btn`, which no Atlas page has used since the three-state
+  //    #mode-toggle, so a choice made on a tag page never carried over.
 
   document.addEventListener('DOMContentLoaded', () => {
-    applyTheme(localStorage.getItem('theme-mode') || 'system');
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mode = btn.getAttribute('data-theme-mode');
-        applyTheme(mode);
-      });
-    });
 
     // 2. Search Modal & Engine
     let searchIndex = null;
+    // Results are built as DOM nodes with textContent, not HTML strings:
+    // index fields and the typed query are never parsed as markup, and
+    // there is no escaping for the generator's minifier to mangle.
+    const note = (text) => {
+      const div = document.createElement('div');
+      div.className = 'search-empty';
+      div.textContent = text;
+      results.replaceChildren(div);
+    };
     const modal = document.getElementById('searchModal');
     const input = document.getElementById('searchInput');
     const results = document.getElementById('searchResults');
-    const trigger = document.getElementById('searchTrigger');
+    const trigger = document.getElementById('ssg-search-btn');
     const closeBtn = document.getElementById('searchClose');
 
     async function loadSearch() {
       if (!searchIndex) {
         try {
-          const res = await fetch('/search-index.json');
-          if (res.ok) searchIndex = await res.json();
+          // The index is per site (/atlas/search-index.json), not at the
+          // host root; the template hands over the right URL.
+          const res = await fetch(modal.dataset.index || 'search-index.json');
+          // The generator writes `{ entries: [...] }`, not a bare array.
+          if (res.ok) {
+            const data = await res.json();
+            searchIndex = Array.isArray(data) ? data : (data.entries || []);
+          }
         } catch (e) {
           searchIndex = [];
         }
@@ -70,7 +60,7 @@
       modal.style.display = 'none';
       modal.hidden = true;
       if (input) input.value = '';
-      if (results) results.innerHTML = '<div class="search-empty">Type to search...</div>';
+      if (results) note('Type to search...');
     }
 
     if (trigger) trigger.addEventListener('click', openSearch);
@@ -92,7 +82,7 @@
       input.addEventListener('input', () => {
         const query = input.value.trim().toLowerCase();
         if (!query || !searchIndex || searchIndex.length === 0) {
-          results.innerHTML = '<div class="search-empty">Type to search...</div>';
+          note('Type to search...');
           return;
         }
         const matches = searchIndex.filter(item => 
@@ -102,16 +92,25 @@
         ).slice(0, 8);
 
         if (matches.length === 0) {
-          results.innerHTML = '<div class="search-empty">No results found for "' + query + '"</div>';
+          note('No results found for \u201c' + input.value.trim() + '\u201d');
           return;
         }
 
-        results.innerHTML = matches.map(item => `
-          <a class="search-item" href="${item.url}">
-            <div class="search-item-title">${item.title}</div>
-            <div class="search-item-desc">${item.description || item.content || ''}</div>
-          </a>
-        `).join('');
+        results.replaceChildren(...matches.map((item) => {
+          const link = document.createElement('a');
+          link.className = 'search-item';
+          // Entry URLs are site-relative (`/about/index.html`); the site
+          // itself is served under a prefix (`/atlas`).
+          link.href = (modal.dataset.base || '') + item.url;
+          const title = document.createElement('div');
+          title.className = 'search-item-title';
+          title.textContent = item.title || '';
+          const desc = document.createElement('div');
+          desc.className = 'search-item-desc';
+          desc.textContent = item.description || item.content || '';
+          link.append(title, desc);
+          return link;
+        }));
       });
     }
   });

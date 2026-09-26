@@ -84,6 +84,9 @@ jobs:
       - name: Page weight and third-party request gate
         run: python3 scripts/pageweight.py
 
+      - name: Site chrome consistency gate
+        run: python3 scripts/chrome.py
+
       # `ssg audit` runs the generator's own gates against the built output:
       # WCAG 2.2, JSON-LD, hreflang, CSP/SRI, HTML5, broken links, Open
       # Graph, RSS/Atom, image optimisation and search-index integrity.

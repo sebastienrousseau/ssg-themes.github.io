@@ -8,6 +8,12 @@
   footer. A visitor following a tag link left Atlas and landed on
   something that looked like a different site.
 
+  The markup below mirrors base.html, header.html and footer.html. Those
+  partials cannot be included from here (they are StaticWeaver, not
+  MiniJinja), so the labels the authored pages read from front matter are
+  spelled out per locale instead. Keep the two in step: a tag page that
+  drifts from the authored chrome is the bug this file exists to prevent.
+
   Two context variables matter here and are easy to confuse:
 
     site_prefix   the site root  (/ssg-themes.github.io/atlas)
@@ -18,6 +24,7 @@
   Navigation must keep a reader inside their own locale, so it hangs off
   `url_prefix`.
 #}
+{%- set fr = site.language and site.language[:2] == 'fr' -%}
 <!DOCTYPE html>
 <html lang="{{ site.language | default('en') }}" class="no-js">
 <head>
@@ -27,9 +34,10 @@
   <meta name="description" content="{{ page_description | default(site.description) }}">
   {% if site.base_url %}<link rel="canonical" href="{{ site.base_url | safe }}{{ page_url | default('/') | safe }}">{% endif %}
   <meta name="generator" content="ssg-taxonomy">
-  {# These pages carry one same-origin script (the theme-preference
-     bootstrap, which prevents a flash of the wrong theme) and no inline
-     script, so the policy can stay tight without breaking the theme. #}
+  {# These pages carry same-origin scripts only (the theme-preference
+     bootstrap, which prevents a flash of the wrong theme, and the
+     behaviour files) and no inline script, so the policy can stay tight
+     without breaking the theme. #}
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'">
   <meta property="og:title" content="{{ page_title | default(taxonomy_title) | default(site.title) }}">
@@ -38,25 +46,48 @@
   {% if site.base_url %}<meta property="og:url" content="{{ site.base_url | safe }}{{ page_url | default('/') | safe }}">{% endif %}
   <meta property="og:image" content="{{ site.base_url | safe }}/images/screenshot.png">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  {# Same order as base.html: the Skeletonic core first, so its
+     @layer skeletonic.* blocks are declared before the theme wins every
+     overlap. #}
+  <link rel="stylesheet" href="{{ site_prefix | safe }}/skeletonic.min.css">
   <link rel="stylesheet" href="{{ site_prefix | safe }}/styles.css">
   <script src="{{ site_prefix | safe }}/theme-init.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">
-    {%- if site.language and site.language[:2] == 'fr' -%}
-      Aller au contenu principal
-    {%- else -%}
-      Skip to main content
-    {%- endif -%}
-  </a>
+  <a class="skip-link" href="#main">{% if fr %}Aller au contenu principal{% else %}Skip to main content{% endif %}</a>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{{ url_prefix | safe }}/">{{ site.name | default('Home') }}</a>
+      <a class="brand" href="{{ url_prefix | safe }}/">
+        <span class="brand-mark" aria-hidden="true">AT</span>
+        <span class="brand-text">{{ site.name | default('Atlas') }}</span>
+      </a>
 
-      <nav class="site-nav" aria-label="Main navigation">
-        <ul class="nav-menu">
-          {% if site.language and site.language[:2] == 'fr' %}
+      <nav class="site-nav" aria-label="Primary">
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navMenu"
+        >
+          <span class="visually-hidden">Menu</span>
+          <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+          {% if fr %}
             <li><a class="nav-link" href="{{ url_prefix | safe }}/articles/">Articles</a></li>
             <li><a class="nav-link" href="{{ url_prefix | safe }}/publications/">Publications</a></li>
             <li><a class="nav-link" href="{{ url_prefix | safe }}/a-propos/">À propos</a></li>
@@ -68,16 +99,37 @@
             <li><a class="nav-link" href="{{ url_prefix | safe }}/contact/">Contact</a></li>
           {% endif %}
         </ul>
-      </nav>
 
-      {# Same element marker the authored layouts use; the i18n plugin
-         replaces it with a real switcher when the page exists in more
-         than one locale. Left untouched otherwise. #}
-      <div data-ssg-lang-switcher></div>
+        {# Same element marker the authored layouts use; the i18n plugin
+           replaces it with a real switcher when the page exists in more
+           than one locale. Left untouched otherwise. #}
+        <div data-ssg-lang-switcher></div>
+
+        {# The generator's search widget is not injected into taxonomy
+           pages, so this is the same trigger markup (and so the same
+           #ssg-search-btn styling) wired to the dialog in taxonomy.js. #}
+        <button id="ssg-search-btn" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+          <kbd>K</kbd>
+        </button>
+
+        <button
+          class="theme-toggle"
+          id="mode-toggle"
+          type="button"
+          data-label-light="Light"
+          data-label-dark="Dark"
+        >
+          <span class="visually-hidden">Theme</span>
+          <span class="visually-hidden" id="mode-state" data-label-system="System">System</span>
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </nav>
     </div>
   </header>
 
-  <main id="main-content" class="section">
+  <main id="main" class="section">
     <div class="container stack">
       {% block content %}{% endblock %}
     </div>
@@ -85,12 +137,89 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p class="footer-credit">Made with ❤️ in London. Built with <a class="made-with-ssg" href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</p>
+      <div class="footer-cols">
+        {% if fr %}
+        <div>
+          <h2>Écrits</h2>
+          <ul>
+            <li><a href="{{ url_prefix | safe }}/articles/">Articles</a></li>
+            <li><a href="{{ url_prefix | safe }}/publications/">Publications</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Le site</h2>
+          <ul>
+            <li><a href="{{ url_prefix | safe }}/a-propos/">À propos</a></li>
+            <li><a href="{{ url_prefix | safe }}/nous-contacter/">Nous contacter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Flux</h2>
+          <ul>
+            <li><a href="{{ site_prefix | safe }}/rss.xml">RSS</a></li>
+            <li><a href="{{ site_prefix | safe }}/atom.xml">Atom</a></li>
+            <li><a href="{{ site_prefix | safe }}/feed.json">JSON Feed</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Réalisé avec</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+            </li>
+            <li><a href="{{ site_prefix | safe }}/sitemap.xml">Plan du site</a></li>
+          </ul>
+        </div>
+        {% else %}
+        <div>
+          <h2>Writing</h2>
+          <ul>
+            <li><a href="{{ url_prefix | safe }}/articles/">Articles</a></li>
+            <li><a href="{{ url_prefix | safe }}/papers/">Papers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Hub</h2>
+          <ul>
+            <li><a href="{{ url_prefix | safe }}/about/">About</a></li>
+            <li><a href="{{ url_prefix | safe }}/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Feeds</h2>
+          <ul>
+            <li><a href="{{ site_prefix | safe }}/rss.xml">RSS</a></li>
+            <li><a href="{{ site_prefix | safe }}/atom.xml">Atom</a></li>
+            <li><a href="{{ site_prefix | safe }}/feed.json">JSON Feed</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Built with</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/sebastienrousseau/static-site-generator" rel="noopener noreferrer">Static Site Generator</a>
+            </li>
+            <li><a href="{{ site_prefix | safe }}/sitemap.xml">Sitemap</a></li>
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="footer-legal">
+        {% if fr %}
+        <span>&copy; 2026 {{ site.name | default('Atlas') }}. Publié sous licence MIT.</span>
+        <span>Réalisé avec Static Site Generator (SSG). Conformité WCAG 2.2 AA vérifiée en intégration continue.</span>
+        {% else %}
+        <span>&copy; 2026 {{ site.name | default('Atlas') }}. Released under the MIT licence.</span>
+        <span>Built with Static Site Generator (SSG). WCAG 2.2 AA verified in CI.</span>
+        {% endif %}
+        <span class="footer-credit">Made with ❤️ in London. Built with <a class="made-with-ssg" href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</span>
+      </div>
     </div>
   </footer>
 
 
-<div id="searchModal" class="search-modal" role="dialog" aria-modal="true" aria-label="Site Search" hidden>
+<div id="searchModal" class="search-modal" role="dialog" aria-modal="true" aria-label="Site Search" data-index="{{ site_prefix | safe }}/search-index.json" data-base="{{ site_prefix | safe }}" hidden>
   <div class="search-backdrop"></div>
   <div class="search-dialog">
     <div class="search-header">
@@ -105,6 +234,7 @@
 </div>
 
 
+<script src="{{ site_prefix | safe }}/main.js" defer></script>
 <script src="{{ site_prefix | safe }}/taxonomy.js" defer></script>
 
 </body>
