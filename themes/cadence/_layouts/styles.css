@@ -369,6 +369,13 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .page-grid header { position: sticky; top: 7rem; display: grid; gap: 1rem; }
 .prose { max-width: 68ch; }
 .prose > * + * { margin-block-start: 1.6lh; }
+/* 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x the line
+   spacing. The generator wraps rendered Markdown in its own element
+   (<div lang>), so the rule above matches only that wrapper and leaves two
+   paragraphs in a row inside it touching. Matched on descendants, as Lucid
+   and Prism do; :where() keeps specificity at zero so `.prose h2` still wins. */
+.prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+  + :where(p, ul, ol, pre, blockquote, table, dl, figure) { margin-block-start: 1.6lh; }
 .prose h2 { margin-block-start: 1.8em; }
 .prose ul, .prose ol { padding-inline-start: 1.35rem; }
 .error-page { min-height: 70svh; display: grid; align-items: center; }
