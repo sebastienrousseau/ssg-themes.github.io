@@ -2,7 +2,7 @@
 title: "Contact — Hearth"
 description: "Comment joindre l'équipe Hearth pour une question de dimensions, de matériaux ou de livraison, et les délais de réponse."
 keywords: "contact Hearth, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Hearth"
 short_name: "HE"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Préparer votre séjour."
 lead: "Les questions sur les pièces, les longs séjours et l'accessibilité arrivent à la même équipe."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -57,3 +63,5 @@ et le nombre de personnes. Les réponses partent le jour ouvré même.
 
 Les besoins d'accessibilité s'organisent mieux avec du délai : signalez-les tôt.
 Les tarifs longue durée dépendent de la saison et de la durée de réservation.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

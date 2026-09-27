@@ -2,7 +2,7 @@
 title: "Contact — Noir"
 description: "How to reach the Noir team, what to include so the answer is useful, and how long a reply takes."
 keywords: "noir contact, enquiries"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Noir"
 short_name: "NO"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Enquire about the collection."
 lead: "Questions about sizing, fabric and stockists reach the studio directly, as do press and wholesale enquiries."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -55,3 +61,5 @@ Write to [hello@example.com](mailto:hello@example.com) naming the piece and the 
 ## Before you write
 
 Sizing questions are easier to answer with your usual size and the fit you prefer. Wholesale enquiries need your territory and stockist list.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

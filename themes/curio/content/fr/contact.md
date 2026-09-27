@@ -2,7 +2,7 @@
 title: "Contact — Curio"
 description: "Comment joindre l'équipe Curio au sujet d'un produit, d'une source ou d'un classement, et les délais de réponse."
 keywords: "contact Curio, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Curio"
 short_name: "CU"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Une question sur une fiche ?"
 lead: "Les questions de disponibilité, de provenance et de livraison arrivent à l'équipe qui tient le catalogue."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -57,3 +63,5 @@ de la fiche concernée. Les réponses partent sous deux jours ouvrés.
 
 Une question de classement se traite plus vite avec la requête utilisée et la
 date de consultation. Pour une correction de données, indiquez la source exacte.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

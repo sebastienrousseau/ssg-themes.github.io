@@ -1,0 +1,33 @@
+{{#extends "base"}}
+{{#block "main"}}
+<article class="section page-shell">
+  <div class="container page-grid">
+    <header><p class="eyebrow">{{eyebrow}}</p><h1>{{headline}}</h1><p class="lead">{{lead}}</p></header>
+    <div class="contact-body">
+      <div class="prose">{{!content}}</div>
+      <!--
+        Posts to a real endpoint supplied by the site owner via the
+        `form_action` front-matter field, which must also be the origin in
+        `form_origin` for the page's form-action policy to allow it.
+        Shipping `action="#"` would silently discard the submission.
+      -->
+      <form class="contact-form" action="{{form_action}}" method="post">
+        <div class="field">
+          <label for="cf-name">{{label_form_name}}</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cf-email">{{label_form_email}}</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" aria-describedby="cf-email-hint" required />
+          <p class="field-hint" id="cf-email-hint">{{label_form_email_hint}}</p>
+        </div>
+        <div class="field">
+          <label for="cf-message">{{label_form_message}}</label>
+          <textarea id="cf-message" name="message" rows="6" required></textarea>
+        </div>
+        <button class="button button-primary" type="submit">{{label_form_send}}</button>
+      </form>
+    </div>
+  </div>
+</article>
+{{/block}}

@@ -38,7 +38,7 @@ nav_about: "About"
 nav_contact: "Contact"
 slug_about: "about"
 slug_contact: "contact"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 title: "Contact — Cadence"
 description: "How to reach the Cadence team about fit, sizing, service intervals or a product enquiry, and what happens after you write."
@@ -46,6 +46,12 @@ keywords: "cadence contact, bike fit enquiry"
 eyebrow: "Contact"
 headline: "Start a conversation."
 lead: "Tell us how you ride and what you are trying to solve. Fit, sizing and service questions all land with the same team."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -59,3 +65,5 @@ working days.
 A fit question is easier to answer with your current frame size, saddle height
 and the terrain you ride most. Service questions need the frame number, which
 is printed inside the bottom bracket shell.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

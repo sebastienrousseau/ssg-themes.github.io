@@ -47,11 +47,12 @@ No inline script or inline style is permitted, so the generator extracts
 both to external files covered by Subresource Integrity. Nothing loads from
 a third-party origin.
 
-`form_origin` is the one value you are expected to change. It is set in each
-page's front matter and defaults to the placeholder `https://example.com`.
-Point it at your own form endpoint before you deploy, or the browser blocks
-the POST. If the theme has no form, set it to your own origin and the
-directive becomes inert.
+The contact page's form posts to `form_action`, and `form_origin` is the
+origin the policy allows it to post to. Both are set in the contact page's
+front matter and default to placeholders on `https://example.com`. Point
+`form_action` at your own form endpoint and `form_origin` at its origin
+before you deploy, or the browser blocks the POST. The other pages carry
+`form_origin` too; they have no form, so the directive is inert there.
 
 ## Licence
 

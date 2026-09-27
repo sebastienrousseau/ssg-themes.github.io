@@ -2,7 +2,7 @@
 title: "Contact — Noir"
 description: "Comment joindre le studio Noir pour une question de taille, de matière ou de distribution, et les délais de réponse."
 keywords: "contact Noir, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Noir"
 short_name: "NO"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Une question sur la collection ?"
 lead: "Les questions de taille, de matière et de points de vente arrivent directement au studio, comme les demandes presse et gros."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -57,3 +63,5 @@ saison. Les réponses partent sous deux jours ouvrés.
 
 Une question de taille se traite plus vite avec votre taille habituelle et la
 coupe que vous préférez. Une demande de gros doit préciser le territoire.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

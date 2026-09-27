@@ -2,7 +2,7 @@
 title: "Contact — Signal"
 description: "Comment demander une présentation à l'équipe Signal, ce qu'il faut préciser sur la couverture ou la méthode, et les délais de réponse."
 keywords: "contact Signal, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Signal"
 short_name: "SI"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Demander une présentation."
 lead: "Les questions de couverture, de méthodologie et d'accès aux données arrivent aux analystes qui produisent le travail."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -57,3 +63,5 @@ la période dont vous avez besoin. Les réponses partent sous deux jours ouvrés
 
 Une question de méthodologie se traite plus vite avec le chiffre précis que vous
 vérifiez. Une demande d'accès aux données doit indiquer l'usage prévu.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

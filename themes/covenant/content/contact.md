@@ -2,7 +2,7 @@
 title: "Contact — Covenant"
 description: "How to reach the Covenant team, what to include so the answer is useful, and how long a reply takes."
 keywords: "covenant contact, enquiries"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Covenant"
 short_name: "CO"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Speak to the partnership."
 lead: "Enquiries about the portfolio, co-investment or reporting all reach the same desk. Tell us which company or fund you are asking about."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -55,3 +61,5 @@ Write to [hello@example.com](mailto:hello@example.com) with the company or fund 
 ## Before you write
 
 Co-investment enquiries need the mandate size and the sectors in scope. Reporting requests should name the period and the entity.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

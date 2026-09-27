@@ -290,7 +290,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Signal</h3>
           <p>Revenue intelligence. Luminous dashboard surfaces, modular capabilities and explainable AI copy.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>SaaS, analytics, revenue platforms</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>SaaS, analytics, revenue platforms</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="signal/">View demo</a>
             <a class="btn btn-secondary" href="downloads/signal.zip" download>.zip</a>
@@ -306,7 +306,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Cadence</h3>
           <p>Performance cycling. Dark cinematic staging, oversized type and evidence-led specification content.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Cycle makers, teams, endurance brands</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Cycle makers, teams, endurance brands</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="cadence/">View demo</a>
             <a class="btn btn-secondary" href="downloads/cadence.zip" download>.zip</a>
@@ -322,7 +322,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Noir</h3>
           <p>Streetwear commerce. Near-black catalogue staging, hard rules and transparent product information.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Fashion labels, lookbooks, catalogues</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Fashion labels, lookbooks, catalogues</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="noir/">View demo</a>
             <a class="btn btn-secondary" href="downloads/noir.zip" download>.zip</a>
@@ -338,7 +338,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Covenant</h3>
           <p>Private capital. Black, ivory and red geometry with rigorous portfolio and disclosure narratives.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Investment firms, portfolio groups, institutions</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Investment firms, portfolio groups, institutions</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="covenant/">View demo</a>
             <a class="btn btn-secondary" href="downloads/covenant.zip" download>.zip</a>
@@ -354,7 +354,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Hearth</h3>
           <p>Furniture catalogue. Airy product staging, warm material tones and practical ownership content.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Furniture makers, interiors, product studios</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Furniture makers, interiors, product studios</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="hearth/">View demo</a>
             <a class="btn btn-secondary" href="downloads/hearth.zip" download>.zip</a>
@@ -370,7 +370,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Portfolio</p>
           <h3>Intent</h3>
           <p>Editorial design. Expressive serif typography, monochrome fields and a vivid studio-ribbon motif.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Designers, illustrators, creative directors</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Designers, illustrators, creative directors</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="intent/">View demo</a>
             <a class="btn btn-secondary" href="downloads/intent.zip" download>.zip</a>
@@ -386,7 +386,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Marketing</p>
           <h3>Curio</h3>
           <p>AI shopping. Bold commerce type, modular product cards and transparent recommendation principles.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Comparison tools, marketplaces, shopping agents</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Comparison tools, marketplaces, shopping agents</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="curio/">View demo</a>
             <a class="btn btn-secondary" href="downloads/curio.zip" download>.zip</a>
@@ -402,7 +402,7 @@ stat_thirdparty: "third-party requests, on every page"
           <p class="eyebrow">Developer Tools</p>
           <h3>Scout</h3>
           <p>Protocol diagnostics. A verdict-first readout, severity ledger and request-level evidence for local verification tools.</p>
-          <ul class="sc-meta"><li>3 layouts</li><li>Scanners, protocol tools, engineering reports</li></ul>
+          <ul class="sc-meta"><li>4 layouts</li><li>Scanners, protocol tools, engineering reports</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="scout/">View demo</a>
             <a class="btn btn-secondary" href="downloads/scout.zip" download>.zip</a>
