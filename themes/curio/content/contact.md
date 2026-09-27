@@ -2,7 +2,7 @@
 title: "Contact — Curio"
 description: "How to reach the Curio team, what to include so the answer is useful, and how long a reply takes."
 keywords: "curio contact, enquiries"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Curio"
 short_name: "CU"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Ask about a piece."
 lead: "Questions about availability, provenance or delivery reach the same team that catalogues the collection."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -55,3 +61,5 @@ Write to [hello@example.com](mailto:hello@example.com) with the catalogue number
 ## Before you write
 
 Condition questions are easier to answer with the catalogue number and the photographs you are looking at. Delivery quotes need the destination country.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

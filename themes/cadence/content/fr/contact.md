@@ -38,7 +38,7 @@ nav_about: "À propos"
 nav_contact: "Contact"
 slug_about: "a-propos"
 slug_contact: "contact"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 title: "Contact — Cadence"
 description: "Comment joindre l'équipe Cadence au sujet de la position, des tailles, des intervalles d'entretien ou d'une question produit, et ce qui se passe ensuite."
@@ -46,6 +46,12 @@ keywords: "contact Cadence, question position vélo"
 eyebrow: "Contact"
 headline: "Engagez la conversation."
 lead: "Dites-nous comment vous roulez et ce que vous cherchez à résoudre. Position, tailles et entretien arrivent chez la même équipe."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -59,3 +65,5 @@ parcourez. Les réponses partent sous deux jours ouvrés.
 Une question de position se traite plus vite avec la taille de cadre actuelle,
 la hauteur de selle et le terrain que vous pratiquez le plus. Pour l'entretien,
 indiquez le numéro de cadre, gravé dans le boîtier de pédalier.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

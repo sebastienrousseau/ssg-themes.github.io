@@ -2,7 +2,7 @@
 title: "Contact — Scout"
 description: "Comment joindre l'équipe Scout au sujet d'un parcours, d'un équipement ou de conditions de terrain, et les délais de réponse."
 keywords: "contact Scout, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Scout"
 author: "SSG Theme Suite"
@@ -44,6 +44,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Nous joindre de n'importe où."
 lead: "Les questions sur les parcours, l'équipement et les conditions arrivent à l'équipe qui les parcourt."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -55,3 +61,5 @@ ou la région concernée. Les réponses partent sous trois jours ouvrés.
 
 Une question de parcours demande la saison et votre niveau d'expérience. Une
 question d'équipement se traite mieux avec les conditions que vous attendez.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

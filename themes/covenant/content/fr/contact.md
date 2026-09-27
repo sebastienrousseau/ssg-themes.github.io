@@ -2,7 +2,7 @@
 title: "Contact — Covenant"
 description: "Comment joindre l'équipe Covenant, ce qu'il faut préciser pour obtenir une réponse utile, et les délais de réponse."
 keywords: "contact Covenant, demandes"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Covenant"
 short_name: "CO"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Parler au partenariat."
 lead: "Les demandes sur le portefeuille, le co-investissement ou le reporting arrivent au même bureau. Précisez la société ou le fonds concerné."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Votre nom"
+label_form_email: "Adresse e-mail"
+label_form_email_hint: "Utilisée uniquement pour répondre à ce message."
+label_form_message: "Message"
+label_form_send: "Envoyer le message"
 ---
 
 ## Nous écrire
@@ -58,3 +64,5 @@ jours ouvrés.
 
 Une demande de co-investissement doit préciser la taille du mandat et les
 secteurs visés. Une demande de reporting doit nommer la période et l'entité.
+
+Le formulaire est envoyé à l'adresse `form_action` indiquée dans l'en-tête de cette page. Remplacez-la par votre propre point de réception, et indiquez son origine dans `form_origin`, avant de publier.

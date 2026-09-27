@@ -2,7 +2,7 @@
 title: "Contact — Scout"
 description: "How to reach the Scout team, what to include so the answer is useful, and how long a reply takes."
 keywords: "scout contact, enquiries"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Scout"
 author: "SSG Theme Suite"
@@ -44,6 +44,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Get in touch from anywhere."
 lead: "Questions about routes, equipment and field conditions reach the team that walks them, not a call centre."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -53,3 +59,5 @@ Write to [hello@example.com](mailto:hello@example.com) with the route or region 
 ## Before you write
 
 Route questions need the season and your experience level. Equipment questions are easier with the conditions you expect to meet.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

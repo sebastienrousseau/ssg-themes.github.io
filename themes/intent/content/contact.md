@@ -2,7 +2,7 @@
 title: "Contact — Intent"
 description: "How to reach the Intent team, what to include so the answer is useful, and how long a reply takes."
 keywords: "intent contact, enquiries"
-layout: "page"
+layout: "contact"
 translation_key: "contact"
 name: "Intent"
 short_name: "IN"
@@ -46,6 +46,12 @@ slug_contact: "contact"
 eyebrow: "Contact"
 headline: "Talk to the product team."
 lead: "Questions about the roadmap, pricing and integration reach the people building the product rather than a queue."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
 ---
 
 ## How to reach us
@@ -55,3 +61,5 @@ Write to [hello@example.com](mailto:hello@example.com) describing what you are t
 ## Before you write
 
 Integration questions need the systems you are connecting and the volume you expect. Pricing questions need your seat count.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

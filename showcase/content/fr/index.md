@@ -290,7 +290,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Signal</h3>
           <p>Intelligence des revenus. Surfaces de tableau de bord lumineuses, capacités modulaires et discours d’IA explicable.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>SaaS, analytique, plateformes de revenus</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>SaaS, analytique, plateformes de revenus</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../signal/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/signal.zip" download>.zip</a>
@@ -306,7 +306,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Cadence</h3>
           <p>Cyclisme de performance. Mise en scène sombre et cinématographique, typographie surdimensionnée et contenu technique fondé sur les preuves.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Fabricants de vélos, équipes, marques d’endurance</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Fabricants de vélos, équipes, marques d’endurance</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../cadence/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/cadence.zip" download>.zip</a>
@@ -322,7 +322,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Noir</h3>
           <p>Commerce streetwear. Mise en scène de catalogue quasi noire, filets marqués et information produit transparente.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Marques de mode, lookbooks, catalogues</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Marques de mode, lookbooks, catalogues</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../noir/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/noir.zip" download>.zip</a>
@@ -338,7 +338,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Covenant</h3>
           <p>Capital privé. Géométrie noire, ivoire et rouge, avec des récits de portefeuille et d’information rigoureux.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Sociétés d’investissement, groupes de portefeuille, institutions</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Sociétés d’investissement, groupes de portefeuille, institutions</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../covenant/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/covenant.zip" download>.zip</a>
@@ -354,7 +354,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Hearth</h3>
           <p>Catalogue de mobilier. Mise en scène produit aérée, tonalités de matières chaudes et contenu pratique sur l’usage.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Fabricants de mobilier, intérieurs, studios produit</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Fabricants de mobilier, intérieurs, studios produit</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../hearth/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/hearth.zip" download>.zip</a>
@@ -370,7 +370,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Portfolio</p>
           <h3>Intent</h3>
           <p>Design éditorial. Typographie serif expressive, aplats monochromes et motif de ruban de studio éclatant.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Designers, illustrateurs, directions de création</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Designers, illustrateurs, directions de création</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../intent/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/intent.zip" download>.zip</a>
@@ -386,7 +386,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Marketing</p>
           <h3>Curio</h3>
           <p>Achat assisté par IA. Typographie commerciale affirmée, cartes produit modulaires et principes de recommandation transparents.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Comparateurs, places de marché, agents d’achat</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Comparateurs, places de marché, agents d’achat</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../curio/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/curio.zip" download>.zip</a>
@@ -402,7 +402,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <p class="eyebrow">Outils pour développeurs</p>
           <h3>Scout</h3>
           <p>Diagnostic de protocole. Un verdict d’abord, un registre de sévérité et des preuves au niveau de la requête pour les outils de vérification locaux.</p>
-          <ul class="sc-meta"><li>3 gabarits</li><li>Scanners, outils de protocole, rapports d’ingénierie</li></ul>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Scanners, outils de protocole, rapports d’ingénierie</li></ul>
           <div class="sc-actions">
             <a class="btn btn-primary" href="../scout/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/scout.zip" download>.zip</a>
