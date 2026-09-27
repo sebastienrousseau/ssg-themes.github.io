@@ -1264,6 +1264,15 @@ html { scroll-padding-block-start: 5.5rem; }
   html { scroll-padding-block-start: 4.5rem; }
 }
 
+/* Voxt's header wraps to two rows between 769px and 1024px and at 320px,
+   121px tall against the 88px and 72px the suite-wide rule above reserves.
+   The rule above also overrode the 8.5rem this theme set for exactly that
+   header, so it only held while no focus stop happened to scroll to the top
+   edge - until three more rows in the suite table put the table's first
+   link there, under the header, at 900px and 1024px (2.4.12). Reserve the
+   tallest header at every width. */
+html { scroll-padding-block-start: 8.5rem; }
+
 /* Language switcher.
    One control on all twenty-two themes: a globe, the current locale code,
    and a panel anchored under the button. It was a bare inline list before,
