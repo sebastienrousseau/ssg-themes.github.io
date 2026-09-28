@@ -1,15 +1,15 @@
-site_name = "Scout"
-site_title = "Scout — diagnostic instrument theme for SSG"
+site_name = "passmcp"
+site_title = "passmcp — diagnostic instrument theme for SSG"
 site_description = "A measured theme for verification tools: severity ledgers, evidence tables and a readout hero that puts the verdict first."
 base_url = "https://example.com"
 language = "en-GB"
 
-content_dir = "themes/scout/content"
-template_dir = "themes/scout/_layouts"
-output_dir = "public/scout"
+content_dir = "themes/passmcp/content"
+template_dir = "themes/passmcp/_layouts"
+output_dir = "public/passmcp"
 
-# Slugs are translated, not prefixed: `/scout/about/` pairs with
-# `/scout/fr/a-propos/`. The pairing comes from `translation_key`,
+# Slugs are translated, not prefixed: `/passmcp/about/` pairs with
+# `/passmcp/fr/a-propos/`. The pairing comes from `translation_key`,
 # not from the path, and validate.py fails the build if a key does
 # not resolve in every locale listed here.
 [i18n]
