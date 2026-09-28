@@ -37,7 +37,7 @@ CATEGORIES = ("Blog", "Developer Tools", "Documentation", "Marketing", "Portfoli
 
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
     "signal", "stablo", "steward", "velocity", "visage", "vista", "voxt",
 )
 
@@ -588,8 +588,15 @@ def check_registration(root: Path) -> list[str]:
         # Every theme must be named, not merely linked: the enumerations in
         # the title, description and lead are where a new theme goes missing.
         for name in on_disk:
-            if name.capitalize() not in html:
-                errors.append(f"showcase/content/index.md never names {name.capitalize()}")
+            # The name a reader sees is the manifest's display_name when it
+            # declares one (a brand may be lower-case), else the folder name
+            # capitalised, as every other theme is shown.
+            try:
+                shown = json.loads((root / "themes" / name / "theme.json").read_text()).get("display_name") or name.capitalize()
+            except (OSError, ValueError):
+                shown = name.capitalize()
+            if shown not in html:
+                errors.append(f"showcase/content/index.md never names {shown}")
             # The eyebrow is what tells a reader what a theme is for before
             # they read the description, so it has to agree with the manifest
             # rather than being typed independently.
@@ -604,7 +611,7 @@ def check_registration(root: Path) -> list[str]:
                     # cards are authored in showcase/content/index.md and
                     # re-indented there.
                     eyebrow = f'<p class="eyebrow">{cat}</p>'
-                    heading = f'<h3>{name.capitalize()}</h3>'
+                    heading = f'<h3>{shown}</h3>'
                     # Every occurrence, not the first: several themes share a
                     # category, so the first match is usually another card's.
                     found = False
@@ -616,7 +623,7 @@ def check_registration(root: Path) -> list[str]:
                         pos = html.find(eyebrow, pos + 1)
                     if not found:
                         errors.append(
-                            f"showcase/content/index.md: {name.capitalize()} "
+                            f"showcase/content/index.md: {shown} "
                             f"card does not show its category {cat!r}"
                         )
 

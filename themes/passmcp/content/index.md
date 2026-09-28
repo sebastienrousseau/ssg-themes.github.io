@@ -1,7 +1,7 @@
 ---
-name: "Scout"
-short_name: "SC"
-title: "Scout — diagnostic instrument theme for SSG"
+name: "passmcp"
+short_name: "passmcp"
+title: "passmcp — diagnostic instrument theme for SSG"
 description: "A measured theme for verification tools: severity ledgers, evidence tables and a readout hero that puts the verdict first."
 keywords: "diagnostic theme, security scanner theme, developer tools theme, MCP server testing, SSG theme"
 author: "SSG Theme Suite"
@@ -15,9 +15,9 @@ schema: "page"
 changefreq: "weekly"
 copyright_year: "2026"
 form_origin: "https://example.com"
-theme_style: "style-scout"
+theme_style: "style-passmcp"
 theme_colour: "#0a5f68"
-brand_mark: "S"
+brand_mark: "P"
 footer_note: "A verdict is worth what its evidence is worth."
 eyebrow: "Protocol diagnostics · runs on your machine"
 headline: "Test any server. Nothing leaves your machine."
@@ -58,11 +58,11 @@ phases_lead: "The sequence matters: a catalog check means nothing if the handsha
 report_eyebrow: "The report"
 report_title: "One document, two readers."
 report_lead: "An executive summary sits above the fold — verdict, score, what to fix first. The full findings and their evidence follow. One document, so there are not two that drift apart, and it prints to a PDF a board can read."
-locale_path: "/scout/"
-base_path: "/scout/"
+locale_path: "/passmcp/"
+base_path: "/passmcp/"
 en_current: ' aria-current="true"'
 fr_current: ""
-label_home: "Scout home"
+label_home: "passmcp home"
 label_menu: "Menu"
 label_nav: "Primary"
 label_langs: "Language"
@@ -84,7 +84,7 @@ slug_contact: "contact"
 translation_key: "home"
 ---
 
-Scout is a diagnostic-instrument theme for tools that inspect and grade
+passmcp is a diagnostic-instrument theme for tools that inspect and grade
 something: a protocol implementation, a server, a dependency graph, an API
 contract. It is built for the moment after the run finishes, when a verdict
 has to be delivered to two audiences at once — somebody deciding whether to

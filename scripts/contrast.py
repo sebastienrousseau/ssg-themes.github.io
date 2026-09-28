@@ -137,7 +137,7 @@ PAIRS = [
 
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
     "signal", "stablo", "steward", "velocity", "visage", "vista",
 )
 

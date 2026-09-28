@@ -28,7 +28,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-THEMES=(apex atlas cadence covenant hearth intent kairo kaishi kinetic lucid noir prism quill curio scout signal stablo steward velocity visage vista voxt)
+THEMES=(apex atlas cadence covenant hearth intent kairo kaishi kinetic lucid noir prism quill curio passmcp signal stablo steward velocity visage vista voxt)
 TARGET="${1:-all}"
 
 # Where GitHub Pages actually serves this repository. Confirm with:

@@ -396,17 +396,17 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="../scout/images/card.webp" srcset="../scout/images/card.webp 640w, ../scout/images/tn.webp 900w, ../scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Scout." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="../passmcp/images/card.webp" srcset="../passmcp/images/card.webp 640w, ../passmcp/images/tn.webp 900w, ../passmcp/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème passmcp." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Outils pour développeurs</p>
-          <h3>Scout</h3>
+          <h3>passmcp</h3>
           <p>Diagnostic de protocole. Un verdict d’abord, un registre de sévérité et des preuves au niveau de la requête pour les outils de vérification locaux.</p>
           <ul class="sc-meta"><li>4 gabarits</li><li>Scanners, outils de protocole, rapports d’ingénierie</li></ul>
           <div class="sc-actions">
-            <a class="btn btn-primary" href="../scout/fr/">Voir la démo</a>
-            <a class="btn btn-secondary" href="../downloads/scout.zip" download>.zip</a>
-            <a class="btn btn-outline" href="../downloads/scout.tar.gz" download>.tar.gz</a>
+            <a class="btn btn-primary" href="../passmcp/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/passmcp.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/passmcp.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>

@@ -1,17 +1,17 @@
-# Scout
+# passmcp
 
-Scout is a diagnostic-instrument theme for Static Site Generator. It presents
+passmcp is a diagnostic-instrument theme for Static Site Generator. It presents
 technical verification as a readable verdict, severity ledger and inspectable
 evidence trail.
 
-![Scout screenshot](images/screenshot.png)
+![passmcp screenshot](images/screenshot.png)
 
 ## Build
 
 From the repository root:
 
 ```sh
-ssg build -f themes/scout/ssg.toml
+ssg build -f themes/passmcp/ssg.toml
 ```
 
 The theme uses the local Skeletonic Stylus foundation, same-origin assets and

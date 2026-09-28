@@ -21,7 +21,7 @@
 - [Noir](https://themes.static-site-generator.com/noir/): streetwear-commerce theme. Near-black staging, hard editorial rules and transparent product information.
 - [Prism](https://themes.static-site-generator.com/prism/): financial-infrastructure marketing theme. Navy masthead with a disclosure mega-menu, sloped hero with product mock-ups, four semantic tints, four layouts.
 - [Quill](https://themes.static-site-generator.com/quill/): typographic blog theme. Large tight-tracked wordmark, full-bleed hero, monochrome palette, English and French.
-- [Scout](https://themes.static-site-generator.com/scout/): AI-shopping theme. Bold commerce type, modular product cards and transparent recommendations.
+- [passmcp](https://themes.static-site-generator.com/passmcp/): AI-shopping theme. Bold commerce type, modular product cards and transparent recommendations.
 - [Signal](https://themes.static-site-generator.com/signal/): revenue-intelligence theme. Luminous dashboard surfaces and explainable AI content.
 - [Stablo](https://themes.static-site-generator.com/stablo/): editorial blog theme. Centred wordmark, large featured cards, category labels and bylines, English and French.
 - [Steward](https://themes.static-site-generator.com/steward/): institutional-finance theme. Editorial serif type, ledger grid and trust-led service narratives.

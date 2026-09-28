@@ -396,17 +396,17 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="scout/images/card.webp" srcset="scout/images/card.webp 640w, scout/images/tn.webp 900w, scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Scout theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="passmcp/images/card.webp" srcset="passmcp/images/card.webp 640w, passmcp/images/tn.webp 900w, passmcp/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the passmcp theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Developer Tools</p>
-          <h3>Scout</h3>
+          <h3>passmcp</h3>
           <p>Protocol diagnostics. A verdict-first readout, severity ledger and request-level evidence for local verification tools.</p>
           <ul class="sc-meta"><li>4 layouts</li><li>Scanners, protocol tools, engineering reports</li></ul>
           <div class="sc-actions">
-            <a class="btn btn-primary" href="scout/">View demo</a>
-            <a class="btn btn-secondary" href="downloads/scout.zip" download>.zip</a>
-            <a class="btn btn-outline" href="downloads/scout.tar.gz" download>.tar.gz</a>
+            <a class="btn btn-primary" href="passmcp/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/passmcp.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/passmcp.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>
