@@ -39,6 +39,7 @@ THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
     "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
     "signal", "stablo", "steward", "velocity", "visage", "vista", "voxt",
+    "sebastienrousseau",
 )
 
 REQUIRED_FILES = (
@@ -253,10 +254,32 @@ def tracked_junk(root: Path) -> list[str]:
 # resolving — silently turning a working URL into a 404 is the failure this
 # guards against, and it is invisible without a check because the build
 # succeeds either way.
+# `sebastienrousseau` left this map on 2026-10-06: the path is a real theme
+# again (the site's own), so the redirect to atlas would shadow it.
 LEGACY_PATHS = {
     "portfolio": "apex",
-    "sebastienrousseau": "atlas",
 }
+
+
+def site_theme_manifest(theme: Path) -> dict:
+    """theme.toml of a `tier = "site"` theme, or {} for a gallery archetype.
+
+    A site theme is one live site's own theme published here. It keeps the
+    structural contract (shell + partials + extends, required files, schema,
+    translations) but not the gallery's shared chrome: the Voxt mode control,
+    the heading rhythm rule and the SSG credit are one implementation the
+    archetypes share, and a site theme ships its own. The hosts it may name
+    as first party are declared under `allowed_origins`; everything else
+    still fails the no-third-party scan.
+    """
+    manifest = theme / "theme.toml"
+    if not manifest.is_file():
+        return {}
+    try:
+        data = tomllib.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return {}
+    return data if data.get("tier") == "site" else {}
 
 
 def check_legacy_redirects(root: Path) -> list[str]:
@@ -302,7 +325,9 @@ def check_theme(root: Path, name: str) -> list[str]:
     # --- every theme ships the exact v3 core, before its own overrides ---
     skeletonic = theme / "_layouts" / "skeletonic.min.css"
     base = theme / "_layouts" / "base.html"
-    if skeletonic.is_file():
+    # A site theme ships its own design system; the Skeletonic core and its
+    # link order are the gallery archetypes' shared base, not a site's.
+    if skeletonic.is_file() and not site_theme_manifest(theme):
         digest = hashlib.sha256(skeletonic.read_bytes()).hexdigest()
         if digest != SKELETONIC_CORE_SHA256:
             errors.append(
@@ -310,7 +335,7 @@ def check_theme(root: Path, name: str) -> list[str]:
                 f"Skeletonic Stylus {SKELETONIC_VERSION} core "
                 f"(sha256 {digest})"
             )
-    if base.is_file():
+    if base.is_file() and not site_theme_manifest(theme):
         base_text = base.read_text(encoding="utf-8")
         core_link = re.search(
             r'href="[^"]*skeletonic\.min\.css"', base_text
@@ -407,7 +432,10 @@ def check_theme(root: Path, name: str) -> list[str]:
     header = theme / "_layouts" / "header.html"
     footer = theme / "_layouts" / "footer.html"
     css = theme / "_layouts" / "styles.css"
-    if header.is_file() and css.is_file():
+    site_manifest = site_theme_manifest(theme)
+    if site_manifest:
+        print(f"  note  {name}: site theme; gallery chrome fragments not required")
+    if header.is_file() and css.is_file() and not site_manifest:
         header_text = header.read_text(encoding="utf-8")
         css_text = css.read_text(encoding="utf-8")
         if ".nav-toggle" in css_text and 'id="navToggle"' not in header_text:
@@ -462,7 +490,7 @@ def check_theme(root: Path, name: str) -> list[str]:
                 "credit as inline sentence text exactly once"
             )
 
-    if footer.is_file():
+    if footer.is_file() and not site_manifest:
         footer_text = footer.read_text(encoding="utf-8")
         if footer_text.count(FOOTER_CREDIT_MARKUP) != 1:
             errors.append(
@@ -473,6 +501,7 @@ def check_theme(root: Path, name: str) -> list[str]:
     errors.extend(check_translations(theme, name))
 
     # --- no third-party or personal references anywhere in the theme ---
+    allowed = frozenset(str(h).lower() for h in site_manifest.get("allowed_origins", []))
     for path in theme.rglob("*"):
         if not path.is_file() or path.suffix in {".png", ".jpg", ".ico", ".gz", ".zip"}:
             continue
@@ -482,7 +511,7 @@ def check_theme(root: Path, name: str) -> list[str]:
             continue
         lowered = text.lower()
         for needle in FORBIDDEN:
-            if needle in lowered:
+            if needle in lowered and needle not in allowed:
                 errors.append(
                     f"{name}: {path.relative_to(theme)} references {needle}"
                 )

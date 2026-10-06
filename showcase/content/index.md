@@ -3,7 +3,7 @@ name: "SSG Themes"
 short_name: "SSG"
 title: "SSG Themes — twenty-two gated themes for Static Site Generator"
 description: "Twenty-two distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt"
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
@@ -407,6 +407,22 @@ stat_thirdparty: "third-party requests, on every page"
             <a class="btn btn-primary" href="passmcp/">View demo</a>
             <a class="btn btn-secondary" href="downloads/passmcp.zip" download>.zip</a>
             <a class="btn btn-outline" href="downloads/passmcp.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="sebastienrousseau/images/card.webp" srcset="sebastienrousseau/images/card.webp 640w, sebastienrousseau/images/tn.webp 900w, sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Sebastienrousseau theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Publication</p>
+          <h3>Sebastienrousseau</h3>
+          <p>A live research site as a theme. Twelve editorial layouts, light and dark tokens, a hash-strict CSP and per-page JSON-LD graphs, extracted from sebastienrousseau.com and flattened back to it byte for byte.</p>
+          <ul class="sc-meta"><li>12 layouts</li><li>Research publishing, long-form articles, 34 locales</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="sebastienrousseau/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/sebastienrousseau.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/sebastienrousseau.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>

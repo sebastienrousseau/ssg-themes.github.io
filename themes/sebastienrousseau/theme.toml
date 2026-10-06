@@ -1,0 +1,55 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Sebastienrousseau"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Research-publishing theme behind sebastienrousseau.com: twelve editorial layouts, a 34-locale shell, hash-strict CSP and per-page JSON-LD graphs, extracted from the live site and flattened back byte for byte."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://themes.static-site-generator.com/sebastienrousseau/"
+
+# Minimum generator version. The layouts use `{{#extends}}`, `{{#block}}`
+# and `{{> partial}}`, which the compile stage resolves from 0.0.50; the
+# locale subtrees only get their stylesheet extracted into `_csp/` from
+# 0.0.66 (earlier releases inlined 184 KB of CSS into every non-English
+# page).
+min_version = "0.0.66"
+
+# A first-party site theme, not a gallery archetype: it is the production
+# theme of one site and carries that site's chrome, origins and budget.
+#
+# PROPOSAL, not yet read by any gate. The gallery's validator, page-weight
+# and chrome scripts encode archetype assumptions (no first-party hosts, a
+# 20 KB gzipped page, the shared Voxt mode control and SSG credit). This
+# theme fails those as published; the keys below declare what a site-tier
+# contract would need so the maintainer can decide whether to wire them.
+tier = "site"
+origin = "https://sebastienrousseau.com"
+# Gzipped page budget this theme asks to be held to (HTML plus the
+# extracted `_csp/` stylesheet and scripts it references). The shell's
+# stylesheet alone is 41.6 KB gzipped (the articles layout reaches 86 KB with
+# its page-scoped rules); the live site's own gate is
+# Lighthouse performance >= 0.94 on desktop.
+budget_kb = 96
+# Hosts the live site's CSP, preconnects and embeds name, which the
+# gallery's no-third-party scan rejects for an archetype.
+allowed_origins = [
+  "sebastienrousseau.com",   # canonical host in JSON-LD, hreflang and samples
+  "cdn.jsdelivr.net",        # mermaid ESM bundle, lazy-imported by main.js
+  "cloudcdn.pro",            # first-party image and logo CDN
+  "fonts.googleapis.com",    # CSP style-src allowance (fonts are self-hosted)
+  "fonts.gstatic.com",       # CSP font-src allowance
+  "formspree.io",            # contact form action
+  "open.spotify.com",        # playlist embeds on the playlist layout
+  "i.scdn.co",               # Spotify playlist cover images (CSP img-src)
+  "p.scdn.co",               # Spotify previews (CSP media-src)
+  "cloudflareinsights.com",  # CSP allowance for Cloudflare Web Analytics
+  "orcid.org",               # author ORCID iD on the about page
+]
+
+tags = ["publication","research","i18n","dark-mode","json-ld","csp"]
+features = ["dark-mode","search","rss","json-ld","wcag-aaa","i18n-34","csp-hashes","sri","service-worker","contact-form"]
+
+[[authors]]
+name = "Sebastien Rousseau"
+homepage = "https://sebastienrousseau.com/"

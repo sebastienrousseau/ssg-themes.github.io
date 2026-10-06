@@ -26,6 +26,7 @@ help:
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make build-visage     Build the Visage theme"
 	@echo "  make build-vista      Build the Vista theme"
+	@echo "  make build-sebastienrousseau  Build the sebastienrousseau site theme"
 	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
 	@echo "  make check-cloudcdn   Verify local theme rasters against the CloudCDN checkout"
@@ -99,10 +100,13 @@ build-visage:
 build-voxt:
 	@bash scripts/build.sh voxt
 
-.PHONY: build-vista
+.PHONY: build-vista build-sebastienrousseau
 
 build-vista:
 	@bash scripts/build.sh vista
+
+build-sebastienrousseau:
+	@bash scripts/build.sh sebastienrousseau
 
 build-passmcp:
 	@bash scripts/build.sh passmcp

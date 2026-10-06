@@ -42,7 +42,7 @@
 
 ## Themes
 
-Twenty-two themes ship in this repository. Every one is held to the same
+Twenty-four themes ship in this repository. Every one is held to the same
 gates: WCAG AAA colour, a page-weight budget, and no third-party
 requests.
 
@@ -70,6 +70,7 @@ requests.
 | [Visage](themes/visage/) | Marketing | Aesthetic-health theme: clinical whitespace, consent-led copy and a private consultation journey. |
 | [Vista](themes/vista/) | Marketing | Spatial-computing product theme: full-bleed dark stage, snap-scrolling feature rail, immersive environment band and silicon spec panel, AAA-gated tokens. |
 | [Voxt](themes/voxt/) | Marketing | Developer tools and AI environment showcase theme: high-contrast terminal IDE dock preview, AAA colour tokens, zero third-party requests. |
+| [Sebastienrousseau](themes/sebastienrousseau/) | Publication | Site theme of sebastienrousseau.com: twelve editorial layouts, a 34-locale shell, hash-strict CSP and per-page JSON-LD, flattened back to the live site byte for byte. |
 
 Each links to its own README for installation and layout details.
 

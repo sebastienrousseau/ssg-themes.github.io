@@ -3,7 +3,7 @@ name: "SSG Themes"
 short_name: "SSG"
 title: "SSG Themes — vingt-deux thèmes contrôlés pour Static Site Generator"
 description: "Vingt-deux thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt"
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
@@ -407,6 +407,22 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
             <a class="btn btn-primary" href="../passmcp/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/passmcp.zip" download>.zip</a>
             <a class="btn btn-outline" href="../downloads/passmcp.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="../sebastienrousseau/images/card.webp" srcset="../sebastienrousseau/images/card.webp 640w, ../sebastienrousseau/images/tn.webp 900w, ../sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Sebastienrousseau." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Publication</p>
+          <h3>Sebastienrousseau</h3>
+          <p>Un site de recherche en production, livré comme thème. Douze gabarits éditoriaux, des jetons clair et sombre, une CSP par empreintes et des graphes JSON-LD par page, extraits de sebastienrousseau.com et réaplatis octet pour octet.</p>
+          <ul class="sc-meta"><li>12 gabarits</li><li>Publication de recherche, articles longs, 34 langues</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../sebastienrousseau/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/sebastienrousseau.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/sebastienrousseau.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>
