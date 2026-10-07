@@ -141,7 +141,7 @@ translation_key: "editorial"
 }
 </script>
 
-# Editorial standards
+## Editorial standards
 
 This page is the operative editorial policy for every article published on `sebastienrousseau.com`. It applies in every locale (`/fr/`, `/es/`, `/de/`, …) and remains in force until superseded by a dated revision. Every article links back here from its footer.
 
@@ -215,7 +215,7 @@ Crawler stance for `sebastienrousseau.com`. Applies to every locale subtree (`/f
 | Surface | URL |
 |---|---|
 | Site directory (llmstxt.org) | [`/llms.txt`](/llms.txt) |
-| Agent context (compact) | [`/llms-ctx.txt`](/llms-ctx.txt) |
+| Agent context (compact) | [`/llms-ctx.txt`](https://sebastienrousseau.com/llms-ctx.txt) |
 | Full article corpus | [`/llms-full.txt`](/llms-full.txt) |
 | JSON API | [`/api/agents/index.json`](/api/agents/index.json) — posts, topics, person, organization |
 | Crawler rules | [`/robots.txt`](/robots.txt) |

@@ -1,0 +1,236 @@
+/* SPDX-License-Identifier: OFL-1.1 — Inter, Newsreader, JetBrains Mono.
+ *
+ * Self-hosted variable WOFF2 (latin + latin-ext subsets only). CJK / RTL /
+ * Indic / Thai / Devanagari locales fall through to their native system
+ * fonts — the Latin-only payload keeps the Web font budget at ~395 KB and
+ * the rest of the 28-locale matrix renders in OS-native shape.
+ *
+ * Each family ships a metric-matched fallback @font-face so the swap
+ * doesn't shift heading dimensions (the CLS regression that bounced PR
+ * #162). size-adjust + ascent-override + descent-override values from
+ * the Industrial Empathy / Capsize datasets for Arial (sans/mono base)
+ * and Georgia (serif base). After the WOFF2 lands the layout stays
+ * dimensionally identical — no reflow, no CLS spike.
+ *
+ * font-display: swap renders the fallback immediately, then promotes
+ * to the WOFF2 once it arrives. Combined with the metric-matched
+ * fallback the swap is invisible.
+ */
+
+/* ───────────────────────────── Inter ───────────────────────────── */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                 U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
+                 U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+                 U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+                 U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+                 U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+                 U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Metric-matched fallback — Arial as the base, adjusted to Inter's
+ * cap-height + x-height so the swap doesn't shift. Values from
+ * https://www.industrialempathy.com/perfect-ish-font-fallback/. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.4%;
+  ascent-override: 90%;
+  descent-override: 22.43%;
+  line-gap-override: 0%;
+}
+
+/* ─────────────────────────── Newsreader ────────────────────────── */
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                 U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
+                 U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+                 U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+                 U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+                 U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+                 U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Metric-matched fallback — Georgia as the serif base. Approximate
+ * Newsreader cap-height + x-height match. */
+@font-face {
+  font-family: 'Newsreader Fallback';
+  src: local('Georgia');
+  size-adjust: 104%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* ─────────────────────── JetBrains Mono ───────────────────────── */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                 U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
+                 U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+                 U+FFFD;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+                 U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+                 U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+                 U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Metric-matched fallback — Menlo as the mono base. */
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Menlo');
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* ──────────────────── Noto Sans Tamil / Telugu ─────────────────────
+ * Self-hosted script-block subsets (Google Fonts, OFL-1.1). Unlike the
+ * Latin families above, Tamil (U+0B80–0BFF) and Telugu (U+0C00–0C7F)
+ * have NO reliable system-font coverage on bare Linux / the CI runner
+ * (DejaVu, Liberation and the Latin webfonts don't carry these blocks),
+ * so `ta` / `te` would render as tofu there. The other new-script
+ * locales stay on system fonts: Greek (el) is covered by every system
+ * sans, Perso-Arabic (fa) reuses the proven `ar` path, Devanagari (mr)
+ * the proven `hi` path.
+ *
+ * unicode-range confines each face to its own block, so these files are
+ * fetched ONLY when Tamil/Telugu codepoints appear (i.e. on /ta/ /te/
+ * pages) — zero payload for every other locale. Latin within a Tamil
+ * page still resolves to Inter. Self-hosted → CSP stays `font-src 'self'`.
+ */
+@font-face {
+  font-family: 'Noto Sans Tamil';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-tamil.woff2') format('woff2');
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+@font-face {
+  font-family: 'Noto Sans Telugu';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-telugu.woff2') format('woff2');
+  unicode-range: U+0951-0952, U+0964-0965, U+0C00-0C7F, U+1CDA, U+1CF2,
+                 U+200C-200D, U+25CC;
+}
+
+/* Prepend the script font to both type stacks for the Tamil/Telugu
+ * locales. `html:lang(..)` (specificity 0,1,1) beats the `:root`
+ * definition in the per-page <style>, and matches the `xx-IN` BCP-47
+ * tag the renderer stamps on <html>. body + display both switch so
+ * headings (Newsreader has no Indic glyphs) don't tofu either. */
+html:lang(ta) {
+  --type-body: "Noto Sans Tamil", "Inter", "Inter Fallback", "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --type-display: "Noto Sans Tamil", "Newsreader", "Newsreader Fallback", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+html:lang(te) {
+  --type-body: "Noto Sans Telugu", "Inter", "Inter Fallback", "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --type-display: "Noto Sans Telugu", "Newsreader", "Newsreader Fallback", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* --- Non-Latin scripts without a bundled webfont ---------------------------
+ *
+ * Tamil and Telugu above ship a subsetted Noto face because no platform can
+ * be relied on to have one. The other non-Latin locales the site publishes —
+ * Arabic, Hebrew, Devanagari (hi, mr), Bengali, Thai, Greek, Japanese,
+ * Korean and both Chinese scripts — deliberately do NOT get a webfont: the
+ * system faces are excellent, and a CJK subset is megabytes.
+ *
+ * They were, however, left on the Latin stack, whose first entries (Inter,
+ * Newsreader) carry none of their glyphs. Rendering then depended entirely
+ * on the browser's last-resort fallback, which differs per platform and is
+ * not something the design can reason about. Naming the platform faces
+ * explicitly makes rendering predictable without downloading anything.
+ *
+ * There is no CLS exposure here either way: no webfont is fetched for these
+ * scripts, so there is no swap to shift the layout. This is about which face
+ * renders, not about when.
+ *
+ * Greek and Cyrillic are covered by Inter/Newsreader's own coverage where the
+ * subset allows, so el/ru/uk keep the Latin stack and are not listed. */
+
+html:lang(ar),
+html:lang(fa) {
+  --type-body: "SF Arabic", "Geeza Pro", "Segoe UI", Tahoma, "Noto Sans Arabic", "Arabic Typesetting", sans-serif;
+  --type-display: "SF Arabic", "Geeza Pro", "Noto Naskh Arabic", "Times New Roman", serif;
+}
+html:lang(he) {
+  --type-body: "SF Hebrew", "Arial Hebrew", "Segoe UI", "Noto Sans Hebrew", Arial, sans-serif;
+  --type-display: "SF Hebrew", "New Peninim MT", "Noto Serif Hebrew", Georgia, serif;
+}
+html:lang(hi),
+html:lang(mr) {
+  --type-body: "Kohinoor Devanagari", "Devanagari Sangam MN", "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+  --type-display: "Devanagari MT", "Noto Serif Devanagari", Georgia, serif;
+}
+html:lang(bn) {
+  --type-body: "Bangla Sangam MN", "Nirmala UI", "Noto Sans Bengali", sans-serif;
+  --type-display: "Bangla MN", "Noto Serif Bengali", Georgia, serif;
+}
+html:lang(th) {
+  --type-body: "Thonburi", "Leelawadee UI", "Noto Sans Thai", sans-serif;
+  --type-display: "Thonburi", "Noto Serif Thai", Georgia, serif;
+}
+html:lang(ja) {
+  --type-body: "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", "MS PGothic", sans-serif;
+  --type-display: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+html:lang(ko) {
+  --type-body: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --type-display: "AppleMyungjo", "Batang", "Noto Serif KR", serif;
+}
+html:lang(zh-hans) {
+  --type-body: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --type-display: "Songti SC", "SimSun", "Noto Serif SC", serif;
+}
+html:lang(zh-hant) {
+  --type-body: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  --type-display: "Songti TC", "PMingLiU", "Noto Serif TC", serif;
+}

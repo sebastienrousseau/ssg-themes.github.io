@@ -139,13 +139,13 @@ translation_key: "index"
 <svg class="offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
 <h3>Security</h3>
 <p>Post-quantum primitives: ML-KEM (CRYSTALS-Kyber, NIST FIPS 203) and hashing, ready to pilot today.</p>
-<a class="offer-link" href="/projects-post-quantum/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
+<a class="offer-link" href="https://sebastienrousseau.com/projects-post-quantum/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
 </article>
 <article class="offer-card">
 <svg class="offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
 <h3>Tooling</h3>
 <p>Audited Rust libraries and a code security scanner, signed and shipped with a software bill of materials.</p>
-<a class="offer-link" href="/projects-developer-platform/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
+<a class="offer-link" href="https://sebastienrousseau.com/projects-developer-platform/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
 </article>
 </div>
 </div>
@@ -207,72 +207,72 @@ translation_key: "index"
 <div class="newsroom-grid feat-latest-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html" title="DORA Spared You From NIS2. It Will Not Spare You From the CRA.">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html" title="DORA Spared You From NIS2. It Will Not Spare You From the CRA." aria-label="DORA Spared You From NIS2. It Will Not Spare You From the CRA.">
 <img alt="Layered mountain ridges receding into pale haze, each ridge fainter than the one before it, seen from above the cloud line." src="https://cloudcdn.pro/stocks/images/paul-earle-wVjd0eWNqI8.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">Cyber Resilience Act · Article 14 · Incident Reporting</span>
-<h3><a href="/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html">DORA Spared You From NIS2. It Will Not Spare You From the CRA.</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html">DORA Spared You From NIS2. It Will Not Spare You From the CRA.</a></h3>
 <p class="newsroom-meta"><time datetime="2026-08-03">August 3, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> CRA Article 14 starts a 24-hour reporting clock on 11 September 2026. It attaches to products rather than entities, so the NIS2 deferral to DORA that spares banks has nothing to displace — and the trigger is exploitation, not severity.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html" title="Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html" title="Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not." aria-label="Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.">
 <img alt="A white and blue building facade filled with rows of blue glass windows, seen straight on so the glazing reads as a continuous reflective surface." src="https://cloudcdn.pro/stocks/images/marek-piwnicki-11829333.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">EU AI Act · Article 50 · AI Governance</span>
-<h3><a href="/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html">Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html">Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.</a></h3>
 <p class="newsroom-meta"><time datetime="2026-08-02">August 2, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> The AI Omnibus deferred Annex III high-risk to December 2027 but left Article 50 untouched, applicable today. The obligation that bites now sits in digital channels and marketing, not with the model-risk team holding the deferred file.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html" title="The Wallet Ships in December. Banks Must Accept It a Year Later.">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html" title="The Wallet Ships in December. Banks Must Accept It a Year Later." aria-label="The Wallet Ships in December. Banks Must Accept It a Year Later.">
 <img alt="A covered pedestrian passage between office towers in a financial district, lit from the far end, with the walkway narrowing toward a single controlled opening." src="https://cloudcdn.pro/stocks/images/jez-timms-4xLteCXh6X0.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">Digital Identity · eIDAS 2 · Authentication</span>
-<h3><a href="/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html">The Wallet Ships in December. Banks Must Accept It a Year Later.</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html">The Wallet Ships in December. Banks Must Accept It a Year Later.</a></h3>
 <p class="newsroom-meta"><time datetime="2026-08-01">August 1, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> Member States must ship an EU Digital Identity Wallet by December 2026; banks must accept it by December 2027. The bank becomes a registered relying party, and the hardest part is binding a state identity to a customer record opened a decade ago.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html" title="PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html" title="PSD2 Made Banks Build an API. FiDA Makes Them Join a Market." aria-label="PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.">
 <img alt="A dense city grid photographed from directly above at night, thousands of lit buildings and intersecting streets extending to every edge of the frame." src="https://cloudcdn.pro/stocks/images/denys-nevozhai-2vmT5_FeMck.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">Open Finance · FiDA · Data Strategy</span>
-<h3><a href="/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html">PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html">PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.</a></h3>
 <p class="newsroom-meta"><time datetime="2026-07-31">July 31, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> Compliance runs through a scheme you must join, not an interface you build alone. Access acquires a price, and the scope reaches the products banks actually earn on. The terms are being negotiated now.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html" title="Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html" title="Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying" aria-label="Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying">
 <img alt="A long dark bench on a vast paved plaza seen from directly above, with a single seated figure at the far right edge and open ground stretching away from them." src="https://cloudcdn.pro/stocks/images/ryoji-iwata-a-qsFZimp1M.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">Model Risk · Generative AI · Supervision</span>
-<h3><a href="/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html">Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html">Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying</a></h3>
 <p class="newsroom-meta"><time datetime="2026-07-30">July 30, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> The April 2026 rewrite superseded fifteen years of model-risk doctrine and expressly excluded generative and agentic AI. Out of scope is not out of risk — and the UK's technology-neutral statement pulls the same models back in.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html" title="The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html" title="The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands" aria-label="The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands">
 <img alt="The corner of a building clad in a finely perforated white screen, photographed from below against a bright sky." src="https://cloudcdn.pro/stocks/images/tarik-haiga-3637943.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">DORA · Red Teaming · Operational Resilience</span>
-<h3><a href="/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html">The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html">The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands</a></h3>
 <p class="newsroom-meta"><time datetime="2026-07-29">July 29, 2026</time></p>
 <p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> DORA turned adversary simulation into a supervised obligation on a three-year cadence. The constraints that bind are the accredited tester market, threat intelligence that must come from outside every time, and third parties pulled into scope.</p>
 </div>

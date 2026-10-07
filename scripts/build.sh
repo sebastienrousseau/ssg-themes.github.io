@@ -7,7 +7,12 @@ set -euo pipefail
 #
 # Each theme is driven entirely by its own `ssg.toml`, which carries the
 # site name, description, base URL and the content/template/output paths.
-# Nothing here rewrites generated HTML.
+# Nothing here rewrites generated HTML, with one documented exception: a
+# site-tier theme (`tier = "site"` in its theme.toml) has its root-absolute
+# links re-based onto its gallery path by scripts/rebase_links.py, the
+# showcase-side equivalent of the `{{base_path}}` prefix the other themes
+# carry in their templates. Its templates must stay byte-identical to the
+# site they come from, so the prefix cannot live in them.
 #
 # What this script deliberately no longer does, and why:
 #
@@ -140,6 +145,15 @@ build_theme() {
 
   python3 scripts/publish_404.py "public/${theme}"
 
+  # A site-tier theme owns its host's root, so its chrome and sample pages
+  # link to `/about/`, `/fr/`, `/main.js` with no prefix. Under the gallery
+  # path those resolve against the gallery root and 404; see the header of
+  # this script and scripts/rebase_links.py. Runs last, after every pass
+  # that writes pages, so the taxonomy listings and the 404 are covered.
+  if grep -qE '^tier = "site"' "themes/${theme}/theme.toml" 2>/dev/null; then
+    python3 scripts/rebase_links.py "public/${theme}" "/${theme}/"
+  fi
+
   # The stylesheet and scripts that live in `_layouts/` beside the templates
   # referencing them are staged and fingerprinted by the generator itself, so
   # they are not copied here.
@@ -166,6 +180,15 @@ build_theme() {
     cp -f "themes/${theme}/assets/favicon.ico" "public/${theme}/favicon.ico"
   elif [[ -f "favicon.ico" ]]; then
     cp -f "favicon.ico" "public/${theme}/favicon.ico"
+  fi
+  # Files a theme's templates load from a fixed root path rather than from
+  # `assets/`: `assets/_root/` is published onto the theme root as-is. The
+  # sebastienrousseau playlist layout, for one, loads a store badge from
+  # `/_csp/`, where its site's build places it beside the fingerprinted
+  # assets, so a copy of the theme must serve the same path.
+  if [[ -d "themes/${theme}/assets/_root" ]]; then
+    cp -R "themes/${theme}/assets/_root/." "public/${theme}/"
+    rm -rf "public/${theme}/assets/_root"
   fi
 }
 

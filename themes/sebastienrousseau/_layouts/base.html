@@ -76,7 +76,7 @@
     <style>:root{--accent-page:rgb({{theme-color}});--accent-page-rgb:{{theme-color}}}</style>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage">
-    <a class="skip" href="#main">Skip to main content</a>
+    <a class="skip skip-link" href="#main">Skip to main content</a>
     <div class="ap-progress" aria-hidden="true"></div>
 
 {{> header}}{{#block "main"}}
@@ -94,7 +94,7 @@
       </div>
     </section>
 
-    <main id="main">
+    <main id="main" class="prose">
       <div class="home-content">{{!content}}</div>
     </main>
 

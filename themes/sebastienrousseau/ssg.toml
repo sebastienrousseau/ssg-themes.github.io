@@ -16,6 +16,13 @@ site_description = "Research on applied AI, ISO 20022 payments and post-quantum 
 base_url = "https://example.com"
 language = "en-GB"
 
+# The live site builds with --no-tag-pages: it curates /tags/ itself (a
+# canonical vocabulary, hand-translated slugs) and ships that landing as a
+# page. The generator's per-term listings are standalone pages outside the
+# theme's shell, and the sample content carries the site's own tag landing,
+# so the demo opts out the same way.
+no_taxonomy_pages = true
+
 content_dir = "themes/sebastienrousseau/content"
 template_dir = "themes/sebastienrousseau/_layouts"
 output_dir = "public/sebastienrousseau"

@@ -140,7 +140,7 @@ translation_key: "projects"
 <p class="area-card-kicker">POST-QUANTUM SECURITY</p>
 <h3 class="area-card-headline">Security past the <span class="ac">RSA era.</span></h3>
 <p class="area-card-text">Some financial records stay sensitive for decades, long enough that data captured today could be read once quantum computers mature. These Rust libraries implement <strong>ML-KEM (CRYSTALS-Kyber, NIST&nbsp;FIPS&nbsp;203)</strong> along with hashing and related primitives, so a migration can begin before the deadlines force it.</p>
-<p class="area-card-cta"><a href="/projects-post-quantum/index.html">Read the security story <span aria-hidden="true">›</span></a></p>
+<p class="area-card-cta"><a href="https://sebastienrousseau.com/projects-post-quantum/index.html">Read the security story <span aria-hidden="true">›</span></a></p>
 </div>
 </article>
 <article class="area-card">
@@ -151,7 +151,7 @@ translation_key: "projects"
 <p class="area-card-kicker">DEVELOPER PLATFORM</p>
 <h3 class="area-card-headline">Foundations for your <span class="ac">engineers.</span></h3>
 <p class="area-card-text">The same Rust libraries that build and secure this site. They include <strong>noyalib</strong> for YAML and the <strong>Static Site Generator</strong> itself, published with CycloneDX SBOMs and Sigstore signatures. Your engineers build on them instead of maintaining the equivalents in-house.</p>
-<p class="area-card-cta"><a href="/projects-developer-platform/index.html">Read the platform story <span aria-hidden="true">›</span></a></p>
+<p class="area-card-cta"><a href="https://sebastienrousseau.com/projects-developer-platform/index.html">Read the platform story <span aria-hidden="true">›</span></a></p>
 </div>
 </article></div></section>
 
@@ -162,7 +162,7 @@ translation_key: "projects"
 <div class="newsroom-grid cat-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://pain001.com" title="pain001">
+<a class="newsroom-card-media logo" href="https://pain001.com" title="pain001" aria-label="pain001">
 <img alt="Banner for the pain001 open-source payments library" src="https://cloudcdn.pro/clients/pain001/v1/logos/pain001.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -173,7 +173,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://pacs008.com/" title="pacs008">
+<a class="newsroom-card-media logo" href="https://pacs008.com/" title="pacs008" aria-label="pacs008">
 <img alt="Banner for the pacs008 ISO 20022 toolkit" src="https://cloudcdn.pro/clients/pacs008/v1/logos/pacs008.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -184,7 +184,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/camt053" title="camt053">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/camt053" title="camt053" aria-label="camt053">
 <img alt="Logo for the camt053 bank-statement suite" src="https://cloudcdn.pro/clients/camt053/v1/logos/camt053.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -195,7 +195,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/acmt001" title="acmt001">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/acmt001" title="acmt001" aria-label="acmt001">
 <img alt="Logo for the acmt001 account-management suite" src="https://cloudcdn.pro/clients/acmt001/v1/logos/acmt001.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -206,7 +206,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://bankstatementparser.com/" title="Bank Statement Parser">
+<a class="newsroom-card-media logo" href="https://bankstatementparser.com/" title="Bank Statement Parser" aria-label="Bank Statement Parser">
 <img alt="Banner for Bank Statement Parser" src="https://cloudcdn.pro/clients/bankstatementparser/v1/logos/bankstatementparser.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -217,7 +217,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/nalufx" title="NaluFX">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/nalufx" title="NaluFX" aria-label="NaluFX">
 <img alt="Logo for NaluFX, AI-driven cash allocation in Rust" src="https://cloudcdn.pro/clients/nalufx/v1/logos/nalufx.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -228,7 +228,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/qrc" title="QRC">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/qrc" title="QRC" aria-label="QRC">
 <img alt="Logo for QRC, a Rust QR-code library" src="https://cloudcdn.pro/clients/qrc/v1/logos/qrc.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -245,7 +245,7 @@ translation_key: "projects"
 <div class="newsroom-grid cat-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://kyberlib.com/" title="KyberLib">
+<a class="newsroom-card-media logo" href="https://kyberlib.com/" title="KyberLib" aria-label="KyberLib">
 <img alt="Banner for KyberLib" src="https://cloudcdn.pro/clients/kyberlib/v1/logos/kyberlib.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -256,7 +256,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/hsh" title="Hash (HSH)">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/hsh" title="Hash (HSH)" aria-label="Hash (HSH)">
 <img alt="Banner for the Hash (HSH) Rust library" src="https://cloudcdn.pro/clients/hsh/v1/logos/hsh.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -267,7 +267,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://password-generator.pro" title="Password Generator Pro">
+<a class="newsroom-card-media logo" href="https://password-generator.pro" title="Password Generator Pro" aria-label="Password Generator Pro">
 <img alt="Banner for Password Generator Pro" src="https://cloudcdn.pro/clients/password-generator-pro/v1/logos/password-generator-pro.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -284,7 +284,7 @@ translation_key: "projects"
 <div class="newsroom-grid cat-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/euxis" title="Euxis">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/euxis" title="Euxis" aria-label="Euxis">
 <img alt="Banner for Euxis, an open-source code security scanner" src="https://cloudcdn.pro/clients/euxis/v1/logos/euxis.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -295,7 +295,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://akande.co/" title="Àkàndé">
+<a class="newsroom-card-media logo" href="https://akande.co/" title="Àkàndé" aria-label="Àkàndé">
 <img alt="Banner for Àkàndé, an advanced AI voice assistant" src="https://cloudcdn.pro/clients/akande/v1/logos/akande.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -306,7 +306,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://audioanalyser.co/" title="Audio Analyser">
+<a class="newsroom-card-media logo" href="https://audioanalyser.co/" title="Audio Analyser" aria-label="Audio Analyser">
 <img alt="Banner for Audio Analyser" src="https://cloudcdn.pro/clients/audioanalyser/v1/logos/audioanalyser.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -317,7 +317,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/crypto-service" title="Crypto Service Suite">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/crypto-service" title="Crypto Service Suite" aria-label="Crypto Service Suite">
 <img alt="Banner for the Crypto Service Suite" src="https://cloudcdn.pro/clients/crypto-service/v1/logos/crypto-service.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -334,7 +334,7 @@ translation_key: "projects"
 <div class="newsroom-grid cat-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/static-site-generator" title="Static Site Generator">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/static-site-generator" title="Static Site Generator" aria-label="Static Site Generator">
 <img alt="Banner for the Static Site Generator" src="https://cloudcdn.pro/clients/static-site-generator/v1/logos/static-site-generator.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -345,7 +345,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/noyalib" title="noyalib">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/noyalib" title="noyalib" aria-label="noyalib">
 <img alt="Banner for the noyalib Rust YAML 1.2 ecosystem" src="https://cloudcdn.pro/clients/noyalib/v1/logos/noyalib.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -356,7 +356,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://serdeyml.com/" title="Serde YML">
+<a class="newsroom-card-media logo" href="https://serdeyml.com/" title="Serde YML" aria-label="Serde YML">
 <img alt="Banner for Serde YML" src="https://cloudcdn.pro/clients/serde_yml/v1/logos/serde_yml.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -367,7 +367,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://rustlogs.com/" title="RustLogs (RLG)">
+<a class="newsroom-card-media logo" href="https://rustlogs.com/" title="RustLogs (RLG)" aria-label="RustLogs (RLG)">
 <img alt="Banner for the RustLogs (RLG) library" src="https://cloudcdn.pro/clients/rlg/v1/logos/rlg.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -378,7 +378,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/libmake" title="LibMake">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/libmake" title="LibMake" aria-label="LibMake">
 <img alt="Banner for LibMake" src="https://cloudcdn.pro/clients/libmake/v1/logos/libmake.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -389,7 +389,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/dtt" title="DateTime (DTT)">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/dtt" title="DateTime (DTT)" aria-label="DateTime (DTT)">
 <img alt="Banner for the DateTime (DTT) Rust library" src="https://cloudcdn.pro/clients/dtt/v1/logos/dtt.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -400,7 +400,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://vrdlib.com/" title="Random (VRD)">
+<a class="newsroom-card-media logo" href="https://vrdlib.com/" title="Random (VRD)" aria-label="Random (VRD)">
 <img alt="Banner for the Random (VRD) Rust library" src="https://cloudcdn.pro/clients/vrd/v1/logos/vrd.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -411,7 +411,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/cmn" title="Common (CMN)">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/cmn" title="Common (CMN)" aria-label="Common (CMN)">
 <img alt="Banner for the Common (CMN) Rust library" src="https://cloudcdn.pro/clients/cmn/v1/logos/cmn.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -422,7 +422,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="http://minifunctions.com/" title="Mini Functions">
+<a class="newsroom-card-media logo" href="http://minifunctions.com/" title="Mini Functions" aria-label="Mini Functions">
 <img alt="Banner for the Mini Functions Rust library" src="https://cloudcdn.pro/clients/mini-functions/v1/logos/mini-functions.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -439,7 +439,7 @@ translation_key: "projects"
 <div class="newsroom-grid cat-grid">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/kaishi.github.io" title="Kaishi">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/kaishi.github.io" title="Kaishi" aria-label="Kaishi">
 <img alt="Banner for Kaishi, a starter template" src="https://cloudcdn.pro/clients/kaishi/v1/logos/kaishi.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -450,7 +450,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/skeletonic-stylus" title="Skeletonic Stylus">
+<a class="newsroom-card-media logo" href="https://github.com/sebastienrousseau/skeletonic-stylus" title="Skeletonic Stylus" aria-label="Skeletonic Stylus">
 <img alt="Banner for the Skeletonic Stylus Library" src="https://cloudcdn.pro/clients/skeletonic/v1/logos/skeletonic.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -461,7 +461,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://bankingonai.co/" title="Banking On AI">
+<a class="newsroom-card-media logo" href="https://bankingonai.co/" title="Banking On AI" aria-label="Banking On AI">
 <img alt="Banner for the Banking On AI publication" src="https://cloudcdn.pro/clients/bankingonai/v1/logos/bankingonai.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -472,7 +472,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://bankingonquantum.com/" title="Banking On Quantum">
+<a class="newsroom-card-media logo" href="https://bankingonquantum.com/" title="Banking On Quantum" aria-label="Banking On Quantum">
 <img alt="Banner for the Banking On Quantum publication" src="https://cloudcdn.pro/clients/bankingonquantum/v1/logos/bankingonquantum.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -483,7 +483,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://l90s.com/" title="L90S">
+<a class="newsroom-card-media logo" href="https://l90s.com/" title="L90S" aria-label="L90S">
 <img alt="Banner for the L90S website" src="https://cloudcdn.pro/clients/l90s/v1/logos/l90s.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
@@ -494,7 +494,7 @@ translation_key: "projects"
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media logo" href="https://dotfiles.io/" title="Dotfiles">
+<a class="newsroom-card-media logo" href="https://dotfiles.io/" title="Dotfiles" aria-label="Dotfiles">
 <img alt="Banner for the Dotfiles project" src="https://cloudcdn.pro/clients/dotfiles/v2/images/logos/dotfiles.svg" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">

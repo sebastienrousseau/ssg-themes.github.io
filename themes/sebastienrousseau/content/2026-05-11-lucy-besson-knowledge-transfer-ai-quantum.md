@@ -31,7 +31,7 @@ logo_height: "44"
 logo_width: "44"
 logo: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
 menu: ""
-measurementID: "G-169G4ET5HQ"
+measurementID: "G-XXXXXXXXXX"
 name: "Sebastien Rousseau"
 permalink: "https://example.com/sebastienrousseau/2026-05-11-lucy-besson-knowledge-transfer-ai-quantum/index.html"
 rating: "general"
@@ -208,8 +208,8 @@ At human scale, no, and probably not for some time. As of early 2026, the state 
 
 ## References
 
-- Sebastien Rousseau, (2026). [Quantum Thresholds Are Moving Again](/2026-04-11-quantum-thresholds-are-moving-again/index.html "Quantum Thresholds Are Moving Again").
-- Sebastien Rousseau, (2025). [Quantum-Safe Payments: Why the Payments Industry Must Act Now](/2025-09-01-quantum-safe-payments-epaa/index.html "Quantum-Safe Payments: Why the Payments Industry Must Act Now").
+- Sebastien Rousseau, (2026). [Quantum Thresholds Are Moving Again](https://sebastienrousseau.com/2026-04-11-quantum-thresholds-are-moving-again/index.html "Quantum Thresholds Are Moving Again").
+- Sebastien Rousseau, (2025). [Quantum-Safe Payments: Why the Payments Industry Must Act Now](https://sebastienrousseau.com/2025-09-01-quantum-safe-payments-epaa/index.html "Quantum-Safe Payments: Why the Payments Industry Must Act Now").
 - Wikipedia contributors, (2026). [Lucy (2014 film) ⧉](https://en.wikipedia.org/wiki/Lucy_(2014_film) "Lucy (2014 film) - Wikipedia"). Wikipedia.
 - Wikipedia contributors, (2026). [Mind uploading ⧉](https://en.wikipedia.org/wiki/Mind_uploading "Mind uploading"). Wikipedia.
 

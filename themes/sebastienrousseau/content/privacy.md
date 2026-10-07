@@ -1,0 +1,134 @@
+---
+
+# Front Matter (YAML)
+
+author: "contact@sebastienrousseau.com (Sebastien Rousseau)"
+banner_alt: "Canary wharf passage"
+banner_height: "398"
+banner_width: "1440"
+banner: "https://cloudcdn.pro/stocks/images/jez-timms-4xLteCXh6X0.webp"
+cdn: "https://cloudcdn.pro/clients"
+changefreq: "weekly"
+charset: "UTF-8"
+cname: "sebastienrousseau.com"
+copyright: "© Copyright 2007 - 2026 - Sebastien Rousseau. All rights reserved."
+date: "Oct 01, 2023"
+description: "This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Website"
+format-detection: "telephone=no"
+form-id: "your-formspree-id"
+hreflang: "en"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+id: "https://example.com/sebastienrousseau/privacy/"
+image_alt: "Black and White Portrait of Sebastien Rousseau"
+image_height: "162"
+image_width: "162"
+image: "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp"
+keywords: "Privacy Statement, personal data protection, no cookies policy, no personal information collection, use of Google Analytics, use of Microsoft Clarity, user behaviour analytics, website traffic monitoring, user data rights, privacy policy updates."
+last_reviewed: "2026-05-14"
+language: "en-GB"
+layout: "link"
+locale: "en_GB"
+logo_alt: "Logo for Sebastien Rousseau"
+logo_height: "44"
+logo_width: "44"
+logo: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+menu: "active"
+measurementID: "G-XXXXXXXXXX"
+name: "Sebastien Rousseau"
+permalink: "https://example.com/sebastienrousseau/privacy/"
+rating: "general"
+referrer: "no-referrer"
+revisit-after: "7 days"
+robots: "index, follow"
+short_name: "sebastienrousseau"
+subtitle: "Your privacy is important to us."
+tags: "privacy, personal data, tracking tools, Google Analytics, Microsoft Clarity, user behaviour analytics, mouse movements, clicks, scrolls, rights, contact"
+theme-color: "0, 67, 165"
+title: "Privacy Statement, How Your Data Is Collected & Used"
+url: "https://example.com/sebastienrousseau/privacy/"
+viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
+
+# RSS - The RSS feed front matter (YAML).
+atom_link: "https://example.com/privacy/rss.xml"
+category: "Technology"
+docs: https://validator.w3.org/feed/docs/rss2.html
+generator: "Static Site Generator (SSG) (version 0.0.26)"
+item_description: RSS feed for the site
+item_guid: "https://example.com/privacy/rss.xml"
+item_link: "https://example.com/privacy/rss.xml"
+item_pub_date: "Sun, 01 Oct 2023 06:06:06 +0000"
+item_title: "RSS"
+last_build_date: "Sun, 01 Oct 2023 06:06:06 +0000"
+managing_editor: "contact@sebastienrousseau.com (Sebastien Rousseau)"
+pub_date: "Sun, 01 Oct 2023 06:06:06 +0000"
+ttl: "60"
+type: "website"
+webmaster: "contact@sebastienrousseau.com"
+
+# Apple - The Apple front matter (YAML).
+apple_mobile_web_app_orientations: "portrait"
+apple_touch_icon_sizes: "192x192"
+apple-mobile-web-app-capable: "yes"
+apple-mobile-web-app-status-bar-inset: "black"
+apple-mobile-web-app-status-bar-style: "black-translucent"
+apple-mobile-web-app-title: "Privacy Statement: How We Use Your Data"
+apple-touch-fullscreen: "yes"
+
+# MS Application - The MS Application front matter (YAML).
+
+msapplication-navbutton-color: "0, 67, 165"
+
+# Twitter Card - The Twitter Card front matter (YAML).
+
+twitter_card: "summary_large_image"
+twitter_creator: "@wwdseb"
+twitter_description: "This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Website"
+twitter_image: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+twitter_image_alt: "Logo of Sebastien Rousseau"
+twitter_site: "@wwdseb"
+twitter_title: "Privacy Statement: How We Use Your Data"
+twitter_url: "https://example.com/privacy"
+
+# Humans.txt - The Humans.txt front matter (YAML).
+author_website: "https://example.com/privacy"
+author_twitter: "@wwdseb"
+author_location: "London, UK"
+thanks: "Thanks for reading!"
+site_last_updated: "2023-07-05"
+site_standards: "HTML5, CSS3, RSS, Atom, JSON, XML, YAML, Markdown, TOML"
+site_components: "Sebastien Rousseau, Sebastien Rousseau Builder, Sebastien Rousseau CLI, Sebastien Rousseau Templates, Sebastien Rousseau Themes"
+site_software: "Static Site Generator, Rust"
+translation_key: "privacy"
+
+---
+
+## Information Collection and Use
+
+We do not directly collect any personal data from you while you navigate our website. We do not use cookies for logic or save any personal information from a user.
+
+## Use of Tracking Tools
+
+We use two third-party services to monitor and analyze web traffic: Google Analytics and Microsoft Clarity.
+
+### Google Analytics
+
+Google Analytics is a web analytics service offered by Google that tracks and Papers website traffic. Google uses the data collected to track and monitor the use of our Website. This data is shared with other Google services. For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page: [Google Privacy & Terms ⧉](https://policies.google.com/privacy)
+
+### Microsoft Clarity
+
+Microsoft Clarity is a user behavior analytics tool that helps us understand how users interact with our website. The data collected includes information such as mouse movements, clicks, and scrolls. For more information on the privacy practices of Microsoft, please visit the Microsoft Privacy Statement web page: [Microsoft Privacy Statement ⧉](https://privacy.microsoft.com/en-us/privacystatement)
+
+## Your Rights
+
+Depending on where you reside, you may have certain rights with respect to your personal data, such as the right to request access, correction, or deletion of your data, or to object to our use of your data.
+
+## Changes to This Privacy Policy
+
+We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
+
+We advise you to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
+## Contact Us
+
+If you have any questions about this Privacy Policy, please
+[contact us](/contact/index.html).

@@ -119,11 +119,11 @@ translation_key: "research"
 <article class="book book-no-cover">
 <div class="book-body">
 <p class="book-eyebrow">PUBLICATION · WHITE PAPER</p>
-<h2 class="book-title"><a href="/2024-03-12-revolutionising-real-time-speech-recognition-on-macos-with-openai-whisper/index.html" title="Accelerating Real-Time Speech Recognition with OpenAI Whisper and Metal Performance Shaders on macOS">Accelerating Real-Time Speech Recognition with OpenAI Whisper and Metal Performance Shaders on macOS</a></h2>
+<h2 class="book-title"><a href="https://sebastienrousseau.com/2024-03-12-revolutionising-real-time-speech-recognition-on-macos-with-openai-whisper/index.html" title="Accelerating Real-Time Speech Recognition with OpenAI Whisper and Metal Performance Shaders on macOS">Accelerating Real-Time Speech Recognition with OpenAI Whisper and Metal Performance Shaders on macOS</a></h2>
 <p class="book-meta"><time datetime="2024-03-12">March 12, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="book-meta book-meta-faint">English · PDF · 95 KB</p>
 <p class="book-excerpt">A system for real-time speech-to-text transcription that leverages OpenAI Whisper and Metal Performance Shaders GPU acceleration on macOS to achieve sub-second latency at 8-12x real-time on M1 Max.</p>
-<p class="book-actions"><a class="pill primary no-chev" href="https://www.paypal.com/ncp/payment/5T6L9WBXHNZUU" rel="external noopener" title="Buy the publication on PayPal">Buy &middot; $49.00</a> <a class="pill ghost no-chev" href="/2024-03-12-revolutionising-real-time-speech-recognition-on-macos-with-openai-whisper/index.html" title="Read the companion article">Read the article</a></p>
+<p class="book-actions"><a class="pill primary no-chev" href="https://www.paypal.com/ncp/payment/5T6L9WBXHNZUU" rel="external noopener" title="Buy the publication on PayPal">Buy &middot; $49.00</a> <a class="pill ghost no-chev" href="https://sebastienrousseau.com/2024-03-12-revolutionising-real-time-speech-recognition-on-macos-with-openai-whisper/index.html" title="Read the companion article">Read the article</a></p>
 </div>
 </article>
 
@@ -134,108 +134,108 @@ translation_key: "research"
 <div class="newsroom-grid newsroom-grid-tight">
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2026-04-11-quantum-thresholds-are-moving-again/index.html" title="Quantum Thresholds Are Moving Again">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-04-11-quantum-thresholds-are-moving-again/index.html" title="Quantum Thresholds Are Moving Again" aria-label="Quantum Thresholds Are Moving Again">
 <img alt="Quantum computing circuit board with blue light patterns" src="https://cloudcdn.pro/stocks/images/leo_visions-Q_y8ZzhQ2_s-unsplash.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH NOTE · QUANTUM</span>
-<h3><a href="/2026-04-11-quantum-thresholds-are-moving-again/index.html" title="Quantum Thresholds Are Moving Again">Quantum Thresholds Are Moving Again</a></h3>
+<h3><a href="https://sebastienrousseau.com/2026-04-11-quantum-thresholds-are-moving-again/index.html" title="Quantum Thresholds Are Moving Again">Quantum Thresholds Are Moving Again</a></h3>
 <p class="newsroom-meta"><time datetime="2026-04-11">April 11, 2026</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">A new paper suggests Shor's algorithm could run on as few as 10,000 qubits. The threshold for cryptographically relevant quantum computing is dropping fast.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2024-04-22-bug-discovered-in-quantum-algorithm-for-lattice-based-crypto/index.html" title="Bug Discovered in Quantum Algorithm for Lattice-Based Crypto">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2024-04-22-bug-discovered-in-quantum-algorithm-for-lattice-based-crypto/index.html" title="Bug Discovered in Quantum Algorithm for Lattice-Based Crypto" aria-label="Bug Discovered in Quantum Algorithm for Lattice-Based Crypto">
 <img alt="Network of digital nodes in red and blue hues" src="https://cloudcdn.pro/stocks/images/digital-nodes.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH NOTE · QUANTUM</span>
-<h3><a href="/2024-04-22-bug-discovered-in-quantum-algorithm-for-lattice-based-crypto/index.html" title="Bug Discovered in Quantum Algorithm for Lattice-Based Crypto">Bug Discovered in Quantum Algorithm for Lattice-Based Crypto</a></h3>
+<h3><a href="https://sebastienrousseau.com/2024-04-22-bug-discovered-in-quantum-algorithm-for-lattice-based-crypto/index.html" title="Bug Discovered in Quantum Algorithm for Lattice-Based Crypto">Bug Discovered in Quantum Algorithm for Lattice-Based Crypto</a></h3>
 <p class="newsroom-meta"><time datetime="2024-04-22">April 22, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">A bug in Yilei Chen's quantum algorithm for solving LWE has been found, temporarily securing lattice-based cryptography and highlighting the need for ongoing research.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2024-04-15-quantum-algorithm-challenges-lattice-based-cryptography/index.html" title="Quantum Algorithm Challenges Lattice-Based Cryptography">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2024-04-15-quantum-algorithm-challenges-lattice-based-cryptography/index.html" title="Quantum Algorithm Challenges Lattice-Based Cryptography" aria-label="Quantum Algorithm Challenges Lattice-Based Cryptography">
 <img alt="Network nodes in a digital blue space" src="https://cloudcdn.pro/stocks/images/digital-constellation.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH NOTE · QUANTUM</span>
-<h3><a href="/2024-04-15-quantum-algorithm-challenges-lattice-based-cryptography/index.html" title="Quantum Algorithm Challenges Lattice-Based Cryptography">Quantum Algorithm Challenges Lattice-Based Cryptography</a></h3>
+<h3><a href="https://sebastienrousseau.com/2024-04-15-quantum-algorithm-challenges-lattice-based-cryptography/index.html" title="Quantum Algorithm Challenges Lattice-Based Cryptography">Quantum Algorithm Challenges Lattice-Based Cryptography</a></h3>
 <p class="newsroom-meta"><time datetime="2024-04-15">April 15, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">New quantum algorithm solves a key cryptographic problem, urging accelerated research into quantum-safe security.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2024-03-25-fully-homomorphic-encryption-in-a-banking-quantum-era/index.html" title="Fully Homomorphic Encryption (FHE) in a Banking Quantum Era">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2024-03-25-fully-homomorphic-encryption-in-a-banking-quantum-era/index.html" title="Fully Homomorphic Encryption (FHE) in a Banking Quantum Era" aria-label="Fully Homomorphic Encryption (FHE) in a Banking Quantum Era">
 <img alt="Banner for Fully Homomorphic Encryption" src="https://cloudcdn.pro/stocks/images/fully-homomorphic-encryption.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · CRYPTOGRAPHY</span>
-<h3><a href="/2024-03-25-fully-homomorphic-encryption-in-a-banking-quantum-era/index.html" title="Fully Homomorphic Encryption (FHE) in a Banking Quantum Era">Fully Homomorphic Encryption (FHE) in a Banking Quantum Era</a></h3>
+<h3><a href="https://sebastienrousseau.com/2024-03-25-fully-homomorphic-encryption-in-a-banking-quantum-era/index.html" title="Fully Homomorphic Encryption (FHE) in a Banking Quantum Era">Fully Homomorphic Encryption (FHE) in a Banking Quantum Era</a></h3>
 <p class="newsroom-meta"><time datetime="2024-03-25">March 25, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">How Fully Homomorphic Encryption revolutionises data security in banking and financial services, preserving privacy against quantum-era threats.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2024-03-18-advancing-ai-with-multimodal-llms-insights-from-mm1/index.html" title="Advancing AI with Multimodal LLMs: Insights from MM1">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2024-03-18-advancing-ai-with-multimodal-llms-insights-from-mm1/index.html" title="Advancing AI with Multimodal LLMs: Insights from MM1" aria-label="Advancing AI with Multimodal LLMs: Insights from MM1">
 <img alt="Banner for Apple's MM1 multimodal LLM research" src="https://cloudcdn.pro/stocks/images/mm1-visual.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · AI</span>
-<h3><a href="/2024-03-18-advancing-ai-with-multimodal-llms-insights-from-mm1/index.html" title="Advancing AI with Multimodal LLMs: Insights from MM1">Advancing AI with Multimodal LLMs: Insights from MM1</a></h3>
+<h3><a href="https://sebastienrousseau.com/2024-03-18-advancing-ai-with-multimodal-llms-insights-from-mm1/index.html" title="Advancing AI with Multimodal LLMs: Insights from MM1">Advancing AI with Multimodal LLMs: Insights from MM1</a></h3>
 <p class="newsroom-meta"><time datetime="2024-03-18">March 18, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">An analysis of Apple's MM1 paper on Multimodal Large Language Models — architecture, pre-training strategies and emerging capabilities.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2024-01-08-optimising-credit-ratio-analysis-with-ibm-qiskit-and-quantum-fourier-transform/index.html" title="Qiskit and Quantum Fourier Transform for Credit Ratio Analysis">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2024-01-08-optimising-credit-ratio-analysis-with-ibm-qiskit-and-quantum-fourier-transform/index.html" title="Qiskit and Quantum Fourier Transform for Credit Ratio Analysis" aria-label="Qiskit and Quantum Fourier Transform for Credit Ratio Analysis">
 <img alt="A quantum computer room" src="https://cloudcdn.pro/stocks/images/quantum-computer-room.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · QUANTUM FINANCE</span>
-<h3><a href="/2024-01-08-optimising-credit-ratio-analysis-with-ibm-qiskit-and-quantum-fourier-transform/index.html" title="Qiskit and Quantum Fourier Transform for Credit Ratio Analysis">Qiskit and Quantum Fourier Transform for Credit Ratio Analysis</a></h3>
+<h3><a href="https://sebastienrousseau.com/2024-01-08-optimising-credit-ratio-analysis-with-ibm-qiskit-and-quantum-fourier-transform/index.html" title="Qiskit and Quantum Fourier Transform for Credit Ratio Analysis">Qiskit and Quantum Fourier Transform for Credit Ratio Analysis</a></h3>
 <p class="newsroom-meta"><time datetime="2024-01-08">January 8, 2024</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">How IBM Qiskit and the Quantum Fourier Transform reshape credit ratio analysis in finance, offering unprecedented accuracy and speed.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2023-12-25-revolutionising-finance-with-ai-enhanced-quantum-algorithms/index.html" title="Revolutionising Finance with AI-Enhanced Quantum Algorithms">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2023-12-25-revolutionising-finance-with-ai-enhanced-quantum-algorithms/index.html" title="Revolutionising Finance with AI-Enhanced Quantum Algorithms" aria-label="Revolutionising Finance with AI-Enhanced Quantum Algorithms">
 <img alt="A circuit board cityscape" src="https://cloudcdn.pro/stocks/images/circuit_board_cityscape.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · QUANTUM FINANCE</span>
-<h3><a href="/2023-12-25-revolutionising-finance-with-ai-enhanced-quantum-algorithms/index.html" title="Revolutionising Finance with AI-Enhanced Quantum Algorithms">Revolutionising Finance with AI-Enhanced Quantum Algorithms</a></h3>
+<h3><a href="https://sebastienrousseau.com/2023-12-25-revolutionising-finance-with-ai-enhanced-quantum-algorithms/index.html" title="Revolutionising Finance with AI-Enhanced Quantum Algorithms">Revolutionising Finance with AI-Enhanced Quantum Algorithms</a></h3>
 <p class="newsroom-meta"><time datetime="2023-12-25">December 25, 2023</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">The transformative role of AI inside quantum algorithms for finance, focusing on their mathematical structure and banking applications.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2023-12-11-quantum-key-distribution-revolutionising-security-in-banking/index.html" title="Quantum Key Distribution: Revolutionising Security in Banking">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2023-12-11-quantum-key-distribution-revolutionising-security-in-banking/index.html" title="Quantum Key Distribution: Revolutionising Security in Banking" aria-label="Quantum Key Distribution: Revolutionising Security in Banking">
 <img alt="HSBC headquarter in London Canary Wharf docks" src="https://cloudcdn.pro/stocks/images/hsbc-from-the-docks.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · QUANTUM BANKING</span>
-<h3><a href="/2023-12-11-quantum-key-distribution-revolutionising-security-in-banking/index.html" title="Quantum Key Distribution: Revolutionising Security in Banking">Quantum Key Distribution: Revolutionising Security in Banking</a></h3>
+<h3><a href="https://sebastienrousseau.com/2023-12-11-quantum-key-distribution-revolutionising-security-in-banking/index.html" title="Quantum Key Distribution: Revolutionising Security in Banking">Quantum Key Distribution: Revolutionising Security in Banking</a></h3>
 <p class="newsroom-meta"><time datetime="2023-12-11">December 11, 2023</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">As quantum computers threaten traditional encryption, Quantum Key Distribution (QKD) emerges as a structural answer for financial-grade security.</p>
 </div>
 </article>
 
 <article class="newsroom-card">
-<a class="newsroom-card-media" href="/2023-11-19-crystals-kyber-the-safeguarding-algorithm-in-a-quantum-age/index.html" title="CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2023-11-19-crystals-kyber-the-safeguarding-algorithm-in-a-quantum-age/index.html" title="CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age" aria-label="CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age">
 <img alt="A complex quantum computer architecture" src="https://cloudcdn.pro/stocks/images/galina-nelyubova-V70-ng4FuiA.webp" loading="lazy" decoding="async" width="600" height="600" />
 </a>
 <div class="newsroom-card-body">
 <span class="newsroom-eyebrow">RESEARCH · CRYPTOGRAPHY</span>
-<h3><a href="/2023-11-19-crystals-kyber-the-safeguarding-algorithm-in-a-quantum-age/index.html" title="CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age">CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age</a></h3>
+<h3><a href="https://sebastienrousseau.com/2023-11-19-crystals-kyber-the-safeguarding-algorithm-in-a-quantum-age/index.html" title="CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age">CRYSTALS-Kyber: The Safeguarding Algorithm in a Quantum Age</a></h3>
 <p class="newsroom-meta"><time datetime="2023-11-19">November 19, 2023</time> &middot; Sebastien Rousseau</p>
 <p class="newsroom-excerpt">How CRYSTALS-Kyber, the NIST-selected quantum-resistant key-encapsulation mechanism, is reshaping cryptography for the quantum era.</p>
 </div>
