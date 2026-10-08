@@ -12,7 +12,9 @@
         --pl-au-3:#c837ff;--pl-au-4:#ff0f4c;--pl-au-5:#7b2bff;
         --pl-au-6:#ff2d92;--pl-au-7:#ffa53a;--pl-ink-on-brand:#000;
         --pl-night-1:#2a0714;--pl-night-2:#16060f;--pl-night-3:#0a0510;
-        --pl-dusk-1:#2c0716;--pl-dusk-2:#170610}
+        --pl-dusk-1:#2c0716;
+        --pl-text-hero:#f4f1f2;--pl-text-soft:#dedcdd;--pl-text-meta:#c2bcbf;
+        --pl-rose-text:#ffd1db;--pl-dusk-2:#170610}
       .pl-stage{--pl-red:var(--pl-apple);--pl-radius:18px;
         font-family:var(--type-body);margin:0 0 clamp(48px,7vw,96px)}
 
@@ -26,9 +28,13 @@
           linear-gradient(148deg, var(--pl-night-1) 0%, var(--pl-night-2) 46%, var(--pl-night-3) 100%);
         color:var(--pl-white)}
       .pl-hero .pl-hero-title,.pl-hero .pl-everywhere h2{color:var(--pl-white)}
-      .pl-hero .pl-hero-desc{color:rgba(255,255,255,.86)}
-      .pl-hero .pl-hero-meta{color:rgba(255,255,255,.66)}
-      .pl-hero .pl-hero-kicker{color:var(--pl-rose)}
+      /* Opaque text tints (--pl-text-*): translucent white has no computable
+         contrast in HTML_CodeSniffer, which reports NaN:1 and fails AAA. The
+         kicker's lighter rose (--pl-rose-text) clears 7:1 over the brightest
+         point of the band's gradient, where the brand rose measured 3.80:1. */
+      .pl-hero .pl-hero-desc{color:var(--pl-text-soft)}
+      .pl-hero .pl-hero-meta{color:var(--pl-text-meta)}
+      .pl-hero .pl-hero-kicker{color:var(--pl-rose-text)}
       .pl-hero-inner{max-width:1120px;margin-inline:auto;display:grid;
         grid-template-columns:1fr 1fr;gap:clamp(28px,4.5vw,72px);align-items:center}
       @media (max-width:940px){.pl-hero-inner{grid-template-columns:1fr}}
@@ -59,6 +65,10 @@
         overflow:clip;isolation:isolate;
         background:linear-gradient(150deg,var(--pl-dusk-1) 0%,var(--pl-dusk-2) 48%,var(--pl-au-bg) 100%)!important}
       .pl-topper>*:not(.pl-aurora){position:relative;z-index:1}
+      /* A scrim of the band's own near-black behind the centred title and
+         subtitle: over the brightest aurora the title measured 3.18:1. */
+      .pl-topper::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+        background:radial-gradient(ellipse 62% 58% at 50% 50%,rgba(7,3,12,.72),rgba(7,3,12,.45) 62%,rgba(7,3,12,0) 100%)}
       .pl-topper a.pl-jump{display:inline-flex;align-items:center;gap:11px;
         margin-block-start:clamp(34px,5vw,62px);padding:14px 28px;border-radius:999px;
         font-family:var(--type-body);font-size:15px;font-weight:600;text-decoration:none;
@@ -107,7 +117,7 @@
       .pl-topper h1{font-family:var(--type-body);font-size:clamp(46px,8.4vw,104px)!important;
         line-height:.98;letter-spacing:-.038em;font-weight:700;color:var(--pl-white)!important;
         margin:10px auto 16px}
-      .pl-topper .sub{color:rgba(255,255,255,.84)!important;max-width:56ch;
+      .pl-topper .sub{color:var(--pl-text-hero)!important;max-width:56ch;
         margin-inline:auto;font-size:clamp(17px,1.7vw,22px);line-height:1.5}
       .pl-faq{margin-inline:calc(50% - 50vw);width:100vw;
         padding:clamp(56px,8vw,116px) clamp(20px,5vw,64px);background:var(--bg)}

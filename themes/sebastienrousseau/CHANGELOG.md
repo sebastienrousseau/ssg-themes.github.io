@@ -25,6 +25,12 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- Text on photographs and gradients meets AAA, measured from rendered
+  pixels: the story hero's scrim is 62-70% black (its title measured
+  2.75:1), the playlists topper gains a radial scrim (3.18:1), the
+  featured band's kicker uses a lighter rose (3.80:1) and its meta line a
+  lighter tint (6.89:1). Translucent white text is opaque tokens, which
+  HTML_CodeSniffer can measure (it reported NaN:1).
 - The demo's self-hosted fonts load under the gallery path: `fonts.css`
   names its files relative to itself instead of `/fonts/`, which on the
   gallery is the host root (all eight returned 404, so the demo rendered
