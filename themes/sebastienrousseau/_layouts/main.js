@@ -498,17 +498,23 @@ function fallbackCopy(text, done) {
  */
 (function () {
     "use strict";
+    // Only a Spotify playlist id is taken from the page; the embed URL is
+    // built from a fixed origin, so no attribute value ever becomes a frame
+    // source (a javascript: or foreign URL in the markup cannot load).
+    var PLAYLIST = /^https:\/\/open\.spotify\.com\/playlist\/([A-Za-z0-9]{22})$/;
     document.addEventListener("click", function (event) {
         var link = event.target.closest(".pl-frame-load");
-        if (!link || !link.getAttribute("data-src")) return;
+        if (!link) return;
+        var match = PLAYLIST.exec(link.getAttribute("href") || "");
+        if (!match) return;
         event.preventDefault();
         var frame = document.createElement("iframe");
         frame.className = "pl-frame";
-        frame.src = link.getAttribute("data-src");
+        frame.src = "https://open.spotify.com/embed/playlist/" + match[1] + "?utm_source=generator&theme=0";
         frame.width = "100%";
         frame.height = link.getAttribute("data-height") || "152";
         frame.title = link.getAttribute("data-title") || "Spotify player";
-        frame.setAttribute("allow", link.getAttribute("data-allow") || "");
+        frame.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
         frame.setAttribute("loading", "lazy");
         link.replaceWith(frame);
         frame.focus();
@@ -686,6 +692,15 @@ function fallbackCopy(text, done) {
     "use strict";
     var box = document.querySelector(".g-recaptcha");
     if (!box) return;
+    // A site key is 40 characters starting "6L". A copy of the theme ships a
+    // placeholder, for which Google can only render an error widget.
+    if (!/^6L[0-9A-Za-z_-]{38}$/.test(box.getAttribute("data-sitekey") || "")) return;
+    // Tab moves focus into the widget's cross-origin frame, and the browser
+    // does not scroll this page for that, so a widget below the fold took
+    // focus out of sight (WCAG 2.4.11). Bring it into view on focus.
+    box.addEventListener("focusin", function () {
+        box.scrollIntoView({ block: "nearest" });
+    });
     var form = box.closest("form") || document;
     var loaded = false;
     var load = function () {

@@ -25,6 +25,19 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- The demo's self-hosted fonts load under the gallery path: `fonts.css`
+  names its files relative to itself instead of `/fonts/`, which on the
+  gallery is the host root (all eight returned 404, so the demo rendered
+  in fallback fonts).
+- Focus stays in view when it enters the reCAPTCHA widget, whose
+  cross-origin frame the browser does not scroll the page for; the
+  loader also skips a placeholder site key, for which Google can only
+  render an error widget.
+- The on-request Spotify loader builds the embed URL from the playlist
+  id in the link's href (22 alphanumerics, fixed origin) instead of
+  taking a frame source from a data attribute; CodeQL flagged the
+  attribute as DOM text reinterpreted as HTML. The 40 player links drop
+  their unused data-src and data-allow attributes.
 - The gallery demo resolves under `/sebastienrousseau/`. The templates
   keep their root-absolute links (they must stay byte-identical to the
   site's), so the showcase build re-bases them onto the theme's path
