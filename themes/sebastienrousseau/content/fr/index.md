@@ -176,12 +176,12 @@ translation_key: "index"
 </div>
 </section>
 <div class="brands">
-<img alt="HSBC logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/hsbc.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
-<img alt="PayPal logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/paypal.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
-<img alt="Barclays logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/barclays.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
-<img alt="Shazam logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/shazam.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
-<img alt="AKQA logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/akqa.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
-<img alt="Virgin logo" src="https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/virgin.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="HSBC logo" src="/_csp/logo-hsbc.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="PayPal logo" src="/_csp/logo-paypal.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Barclays logo" src="/_csp/logo-barclays.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Shazam logo" src="/_csp/logo-shazam.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="AKQA logo" src="/_csp/logo-akqa.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Virgin logo" src="/_csp/logo-virgin.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
 </div>
 </div>
 </section>
