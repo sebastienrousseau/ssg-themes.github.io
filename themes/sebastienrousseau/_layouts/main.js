@@ -108,6 +108,46 @@ class ServiceWorkerSetup {
 window.serviceWorkerSetup = new ServiceWorkerSetup();
 
 /**
+ * Fetches the webfonts once a page has loaded, for the views after it.
+ *
+ * A first view paints in the metric-matched system faces, so no font
+ * download sits between the visitor and the first paint. After `load`,
+ * this asks the browser for the three families (the latin files, the
+ * ones every page uses), and once all three are in the HTTP cache it
+ * records "wf"; theme-init.js then adds .wf to <html> before the next
+ * page paints, and the stylesheet switches to the webfonts there. The
+ * current page is never switched, so nothing reflows under the reader.
+ */
+(function warmWebfonts() {
+    var root = document.documentElement;
+    if (root.classList.contains("wf") || !document.fonts || !document.fonts.load) {
+        return;
+    }
+    function warm() {
+        Promise.all([
+            document.fonts.load('400 1em "Newsreader"'),
+            document.fonts.load('400 1em "Inter"'),
+            document.fonts.load('400 1em "JetBrains Mono"')
+        ]).then(function (sets) {
+            var all = sets.every(function (faces) { return faces.length > 0; });
+            if (!all) return;
+            try {
+                localStorage.setItem("wf", "1");
+            } catch (e) {
+                /* Storage disabled: every view stays in the system faces. */
+            }
+        }).catch(function () {
+            /* Offline or blocked: stay in the system faces. */
+        });
+    }
+    if (document.readyState === "complete") {
+        warm();
+    } else {
+        window.addEventListener("load", warm);
+    }
+})();
+
+/**
  * On-site search bootstrap (DX plan Phase 2, ADR-0010).
  *
  * The search runtime (/search.js + /search.css) is LAZY-LOADED on first

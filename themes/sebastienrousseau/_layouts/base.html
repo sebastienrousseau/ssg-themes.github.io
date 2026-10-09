@@ -58,8 +58,7 @@
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
     <link rel="alternate" type="application/feed+json" href="/feed.json" title="JSON Feed" />
     <link rel="preconnect" href="https://cloudcdn.pro" crossorigin />
-{{#block "font_preload"}}    <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader-latin.woff2" crossorigin />
-{{/block}}    <link rel="stylesheet" href="/fonts/fonts.css" />
+{{#block "font_preload"}}{{/block}}    <link rel="stylesheet" href="/fonts/fonts.css" />
     <!-- Preload the LCP hero portrait so it doesn't compete with the
          render-blocking JS bundle on throttled mobile connections.
          Lighthouse-simulated Slow-4G has been pinning LCP at ~5.6s; the
