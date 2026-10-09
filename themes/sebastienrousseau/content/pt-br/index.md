@@ -17,7 +17,7 @@ description: "The live site publishes its Brazilian Portuguese edition in full. 
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "en"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/pt-br/"
 image_alt: "Black and White Portrait of Sebastien Rousseau"
 image_height: "162"

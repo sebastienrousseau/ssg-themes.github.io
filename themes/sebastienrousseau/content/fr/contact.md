@@ -17,7 +17,7 @@ description: "Entrez en contact avec Sebastien Rousseau pour les conseils en tra
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "fr"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/contact"
 image_alt: "Black and White Portrait of Sebastien Rousseau"
 image_height: "162"

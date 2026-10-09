@@ -4,7 +4,7 @@ The production theme of <https://sebastienrousseau.com>: a research-publishing s
 
 - **Demo:** <https://themes.static-site-generator.com/sebastienrousseau/>
 - **Licence:** MIT
-- **Requires:** ssg 0.0.66+
+- **Requires:** ssg 0.0.67+
 - **Tier:** site theme. This is the theme of one live site, carrying that site's chrome, origins and page budget. It is published here so the site builds from a theme instead of twelve hand-maintained 213 KB files, and so the gallery has a worked example of a real 34-locale publication.
 
 ## Where it comes from

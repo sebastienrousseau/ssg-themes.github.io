@@ -17,7 +17,7 @@ description: "Le site réel publie son édition Thai en entier. Cette démo prop
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "fr"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/fr/th/"
 image_alt: "Black and White Portrait of Sebastien Rousseau"
 image_height: "162"

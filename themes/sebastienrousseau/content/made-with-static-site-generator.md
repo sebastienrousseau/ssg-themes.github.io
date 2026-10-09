@@ -18,7 +18,7 @@ description: "Static Site Generator is a Rust-based static site generator built 
 download: ""
 format-detection: "telephone=no"
 hreflang: "en"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/made-with-static-site-generator/"
 image_alt: "Logo for Sebastien Rousseau"
 image_height: "100vh"

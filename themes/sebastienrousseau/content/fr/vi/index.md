@@ -17,7 +17,7 @@ description: "Le site réel publie son édition Vietnamese en entier. Cette dém
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "fr"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/fr/vi/"
 image_alt: "Black and White Portrait of Sebastien Rousseau"
 image_height: "162"

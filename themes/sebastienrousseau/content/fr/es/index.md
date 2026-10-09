@@ -17,7 +17,7 @@ description: "Le site réel publie son édition Spanish en entier. Cette démo p
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "fr"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/fr/es/"
 image_alt: "Black and White Portrait of Sebastien Rousseau"
 image_height: "162"

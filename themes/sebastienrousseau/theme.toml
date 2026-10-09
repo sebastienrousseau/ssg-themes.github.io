@@ -12,8 +12,9 @@ demosite = "https://themes.static-site-generator.com/sebastienrousseau/"
 # and `{{> partial}}`, which the compile stage resolves from 0.0.50; the
 # locale subtrees only get their stylesheet extracted into `_csp/` from
 # 0.0.66 (earlier releases inlined 184 KB of CSS into every non-English
-# page).
-min_version = "0.0.66"
+# page), and the manifest names its 512 px PNG icon as image/png only
+# from 0.0.67 (earlier releases declared every icon image/svg+xml).
+min_version = "0.0.67"
 
 # A first-party site theme, not a gallery archetype: it is the production
 # theme of one site and carries that site's chrome, origins and budgets.

@@ -17,7 +17,7 @@ description: "This statement explains the accessibility of our website, what we 
 format-detection: "telephone=no"
 form-id: "your-formspree-id"
 hreflang: "en"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/accessibility/"
 image_alt: "Logo for Sebastien Rousseau"
 image_height: "100vh"

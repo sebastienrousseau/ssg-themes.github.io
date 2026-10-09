@@ -18,7 +18,7 @@ description: "Ce site est conçu avec Static Site Generator, un générateur de 
 download: ""
 format-detection: "telephone=no"
 hreflang: "fr"
-icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
 id: "https://example.com/sebastienrousseau/fr/concu-avec-static-site-generator/"
 image_alt: "Logo for Sebastien Rousseau"
 image_height: "100vh"
