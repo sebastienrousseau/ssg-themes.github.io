@@ -25,6 +25,15 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   (190 by 64 px, 29 KB for all six) instead of 6096 by 2048 px from the
   CDN (1.5 MB).
 
+- The web app manifest names the CDN's 512 px PNG (20 KB) instead of an
+  SVG wrapping a 4096 px PNG (710 KB), which every browser fetches for
+  installability. It needs ssg 0.0.67, which declares the icon
+  `image/png`; earlier releases called every icon `image/svg+xml`, so
+  `min_version` and the gallery's build pin move to 0.0.67.
+- The portrait-format photo on the home page offers its CDN 640 px
+  source to slots up to 640 px wide (desktop at 1x), through `srcset` and
+  `sizes` measured at five viewports: 263 KB less on desktop.
+
 ### Fixed
 
 - The service worker registers only where the theme is served from the

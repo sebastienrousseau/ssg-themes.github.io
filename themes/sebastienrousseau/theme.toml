@@ -31,16 +31,16 @@ origin = "https://sebastienrousseau.com"
 # its page-scoped rules); the live site's own gate is
 # Lighthouse performance >= 0.94 on desktop.
 budget_kb = 96
-# Lighthouse mobile transfer budget for the demo home page, every request
-# counted (the archetype budget is 50 KB). Measured on 2026-10-08 after the
-# fonts were trimmed to their declared weights and the client logos
-# right-sized: 1,287 KB, of which 342 KB is the web app manifest icon (a
-# 4096 px PNG wrapped in SVG). ssg 0.0.67 types manifest icons by
-# extension, so the icon moves to the CDN's 20 KB 512 px PNG with it,
-# which brings the page to about 965 KB: the webfonts (161 KB, fetched
-# after load for later views), the stylesheet (43 KB), two
-# below-the-fold photos (580 KB, served at 1920 px until the CDN carries
-# a width ladder) and the portrait (102 KB).
+# Lighthouse transfer budget for the demo home page, every request counted,
+# held on both the mobile and the desktop profile (the archetype budget is
+# 50 KB). Measured on 2026-10-09 with ssg 0.0.67: 968 KB on mobile and
+# 869 KB on desktop, after the fonts were trimmed to their declared weights
+# and fetched after load, the client logos right-sized, the manifest icon
+# moved to the CDN's 20 KB 512 px PNG (0.0.67 types it image/png), and the
+# portrait-format photo given a 640 px source for desktop slots. The rest is
+# the webfonts (161 KB), the stylesheet (43 KB), the landscape photo cropped
+# into a square slot (245 KB, which needs about 1,100 px of width) and the
+# portrait (102 KB), until the CDN carries a width ladder.
 transfer_budget_kb = 1024
 # Hosts the live site's CSP, preconnects and embeds name, which the
 # gallery's no-third-party scan rejects for an archetype.

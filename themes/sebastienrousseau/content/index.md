@@ -123,7 +123,7 @@ translation_key: "index"
 <section class="feat offer reveal" aria-labelledby="what-i-build" data-audience="engineers">
 <div class="offer-grid">
 <figure class="offer-media">
-<img alt="Soft natural light over a modern architectural space, representing dependable financial infrastructure." src="https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-1920.webp" loading="lazy" decoding="async" width="900" height="1100" />
+<img alt="Soft natural light over a modern architectural space, representing dependable financial infrastructure." src="https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-1920.webp" srcset="https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-640.webp 640w, https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-1920.webp 1597w" sizes="(min-width: 64em) min(37vw, 547px), 94vw" loading="lazy" decoding="async" width="900" height="1100" />
 </figure>
 <div class="offer-panel">
 <p class="offer-eyebrow">What I build</p>
