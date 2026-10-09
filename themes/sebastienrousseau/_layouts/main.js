@@ -13,6 +13,15 @@ class ServiceWorkerSetup {
      * If not, logs a warning to the console.
      */
     constructor() {
+        // The worker precaches host-root paths (/, /offline/index.html, the
+        // _csp/ assets), so it only works where this script is served from
+        // the host root. A copy served under a sub-path, such as the theme
+        // gallery's demo, skips registration instead of requesting a /sw.js
+        // that host does not have. Read while this script is executing:
+        // document.currentScript is null once the load event fires.
+        const script = document.currentScript;
+        this.rootServed = !script || new URL("sw.js", script.src).pathname === "/sw.js";
+        if (!this.rootServed) return;
         if ("serviceWorker" in navigator) {
             // Deferring service worker registration until after the page has loaded.
             window.addEventListener('load', () => {
