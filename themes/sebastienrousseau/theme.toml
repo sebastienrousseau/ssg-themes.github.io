@@ -16,13 +16,12 @@ demosite = "https://themes.static-site-generator.com/sebastienrousseau/"
 min_version = "0.0.66"
 
 # A first-party site theme, not a gallery archetype: it is the production
-# theme of one site and carries that site's chrome, origins and budget.
+# theme of one site and carries that site's chrome, origins and budgets.
 #
-# PROPOSAL, not yet read by any gate. The gallery's validator, page-weight
-# and chrome scripts encode archetype assumptions (no first-party hosts, a
-# 20 KB gzipped page, the shared Voxt mode control and SSG credit). This
-# theme fails those as published; the keys below declare what a site-tier
-# contract would need so the maintainer can decide whether to wire them.
+# `tier = "site"` is read by scripts/validate.py and scripts/pageweight.py
+# (allowed_origins, budget_kb) and by scripts/lighthouse_tiers.py
+# (transfer_budget_kb). Archetypes cannot declare these keys; every other
+# gallery gate and every Lighthouse score threshold applies unchanged.
 tier = "site"
 origin = "https://sebastienrousseau.com"
 # Gzipped page budget this theme asks to be held to (HTML plus the
@@ -31,6 +30,17 @@ origin = "https://sebastienrousseau.com"
 # its page-scoped rules); the live site's own gate is
 # Lighthouse performance >= 0.94 on desktop.
 budget_kb = 96
+# Lighthouse mobile transfer budget for the demo home page, every request
+# counted (the archetype budget is 50 KB). Measured on 2026-10-08 after the
+# fonts were trimmed to their declared weights and the client logos
+# right-sized: 1,287 KB, of which 342 KB is the web app manifest icon (a
+# 4096 px PNG wrapped in SVG). ssg 0.0.67 types manifest icons by
+# extension, so the icon moves to the CDN's 20 KB 512 px PNG with it,
+# which brings the page to about 965 KB: the webfonts (161 KB, fetched
+# after load for later views), the stylesheet (43 KB), two
+# below-the-fold photos (580 KB, served at 1920 px until the CDN carries
+# a width ladder) and the portrait (102 KB).
+transfer_budget_kb = 1024
 # Hosts the live site's CSP, preconnects and embeds name, which the
 # gallery's no-third-party scan rejects for an archetype.
 allowed_origins = [
