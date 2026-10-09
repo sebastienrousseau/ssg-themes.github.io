@@ -3,6 +3,34 @@
 All notable changes to the sebastienrousseau theme are recorded here. The
 format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- The self-hosted variable fonts carry only the weights their
+  `@font-face` rules declare (400 to 700): Newsreader 132 to 95 KB,
+  Inter 48 to 36 KB, and 214 KB less across all eight files.
+  `tools/limit_font_axes.py` does it from `fonts.css`; metrics are
+  untouched, so every line breaks where it did.
+- A first view renders in the metric-matched system faces; the webfonts
+  are fetched after the page's `load` event, and later views use them
+  from the start (`theme-init.js` adds `.wf` to `<html>` once `main.js`
+  has recorded them). No font download sits on the path to first paint,
+  and nothing swaps under the reader: every face is
+  `font-display: optional`, and the Newsreader preload is gone. On the
+  demo home, Lighthouse mobile performance goes from 0.96 to 1.0 (first
+  paint 1.66 to 1.36 s, largest paint 2.71 to 1.51 s, layout shift
+  0.0054 to 0).
+- The client logos are served at display size from `/_csp/`
+  (190 by 64 px, 29 KB for all six) instead of 6096 by 2048 px from the
+  CDN (1.5 MB).
+
+### Fixed
+
+- The service worker registers only where the theme is served from the
+  host root. Under a sub-path, such as the gallery demo, it requested a
+  `/sw.js` the host does not have and logged an error on every page.
+
 ## [1.2.1] - 2026-10-06
 
 ### Changed
