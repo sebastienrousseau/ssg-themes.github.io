@@ -1170,7 +1170,10 @@ body {
 
 input[type="range"] {
   width: 100%;
+  height: 2.5rem;
+  min-height: 44px;
   accent-color: var(--accent-primary);
+  cursor: pointer;
 }
 
 .checkbox-group {
