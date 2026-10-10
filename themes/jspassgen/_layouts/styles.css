@@ -386,7 +386,7 @@ body {
 }
 
 .brand-badge {
-  font-size: 0.675rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   background: var(--accent-primary-subtle);
   color: var(--accent-primary);
