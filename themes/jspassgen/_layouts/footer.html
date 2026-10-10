@@ -1,25 +1,48 @@
-<footer class="site-footer" id="contact">
+<footer class="site-footer">
   <div class="container footer-grid">
-    <div>
-      <span class="brand footer-brand"><span class="brand-mark" aria-hidden="true">{{brand_mark}}</span><span>{{name}}</span></span>
-      <p>{{footer_note}}</p>
+    <div class="footer-brand">
+      <a class="brand" href="{{locale_path}}">
+        <img src="{{site_path}}assets/logo.svg" alt="jspassgen logo" width="28" height="28" />
+        <span>jspassgen</span>
+      </a>
+      <p>Zero-dependency, quantum-resistant password and EFF Diceware passphrase generator for developers, security engineers, and privacy-conscious users.</p>
     </div>
-    <div>
-      <h2>{{label_explore}}</h2>
+    
+    <div class="footer-col">
+      <p class="footer-col-title">Core Features</p>
       <ul>
-        <li><a href="{{locale_path}}#generator">{{nav_generator}}</a></li>
-        <li><a href="{{locale_path}}#diceware">{{nav_diceware}}</a></li>
-        <li><a href="{{locale_path}}#entropy">{{nav_entropy}}</a></li>
-        <li><a href="{{locale_path}}#audit">{{nav_audit}}</a></li>
-        <li><a href="{{locale_path}}{{slug_about}}/">{{nav_about}}</a></li>
-        <li><a href="{{locale_path}}{{slug_contact}}/">{{nav_contact}}</a></li>
+        <li><a href="{{locale_path}}#generator">Random Passwords</a></li>
+        <li><a href="{{locale_path}}#generator">EFF Diceware</a></li>
+        <li><a href="{{locale_path}}#generator">Quantum Resistance</a></li>
+        <li><a href="{{locale_path}}#generator">Honeyword Decoys</a></li>
+        <li><a href="{{locale_path}}#generator">Shannon Entropy</a></li>
       </ul>
     </div>
-    <div>
-      <h2>{{label_start}}</h2>
-      <p><a class="footer-action" href="mailto:hello@example.com">hello@example.com</a></p>
-      <p class="fine-print">© {{copyright_year}} {{name}}. {{label_demo_content}}</p>
-      <p class="fine-print footer-credit">Made with ❤️ in London. Built with <a class="made-with-ssg" href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</p>
+    
+    <div class="footer-col">
+      <p class="footer-col-title">Ecosystem</p>
+      <ul>
+        <li><a href="https://www.npmjs.com/package/jspassgen" target="_blank" rel="noopener noreferrer">npm Registry</a></li>
+        <li><a href="https://github.com/sebastienrousseau/jspassgen" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+        <li><a href="https://github.com/sebastienrousseau/jspassgen/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+        <li><a href="{{site_path}}llms.txt">llms.txt (AI Specification)</a></li>
+        <li><a href="{{site_path}}agents.txt">agents.txt (AI Discovery)</a></li>
+      </ul>
     </div>
+    
+    <div class="footer-col">
+      <p class="footer-col-title">Security & Standards</p>
+      <ul>
+        <li><a href="https://github.com/sebastienrousseau/jspassgen/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer">Security Policy</a></li>
+        <li><a href="https://github.com/sebastienrousseau/jspassgen/blob/main/LICENSE-MIT" target="_blank" rel="noopener noreferrer">MIT License</a></li>
+        <li><a href="https://github.com/sebastienrousseau/jspassgen/blob/main/LICENSE-APACHE" target="_blank" rel="noopener noreferrer">Apache-2.0 License</a></li>
+        <li><a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="container footer-bottom">
+    <p class="fine-print">© {{copyright_year}} {{author}}. Dual licensed under Apache-2.0 and MIT.</p>
+    <p class="fine-print footer-credit">Made with ❤️ in London. Built with <a class="made-with-ssg" href="https://static-site-generator.com/">SSG</a> and <a href="https://skeletonic.com/">Skeletonic CSS</a>.</p>
   </div>
 </footer>

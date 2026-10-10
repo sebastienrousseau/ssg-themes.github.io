@@ -53,7 +53,7 @@ Unlike monolithic password generators that operate as closed SaaS applications, 
 runs entirely client-side using native browser primitives (`window.crypto.getRandomValues`)
 and audited mathematical algorithms.
 
-### Key Pillars
+## Key Pillars
 
 1. **True Client-Side Isolation**: The Content Security Policy explicitly forbids outbound network connections, third-party analytics, and dynamic code execution.
 2. **Standardized Diceware Tables**: Uses the Electronic Frontier Foundation (EFF) long wordlist of 7,776 unique, phonetically distinct English words.

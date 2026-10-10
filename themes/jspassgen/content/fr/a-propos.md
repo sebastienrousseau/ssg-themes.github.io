@@ -53,7 +53,7 @@ Contrairement aux générateurs monolithiques en mode SaaS, jspassgen s'exécute
 côté client à l'aide des primitives natives du navigateur (`window.crypto.getRandomValues`)
 et d'algorithmes mathématiques rigoureusement audités.
 
-### Piliers essentiels
+## Piliers essentiels
 
 1. **Isolation locale absolue**: La Content Security Policy interdit explicitement les connexions réseau sortantes et les scripts distants.
 2. **Tables Diceware standardisées**: Utilise la liste officielle de l'EFF comptant 7 776 mots anglais distincts phonétiquement.
