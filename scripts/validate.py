@@ -38,8 +38,8 @@ CATEGORIES = ("Blog", "Developer Tools", "Documentation", "Marketing", "Portfoli
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
     "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
-    "signal", "stablo", "steward", "velocity", "visage", "vista", "voxt",
-    "sebastienrousseau",
+    "jspassgen", "signal", "stablo", "steward", "velocity", "visage", "vista",
+    "voxt", "sebastienrousseau",
 )
 
 REQUIRED_FILES = (

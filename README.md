@@ -63,6 +63,7 @@ requests.
 | [Quill](themes/quill/) | Blog | Typographic blog theme: a large tight-tracked wordmark, full-bleed hero, two-column post headers and a monochrome palette. AAA-gated tokens, English and French. |
 | [Curio](themes/curio/) | Marketing | AI-shopping theme: bold commerce type, modular product cards and transparent recommendations. |
 | [passmcp](themes/passmcp/) | Developer Tools | Diagnostic-instrument theme: verdict-first readouts, severity ledgers and request-level evidence. |
+| [jspassgen](themes/jspassgen/) | Developer Tools | Cryptographic password and passphrase generator theme: quantum-resistant entropy estimators, offline Diceware tables, and interactive configuration consoles. |
 | [Signal](themes/signal/) | Marketing | Revenue-intelligence theme: luminous dashboard surfaces and grounded, explainable AI copy. |
 | [Stablo](themes/stablo/) | Blog | Editorial blog theme: centred wordmark, large featured cards, category labels and author bylines. AAA-gated tokens, English and French. |
 | [Steward](themes/steward/) | Marketing | Institutional-finance theme: editorial serif type, a ledger grid and trust-led service narratives. |

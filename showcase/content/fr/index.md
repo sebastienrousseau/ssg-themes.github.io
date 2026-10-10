@@ -412,6 +412,22 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
+          <img src="../jspassgen/images/card.webp" srcset="../jspassgen/images/card.webp 640w, ../jspassgen/images/tn.webp 900w, ../jspassgen/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème jspassgen." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Outils pour développeurs</p>
+          <h3>jspassgen</h3>
+          <p>Générateur de mots de passe cryptographiques. Estimateurs d'entropie quantique, tables Diceware hors ligne et consoles interactives.</p>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Utilitaires de mots de passe, outils de sécurité, rapports d'audit</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../jspassgen/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/jspassgen.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
           <img src="../sebastienrousseau/images/card.webp" srcset="../sebastienrousseau/images/card.webp 640w, ../sebastienrousseau/images/tn.webp 900w, ../sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Sebastienrousseau." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">

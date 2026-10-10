@@ -50,7 +50,7 @@ build-atlas:
 
 .PHONY: build-kaishi build-prism
 
-.PHONY: build-cadence build-covenant build-hearth build-intent build-kairo build-noir build-curio build-passmcp build-signal build-steward build-visage
+.PHONY: build-cadence build-covenant build-hearth build-intent build-kairo build-noir build-curio build-passmcp build-jspassgen build-signal build-steward build-visage
 
 build-cadence:
 	@bash scripts/build.sh cadence
@@ -110,6 +110,9 @@ build-sebastienrousseau:
 
 build-passmcp:
 	@bash scripts/build.sh passmcp
+
+build-jspassgen:
+	@bash scripts/build.sh jspassgen
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.

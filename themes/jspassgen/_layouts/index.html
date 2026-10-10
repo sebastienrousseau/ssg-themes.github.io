@@ -1,0 +1,99 @@
+{{#extends "base"}}{{#block "main"}}
+<section class="passmcp-hero" aria-labelledby="hero-heading">
+  <div class="container passmcp-hero-grid">
+    <div class="passmcp-copy">
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1 id="hero-heading">{{headline}}</h1>
+      <p class="lead">{{lead}}</p>
+      <div class="actions"><a class="button primary" href="#generator">{{cta_primary}}</a><a class="button secondary" href="#entropy">{{cta_secondary}}</a></div>
+    </div>
+    <figure class="passmcp-photo">
+      <img src="{{site_path}}images/screenshot.webp" srcset="{{site_path}}images/card.webp 640w, {{site_path}}images/tn.webp 900w, {{site_path}}images/screenshot.webp 1500w" sizes="(max-width: 64rem) 100vw, 50vw" width="1500" height="1000" alt="{{preview_alt}}" fetchpriority="high" />
+    </figure>
+  </div>
+</section>
+<section class="readout-section" id="entropy" aria-labelledby="readout-heading">
+  <div class="container readout-grid">
+    <div class="instrument">
+      <p class="eyebrow">{{readout_kicker}}</p>
+      <p class="target">{{readout_target}}</p>
+      <h2 id="readout-heading">{{readout_verdict}}</h2>
+      <p>{{readout_note}}</p>
+    </div>
+    <div class="score" role="img" aria-label="Entropy rating {{readout_score}}, grade {{readout_grade}}">
+      <strong>{{readout_score}}</strong><span>/ 128</span><b>{{readout_grade}}</b>
+    </div>
+  </div>
+  <div class="container">
+    <dl class="metrics">
+      <div><dt>{{metric_one_label}}</dt><dd>{{metric_one_value}}</dd></div>
+      <div><dt>{{metric_two_label}}</dt><dd>{{metric_two_value}}</dd></div>
+      <div><dt>{{metric_three_label}}</dt><dd>{{metric_three_value}}</dd></div>
+    </dl>
+    <p class="proof-note">{{proof_note}}</p>
+  </div>
+</section>
+<section class="section" id="generator" aria-labelledby="features-heading">
+  <div class="container split-heading">
+    <div><p class="eyebrow">{{features_eyebrow}}</p><h2 id="features-heading">{{features_title}}</h2></div>
+    <p class="lead">{{features_lead}}</p>
+  </div>
+  <div class="container cards">
+    <article><span>01</span><h3>{{feature_one_title}}</h3><p>{{feature_one_text}}</p></article>
+    <article><span>02</span><h3>{{feature_two_title}}</h3><p>{{feature_two_text}}</p></article>
+    <article><span>03</span><h3>{{feature_three_title}}</h3><p>{{feature_three_text}}</p></article>
+  </div>
+</section>
+<section class="section section-soft" id="diceware" aria-labelledby="comparison-heading">
+  <div class="container split-heading">
+    <div><p class="eyebrow">{{comparison_eyebrow}}</p><h2 id="comparison-heading">{{comparison_title}}</h2></div>
+    <p class="lead">{{comparison_lead}}</p>
+  </div>
+  <div class="container table-scroll" role="region" aria-label="Password generator comparison matrix, scrollable horizontally" tabindex="0">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Capability</th>
+          <th scope="col">jspassgen</th>
+          <th scope="col">1Password</th>
+          <th scope="col">Bitwarden</th>
+          <th scope="col">LastPass</th>
+          <th scope="col">Proton Pass</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Zero-Trust Local CSP</th><td><span class="status pass">Yes (Self-Only)</span></td><td>Cloud Hybrid</td><td>Cloud Hybrid</td><td>Cloud Analytics</td><td>Cloud Hybrid</td></tr>
+        <tr><th scope="row">EFF Diceware Wordlist</th><td><span class="status pass">7,776 Words</span></td><td>3-5 Words</td><td>Passphrase</td><td>No (Chars Only)</td><td>Passphrase</td></tr>
+        <tr><th scope="row">Shannon Entropy Model</th><td><span class="status pass">Exact Bits</span></td><td>Bar Meter</td><td>Score Meter</td><td>Score Meter</td><td>Bits Estimate</td></tr>
+        <tr><th scope="row">Offline PWA Execution</th><td><span class="status pass">100% Offline</span></td><td>Web Only</td><td>Web Only</td><td>Web Only</td><td>Web Only</td></tr>
+        <tr><th scope="row">Zero Third-Party Trackers</th><td><span class="status pass">0 Trackers</span></td><td>Mixpanel</td><td>Google Tag</td><td>Mixpanel / Segment</td><td>Sentry</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="section section-dark" id="audit" aria-labelledby="specs-heading">
+  <div class="container split-heading">
+    <div><p class="eyebrow">{{specs_eyebrow}}</p><h2 id="specs-heading">{{specs_title}}</h2></div>
+    <p class="lead">{{specs_lead}}</p>
+  </div>
+  <div class="container phases">
+    <ol>
+      <li>Local CSP verification</li>
+      <li>CSPRNG seed acquisition</li>
+      <li>Zero-bias rejection sampling</li>
+      <li>Diceware index mapping</li>
+      <li>Shannon bit calculation</li>
+      <li>OWASP complexity check</li>
+      <li>Argon2id cost estimation</li>
+      <li>Memory safe zeroing</li>
+      <li>Clipboard copy with auto-clear</li>
+    </ol>
+  </div>
+</section>
+<section class="section report" aria-labelledby="report-heading">
+  <div class="container split-heading">
+    <div><p class="eyebrow">{{report_eyebrow}}</p><h2 id="report-heading">{{report_title}}</h2></div>
+    <div><p class="lead">{{report_lead}}</p><div class="prose">{{!content}}</div></div>
+  </div>
+</section>
+{{/block}}

@@ -412,6 +412,22 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
+          <img src="jspassgen/images/card.webp" srcset="jspassgen/images/card.webp 640w, jspassgen/images/tn.webp 900w, jspassgen/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the jspassgen theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Developer Tools</p>
+          <h3>jspassgen</h3>
+          <p>Cryptographic password generator. Quantum-resistant entropy estimators, offline Diceware tables, and interactive configuration consoles.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Password utilities, security tools, audit reports</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="jspassgen/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/jspassgen.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
           <img src="sebastienrousseau/images/card.webp" srcset="sebastienrousseau/images/card.webp 640w, sebastienrousseau/images/tn.webp 900w, sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Sebastienrousseau theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">

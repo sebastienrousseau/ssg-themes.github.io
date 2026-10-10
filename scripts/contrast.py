@@ -138,7 +138,7 @@ PAIRS = [
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
     "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
-    "signal", "stablo", "steward", "velocity", "visage", "vista",
+    "jspassgen", "signal", "stablo", "steward", "velocity", "visage", "vista",
 )
 
 # Sebastienrousseau is a site theme (theme.toml `tier = "site"`) with the
