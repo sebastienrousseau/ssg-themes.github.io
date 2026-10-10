@@ -20,7 +20,15 @@ import { PAGES } from './pages.mjs';
 import { PNG } from 'pngjs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8732';
-const SEL = ['.brand-mark', '.hero h1', '.hero .lead'];
+const SEL = [
+  '.brand-mark', '.hero h1', '.hero .lead',
+  // sebastienrousseau: text on a photograph or a gradient, which axe
+  // cannot rule on and scripts/pa11y.sh therefore leaves to this gate.
+  '.feat-finale .feat-eyebrow', '.feat-finale .feat-headline', '.feat-finale .feat-sub',
+  '.feat-finale .pill.ghost', '.pl-topper h1', '.pl-topper .sub',
+  '.pl-hero-kicker', '.pl-hero-title', '.pl-hero-desc', '.pl-hero-meta',
+  '.story-hero-inner h1', '.story-hero-sub',
+];
 const HIDE = `${SEL.join(',')}{color:transparent!important}`;
 
 const lin = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
@@ -46,7 +54,7 @@ for (const scheme of ['light', 'dark']) {
       for (const sel of SEL) {
         for (const e of document.querySelectorAll(sel)) {
           const r = e.getBoundingClientRect();
-          if (r.width < 2 || r.height < 2 || r.top >= innerHeight || r.bottom <= 0) continue;
+          if (r.width < 2 || r.height < 2) continue;
           const cs = getComputedStyle(e);
           if (cs.visibility === 'hidden' || cs.display === 'none') continue;
           if (!/^rgba?\(/.test(cs.color)) continue;
@@ -54,9 +62,11 @@ for (const scheme of ['light', 'dark']) {
           out.push({
             sel, color: cs.color,
             need: (px >= 24 || (px >= 18.66 && bold)) ? 4.5 : 7,
-            box: { x: Math.round(Math.max(0, r.x)), y: Math.round(Math.max(0, r.y)),
+            // Document coordinates, captured from a full-page screenshot, so
+            // text below the fold is measured where it is rendered.
+            box: { x: Math.round(Math.max(0, r.x + scrollX)), y: Math.round(Math.max(0, r.y + scrollY)),
                    width: Math.round(Math.min(r.width, innerWidth - Math.max(0, r.x))),
-                   height: Math.round(Math.min(r.height, innerHeight - Math.max(0, r.y))) },
+                   height: Math.round(r.height) },
             text: e.textContent.trim().slice(0, 24),
           });
         }
@@ -66,9 +76,9 @@ for (const scheme of ['light', 'dark']) {
 
     for (const run of runs) {
       if (run.box.width < 2 || run.box.height < 2) continue;
-      const shown = PNG.sync.read(await page.screenshot({ clip: run.box }));
+      const shown = PNG.sync.read(await page.screenshot({ clip: run.box, fullPage: true }));
       await page.addStyleTag({ content: HIDE });
-      const ground = PNG.sync.read(await page.screenshot({ clip: run.box }));
+      const ground = PNG.sync.read(await page.screenshot({ clip: run.box, fullPage: true }));
       await page.reload({ waitUntil: 'load' });
 
       const m = run.color.match(/[\d.]+/g).map(Number);

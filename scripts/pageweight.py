@@ -15,11 +15,46 @@ Run by `make check` after a build, and by CI.
 from __future__ import annotations
 
 import gzip
+import tomllib
 import re
 import sys
 from pathlib import Path
 
 BUDGET_KB = 20
+
+
+def theme_allowed_origins(root: Path, theme: str) -> frozenset[str]:
+    """Hosts a `tier = "site"` theme declares as first party in theme.toml."""
+    manifest = root / "themes" / theme / "theme.toml"
+    if not manifest.is_file():
+        return frozenset()
+    try:
+        data = tomllib.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return frozenset()
+    if data.get("tier") != "site":
+        return frozenset()
+    return frozenset(str(h).lower() for h in data.get("allowed_origins", []))
+
+
+def theme_budget_kb(root: Path, theme: str) -> int:
+    """The gallery budget, or the budget a `tier = "site"` theme declares.
+
+    A site theme is a live site's own theme; its stylesheet is sized for
+    that site, and `budget_kb` in its theme.toml is the figure it is held
+    to here. Archetypes cannot declare one: the key is ignored unless
+    `tier = "site"`.
+    """
+    manifest = root / "themes" / theme / "theme.toml"
+    if not manifest.is_file():
+        return BUDGET_KB
+    try:
+        data = tomllib.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return BUDGET_KB
+    if data.get("tier") != "site":
+        return BUDGET_KB
+    return int(data.get("budget_kb", BUDGET_KB))
 
 # Elements whose `src` always causes a fetch.
 SRC_FETCH = re.compile(
@@ -94,13 +129,20 @@ def main() -> int:
                 total += gz_len(candidate.read_bytes())
 
         rows.append((str(rel), total))
-        if total > BUDGET_KB * 1024:
+        budget_kb = theme_budget_kb(root, rel.parts[0]) if len(rel.parts) > 1 else BUDGET_KB
+        if total > budget_kb * 1024:
             failures.append(
-                f"{rel}: {total / 1024:.1f} KB gzipped, budget {BUDGET_KB} KB"
+                f"{rel}: {total / 1024:.1f} KB gzipped, budget {budget_kb} KB"
             )
 
-        # Third-party subresources.
+        # Third-party subresources. A site theme's declared first-party hosts
+        # (theme.toml `allowed_origins`, read only when `tier = "site"`) are
+        # its own; everything else is third party for it too.
+        allowed = theme_allowed_origins(root, rel.parts[0]) if len(rel.parts) > 1 else frozenset()
         for url in third_party_subresources(text):
+            host = url.split("//", 1)[-1].split("/", 1)[0].lower()
+            if any(host == h or host.endswith("." + h) for h in allowed):
+                continue
             failures.append(f"{rel}: third-party subresource {url}")
 
     if failures:

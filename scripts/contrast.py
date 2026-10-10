@@ -137,10 +137,14 @@ PAIRS = [
 
 THEMES = (
     "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
-    "signal", "stablo", "steward", "velocity", "visage", "vista",
+    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "passmcp",
+    "jspassgen", "signal", "stablo", "steward", "velocity", "visage", "vista",
 )
 
+# Sebastienrousseau is a site theme (theme.toml `tier = "site"`) with the
+# live site's token vocabulary (`--ink`, `--paper`, `--rule`), not the
+# gallery's pair list; its contrast is gated in its own repository by pa11y
+# WCAG2AAA over every built page. Not listed here, like Voxt below.
 # Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
 # / `--primary` / `--border` where the other eight use `--ink` / `--surface`
 # / `--accent` / `--line`. Because none of the names in PAIRS resolved, it was

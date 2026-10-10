@@ -1,0 +1,24 @@
+site_name = "jspassgen"
+site_title = "jspassgen - cryptographic password generator theme for SSG"
+site_description = "A cryptographic password and passphrase generator theme with zero-trust local entropy generation, Diceware phrase models, and audit controls."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/jspassgen/content"
+template_dir = "themes/jspassgen/_layouts"
+output_dir = "public/jspassgen"
+
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

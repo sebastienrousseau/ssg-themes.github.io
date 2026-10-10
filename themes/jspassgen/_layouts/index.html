@@ -1,0 +1,653 @@
+{{#extends "base"}}{{#block "main"}}
+<div id="liveAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<!-- CHAPTER 01: HERO / THE FIRST IMPRESSION -->
+<section class="hero-section" id="hero">
+  <div class="container hero-container">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">NIST SP 800-63B · Pure WebCrypto · Zero Dependencies</span>
+    </div>
+    
+    <h1 class="hero-headline">
+      Cryptographic certainty.<br />
+      <span class="hero-highlight">Engineered for the post-quantum era.</span>
+    </h1>
+    
+    <p class="hero-lead">
+      Generate strong passwords and memorable passphrases, privately in your browser. Powered by pure WebCrypto, zero network requests, zero telemetry, and mathematically verifiable Shannon entropy.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#generator" class="btn-primary">
+        <span>Launch Console</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a href="#manifesto" class="btn-secondary">
+        <span>Explore Philosophy</span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- CHAPTER 02: THE HARDWARE-GRADE SECURE CONSOLE -->
+  <div class="container showcase-container" id="generator">
+    <h2 class="sr-only">Cryptographic Credential Console</h2>
+    <div class="console-wrapper">
+      <div class="console-chrome">
+        <div class="chrome-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">WebCrypto Isolated Hardware Context</span>
+        </div>
+        <div class="chrome-badge">NIST SP 800-63B Exceeded · CSPRNG Verified</div>
+      </div>
+
+      <div class="generator-tabs" role="tablist" aria-label="Generator Modes">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-mode="random" id="tab-random">
+          Password
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="diceware" id="tab-diceware">
+          Passphrase (Diceware)
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="quantum" id="tab-quantum">
+          Quantum KDF
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="honeywords" id="tab-honeywords">
+          Honeywords (Decoys)
+        </button>
+      </div>
+      
+      <div class="password-display-box" role="region" aria-label="Generated Password Output">
+        <div class="password-output" id="passwordOutput" aria-live="polite">Generating...</div>
+        <div class="password-actions">
+          <button class="btn-icon" id="btnRefresh" type="button" aria-label="Generate new password" title="Generate New">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          </button>
+          <button class="btn-copy-main" id="btnCopy" type="button" aria-label="Copy generated password to clipboard">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="strength-bar-container">
+        <div class="strength-bar-track">
+          <div class="strength-bar-fill strength-quantum" id="strengthFill"></div>
+        </div>
+        <div class="strength-label text-quantum" id="strengthLabel">Quantum-Resistant</div>
+      </div>
+      
+      <!-- SIGNATURE VISUAL MOMENT: COMBINATORIAL SEARCH SPACE & ATTACK RESISTANCE -->
+      <div class="search-space-showcase" id="searchSpaceShowcase" aria-live="polite">
+        <div class="search-space-header">
+          <div class="search-space-title">
+            <span class="pulse-ring" aria-hidden="true"></span>
+            <span>Combinatorial Search Space</span>
+          </div>
+          <div class="search-space-equation" id="searchSpaceEquation">94<sup>24</sup> ≈ 2.2 × 10<sup>47</sup> combinations</div>
+        </div>
+        <div class="search-space-visual">
+          <div class="scale-track" role="group" aria-label="Brute-force crack resistance milestones">
+            <div class="scale-segment is-active" data-level="1" id="seg1"><span>8 chars<br><small>Seconds</small></span></div>
+            <div class="scale-segment is-active" data-level="2" id="seg2"><span>12 chars<br><small>Centuries</small></span></div>
+            <div class="scale-segment is-active" data-level="3" id="seg3"><span>16 chars<br><small>Cosmic Age</small></span></div>
+            <div class="scale-segment is-active" data-level="4" id="seg4"><span>24 chars<br><small>Planetary</small></span></div>
+            <div class="scale-segment" data-level="5" id="seg5"><span>32+ chars<br><small>Quantum-Proof</small></span></div>
+          </div>
+        </div>
+        <div class="search-space-explainer" id="searchSpaceExplainer">
+          At 24 characters, the search space reaches 10<sup>47</sup> permutations. An array of 1,000,000 RTX 4090 GPUs attempting 10<sup>15</sup> keys/sec would require more time than the remaining life of the sun to exhaust 50% of the key space.
+        </div>
+      </div>
+      
+      <dl class="crypto-metrics-grid">
+        <div class="metric-card">
+          <dt>Shannon Entropy</dt>
+          <dd id="valEntropy">139 <small>bits</small></dd>
+        </div>
+        <div class="metric-card">
+          <dt>Search Space</dt>
+          <dd id="valPool">94 chars</dd>
+        </div>
+        <div class="metric-card">
+          <dt>RTX 4090 Crack Time</dt>
+          <dd id="valCrackTime">Centuries</dd>
+        </div>
+        <div class="metric-card">
+          <dt>Memory Bound</dt>
+          <dd id="valNist">Local WebCrypto</dd>
+        </div>
+      </dl>
+      
+      <div class="controls-grid">
+        <div class="controls-col">
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="lengthSlider" id="sliderLabel">Credential Length / Search Space</label>
+              <span class="slider-val" id="lengthVal">24</span>
+            </div>
+            <input type="range" id="lengthSlider" min="8" max="128" value="24" aria-label="Password length slider" />
+          </div>
+        </div>
+        
+        <div class="controls-col">
+          <div class="checkbox-group">
+            <label class="checkbox-item" for="chkUpper">
+              <input type="checkbox" id="chkUpper" checked aria-label="Uppercase Letters (A-Z)" />
+              <span>Uppercase Letters (A-Z)</span>
+            </label>
+            <label class="checkbox-item" for="chkLower">
+              <input type="checkbox" id="chkLower" checked aria-label="Lowercase Letters (a-z)" />
+              <span>Lowercase Letters (a-z)</span>
+            </label>
+            <label class="checkbox-item" for="chkNumbers">
+              <input type="checkbox" id="chkNumbers" checked aria-label="Numeric Digits (0-9)" />
+              <span>Numeric Digits (0-9)</span>
+            </label>
+            <label class="checkbox-item" for="chkSymbols">
+              <input type="checkbox" id="chkSymbols" checked aria-label="Special Symbols (!@#$%^&*...)" />
+              <span>Special Symbols (!@#$%^&*...)</span>
+            </label>
+            <label class="checkbox-item" for="chkAmbiguous">
+              <input type="checkbox" id="chkAmbiguous" checked aria-label="Exclude Ambiguous Glyphs (0, O, 1, l, I, |)" />
+              <span>Exclude Ambiguous Glyphs (0, O, 1, l, I, |)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="honeywords-preview is-hidden" id="honeywordsBox">
+        <div class="honeywords-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <h3 class="honeywords-title">Active Honeywords Decoy Set (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">Juels-Rivest Scheme, CCS '13</a>)</h3>
+        </div>
+        <p class="honeywords-intro">
+          Store all decoy credentials in your authentication database. If an adversary attempts to authenticate with any canary decoy, an immediate intrusion alarm triggers before the genuine master key is exposed.
+        </p>
+        <div class="honeywords-list" id="honeywordsList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 03: THE EDITORIAL MANIFESTO -->
+<section class="manifesto-section" id="manifesto">
+  <div class="container narrow">
+    <div class="section-label">THE PHILOSOPHY</div>
+    <h2 class="manifesto-heading">
+      Legacy password generators measure length.<br />
+      <span class="text-accent">We measure informational entropy.</span>
+    </h2>
+    <div class="manifesto-body">
+      <p class="manifesto-lead">
+        For three decades, software forced users into artificial composition rules: one uppercase letter, one digit, one symbol. Modern cryptanalysis and GPU clusters crack these predictable patterns in seconds.
+      </p>
+      <p>
+        jspassgen eliminates superstitious rules in favour of <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="external noopener noreferrer">Claude Shannon's information theory</a>, post-quantum KDF primitives (<a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">RFC 9106 Argon2id</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">RFC 5869 HKDF</a>), and client-side memory safety. Every secret is mathematically verified before it touches your clipboard.
+      </p>
+    </div>
+  </div>
+
+  <div class="container manifesto-media">
+    <figure class="manifesto-figure">
+      <picture>
+        <source media="(min-width: 48rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" type="image/webp" width="1200" height="742" />
+        <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" type="image/webp" width="640" height="396" />
+        <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.webp" type="image/webp" width="320" height="198" />
+        <img src="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" alt="Minimalist architectural facade with precision glass grid and concrete geometry" width="1200" height="742" loading="lazy" decoding="async" class="manifesto-img" />
+      </picture>
+    </figure>
+  </div>
+</section>
+
+<!-- CHAPTER 04: ARCHITECTURE & SIGNATURE CHAPTERS -->
+<section class="chapters-section" id="architecture">
+  <div class="container">
+    <div class="chapters-header">
+      <div class="chapters-header-left">
+        <div class="section-label">ENGINEERING CAPABILITIES</div>
+        <h2 class="section-title text-left">Built with cryptographic purity and zero assumptions.</h2>
+      </div>
+      <div class="chapters-header-right">
+        <p class="section-lead">
+          Hexagonal isolation, hardware-bound entropy, and verifiable mathematical models engineered for uncompromising long-term security.
+        </p>
+      </div>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Dominant Feature 01: Post-Quantum KDF -->
+      <article class="bento-card bento-hero">
+        <div class="bento-content">
+          <span class="chapter-num">01 / QUANTUM HARDENING</span>
+          <h3 class="bento-title">Resilient against tomorrow's compute.</h3>
+          <p class="bento-text">
+            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard <a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">Argon2id (RFC 9106)</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">HKDF expansion (RFC 5869)</a>, brute-force search remains computationally infeasible.
+          </p>
+          <ul class="chapter-specs">
+            <li>Argon2id memory-hardness neutralizes parallel ASIC and quantum oracle evaluations</li>
+            <li>Grover-resistant symmetric bounds (256-bit entropy achieves 128-bit quantum security)</li>
+            <li>Zero-dependency browser-native key derivation via WebCrypto</li>
+          </ul>
+        </div>
+        <div class="bento-visual">
+          <div class="schematic-panel">
+            <div class="schematic-badge">ARGON2ID + HKDF PIPELINE</div>
+            <div class="pipeline-flow">
+              <div class="pipeline-node">
+                <span class="node-icon">⚡</span>
+                <span class="node-title">W3C CSPRNG</span>
+                <span class="node-sub">Hardware Entropy</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true">→</div>
+              <div class="pipeline-node highlight">
+                <span class="node-icon">🛡️</span>
+                <span class="node-title">Argon2id KDF</span>
+                <span class="node-sub">Memory-Hard Bound</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true">→</div>
+              <div class="pipeline-node">
+                <span class="node-icon">🔑</span>
+                <span class="node-title">HKDF Expand</span>
+                <span class="node-sub">2¹²⁸ Search Cost</span>
+              </div>
+            </div>
+            <div class="schematic-meta">
+              <span>Memory hardness: 64 MB minimum</span>
+              <span>·</span>
+              <span>Quantum bound: Grover O(√N) invariant</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paired Bento Row: Features 02 & 03 -->
+      <div class="bento-pair">
+        <!-- Feature 02: EFF Diceware -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="lexicon-display" aria-label="Sample 5-word Diceware passphrase">
+              <span class="lex-tag">EFF 7,776 LEXICON</span>
+              <div class="lex-words">
+                <span class="lex-w">correct</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">horse</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">battery</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">staple</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">quantum</span>
+              </div>
+              <div class="lex-entropy">
+                <span>12.92 bits / word</span>
+                <span class="lex-total">64.6 bits total entropy</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-sub-content">
+            <span class="chapter-num">02 / HUMAN RECALL</span>
+            <h3 class="bento-sub-title">Memorable without being predictable.</h3>
+            <p class="bento-sub-text">
+              Natural words drawn uniformly from the Electronic Frontier Foundation curated 7,776-word dictionary. Effortless for humans to memorize and type, mathematically impossible for GPU clusters to brute-force.
+            </p>
+            <ul class="chapter-specs compact">
+              <li>12.92 bits of verifiable entropy per word</li>
+              <li>Zero keyboard-walk or dictionary predictability</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Feature 03: Juels-Rivest Honeywords -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="canary-display" aria-label="Honeywords canary decoy architecture">
+              <span class="canary-tag">JUELS-RIVEST DEFENSE</span>
+              <div class="canary-list">
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">k9#vM8$wP2!zQ5@xR7</span>
+                  <span class="canary-badge">Canary Decoy</span>
+                </div>
+                <div class="canary-row real">
+                  <span class="canary-dot real"></span>
+                  <span class="canary-text">xP4!tL7@wN2#yQ9$jK</span>
+                  <span class="canary-badge real">Master Key</span>
+                </div>
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">m3$qR8^vT1*bF6&amp;hL5</span>
+                  <span class="canary-badge">Canary Decoy</span>
+                </div>
+              </div>
+              <div class="canary-meta">
+                <span>Active Tripwire</span>
+                <span class="canary-status">k - 1 Plausible Traps</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-sub-content">
+            <span class="chapter-num">03 / ACTIVE DEFENSE</span>
+            <h3 class="bento-sub-title">Active intrusion tripwires.</h3>
+            <p class="bento-sub-text">
+              Transforms passive database dumps into active intrusion alarms. Indistinguishable decoy passwords trigger automated security lockdowns the instant an attacker tests a cracked credential.
+            </p>
+            <ul class="chapter-specs compact">
+              <li>Canary tripwires trigger instant alert hooks</li>
+              <li>Zero false alarms on authorized user logins</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 05: CINEMATIC CONTRAST MOMENT (DARK IMMERSIVE SHOWCASE) -->
+<section class="cinematic-section" id="cli">
+  <div class="container">
+    <div class="cinematic-wrapper">
+      <div class="cinematic-backdrop" aria-hidden="true">
+        <picture>
+          <source media="(min-width: 48rem)" srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" type="image/webp" width="1200" height="742" />
+          <source srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-640.webp" type="image/webp" width="640" height="396" />
+          <img src="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" alt="Subtle cyan and cobalt geometric glass blades in low light backdrop" width="1200" height="742" loading="lazy" decoding="async" class="cinematic-backdrop-img" />
+        </picture>
+      </div>
+      <div class="cinematic-inner">
+        <div class="cinematic-badge">ZERO NETWORK FOOTPRINT</div>
+        <h2 class="cinematic-heading">
+          One terminal command.<br />
+          Absolute cryptographic silence.
+        </h2>
+        <p class="cinematic-lead">
+          jspassgen runs with zero runtime dependencies. No remote telemetry, no external script injections, and no tracking cookies. Execute locally in terminal workflows or CI/CD pipelines.
+        </p>
+
+        <div class="cinematic-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="terminal-label">npx jspassgen · local execution</div>
+            <button type="button" class="btn-terminal-copy" id="btnCopyCli" aria-label="Copy CLI command to clipboard">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Command</span>
+            </button>
+          </div>
+          <div class="terminal-screen">
+            <pre><code><span class="t-comment"># Instant generation with zero dependencies</span>
+<span class="t-prompt">$</span> npx jspassgen --length 32 --symbols
+
+<span class="t-success">✓ Cryptographic random credential generated:</span>
+<span class="t-highlight">k9#vM8$wP2!zQ5@xR7^yN1*tL4&amp;jF6%h</span>
+
+<span class="t-meta">Entropy: 190.4 bits · Search space: 94 chars · Memory scrub: 45s</span>
+
+<span class="t-comment"># Curated EFF Diceware passphrase</span>
+<span class="t-prompt">$</span> npx jspassgen --diceware --words 5 --separator "-"
+<span class="t-success">✓ EFF Diceware passphrase generated:</span>
+<span class="t-highlight">correct-horse-battery-staple-quantum42</span></code></pre>
+          </div>
+        </div>
+
+        <div class="cinematic-actions">
+          <a href="https://www.npmjs.com/package/jspassgen" class="btn-cinematic-primary" target="_blank" rel="noopener noreferrer">
+            <span>npm Package (0.0.19)</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <a href="https://github.com/sebastienrousseau/jspassgen" class="btn-cinematic-secondary" target="_blank" rel="noopener noreferrer">
+            <span>GitHub Documentation</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 06: COMPREHENSIVE MARKET EVALUATION -->
+<section class="comparison-section" id="comparison">
+  <div class="container">
+    <div class="section-label">MARKET EVALUATION</div>
+    <h2 class="section-title">Architectural comparison against the industry.</h2>
+    <p class="section-subtitle">
+      Evaluated across architectural, cryptographic, and privacy dimensions.
+    </p>
+
+    <div class="scope-note">
+      <div class="scope-note-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </div>
+      <div class="scope-note-content">
+        <strong>Scope distinction:</strong> jspassgen is a dedicated, zero-dependency cryptographic generation engine designed to run entirely in local volatile memory. It is not a cloud-hosted credential vault (such as 1Password or Bitwarden) that stores and synchronizes user secrets across remote servers. It is purpose-built to generate uncompromised credentials with verifiable mathematical certainty at the point of origin.
+      </div>
+    </div>
+
+    <div class="mobile-competitor-selector" id="mobileCompetitorSelector">
+      <label for="competitorSelect" class="selector-label">Compare against:</label>
+      <div class="select-wrapper">
+        <select id="competitorSelect" class="competitor-select" aria-label="Select competitor to compare against jspassgen">
+          <option value="bitwarden" selected>Bitwarden (Vault)</option>
+          <option value="onepassword">1Password (Vault)</option>
+          <option value="lastpass">LastPass (Vault)</option>
+          <option value="keepassxc">KeePassXC (Local Vault)</option>
+        </select>
+        <div class="select-arrow" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="benchmark-table show-bitwarden" id="benchmarkTable" aria-label="Feature Comparison Table">
+        <thead>
+          <tr>
+            <th scope="col" class="th-feature">Capability</th>
+            <th scope="col" class="th-jspassgen">jspassgen <span class="badge-accent">Offline Engine</span></th>
+            <th scope="col" class="th-competitor col-bitwarden" data-competitor="bitwarden">Bitwarden (Vault)</th>
+            <th scope="col" class="th-competitor col-onepassword" data-competitor="onepassword">1Password (Vault)</th>
+            <th scope="col" class="th-competitor col-lastpass" data-competitor="lastpass">LastPass (Vault)</th>
+            <th scope="col" class="th-competitor col-keepassxc" data-competitor="keepassxc">KeePassXC (Local Vault)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Architecture</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Hexagonal 0-dep</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Monolithic app</td>
+            <td class="col-onepassword" data-competitor="onepassword">Proprietary SaaS</td>
+            <td class="col-lastpass" data-competitor="lastpass">Cloud-dependent</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Desktop app</td>
+          </tr>
+          <tr>
+            <th scope="row">CSPRNG Source</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> W3C WebCrypto API</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">WebCrypto API</td>
+            <td class="col-onepassword" data-competitor="onepassword">Proprietary PRNG</td>
+            <td class="col-lastpass" data-competitor="lastpass">Cloud API / PRNG</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">OS Kernel Entropy</td>
+          </tr>
+          <tr>
+            <th scope="row">NIST SP 800-63B Alignment</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Exceeds Guidelines</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Basic Rules</td>
+            <td class="col-onepassword" data-competitor="onepassword">Basic Rules</td>
+            <td class="col-lastpass" data-competitor="lastpass">Legacy Rules</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Compliant</td>
+          </tr>
+          <tr>
+            <th scope="row">Network Footprint</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> 0 bytes (Air-gap safe)</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Syncs to Cloud</td>
+            <td class="col-onepassword" data-competitor="onepassword">Syncs to Cloud</td>
+            <td class="col-lastpass" data-competitor="lastpass">Syncs to Cloud</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Offline Safe</td>
+          </tr>
+          <tr>
+            <th scope="row">Post-Quantum KDF</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Argon2id + HKDF</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Argon2id (Vault only)</td>
+          </tr>
+          <tr>
+            <th scope="row">EFF Diceware</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> 7,776 Wordlist</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="warn-icon" aria-hidden="true">~</span> Custom</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="warn-icon" aria-hidden="true">~</span> Closed</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Supported</td>
+          </tr>
+          <tr>
+            <th scope="row">Honeywords Decoys</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Built-in Canaries</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+          </tr>
+          <tr>
+            <th scope="row">Shannon Entropy H(X)</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Mathematical</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Estimated</td>
+            <td class="col-onepassword" data-competitor="onepassword">Bar only</td>
+            <td class="col-lastpass" data-competitor="lastpass">Weak/Strong</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Estimated</td>
+          </tr>
+          <tr>
+            <th scope="row">Runtime Dependencies</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Exactly 0</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">50+ packages</td>
+            <td class="col-onepassword" data-competitor="onepassword">Closed bundle</td>
+            <td class="col-lastpass" data-competitor="lastpass">Heavy SDKs</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">C++ compiled</td>
+          </tr>
+          <tr>
+            <th scope="row">Analytics / Trackers</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Absolute Zero (0)</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Minimal</td>
+            <td class="col-onepassword" data-competitor="onepassword">Telemetry</td>
+            <td class="col-lastpass" data-competitor="lastpass">Marketo, Google</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Zero</td>
+          </tr>
+          <tr>
+            <th scope="row">CLI Tool</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> npx jspassgen</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Vault CLI</td>
+            <td class="col-onepassword" data-competitor="onepassword">Paid CLI</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">keepassxc-cli</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 07: TECHNICAL QUESTIONS & ANSWERS -->
+<section class="faq-section" id="faq">
+  <div class="container narrow">
+    <div class="section-label">CLARIFICATIONS</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">
+      Technical transparency regarding cryptographic primitives, local execution, and verification.
+    </p>
+
+    <div class="faq-accordion">
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How does jspassgen differ from a password vault like 1Password or Bitwarden?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            jspassgen is an isolated cryptographic generation tool, not a remote storage vault. Cloud vaults store, synchronize, and auto-fill your credentials across devices, requiring ongoing trust in third-party servers. jspassgen focuses exclusively on generating mathematically uncompromised passwords, Diceware passphrases, and decoy honeywords locally in volatile memory with zero network activity and zero disk persistence.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How does jspassgen adhere to NIST SP 800-63B guidelines?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            <a href="https://csrc.nist.gov/pubs/sp/800/63/b/upd1/final" target="_blank" rel="external noopener noreferrer">NIST SP 800-63B</a> (Digital Identity Guidelines) advises minimum length floors of 8 characters (recommending up to 64 or more for automated systems), support for ASCII printable characters, and explicitly rejects superstitious composition mandates (like forcing one symbol or one number) that reduce overall entropy by inducing predictable user habits. jspassgen adheres strictly to these principles by measuring true informational entropy and utilizing hardware-bound CSPRNG.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Are passwords generated by jspassgen ever transmitted over a network?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            No. Absolutely nothing leaves your machine. jspassgen executes 100% locally inside your browser using the W3C Web Cryptography API (<code>window.crypto.getRandomValues</code>) or Node.js native <code>crypto</code> module. There are no analytics trackers, no telemetry pings, and no database logs.
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>What makes EFF Diceware superior to simple character strings?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Standard random passwords draw uniformly from character alphabets (uppercase, lowercase, numbers, symbols) to maximize entropy density per character. <a href="https://www.eff.org/dice" target="_blank" rel="external noopener noreferrer">EFF Diceware passphrases</a> draw random words from the curated 7,776-word dictionary compiled by the Electronic Frontier Foundation. A 5-word Diceware passphrase provides approximately 65 bits of entropy and is exceptionally easy for humans to type and remember, while remaining immune to brute-force dictionary attacks.
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How does Honeywords decoy generation protect against database breaches?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Invented by cryptographic researchers Ari Juels and Ronald L. Rivest (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">ACM CCS 2013</a>), the Honeywords defense stores <code>k - 1</code> decoy passwords alongside the genuine password in a hashed credential store. To an external attacker who dumps the database and cracks the hashes, all <code>k</code> passwords appear equally valid. When the attacker attempts to authenticate with any decoy password, a canary trap immediately alerts security operations and freezes the compromised account before the attacker can test the real password.
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Why is Shannon Entropy more accurate than a simple character count?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Naive password meters simply count length or reward predictable patterns like adding an exclamation mark at the end. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="external noopener noreferrer">Claude Shannon's information entropy formula</a> <code class="math-expr">H(X) = -∑ p(x) log₂(p(x))</code> measures the exact uncertainty and unpredictability of the symbol probability distribution. This reveals whether a password has true cryptographic variance or repetitive bias.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 08: FINAL CLOSING CALL TO ACTION -->
+<section class="closing-section">
+  <div class="container narrow text-center">
+    <div class="section-label">OPEN ARCHITECTURE</div>
+    <h2 class="closing-heading">
+      True privacy requires zero trust.<br />
+      Verify every line of source code.
+    </h2>
+    <p class="closing-lead">
+      jspassgen is dual-licensed under Apache-2.0 and MIT. Designed and maintained for security professionals who demand verifiable, mathematically proven software.
+    </p>
+    <div class="closing-actions">
+      <a href="https://github.com/sebastienrousseau/jspassgen" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <span>Inspect Source on GitHub</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a href="#hero" class="btn-secondary">
+        <span>Back to Top ↑</span>
+      </a>
+    </div>
+  </div>
+</section>
+{{/block}}

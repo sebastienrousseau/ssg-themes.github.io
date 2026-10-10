@@ -516,18 +516,18 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .style-intent .service-card { min-height: 19rem; }
 
 /* AI shopping: bold type, purple agent controls and modular product tiles. */
-.style-scout h1 { max-width: 13ch; font-size: clamp(3rem, 6.7vw, 7rem); }
-.style-scout .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
-.style-scout .hero-art { background: var(--surface); box-shadow: none; }
-.style-scout .art-halo { inset: 18% 5% auto auto; background: radial-gradient(circle, var(--glow), transparent 70%); }
-.style-scout .art-object { inset: 11% 12% 27%; border-radius: 50% 50% 8% 8%; transform: none; box-shadow: none; background: linear-gradient(140deg, var(--scene-accent), var(--glow)); }
-.style-scout .art-card-a { inset: auto 5% 5%; max-width: none; width: 90%; border-radius: 1.2rem; }
-.style-scout .work-visual { border-radius: 2rem; }
+.style-passmcp h1 { max-width: 13ch; font-size: clamp(3rem, 6.7vw, 7rem); }
+.style-passmcp .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+.style-passmcp .hero-art { background: var(--surface); box-shadow: none; }
+.style-passmcp .art-halo { inset: 18% 5% auto auto; background: radial-gradient(circle, var(--glow), transparent 70%); }
+.style-passmcp .art-object { inset: 11% 12% 27%; border-radius: 50% 50% 8% 8%; transform: none; box-shadow: none; background: linear-gradient(140deg, var(--scene-accent), var(--glow)); }
+.style-passmcp .art-card-a { inset: auto 5% 5%; max-width: none; width: 90%; border-radius: 1.2rem; }
+.style-passmcp .work-visual { border-radius: 2rem; }
 .style-covenant .art-card-a strong, .style-signal .art-card-a span, .style-steward .art-card-a span { display: none; }
 }
 
 @media (max-width: 64rem) {
-.hero-grid, .feature-grid, .page-grid, .style-kairo .hero-grid, .style-noir .hero-grid, .style-scout .hero-grid { grid-template-columns: 1fr; }
+.hero-grid, .feature-grid, .page-grid, .style-kairo .hero-grid, .style-noir .hero-grid, .style-passmcp .hero-grid { grid-template-columns: 1fr; }
 .hero-grid { min-height: 0; }
 .page-grid header { position: static; }
 .metric-grid { grid-template-columns: repeat(3, 1fr); }
