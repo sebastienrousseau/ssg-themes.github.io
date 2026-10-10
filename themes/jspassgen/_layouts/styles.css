@@ -589,7 +589,7 @@ body {
    CHAPTER 01: HERO SECTION
    ========================================================================== */
 .hero-section {
-  padding: 5.5rem 0 3.5rem;
+  padding: 4.5rem 0 2.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -605,13 +605,13 @@ body {
   align-items: center;
   gap: 0.6rem;
   background: var(--surface);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border-subtle);
   padding: 0.4rem 1rem;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
@@ -648,7 +648,7 @@ body {
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   color: var(--text-muted);
   max-width: 44rem;
-  margin: 0 auto 2.5rem;
+  margin: 0 auto 2.25rem;
   line-height: 1.6;
   font-weight: 400;
 }
@@ -659,7 +659,7 @@ body {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 4rem;
+  margin-bottom: 2.75rem;
 }
 
 .btn-primary {
@@ -713,7 +713,7 @@ body {
    CHAPTER 02: HARDWARE-GRADE SECURE CONSOLE
    ========================================================================== */
 .showcase-container {
-  max-width: 56rem;
+  max-width: 66rem;
   margin: 0 auto;
 }
 
@@ -721,7 +721,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xl);
-  padding: 2.25rem;
+  padding: 2.75rem 3rem;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border-subtle);
   position: relative;
   text-align: left;
@@ -732,9 +732,9 @@ body {
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-subtle);
 }
 
-@media (max-width: 36rem) {
+@media (max-width: 48rem) {
   .console-wrapper {
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
 }
 
@@ -773,11 +773,12 @@ body {
 .chrome-badge {
   font-family: var(--font-mono);
   font-size: 0.725rem;
-  background: var(--accent-primary-subtle);
-  color: var(--accent-primary);
-  padding: 0.2rem 0.55rem;
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  padding: 0.25rem 0.65rem;
   border-radius: var(--radius-pill);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .generator-tabs {
@@ -818,12 +819,12 @@ body {
   background: var(--bg-subtle);
   border: 2px solid var(--border-strong);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
+  padding: 1.6rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
   transition: border-color var(--transition-fast);
 }
 
@@ -833,17 +834,18 @@ body {
 
 .password-output {
   font-family: var(--font-mono);
-  font-size: clamp(1.1rem, 2.5vw, 1.65rem);
-  font-weight: 600;
+  font-size: clamp(1.25rem, 3.2vw, 2.15rem);
+  font-weight: 700;
   color: var(--text-main);
   word-break: break-all;
   user-select: all;
   letter-spacing: 0.04em;
+  line-height: 1.25;
 }
 
 .password-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   flex-shrink: 0;
 }
 
@@ -851,10 +853,10 @@ body {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   color: var(--text-main);
-  width: 2.75rem;
-  height: 2.75rem;
-  min-width: 44px;
-  min-height: 44px;
+  width: 3rem;
+  height: 3rem;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: var(--radius-md);
   display: inline-flex;
   align-items: center;
@@ -873,11 +875,11 @@ body {
   background: var(--accent-primary);
   color: var(--accent-ink);
   border: 1px solid transparent;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0 1.25rem;
-  height: 2.75rem;
-  min-height: 44px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0 1.6rem;
+  height: 3rem;
+  min-height: 48px;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: inline-flex;
@@ -959,6 +961,113 @@ body {
 .strength-label.text-good { color: var(--strength-good); }
 .strength-label.text-strong { color: var(--strength-strong); }
 .strength-label.text-quantum { color: var(--strength-quantum); }
+
+/* Signature Visual Moment: Combinatorial Search Space Showcase */
+.search-space-showcase {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  transition: border-color var(--transition-fast);
+}
+
+.search-space-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.search-space-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+.pulse-ring {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-primary);
+}
+
+.search-space-equation {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: -0.01em;
+}
+
+.search-space-visual {
+  margin: 1rem 0;
+}
+
+.scale-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+@media (max-width: 36rem) {
+  .scale-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .scale-track .scale-segment:last-child {
+    grid-column: span 2;
+  }
+}
+
+.scale-segment {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: all var(--transition-normal);
+  line-height: 1.3;
+}
+
+.scale-segment small {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.scale-segment.is-active {
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  box-shadow: 0 2px 8px var(--glow);
+}
+
+.scale-segment.is-active small {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.search-space-explainer {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border-subtle);
+}
 
 /* Cryptanalytic Metric Cards */
 .crypto-metrics-grid {
@@ -1123,7 +1232,7 @@ input[type="range"] {
    CHAPTER 03: THE EDITORIAL MANIFESTO
    ========================================================================== */
 .manifesto-section {
-  padding: 7rem 0 5rem;
+  padding: 4.5rem 0 3.5rem;
   text-align: center;
 }
 
@@ -1132,8 +1241,8 @@ input[type="range"] {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--accent-primary);
-  margin-bottom: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
 }
 
 .manifesto-heading {
@@ -1169,7 +1278,27 @@ input[type="range"] {
    CHAPTER 04: ARCHITECTURE & SIGNATURE CHAPTERS
    ========================================================================== */
 .chapters-section {
-  padding: 5rem 0;
+  padding: 4.5rem 0;
+}
+
+.chapters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.chapters-header-left {
+  flex: 1.2;
+  min-width: 18rem;
+}
+
+.chapters-header-right {
+  flex: 1;
+  min-width: 18rem;
+  max-width: 32rem;
 }
 
 .section-title {
@@ -1181,70 +1310,346 @@ input[type="range"] {
   word-break: break-word;
 }
 
-.section-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  text-align: center;
-  max-width: 42rem;
-  margin: 0 auto 4rem;
+.section-title.text-left {
+  text-align: left;
+  margin: 0;
 }
 
-.chapters-grid {
+.section-lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.bento-grid {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 2rem;
 }
 
-.chapter-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+.bento-card {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  padding: 3.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  overflow: hidden;
 }
 
-.chapter-card:hover {
+.bento-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
 }
 
+/* Dominant Hero Bento */
+.bento-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3.5rem;
+  padding: 3.5rem;
+  align-items: center;
+}
+
 @media (max-width: 56rem) {
-  .chapter-card {
+  .bento-hero {
     grid-template-columns: 1fr;
     padding: 2rem;
     gap: 2rem;
-  }
-  .chapter-right .chapter-visual {
-    order: 2;
   }
 }
 
 .chapter-num {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.775rem;
   font-weight: 700;
   color: var(--accent-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   display: block;
+  letter-spacing: 0.05em;
 }
 
-.chapter-title {
-  font-size: 1.85rem;
+.bento-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0 0 1rem;
+  color: var(--text-main);
+  line-height: 1.2;
 }
 
-.chapter-text {
+.bento-text {
   color: var(--text-muted);
   font-size: 1.05rem;
-  line-height: 1.6;
+  line-height: 1.65;
   margin-bottom: 1.5rem;
+}
+
+.schematic-panel {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  text-align: center;
+}
+
+.schematic-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 1.75rem;
+}
+
+.pipeline-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.pipeline-node {
+  flex: 1;
+  min-width: 5.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pipeline-node.highlight {
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px var(--glow);
+}
+
+.node-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.node-title {
+  font-weight: 700;
+  font-size: 0.825rem;
+  color: var(--text-main);
+}
+
+.node-sub {
+  font-size: 0.675rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.pipeline-arrow {
+  color: var(--text-dim);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.schematic-meta {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  flex-wrap: wrap;
+}
+
+/* Paired Bento Row */
+.bento-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 56rem) {
+  .bento-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-sub {
+  display: flex;
+  flex-direction: column;
+  padding: 2.75rem;
+}
+
+@media (max-width: 36rem) {
+  .bento-sub {
+    padding: 1.75rem;
+  }
+}
+
+.bento-sub-visual {
+  margin-bottom: 2rem;
+}
+
+.lexicon-display {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.lex-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+.lex-words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+}
+
+.lex-w {
+  background: var(--surface);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.lex-sep {
+  color: var(--text-dim);
+}
+
+.lex-entropy {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 0.85rem;
+}
+
+.lex-total {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.canary-display {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.canary-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.canary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+}
+
+.canary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  gap: 0.5rem;
+}
+
+.canary-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b25000;
+  flex-shrink: 0;
+}
+
+.canary-dot.real {
+  background: var(--strength-strong);
+}
+
+.canary-text {
+  word-break: break-all;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.canary-badge {
+  font-size: 0.675rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+}
+
+.canary-badge.real {
+  background: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.canary-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 0.85rem;
+}
+
+.canary-status {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.bento-sub-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+  color: var(--text-main);
+}
+
+.bento-sub-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex: 1;
 }
 
 .chapter-specs {
@@ -1254,6 +1659,11 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.chapter-specs.compact {
+  gap: 0.4rem;
+  font-size: 0.85rem;
 }
 
 .chapter-specs li {
@@ -1274,48 +1684,11 @@ input[type="range"] {
   background: var(--accent-primary);
 }
 
-.chapter-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.visual-panel {
-  width: 100%;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  text-align: center;
-}
-
-.panel-tag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--accent-primary);
-  margin-bottom: 1rem;
-}
-
-.panel-metric {
-  font-size: 2.25rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-main);
-  margin-bottom: 0.75rem;
-}
-
-.panel-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
 /* ==========================================================================
    CHAPTER 05: CINEMATIC CONTRAST MOMENT
    ========================================================================== */
 .cinematic-section {
-  padding: 6rem 0;
+  padding: 4.75rem 0;
 }
 
 .cinematic-wrapper {
@@ -1497,7 +1870,35 @@ input[type="range"] {
    CHAPTER 06: COMPREHENSIVE MARKET EVALUATION
    ========================================================================== */
 .comparison-section {
-  padding: 5rem 0;
+  padding: 4.25rem 0;
+}
+
+/* Market Scope Distinction Callout */
+.scope-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.925rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.scope-note-icon {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  display: inline-flex;
+}
+
+.scope-note-content strong {
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 .table-container {
@@ -1579,7 +1980,7 @@ input[type="range"] {
    CHAPTER 07: TECHNICAL QUESTIONS & ANSWERS
    ========================================================================== */
 .faq-section {
-  padding: 5rem 0;
+  padding: 4.25rem 0;
 }
 
 .faq-accordion {
@@ -1625,11 +2026,17 @@ input[type="range"] {
   .btn-secondary,
   .btn-icon,
   .btn-cinematic-primary,
-  .btn-cinematic-secondary {
+  .btn-cinematic-secondary,
+  .scale-segment {
     border: 1px solid ButtonText;
   }
-  button.tab-btn.active {
+  button.tab-btn.active,
+  .scale-segment.is-active {
     border: 2px solid Highlight;
+  }
+  .scope-note {
+    border: 1px solid ButtonText;
+    border-left: 4px solid Highlight;
   }
 }
 
@@ -1669,7 +2076,7 @@ input[type="range"] {
    CHAPTER 08: FINAL CLOSING CALL TO ACTION
    ========================================================================== */
 .closing-section {
-  padding: 6rem 0;
+  padding: 4.5rem 0;
   text-align: center;
 }
 
@@ -1704,8 +2111,8 @@ input[type="range"] {
 .site-footer {
   border-top: 1px solid var(--border-subtle);
   background: var(--surface);
-  padding: 4.5rem 0 2.5rem;
-  margin-top: 4rem;
+  padding: 4rem 0 2.5rem;
+  margin-top: 3.5rem;
 }
 
 .footer-grid {

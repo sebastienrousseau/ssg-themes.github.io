@@ -4,7 +4,7 @@
   <div class="container hero-container">
     <div class="hero-eyebrow">
       <span class="eyebrow-dot"></span>
-      <span class="eyebrow-text">NIST SP 800-63B · Pure WebCrypto · 0 Dependencies</span>
+      <span class="eyebrow-text">NIST SP 800-63B · Pure WebCrypto · Zero Dependencies</span>
     </div>
     
     <h1 class="hero-headline">
@@ -13,7 +13,7 @@
     </h1>
     
     <p class="hero-lead">
-      Generate mathematically verifiable, high-entropy secrets, EFF Diceware passphrases, and Juels-Rivest honeyword decoy credentials. Executed entirely client-side inside local memory with zero network footprint.
+      Generate strong passwords and memorable passphrases, privately in your browser. Powered by pure WebCrypto, zero network requests, zero telemetry, and mathematically verifiable Shannon entropy.
     </p>
 
     <div class="hero-actions">
@@ -35,21 +35,21 @@
           <span class="status-indicator"></span>
           <span class="status-text">WebCrypto Isolated Hardware Context</span>
         </div>
-        <div class="chrome-badge">NIST SP 800-63B (10/10)</div>
+        <div class="chrome-badge">NIST SP 800-63B Exceeded · CSPRNG Verified</div>
       </div>
 
       <div class="generator-tabs" role="tablist" aria-label="Generator Modes">
         <button class="tab-btn active" role="tab" aria-selected="true" data-mode="random" id="tab-random">
-          Cryptographic Random
+          Password
         </button>
         <button class="tab-btn" role="tab" aria-selected="false" data-mode="diceware" id="tab-diceware">
-          EFF Diceware Passphrase
+          Passphrase (Diceware)
         </button>
         <button class="tab-btn" role="tab" aria-selected="false" data-mode="quantum" id="tab-quantum">
-          Post-Quantum KDF
+          Quantum KDF
         </button>
         <button class="tab-btn" role="tab" aria-selected="false" data-mode="honeywords" id="tab-honeywords">
-          Honeywords (Canary Decoys)
+          Honeywords (Decoys)
         </button>
       </div>
       
@@ -71,6 +71,29 @@
           <div class="strength-bar-fill strength-quantum" id="strengthFill"></div>
         </div>
         <div class="strength-label text-quantum" id="strengthLabel">Quantum-Resistant</div>
+      </div>
+      
+      <!-- SIGNATURE VISUAL MOMENT: COMBINATORIAL SEARCH SPACE & ATTACK RESISTANCE -->
+      <div class="search-space-showcase" id="searchSpaceShowcase" aria-live="polite">
+        <div class="search-space-header">
+          <div class="search-space-title">
+            <span class="pulse-ring" aria-hidden="true"></span>
+            <span>Combinatorial Search Space</span>
+          </div>
+          <div class="search-space-equation" id="searchSpaceEquation">94<sup>24</sup> ≈ 2.2 × 10<sup>47</sup> combinations</div>
+        </div>
+        <div class="search-space-visual">
+          <div class="scale-track" role="group" aria-label="Brute-force crack resistance milestones">
+            <div class="scale-segment is-active" data-level="1" id="seg1"><span>8 chars<br><small>Seconds</small></span></div>
+            <div class="scale-segment is-active" data-level="2" id="seg2"><span>12 chars<br><small>Centuries</small></span></div>
+            <div class="scale-segment is-active" data-level="3" id="seg3"><span>16 chars<br><small>Cosmic Age</small></span></div>
+            <div class="scale-segment is-active" data-level="4" id="seg4"><span>24 chars<br><small>Planetary</small></span></div>
+            <div class="scale-segment" data-level="5" id="seg5"><span>32+ chars<br><small>Quantum-Proof</small></span></div>
+          </div>
+        </div>
+        <div class="search-space-explainer" id="searchSpaceExplainer">
+          At 24 characters, the search space reaches 10<sup>47</sup> permutations. An array of 1,000,000 RTX 4090 GPUs attempting 10<sup>15</sup> keys/sec would require more time than the remaining life of the sun to exhaust 50% of the key space.
+        </div>
       </div>
       
       <dl class="crypto-metrics-grid">
@@ -165,81 +188,142 @@
 <!-- CHAPTER 04: ARCHITECTURE & SIGNATURE CHAPTERS -->
 <section class="chapters-section" id="architecture">
   <div class="container">
-    <div class="section-label">ENGINEERING CAPABILITIES</div>
-    <h2 class="section-title">Built with architectural purity.</h2>
-    <p class="section-subtitle">
-      Hexagonal design, hardware-bound randomness, and verifiable mathematical models.
-    </p>
+    <div class="chapters-header">
+      <div class="chapters-header-left">
+        <div class="section-label">ENGINEERING CAPABILITIES</div>
+        <h2 class="section-title text-left">Built with cryptographic purity and zero assumptions.</h2>
+      </div>
+      <div class="chapters-header-right">
+        <p class="section-lead">
+          Hexagonal isolation, hardware-bound entropy, and verifiable mathematical models engineered for uncompromising long-term security.
+        </p>
+      </div>
+    </div>
 
-    <div class="chapters-grid">
-      <!-- Chapter 01 -->
-      <article class="chapter-card chapter-left">
-        <div class="chapter-content">
-          <span class="chapter-num">01</span>
-          <h3 class="chapter-title">Post-Quantum Resistance</h3>
-          <p class="chapter-text">
-            Derives cryptographic seeds with memory-hard parameters resilient against Grover quantum search algorithms and massively parallel ASIC cracking arrays.
+    <div class="bento-grid">
+      <!-- Dominant Feature 01: Post-Quantum KDF -->
+      <article class="bento-card bento-hero">
+        <div class="bento-content">
+          <span class="chapter-num">01 / QUANTUM HARDENING</span>
+          <h3 class="bento-title">Resilient against tomorrow's compute.</h3>
+          <p class="bento-text">
+            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Cryptographic seeds are derived with memory-hard Argon2id parameters and expanded through HKDF, rendering Grover quantum speedups computationally ineffective.
           </p>
           <ul class="chapter-specs">
-            <li>Argon2id Memory Hardness</li>
-            <li>HKDF Cryptographic Expansion</li>
-            <li>Quantum Search Invariance</li>
+            <li>Memory-hard parameters neutralize GPU cracking arrays</li>
+            <li>Grover quantum search invariance (2¹²⁸ effective search cost)</li>
+            <li>Zero-dependency browser-native key derivation</li>
           </ul>
         </div>
-        <div class="chapter-visual">
-          <div class="visual-panel">
-            <div class="panel-tag">ARGON2ID + HKDF</div>
-            <div class="panel-metric">2<sup>128</sup> Search Cost</div>
-            <div class="panel-desc">Resistant to Shor and Grover quantum speedups</div>
+        <div class="bento-visual">
+          <div class="schematic-panel">
+            <div class="schematic-badge">ARGON2ID + HKDF PIPELINE</div>
+            <div class="pipeline-flow">
+              <div class="pipeline-node">
+                <span class="node-icon">⚡</span>
+                <span class="node-title">W3C CSPRNG</span>
+                <span class="node-sub">Hardware Entropy</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true">→</div>
+              <div class="pipeline-node highlight">
+                <span class="node-icon">🛡️</span>
+                <span class="node-title">Argon2id KDF</span>
+                <span class="node-sub">Memory-Hard Bound</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true">→</div>
+              <div class="pipeline-node">
+                <span class="node-icon">🔑</span>
+                <span class="node-title">HKDF Expand</span>
+                <span class="node-sub">2¹²⁸ Search Cost</span>
+              </div>
+            </div>
+            <div class="schematic-meta">
+              <span>Memory hardness: 64 MB minimum</span>
+              <span>·</span>
+              <span>Quantum resistance: Grover-invariant</span>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- Chapter 02 -->
-      <article class="chapter-card chapter-right">
-        <div class="chapter-visual">
-          <div class="visual-panel">
-            <div class="panel-tag">EFF 7,776 CURATED DICTIONARY</div>
-            <div class="panel-metric">12.92 bits / word</div>
-            <div class="panel-desc">5-word passphrase = 64.6 bits of brute-force immunity</div>
+      <!-- Paired Bento Row: Features 02 & 03 -->
+      <div class="bento-pair">
+        <!-- Feature 02: EFF Diceware -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="lexicon-display" aria-label="Sample 5-word Diceware passphrase">
+              <span class="lex-tag">EFF 7,776 LEXICON</span>
+              <div class="lex-words">
+                <span class="lex-w">correct</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">horse</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">battery</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">staple</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">quantum</span>
+              </div>
+              <div class="lex-entropy">
+                <span>12.92 bits / word</span>
+                <span class="lex-total">64.6 bits total entropy</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="chapter-content">
-          <span class="chapter-num">02</span>
-          <h3 class="chapter-title">EFF Diceware Lexicon</h3>
-          <p class="chapter-text">
-            Generates high-entropy multi-word passphrases using the Electronic Frontier Foundation curated list of 7,776 words. Easy for humans to remember; mathematically impossible for clusters to brute-force.
-          </p>
-          <ul class="chapter-specs">
-            <li>Zero Lexical Ambiguity</li>
-            <li>Uniform Random Distribution</li>
-            <li>Custom Separator Support</li>
-          </ul>
-        </div>
-      </article>
+          <div class="bento-sub-content">
+            <span class="chapter-num">02 / HUMAN RECALL</span>
+            <h3 class="bento-sub-title">Memorable without being predictable.</h3>
+            <p class="bento-sub-text">
+              Natural words drawn uniformly from the Electronic Frontier Foundation curated 7,776-word dictionary. Effortless for humans to memorize and type, mathematically impossible for GPU clusters to brute-force.
+            </p>
+            <ul class="chapter-specs compact">
+              <li>12.92 bits of verifiable entropy per word</li>
+              <li>Zero keyboard-walk or dictionary predictability</li>
+            </ul>
+          </div>
+        </article>
 
-      <!-- Chapter 03 -->
-      <article class="chapter-card chapter-left">
-        <div class="chapter-content">
-          <span class="chapter-num">03</span>
-          <h3 class="chapter-title">Juels-Rivest Honeywords</h3>
-          <p class="chapter-text">
-            Active canary defense that embeds cryptographically plausible decoy passwords into your database. If an attacker breaches the database and tests a decoy, your security team is alerted instantly.
-          </p>
-          <ul class="chapter-specs">
-            <li>Canary Alarm Integration</li>
-            <li>Statistical Plausibility Matching</li>
-            <li>Breach Detection at Authentication</li>
-          </ul>
-        </div>
-        <div class="chapter-visual">
-          <div class="visual-panel">
-            <div class="panel-tag">INTRUSION DETECTION SYSTEM</div>
-            <div class="panel-metric">k - 1 Decoy Canaries</div>
-            <div class="panel-desc">Immediate tripwire alerts upon unauthorized attempt</div>
+        <!-- Feature 03: Juels-Rivest Honeywords -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="canary-display" aria-label="Honeywords canary decoy architecture">
+              <span class="canary-tag">JUELS-RIVEST DEFENSE</span>
+              <div class="canary-list">
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">k9#vM8$wP2!zQ5@xR7</span>
+                  <span class="canary-badge">Canary Decoy</span>
+                </div>
+                <div class="canary-row real">
+                  <span class="canary-dot real"></span>
+                  <span class="canary-text">xP4!tL7@wN2#yQ9$jK</span>
+                  <span class="canary-badge real">Master Key</span>
+                </div>
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">m3$qR8^vT1*bF6&amp;hL5</span>
+                  <span class="canary-badge">Canary Decoy</span>
+                </div>
+              </div>
+              <div class="canary-meta">
+                <span>Active Tripwire</span>
+                <span class="canary-status">k - 1 Plausible Traps</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
+          <div class="bento-sub-content">
+            <span class="chapter-num">03 / ACTIVE DEFENSE</span>
+            <h3 class="bento-sub-title">Active intrusion tripwires.</h3>
+            <p class="bento-sub-text">
+              Transforms passive database dumps into active intrusion alarms. Indistinguishable decoy passwords trigger automated security lockdowns the instant an attacker tests a cracked credential.
+            </p>
+            <ul class="chapter-specs compact">
+              <li>Canary tripwires trigger instant alert hooks</li>
+              <li>Zero false alarms on authorized user logins</li>
+            </ul>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -301,19 +385,28 @@
     <div class="section-label">MARKET EVALUATION</div>
     <h2 class="section-title">Architectural comparison against the industry.</h2>
     <p class="section-subtitle">
-      Evaluated across 12 architectural, cryptographic, and privacy dimensions.
+      Evaluated across architectural, cryptographic, and privacy dimensions.
     </p>
+
+    <div class="scope-note">
+      <div class="scope-note-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </div>
+      <div class="scope-note-content">
+        <strong>Scope distinction:</strong> jspassgen is a dedicated, zero-dependency cryptographic generation engine designed to run entirely in local volatile memory. It is not a cloud-hosted credential vault (such as 1Password or Bitwarden) that stores and synchronizes user secrets across remote servers. It is purpose-built to generate uncompromised credentials with verifiable mathematical certainty at the point of origin.
+      </div>
+    </div>
 
     <div class="table-container">
       <table class="benchmark-table" aria-label="Feature Comparison Table">
         <thead>
           <tr>
             <th scope="col" class="th-feature">Capability</th>
-            <th scope="col" class="th-jspassgen">jspassgen <span class="badge-accent">10/10</span></th>
-            <th scope="col">Bitwarden</th>
-            <th scope="col">1Password</th>
-            <th scope="col">LastPass</th>
-            <th scope="col">Proton Pass</th>
+            <th scope="col" class="th-jspassgen">jspassgen <span class="badge-accent">Offline Engine</span></th>
+            <th scope="col">Bitwarden (Vault)</th>
+            <th scope="col">1Password (Vault)</th>
+            <th scope="col">LastPass (Vault)</th>
+            <th scope="col">KeePassXC (Local Vault)</th>
           </tr>
         </thead>
         <tbody>
@@ -323,7 +416,31 @@
             <td>Monolithic app</td>
             <td>Proprietary SaaS</td>
             <td>Cloud-dependent</td>
-            <td>Vault locked</td>
+            <td>Desktop app</td>
+          </tr>
+          <tr>
+            <th scope="row">CSPRNG Source</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> W3C WebCrypto API</td>
+            <td>WebCrypto API</td>
+            <td>Proprietary PRNG</td>
+            <td>Cloud API / PRNG</td>
+            <td>OS Kernel Entropy</td>
+          </tr>
+          <tr>
+            <th scope="row">NIST SP 800-63B Alignment</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Exceeds Guidelines</td>
+            <td>Basic Rules</td>
+            <td>Basic Rules</td>
+            <td>Legacy Rules</td>
+            <td>Compliant</td>
+          </tr>
+          <tr>
+            <th scope="row">Network Footprint</th>
+            <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> 0 bytes (Air-gap safe)</td>
+            <td>Syncs to Cloud</td>
+            <td>Syncs to Cloud</td>
+            <td>Syncs to Cloud</td>
+            <td><span class="check-icon" aria-hidden="true">✓</span> Offline Safe</td>
           </tr>
           <tr>
             <th scope="row">Post-Quantum KDF</th>
@@ -331,7 +448,7 @@
             <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
             <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
             <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td>Argon2id (Vault only)</td>
           </tr>
           <tr>
             <th scope="row">EFF Diceware</th>
@@ -339,7 +456,7 @@
             <td><span class="warn-icon" aria-hidden="true">~</span> Custom</td>
             <td><span class="warn-icon" aria-hidden="true">~</span> Closed</td>
             <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="warn-icon" aria-hidden="true">~</span> Partial</td>
+            <td><span class="check-icon" aria-hidden="true">✓</span> Supported</td>
           </tr>
           <tr>
             <th scope="row">Honeywords Decoys</th>
@@ -355,7 +472,7 @@
             <td>Estimated</td>
             <td>Bar only</td>
             <td>Weak/Strong</td>
-            <td>Bar only</td>
+            <td>Estimated</td>
           </tr>
           <tr>
             <th scope="row">Runtime Dependencies</th>
@@ -363,7 +480,7 @@
             <td>50+ packages</td>
             <td>Closed bundle</td>
             <td>Heavy SDKs</td>
-            <td>React bundle</td>
+            <td>C++ compiled</td>
           </tr>
           <tr>
             <th scope="row">Analytics / Trackers</th>
@@ -371,7 +488,7 @@
             <td>Minimal</td>
             <td>Telemetry</td>
             <td>Marketo, Google</td>
-            <td>Self-hosted</td>
+            <td><span class="check-icon" aria-hidden="true">✓</span> Zero</td>
           </tr>
           <tr>
             <th scope="row">CLI Tool</th>
@@ -379,7 +496,7 @@
             <td>Vault CLI</td>
             <td>Paid CLI</td>
             <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td>keepassxc-cli</td>
           </tr>
         </tbody>
       </table>
@@ -397,6 +514,30 @@
     </p>
 
     <div class="faq-accordion">
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How does jspassgen differ from a password vault like 1Password or Bitwarden?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            jspassgen is an isolated cryptographic generation tool, not a remote storage vault. Cloud vaults store, synchronize, and auto-fill your credentials across devices, requiring ongoing trust in third-party servers. jspassgen focuses exclusively on generating mathematically uncompromised passwords, Diceware passphrases, and decoy honeywords locally in volatile memory with zero network activity and zero disk persistence.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How does jspassgen adhere to NIST SP 800-63B guidelines?</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            NIST SP 800-63B (Digital Identity Guidelines) advises minimum length floors of 8 characters (recommending up to 64 or more for automated systems), support for ASCII printable characters, and explicitly rejects superstitious composition mandates (like forcing one symbol or one number) that reduce overall entropy by inducing predictable user habits. jspassgen adheres strictly to these principles by measuring true informational entropy and utilizing hardware-bound CSPRNG.
+          </p>
+        </div>
+      </div>
+
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
           <span>Are passwords generated by jspassgen ever transmitted over a network?</span>
