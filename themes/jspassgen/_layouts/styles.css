@@ -6,27 +6,27 @@
 :root,
 :root[data-theme="light"],
 :root[data-theme-mode="light"] {
-  --bg: #f7f7f4;
-  --bg-soft: #eaeae5;
+  --bg: #ffffff;
+  --bg-soft: #f4f7ff;
   --surface: #ffffff;
-  --surface-soft: #eaeae5;
-  --ink: #16191e;
-  --ink-soft: #3d424d;
+  --surface-soft: #f4f7ff;
+  --ink: #101827;
+  --ink-soft: #334155;
   --ink-muted: #474c55;
-  --accent: #213bb8;
-  --accent-hover: #192d8f;
+  --accent: #1e40af;
+  --accent-hover: #172554;
   --accent-ink: #ffffff;
-  --accent-soft: #eaeefc;
-  --on-accent-soft: #192d8f;
-  --focus: #213bb8;
-  --line: #6c7078;
-  --line-soft: #dadcd8;
-  --scene: #0c0d11;
-  --scene-ink: #f6f7fa;
-  --scene-muted: #b8bcc6;
-  --scene-accent: #96aafa;
-  --glow: rgba(33, 59, 184, 0.15);
-  --shadow: 0 1.5rem 4rem rgb(0 0 0 / 6%);
+  --accent-soft: #ebf1fe;
+  --on-accent-soft: #1e40af;
+  --focus: #1e40af;
+  --line: #475569;
+  --line-soft: #dee6f7;
+  --scene: #101217;
+  --scene-ink: #f8fafc;
+  --scene-muted: #94a3b8;
+  --scene-accent: #38bdf8;
+  --glow: rgba(36, 85, 232, 0.15);
+  --shadow: 0 1.5rem 4rem rgb(16 24 39 / 6%);
   --background-color: var(--bg);
   --foreground-color: var(--ink);
   --focus-ring-color: var(--focus);
@@ -44,11 +44,13 @@
   --text-muted: var(--ink-soft);
   --text-dim: var(--ink-muted);
   --border-subtle: var(--line-soft);
-  --border-strong: var(--line);
+  --border-strong: #c7d7f5;
+  --border-interactive: var(--line);
   --border-focus: var(--focus);
-  --accent-primary: var(--accent);
-  --accent-primary-hover: var(--accent-hover);
+  --accent-primary: #2455e8;
+  --accent-primary-hover: #1d4ed8;
   --accent-primary-subtle: var(--accent-soft);
+  --accent-text: #1e40af;
 
   --strength-weak: #d70015;
   --strength-fair: #b25000;
@@ -1253,8 +1255,38 @@ input[type="range"] {
    CHAPTER 03: THE EDITORIAL MANIFESTO
    ========================================================================== */
 .manifesto-section {
-  padding: 3.5rem 0 3.25rem;
+  padding: 4.5rem 0;
   text-align: center;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.manifesto-media {
+  margin-top: 2.75rem;
+}
+
+.manifesto-figure {
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 20px 45px -15px rgba(16, 24, 39, 0.08);
+  background: var(--surface);
+}
+
+.manifesto-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  transition: transform var(--transition-smooth);
+}
+
+.manifesto-figure:hover .manifesto-img {
+  transform: scale(1.015);
 }
 
 .section-label {
@@ -1965,7 +1997,10 @@ input[type="range"] {
    CHAPTER 06: COMPREHENSIVE MARKET EVALUATION
    ========================================================================== */
 .comparison-section {
-  padding: 3.5rem 0 4rem;
+  padding: 4.5rem 0;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 /* Market Scope Distinction Callout */
@@ -1973,7 +2008,7 @@ input[type="range"] {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  background: var(--bg-subtle);
+  background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-left: 4px solid var(--accent-primary);
   border-radius: var(--radius-lg);
@@ -2665,9 +2700,9 @@ input[type="range"] {
   :root,
   :root[data-theme="light"],
   :root[data-theme-mode="light"] {
-    --accent: color(display-p3 0.1294 0.2314 0.7216);
-    --accent-hover: color(display-p3 0.0980 0.1765 0.5608);
-    --focus: color(display-p3 0.1294 0.2314 0.7216);
+    --accent: color(display-p3 0.1176 0.2510 0.6863);
+    --accent-hover: color(display-p3 0.0902 0.1451 0.3294);
+    --focus: color(display-p3 0.1176 0.2510 0.6863);
   }
 
   @media (prefers-color-scheme: dark) {
