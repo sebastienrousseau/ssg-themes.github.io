@@ -1,0 +1,17 @@
+{
+  "name": "sebastienrousseau",
+  "title": "Sebastienrousseau",
+  "category": "Publication",
+  "tier": "site",
+  "origin": "https://sebastienrousseau.com",
+  "version": "1.2.1",
+  "description": "Research-publishing theme behind sebastienrousseau.com: twelve editorial layouts, a 34-locale shell, hash-strict CSP and per-page JSON-LD graphs, extracted from the live site and flattened back byte for byte.",
+  "author": "Sebastien Rousseau",
+  "license": "MIT",
+  "licenselink": "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE",
+  "homepage": "https://github.com/sebastienrousseau/ssg-themes.github.io",
+  "demosite": "https://themes.static-site-generator.com/sebastienrousseau/",
+  "min_ssg_version": "0.0.67",
+  "screenshot": "images/screenshot.png",
+  "thumbnail": "images/tn.png"
+}

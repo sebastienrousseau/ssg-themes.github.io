@@ -1,0 +1,289 @@
+---
+
+# Front Matter (YAML)
+
+author: "contact@sebastienrousseau.com (Sebastien Rousseau)"
+banner_alt: "Turned off laptop computer on top of brown wooden table"
+banner_height: "571"
+banner_width: "1425"
+banner: "https://cloudcdn.pro/stocks/images/alesia-kazantceva-VWcPlbHglYc.webp"
+changefreq: "weekly"
+charset: "UTF-8"
+cdn: "https://cloudcdn.pro/clients"
+cname: "sebastienrousseau.com"
+copyright: "© Copyright 2007 - 2026 - Sebastien Rousseau. All rights reserved."
+date: "Apr 01, 2024"
+description: "AI, banking and payments expert. Senior payments leader. Applied AI, ISO 20022 migration, wholesale payments and post-quantum cryptography."
+format-detection: "telephone=no"
+hreflang: "fr"
+icon: "https://cloudcdn.pro/clients/sebastienrousseau/v1/icons/512x512.png"
+id: "https://example.com/sebastienrousseau/"
+image_alt: "Black and White Portrait of Sebastien Rousseau"
+image_height: "162"
+image_width: "162"
+image: "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp"
+keywords: "banking, financial services, artificial intelligence, post-quantum cryptography, blockchain technology, transformation, innovation, technology, future, Sebastien Rousseau"
+last_reviewed: "2026-05-14"
+language: "fr-FR"
+layout: "index"
+locale: "fr_FR"
+logo_alt: "Logo for Sebastien Rousseau"
+logo_height: "44"
+logo_width: "44"
+logo: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+menu: "active"
+measurementID: "G-XXXXXXXXXX"
+name: "Sebastien Rousseau"
+permalink: "https://example.com/sebastienrousseau/fr/"
+promo_banner_alt: "Turned off laptop computer on top of brown wooden table"
+promo_banner_height: "571"
+promo_banner_width: "1425"
+promo_banner: "https://cloudcdn.pro/stocks/images/modern-corporate-office-with-technological-displays.webp"
+promo_banner_title: "Open source for the future of banking and finance."
+promo_banner_url: "https://sebastienrousseau.com"
+rating: "general"
+referrer: "no-referrer"
+revisit-after: "7 days"
+robots: "index, follow"
+short_name: "sebastienrousseau"
+subtitle: "AI, Banking & Financial Services Expert · Senior Product Manager – Wholesale Payments & API at HSBC Commercial & Investment Bank · Applied AI · ISO 20022 · Post-Quantum Cryptography"
+tags: "banking, financial services, artificial intelligence, post-quantum cryptography, blockchain technology, transformation, innovation, technology, future, Sebastien Rousseau"
+theme-color: "0, 67, 165"
+title: "Sebastien Rousseau: AI, Payments & Quantum Cryptography"
+url: "https://example.com/sebastienrousseau/"
+viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
+
+# RSS - The RSS feed front matter (YAML).
+atom_link: "https://sebastienrousseau.com/rss.xml"
+category: "Technology"
+docs: https://validator.w3.org/feed/docs/rss2.html
+generator: "Static Site Generator (SSG) (version 0.0.26)"
+item_description: "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services."
+item_guid: "https://sebastienrousseau.com/rss.xml"
+item_link: "https://sebastienrousseau.com/rss.xml"
+item_pub_date: "Mon, 15 Apr 2024 06:06:06 +0000"
+item_title: "Sebastien Rousseau: AI, Banking &amp; Financial Services Expert"
+last_build_date: "Mon, 15 Apr 2024 06:06:06 +0000"
+managing_editor: "contact@sebastienrousseau.com (Sebastien Rousseau)"
+pub_date: "Mon, 15 Apr 2024 06:06:06 +0000"
+ttl: "60"
+type: "website"
+webmaster: "contact@sebastienrousseau.com"
+
+# Apple - The Apple front matter (YAML).
+apple_mobile_web_app_orientations: "portrait"
+apple_touch_icon_sizes: "192x192"
+apple-mobile-web-app-capable: "yes"
+apple-mobile-web-app-status-bar-inset: "black"
+apple-mobile-web-app-status-bar-style: "black-translucent"
+apple-mobile-web-app-title: "Sebastien Rousseau: AI, Banking &amp; Financial Services Expert"
+apple-touch-fullscreen: "yes"
+
+# MS Application - The MS Application front matter (YAML).
+
+msapplication-navbutton-color: "0, 67, 165"
+
+# Twitter Card - The Twitter Card front matter (YAML).
+
+twitter_card: "summary_large_image"
+twitter_creator: "@wwdseb"
+twitter_description: "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services."
+twitter_image: "https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/sebastienrousseau.svg"
+twitter_image_alt: "Logo of Sebastien Rousseau"
+twitter_site: "@wwdseb"
+twitter_title: "Sebastien Rousseau: AI, Banking &amp; Financial Services Expert"
+twitter_url: "https://sebastienrousseau.com"
+
+# Humans.txt - The Humans.txt front matter (YAML).
+author_website: "https://sebastienrousseau.com"
+author_twitter: "@wwdseb"
+author_location: "London, UK"
+thanks: "Thanks for reading!"
+site_last_updated: "2024-04-15"
+site_standards: "HTML5, CSS3, RSS, Atom, JSON, XML, YAML, Markdown, TOML"
+site_components: "Kaishi, Kaishi Builder, Kaishi CLI, Kaishi Templates, Kaishi Themes"
+site_software: "Static Site Generator, Rust"
+translation_key: "index"
+
+---
+
+
+<section class="read-as" data-announce="Now showing content for" aria-labelledby="read-as-label" hidden>
+<div class="read-as-inner">
+<span class="read-as-label" id="read-as-label">Read as…</span>
+<div class="read-as-group" role="group" aria-label="Choose your reading lens">
+<button type="button" class="read-as-btn" data-read="" aria-pressed="true">Everyone</button>
+<button type="button" class="read-as-btn" data-read="boards" aria-pressed="false">Boards</button>
+<button type="button" class="read-as-btn" data-read="engineers" aria-pressed="false">Engineers</button>
+<button type="button" class="read-as-btn" data-read="regulators" aria-pressed="false">Regulators</button>
+</div>
+</div>
+<p class="visually-hidden" data-read-status role="status" aria-live="polite"></p>
+</section>
+
+<section class="feat offer reveal" aria-labelledby="what-i-build" data-audience="engineers">
+<div class="offer-grid">
+<figure class="offer-media">
+<img alt="Soft natural light over a modern architectural space, representing dependable financial infrastructure." src="https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-1920.webp" srcset="https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-640.webp 640w, https://cloudcdn.pro/stocks/images/toa-heftiba-sinca-940295-1920.webp 1597w" sizes="(min-width: 64em) min(37vw, 547px), 94vw" loading="lazy" decoding="async" width="900" height="1100" />
+</figure>
+<div class="offer-panel">
+<p class="offer-eyebrow">What I build</p>
+<h2 id="what-i-build" class="offer-headline">Open source for the future of finance.</h2>
+<div class="offer-cards">
+<article class="offer-card">
+<svg class="offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3m3 3-3 3"/><path d="M20 17H7l3-3m-3 3 3 3"/></svg>
+<h3>Payments</h3>
+<p>ISO 20022, end to end: pain.001, pacs.008, camt.053, and acmt.001. Adopt one library at a time.</p>
+<a class="offer-link" href="/projects-payments/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
+</article>
+<article class="offer-card">
+<svg class="offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+<h3>Security</h3>
+<p>Post-quantum primitives: ML-KEM (CRYSTALS-Kyber, NIST FIPS 203) and hashing, ready to pilot today.</p>
+<a class="offer-link" href="https://sebastienrousseau.com/projects-post-quantum/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
+</article>
+<article class="offer-card">
+<svg class="offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+<h3>Tooling</h3>
+<p>Audited Rust libraries and a code security scanner, signed and shipped with a software bill of materials.</p>
+<a class="offer-link" href="https://sebastienrousseau.com/projects-developer-platform/index.html">Learn more <span aria-hidden="true">&rsaquo;</span></a>
+</article>
+</div>
+</div>
+</div>
+</section>
+
+<section class="feat alt reveal" aria-labelledby="proof" data-audience="boards">
+<div class="wrap">
+<p class="feat-eyebrow">Proof</p>
+<h2 id="proof" class="feat-headline center">By the numbers.</h2>
+<section class="proof-rail" aria-label="Open source by the numbers">
+<div class="kpi-cell">
+  <span class="kpi-cell-value" data-kpi="downloads_total">42.1M</span>
+  <span class="kpi-cell-label">Open-source downloads</span>
+</div>
+<div class="kpi-cell">
+  <span class="kpi-cell-value" data-kpi="github_stars">672</span>
+  <span class="kpi-cell-label">GitHub stars</span>
+</div>
+<div class="kpi-cell">
+  <span class="kpi-cell-value" data-kpi="articles_signed">96</span>
+  <span class="kpi-cell-label">Sigstore-signed articles</span>
+</div>
+<div class="kpi-cell">
+  <span class="kpi-cell-value" data-kpi="years_payments">19</span>
+  <span class="kpi-cell-label">Years in payments and banking</span>
+</div>
+</section>
+<div class="brands">
+<img alt="HSBC logo" src="/_csp/logo-hsbc.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="PayPal logo" src="/_csp/logo-paypal.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Barclays logo" src="/_csp/logo-barclays.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Shazam logo" src="/_csp/logo-shazam.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="AKQA logo" src="/_csp/logo-akqa.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+<img alt="Virgin logo" src="/_csp/logo-virgin.webp" class="brand-logo" loading="lazy" decoding="async" width="120" height="32" />
+</div>
+</div>
+</section>
+
+<section class="feat reveal" aria-labelledby="paper" data-audience="regulators">
+<article class="feat-card">
+<div class="feat-card-media">
+<img alt="Isometric render of an illuminated processor, representing the cryptographic foundations of payments." src="https://cloudcdn.pro/stocks/images/a-chosen-soul-IQi4jAlVeOI-unsplash.webp" loading="lazy" decoding="async" width="800" height="800" />
+</div>
+<div class="feat-card-body">
+<p class="feat-eyebrow">EPAA · September 2025</p>
+<h3 id="paper">Why the payments industry must act now.</h3>
+<p>Regulators are treating harvest-now-decrypt-later as a credible present risk. This paper, produced for the Emerging Payments Association Asia, sets out the structural threat and the case for coordinated action across wholesale payment rails.</p>
+<p><a class="pill" href="https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf" title="EPAA Quantum-Safe Payments White Paper">Read the white paper</a></p>
+</div>
+</article>
+</section>
+
+<section class="feat reveal" aria-labelledby="latest" data-audience="boards engineers regulators">
+<div class="wrap">
+<p class="feat-eyebrow">Latest</p>
+<h2 id="latest" class="feat-headline center">From the desk.</h2>
+
+<div class="newsroom-grid feat-latest-grid">
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html" title="DORA Spared You From NIS2. It Will Not Spare You From the CRA." aria-label="DORA Spared You From NIS2. It Will Not Spare You From the CRA.">
+<img alt="Layered mountain ridges receding into pale haze, each ridge fainter than the one before it, seen from above the cloud line." src="https://cloudcdn.pro/stocks/images/paul-earle-wVjd0eWNqI8.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">Cyber Resilience Act · Article 14 · Incident Reporting</span>
+<h3><a href="https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/index.html">DORA Spared You From NIS2. It Will Not Spare You From the CRA.</a></h3>
+<p class="newsroom-meta"><time datetime="2026-08-03">August 3, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> CRA Article 14 starts a 24-hour reporting clock on 11 September 2026. It attaches to products rather than entities, so the NIS2 deferral to DORA that spares banks has nothing to displace — and the trigger is exploitation, not severity.</p>
+</div>
+</article>
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html" title="Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not." aria-label="Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.">
+<img alt="A white and blue building facade filled with rows of blue glass windows, seen straight on so the glazing reads as a continuous reflective surface." src="https://cloudcdn.pro/stocks/images/marek-piwnicki-11829333.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">EU AI Act · Article 50 · AI Governance</span>
+<h3><a href="https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/index.html">Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.</a></h3>
+<p class="newsroom-meta"><time datetime="2026-08-02">August 2, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> The AI Omnibus deferred Annex III high-risk to December 2027 but left Article 50 untouched, applicable today. The obligation that bites now sits in digital channels and marketing, not with the model-risk team holding the deferred file.</p>
+</div>
+</article>
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html" title="The Wallet Ships in December. Banks Must Accept It a Year Later." aria-label="The Wallet Ships in December. Banks Must Accept It a Year Later.">
+<img alt="A covered pedestrian passage between office towers in a financial district, lit from the far end, with the walkway narrowing toward a single controlled opening." src="https://cloudcdn.pro/stocks/images/jez-timms-4xLteCXh6X0.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">Digital Identity · eIDAS 2 · Authentication</span>
+<h3><a href="https://sebastienrousseau.com/2026-08-01-eudi-wallet-eidas-2-banks-relying-party-2026/index.html">The Wallet Ships in December. Banks Must Accept It a Year Later.</a></h3>
+<p class="newsroom-meta"><time datetime="2026-08-01">August 1, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> Member States must ship an EU Digital Identity Wallet by December 2026; banks must accept it by December 2027. The bank becomes a registered relying party, and the hardest part is binding a state identity to a customer record opened a decade ago.</p>
+</div>
+</article>
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html" title="PSD2 Made Banks Build an API. FiDA Makes Them Join a Market." aria-label="PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.">
+<img alt="A dense city grid photographed from directly above at night, thousands of lit buildings and intersecting streets extending to every edge of the frame." src="https://cloudcdn.pro/stocks/images/denys-nevozhai-2vmT5_FeMck.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">Open Finance · FiDA · Data Strategy</span>
+<h3><a href="https://sebastienrousseau.com/2026-07-31-fida-open-finance-data-sharing-schemes-banks-2026/index.html">PSD2 Made Banks Build an API. FiDA Makes Them Join a Market.</a></h3>
+<p class="newsroom-meta"><time datetime="2026-07-31">July 31, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> Compliance runs through a scheme you must join, not an interface you build alone. Access acquires a price, and the scope reaches the products banks actually earn on. The terms are being negotiated now.</p>
+</div>
+</article>
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html" title="Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying" aria-label="Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying">
+<img alt="A long dark bench on a vast paved plaza seen from directly above, with a single seated figure at the far right edge and open ground stretching away from them." src="https://cloudcdn.pro/stocks/images/ryoji-iwata-a-qsFZimp1M.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">Model Risk · Generative AI · Supervision</span>
+<h3><a href="https://sebastienrousseau.com/2026-07-30-model-risk-management-generative-ai-out-of-scope-2026/index.html">Out of Scope Is Not Out of Risk: The 2026 Model-Risk Rewrite Left Out the Models Banks Are Actually Deploying</a></h3>
+<p class="newsroom-meta"><time datetime="2026-07-30">July 30, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> The April 2026 rewrite superseded fifteen years of model-risk doctrine and expressly excluded generative and agentic AI. Out of scope is not out of risk — and the UK's technology-neutral statement pulls the same models back in.</p>
+</div>
+</article>
+
+<article class="newsroom-card">
+<a class="newsroom-card-media" href="https://sebastienrousseau.com/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html" title="The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands" aria-label="The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands">
+<img alt="The corner of a building clad in a finely perforated white screen, photographed from below against a bright sky." src="https://cloudcdn.pro/stocks/images/tarik-haiga-3637943.webp" loading="lazy" decoding="async" width="600" height="600" />
+</a>
+<div class="newsroom-card-body">
+<span class="newsroom-eyebrow">DORA · Red Teaming · Operational Resilience</span>
+<h3><a href="https://sebastienrousseau.com/2026-07-29-threat-led-penetration-testing-dora-tlpt-banks-2026/index.html">The Red Team Became a Supervised Supply Chain: What DORA's TLPT Regime Actually Demands</a></h3>
+<p class="newsroom-meta"><time datetime="2026-07-29">July 29, 2026</time></p>
+<p class="newsroom-tldr"><span class="newsroom-tldr-label">TL;DR</span> DORA turned adversary simulation into a supervised obligation on a three-year cadence. The constraints that bind are the accredited tester market, threat intelligence that must come from outside every time, and third parties pulled into scope.</p>
+</div>
+</article>
+
+</div>
+
+<div class="feat-cta-row">
+<a class="pill ghost" href="/articles/index.html">See all articles</a>
+</div>
+</div>
+</section>
+

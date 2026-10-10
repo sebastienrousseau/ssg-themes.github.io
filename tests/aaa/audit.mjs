@@ -71,7 +71,7 @@ export const AUDIT = () => {
   for(const e of document.querySelectorAll('body *')){
     if(skip(e)||!e.offsetParent&&getComputedStyle(e).position!=='fixed')continue;
     // `length>1` here skipped every single-character run, which is what a
-    // brand mark is. Curio's "C" and Scout's "S" were dark-on-dark at
+    // brand mark is. Curio's "C" and passmcp's "S" were dark-on-dark at
     // 1.08:1 and 1.16:1 in dark mode and no gate had ever looked at them.
     if(![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>0))continue;
     const cs=getComputedStyle(e);const ground=bg(e);

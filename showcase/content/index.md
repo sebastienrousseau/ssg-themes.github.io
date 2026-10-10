@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — twenty-two gated themes for Static Site Generator"
-description: "Twenty-two distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt"
+title: "SSG Themes: twenty-four gated themes for Static Site Generator"
+description: "Twenty-four distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Twenty-two themes. One architecture. Every claim gated."
-lead: "Twenty-two themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
+headline: "Twenty-four themes. One architecture. Every claim gated."
+lead: "Twenty-four themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit: there are no hardcoded score badges here."
 news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
@@ -396,17 +396,49 @@ stat_thirdparty: "third-party requests, on every page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="scout/images/card.webp" srcset="scout/images/card.webp 640w, scout/images/tn.webp 900w, scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Scout theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="passmcp/images/card.webp" srcset="passmcp/images/card.webp 640w, passmcp/images/tn.webp 900w, passmcp/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the passmcp theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Developer Tools</p>
-          <h3>Scout</h3>
+          <h3>passmcp</h3>
           <p>Protocol diagnostics. A verdict-first readout, severity ledger and request-level evidence for local verification tools.</p>
           <ul class="sc-meta"><li>4 layouts</li><li>Scanners, protocol tools, engineering reports</li></ul>
           <div class="sc-actions">
-            <a class="btn btn-primary" href="scout/">View demo</a>
-            <a class="btn btn-secondary" href="downloads/scout.zip" download>.zip</a>
-            <a class="btn btn-outline" href="downloads/scout.tar.gz" download>.tar.gz</a>
+            <a class="btn btn-primary" href="passmcp/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/passmcp.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/passmcp.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="jspassgen/images/card.webp" srcset="jspassgen/images/card.webp 640w, jspassgen/images/tn.webp 900w, jspassgen/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the jspassgen theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Developer Tools</p>
+          <h3>jspassgen</h3>
+          <p>Cryptographic password generator. Quantum-resistant entropy estimators, offline Diceware tables, and interactive configuration consoles.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Password utilities, security tools, audit reports</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="jspassgen/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/jspassgen.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="sebastienrousseau/images/card.webp" srcset="sebastienrousseau/images/card.webp 640w, sebastienrousseau/images/tn.webp 900w, sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Sebastienrousseau theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Publication</p>
+          <h3>Sebastienrousseau</h3>
+          <p>A live research site as a theme. Twelve editorial layouts, light and dark tokens, a hash-strict CSP and per-page JSON-LD graphs, extracted from sebastienrousseau.com and flattened back to it byte for byte.</p>
+          <ul class="sc-meta"><li>12 layouts</li><li>Research publishing, long-form articles, 34 locales</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="sebastienrousseau/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/sebastienrousseau.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/sebastienrousseau.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>
@@ -426,7 +458,7 @@ stat_thirdparty: "third-party requests, on every page"
           <tbody>
             <tr>
               <th scope="row">Contrast</th>
-              <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11) — in both light and dark</td>
+              <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11), in both light and dark</td>
             </tr>
             <tr>
               <th scope="row">Structure</th>

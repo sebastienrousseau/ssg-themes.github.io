@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — vingt-deux thèmes contrôlés pour Static Site Generator"
-description: "Vingt-deux thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt"
+title: "SSG Themes: vingt-quatre thèmes contrôlés pour Static Site Generator"
+description: "Vingt-quatre thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "fr-FR"
 eyebrow: "Thèmes pour Static Site Generator"
-headline: "Vingt-deux thèmes. Une architecture. Chaque promesse vérifiée."
-lead: "Vingt-deux thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit — aucun badge de score n’est codé en dur ici."
+headline: "Vingt-quatre thèmes. Une architecture. Chaque promesse vérifiée."
+lead: "Vingt-quatre thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
 news_publication_date: "2026-09-13"
 nav_label_home: "Accueil"
 nav_label_themes: "Thèmes"
@@ -396,17 +396,49 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
       </article>
       <article class="sc-slide">
         <figure class="sc-shot">
-          <img src="../scout/images/card.webp" srcset="../scout/images/card.webp 640w, ../scout/images/tn.webp 900w, ../scout/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Scout." width="1500" height="1000" loading="lazy" decoding="async" />
+          <img src="../passmcp/images/card.webp" srcset="../passmcp/images/card.webp 640w, ../passmcp/images/tn.webp 900w, ../passmcp/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème passmcp." width="1500" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="sc-body">
           <p class="eyebrow">Outils pour développeurs</p>
-          <h3>Scout</h3>
+          <h3>passmcp</h3>
           <p>Diagnostic de protocole. Un verdict d’abord, un registre de sévérité et des preuves au niveau de la requête pour les outils de vérification locaux.</p>
           <ul class="sc-meta"><li>4 gabarits</li><li>Scanners, outils de protocole, rapports d’ingénierie</li></ul>
           <div class="sc-actions">
-            <a class="btn btn-primary" href="../scout/fr/">Voir la démo</a>
-            <a class="btn btn-secondary" href="../downloads/scout.zip" download>.zip</a>
-            <a class="btn btn-outline" href="../downloads/scout.tar.gz" download>.tar.gz</a>
+            <a class="btn btn-primary" href="../passmcp/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/passmcp.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/passmcp.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="../jspassgen/images/card.webp" srcset="../jspassgen/images/card.webp 640w, ../jspassgen/images/tn.webp 900w, ../jspassgen/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème jspassgen." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Outils pour développeurs</p>
+          <h3>jspassgen</h3>
+          <p>Générateur de mots de passe cryptographiques. Estimateurs d'entropie quantique, tables Diceware hors ligne et consoles interactives.</p>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Utilitaires de mots de passe, outils de sécurité, rapports d'audit</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../jspassgen/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/jspassgen.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="../sebastienrousseau/images/card.webp" srcset="../sebastienrousseau/images/card.webp 640w, ../sebastienrousseau/images/tn.webp 900w, ../sebastienrousseau/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Sebastienrousseau." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Publication</p>
+          <h3>Sebastienrousseau</h3>
+          <p>Un site de recherche en production, livré comme thème. Douze gabarits éditoriaux, des jetons clair et sombre, une CSP par empreintes et des graphes JSON-LD par page, extraits de sebastienrousseau.com et réaplatis octet pour octet.</p>
+          <ul class="sc-meta"><li>12 gabarits</li><li>Publication de recherche, articles longs, 34 langues</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../sebastienrousseau/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/sebastienrousseau.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/sebastienrousseau.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>
@@ -426,7 +458,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <tbody>
             <tr>
               <th scope="row">Contraste</th>
-              <td>Paires de jetons de texte à 7:1 (WCAG 1.4.6, AAA) ; bordures et anneau de focus à 3:1 (1.4.11) — en clair comme en sombre</td>
+              <td>Paires de jetons de texte à 7:1 (WCAG 1.4.6, AAA) ; bordures et anneau de focus à 3:1 (1.4.11), en clair comme en sombre</td>
             </tr>
             <tr>
               <th scope="row">Structure</th>
