@@ -478,6 +478,18 @@
       });
     }
 
+    function selectTabByHash() {
+      var hash = window.location.hash;
+      if (hash && hash.indexOf("#tab-") === 0) {
+        var targetTab = document.querySelector(hash);
+        if (targetTab && targetTab.classList.contains("tab-btn")) {
+          targetTab.click();
+        }
+      }
+    }
+    window.addEventListener("hashchange", selectTabByHash);
+
     refreshPassword();
+    selectTabByHash();
   });
 })();

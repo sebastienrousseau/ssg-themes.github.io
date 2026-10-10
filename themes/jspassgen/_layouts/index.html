@@ -30,6 +30,7 @@
   
   <!-- CHAPTER 02: THE HARDWARE-GRADE SECURE CONSOLE -->
   <div class="container showcase-container" id="generator">
+    <h2 class="sr-only">Cryptographic Credential Console</h2>
     <div class="console-wrapper">
       <div class="console-chrome">
         <div class="chrome-status">
@@ -129,24 +130,24 @@
         
         <div class="controls-col">
           <div class="checkbox-group">
-            <label class="checkbox-item">
-              <input type="checkbox" id="chkUpper" checked />
+            <label class="checkbox-item" for="chkUpper">
+              <input type="checkbox" id="chkUpper" checked aria-label="Uppercase Letters (A-Z)" />
               <span>Uppercase Letters (A-Z)</span>
             </label>
-            <label class="checkbox-item">
-              <input type="checkbox" id="chkLower" checked />
+            <label class="checkbox-item" for="chkLower">
+              <input type="checkbox" id="chkLower" checked aria-label="Lowercase Letters (a-z)" />
               <span>Lowercase Letters (a-z)</span>
             </label>
-            <label class="checkbox-item">
-              <input type="checkbox" id="chkNumbers" checked />
+            <label class="checkbox-item" for="chkNumbers">
+              <input type="checkbox" id="chkNumbers" checked aria-label="Numeric Digits (0-9)" />
               <span>Numeric Digits (0-9)</span>
             </label>
-            <label class="checkbox-item">
-              <input type="checkbox" id="chkSymbols" checked />
+            <label class="checkbox-item" for="chkSymbols">
+              <input type="checkbox" id="chkSymbols" checked aria-label="Special Symbols (!@#$%^&*...)" />
               <span>Special Symbols (!@#$%^&*...)</span>
             </label>
-            <label class="checkbox-item">
-              <input type="checkbox" id="chkAmbiguous" checked />
+            <label class="checkbox-item" for="chkAmbiguous">
+              <input type="checkbox" id="chkAmbiguous" checked aria-label="Exclude Ambiguous Glyphs (0, O, 1, l, I, |)" />
               <span>Exclude Ambiguous Glyphs (0, O, 1, l, I, |)</span>
             </label>
           </div>
@@ -156,7 +157,7 @@
       <div class="honeywords-preview is-hidden" id="honeywordsBox">
         <div class="honeywords-header">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          <h4>Active Honeywords Decoy Set (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">Juels-Rivest Scheme, CCS '13</a>)</h4>
+          <h3 class="honeywords-title">Active Honeywords Decoy Set (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">Juels-Rivest Scheme, CCS '13</a>)</h3>
         </div>
         <p class="honeywords-intro">
           Store all decoy credentials in your authentication database. If an adversary attempts to authenticate with any canary decoy, an immediate intrusion alarm triggers before the genuine master key is exposed.
@@ -188,10 +189,10 @@
   <div class="container manifesto-media">
     <figure class="manifesto-figure">
       <picture>
-        <source media="(min-width: 48rem)" srcset="images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" type="image/webp" width="1200" height="742" />
-        <source media="(min-width: 36rem)" srcset="images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" type="image/webp" width="640" height="396" />
-        <source srcset="images/pierre-chatel-innocenti-N5RN0JE5kaY-320.webp" type="image/webp" width="320" height="198" />
-        <img src="images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" alt="Minimalist architectural facade with precision glass grid and perforated concrete meeting at a sharp geometric prow" width="1200" height="742" loading="lazy" decoding="async" class="manifesto-img" />
+        <source media="(min-width: 48rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" type="image/webp" width="1200" height="742" />
+        <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" type="image/webp" width="640" height="396" />
+        <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.webp" type="image/webp" width="320" height="198" />
+        <img src="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" alt="Minimalist architectural facade with precision glass grid and perforated concrete meeting at a sharp geometric prow" width="1200" height="742" loading="lazy" decoding="async" class="manifesto-img" />
       </picture>
     </figure>
   </div>
@@ -346,9 +347,9 @@
     <div class="cinematic-wrapper">
       <div class="cinematic-backdrop" aria-hidden="true">
         <picture>
-          <source media="(min-width: 48rem)" srcset="images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" type="image/webp" width="1200" height="742" />
-          <source srcset="images/pawel-czerwinski-7LoWpCOAn6k-640.webp" type="image/webp" width="640" height="396" />
-          <img src="images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" alt="Subtle cyan and cobalt geometric glass blades in low light backdrop" width="1200" height="742" loading="lazy" decoding="async" class="cinematic-backdrop-img" />
+          <source media="(min-width: 48rem)" srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" type="image/webp" width="1200" height="742" />
+          <source srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-640.webp" type="image/webp" width="640" height="396" />
+          <img src="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" alt="Subtle cyan and cobalt geometric glass blades in low light backdrop" width="1200" height="742" loading="lazy" decoding="async" class="cinematic-backdrop-img" />
         </picture>
       </div>
       <div class="cinematic-inner">
@@ -413,7 +414,7 @@
 
     <div class="scope-note">
       <div class="scope-note-icon" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
       </div>
       <div class="scope-note-content">
         <strong>Scope distinction:</strong> jspassgen is a dedicated, zero-dependency cryptographic generation engine designed to run entirely in local volatile memory. It is not a cloud-hosted credential vault (such as 1Password or Bitwarden) that stores and synchronizes user secrets across remote servers. It is purpose-built to generate uncompromised credentials with verifiable mathematical certainty at the point of origin.
@@ -430,7 +431,7 @@
           <option value="keepassxc">KeePassXC (Local Vault)</option>
         </select>
         <div class="select-arrow" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
     </div>
