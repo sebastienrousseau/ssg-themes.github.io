@@ -156,7 +156,7 @@
       <div class="honeywords-preview is-hidden" id="honeywordsBox">
         <div class="honeywords-header">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          <h4>Active Honeywords Decoy Set (Juels-Rivest Scheme)</h4>
+          <h4>Active Honeywords Decoy Set (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">Juels-Rivest Scheme, CCS '13</a>)</h4>
         </div>
         <p class="honeywords-intro">
           Store all decoy credentials in your authentication database. If an adversary attempts to authenticate with any canary decoy, an immediate intrusion alarm triggers before the genuine master key is exposed.
@@ -180,7 +180,7 @@
         For three decades, software forced users into artificial composition rules: one uppercase letter, one digit, one symbol. Modern cryptanalysis and GPU clusters crack these predictable patterns in seconds.
       </p>
       <p>
-        jspassgen eliminates superstitious rules in favour of Claude Shannon's information theory, post-quantum KDF primitives, and client-side memory safety. Every secret is mathematically verified before it touches your clipboard.
+        jspassgen eliminates superstitious rules in favour of <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="external noopener noreferrer">Claude Shannon's information theory</a>, post-quantum KDF primitives (<a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">RFC 9106 Argon2id</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">RFC 5869 HKDF</a>), and client-side memory safety. Every secret is mathematically verified before it touches your clipboard.
       </p>
     </div>
   </div>
@@ -219,7 +219,7 @@
           <span class="chapter-num">01 / QUANTUM HARDENING</span>
           <h3 class="bento-title">Resilient against tomorrow's compute.</h3>
           <p class="bento-text">
-            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard Argon2id and HKDF expansion, brute-force search remains computationally infeasible.
+            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard <a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">Argon2id (RFC 9106)</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">HKDF expansion (RFC 5869)</a>, brute-force search remains computationally infeasible.
           </p>
           <ul class="chapter-specs">
             <li>Argon2id memory-hardness neutralizes parallel ASIC and quantum oracle evaluations</li>
@@ -571,7 +571,7 @@
         </button>
         <div class="faq-answer">
           <p>
-            NIST SP 800-63B (Digital Identity Guidelines) advises minimum length floors of 8 characters (recommending up to 64 or more for automated systems), support for ASCII printable characters, and explicitly rejects superstitious composition mandates (like forcing one symbol or one number) that reduce overall entropy by inducing predictable user habits. jspassgen adheres strictly to these principles by measuring true informational entropy and utilizing hardware-bound CSPRNG.
+            <a href="https://csrc.nist.gov/pubs/sp/800/63/b/upd1/final" target="_blank" rel="external noopener noreferrer">NIST SP 800-63B</a> (Digital Identity Guidelines) advises minimum length floors of 8 characters (recommending up to 64 or more for automated systems), support for ASCII printable characters, and explicitly rejects superstitious composition mandates (like forcing one symbol or one number) that reduce overall entropy by inducing predictable user habits. jspassgen adheres strictly to these principles by measuring true informational entropy and utilizing hardware-bound CSPRNG.
           </p>
         </div>
       </div>
@@ -595,7 +595,7 @@
         </button>
         <div class="faq-answer">
           <p>
-            Standard random passwords draw uniformly from character alphabets (uppercase, lowercase, numbers, symbols) to maximize entropy density per character. EFF Diceware passphrases draw random words from the curated 7,776-word dictionary compiled by the Electronic Frontier Foundation. A 5-word Diceware passphrase provides approximately 65 bits of entropy and is exceptionally easy for humans to type and remember, while remaining immune to brute-force dictionary attacks.
+            Standard random passwords draw uniformly from character alphabets (uppercase, lowercase, numbers, symbols) to maximize entropy density per character. <a href="https://www.eff.org/dice" target="_blank" rel="external noopener noreferrer">EFF Diceware passphrases</a> draw random words from the curated 7,776-word dictionary compiled by the Electronic Frontier Foundation. A 5-word Diceware passphrase provides approximately 65 bits of entropy and is exceptionally easy for humans to type and remember, while remaining immune to brute-force dictionary attacks.
           </p>
         </div>
       </div>
@@ -607,7 +607,7 @@
         </button>
         <div class="faq-answer">
           <p>
-            Invented by cryptographic researchers Ari Juels and Ronald L. Rivest, the Honeywords defense stores <code>k - 1</code> decoy passwords alongside the genuine password in a hashed credential store. To an external attacker who dumps the database and cracks the hashes, all <code>k</code> passwords appear equally valid. When the attacker attempts to authenticate with any decoy password, a canary trap immediately alerts security operations and freezes the compromised account before the attacker can test the real password.
+            Invented by cryptographic researchers Ari Juels and Ronald L. Rivest (<a href="https://doi.org/10.1145/2508859.2516671" target="_blank" rel="external noopener noreferrer">ACM CCS 2013</a>), the Honeywords defense stores <code>k - 1</code> decoy passwords alongside the genuine password in a hashed credential store. To an external attacker who dumps the database and cracks the hashes, all <code>k</code> passwords appear equally valid. When the attacker attempts to authenticate with any decoy password, a canary trap immediately alerts security operations and freezes the compromised account before the attacker can test the real password.
           </p>
         </div>
       </div>
@@ -619,7 +619,7 @@
         </button>
         <div class="faq-answer">
           <p>
-            Naive password meters simply count length or reward predictable patterns like adding an exclamation mark at the end. Claude Shannon's information entropy formula <code class="math-expr">H(X) = -∑ p(x) log₂(p(x))</code> measures the exact uncertainty and unpredictability of the symbol probability distribution. This reveals whether a password has true cryptographic variance or repetitive bias.
+            Naive password meters simply count length or reward predictable patterns like adding an exclamation mark at the end. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="external noopener noreferrer">Claude Shannon's information entropy formula</a> <code class="math-expr">H(X) = -∑ p(x) log₂(p(x))</code> measures the exact uncertainty and unpredictability of the symbol probability distribution. This reveals whether a password has true cryptographic variance or repetitive bias.
           </p>
         </div>
       </div>
