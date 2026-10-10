@@ -1,4 +1,5 @@
 {{#extends "base"}}{{#block "main"}}
+<div id="liveAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 <!-- CHAPTER 01: HERO / THE FIRST IMPRESSION -->
 <section class="hero-section" id="hero">
   <div class="container hero-container">
@@ -348,6 +349,10 @@
               <span></span><span></span><span></span>
             </div>
             <div class="terminal-label">npx jspassgen · local execution</div>
+            <button type="button" class="btn-terminal-copy" id="btnCopyCli" aria-label="Copy CLI command to clipboard">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Command</span>
+            </button>
           </div>
           <div class="terminal-screen">
             <pre><code><span class="t-comment"># Instant generation with zero dependencies</span>

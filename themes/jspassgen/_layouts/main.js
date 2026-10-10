@@ -348,6 +348,44 @@
     }
   }
 
+  function announceLive(message) {
+    var region = document.getElementById("liveAnnouncement");
+    if (region) {
+      region.textContent = message;
+      setTimeout(function () {
+        region.textContent = "";
+      }, 3000);
+    }
+  }
+
+  function copyTextToClipboard(text, onDone, onFail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onDone).catch(function () {
+        fallbackCopy(text, onDone, onFail);
+      });
+    } else {
+      fallbackCopy(text, onDone, onFail);
+    }
+  }
+
+  function fallbackCopy(text, onDone, onFail) {
+    try {
+      var textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      var successful = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      if (successful && onDone) onDone();
+      else if (onFail) onFail();
+    } catch (e) {
+      if (onFail) onFail();
+    }
+  }
+
   function copyToClipboard() {
     var passwordOutput = document.getElementById("passwordOutput");
     var btnCopy = document.getElementById("btnCopy");
@@ -356,17 +394,24 @@
     var pwd = passwordOutput.textContent;
     if (!pwd || pwd === "Generating...") return;
 
-    navigator.clipboard.writeText(pwd).then(function () {
-      if (btnCopy) {
-        var origText = btnCopy.innerHTML;
-        btnCopy.innerHTML = '<span>Copied!</span>';
-        setTimeout(function () {
-          btnCopy.innerHTML = origText;
-        }, 2000);
+    copyTextToClipboard(
+      pwd,
+      function () {
+        if (btnCopy) {
+          var origHtml = btnCopy.innerHTML;
+          btnCopy.classList.add("is-copied");
+          btnCopy.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied!</span>';
+          announceLive("Password copied to clipboard.");
+          setTimeout(function () {
+            btnCopy.classList.remove("is-copied");
+            btnCopy.innerHTML = origHtml;
+          }, 2000);
+        }
+      },
+      function () {
+        announceLive("Unable to copy password automatically.");
       }
-    }).catch(function () {
-      /* Fallback if clipboard API is blocked */
-    });
+    );
   }
 
   /* DOM Init */
@@ -407,6 +452,29 @@
     var btnCopy = document.getElementById("btnCopy");
     if (btnCopy) {
       btnCopy.addEventListener("click", copyToClipboard);
+    }
+
+    var btnCopyCli = document.getElementById("btnCopyCli");
+    if (btnCopyCli) {
+      btnCopyCli.addEventListener("click", function () {
+        var cliCommand = "npx jspassgen --length 32 --symbols";
+        copyTextToClipboard(
+          cliCommand,
+          function () {
+            var origHtml = btnCopyCli.innerHTML;
+            btnCopyCli.classList.add("is-copied");
+            btnCopyCli.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied!</span>';
+            announceLive("Terminal command copied to clipboard.");
+            setTimeout(function () {
+              btnCopyCli.classList.remove("is-copied");
+              btnCopyCli.innerHTML = origHtml;
+            }, 2000);
+          },
+          function () {
+            announceLive("Unable to copy CLI command.");
+          }
+        );
+      });
     }
 
     var competitorSelect = document.getElementById("competitorSelect");

@@ -217,6 +217,7 @@
   border-color: var(--accent-primary);
   background: var(--bg-subtle);
 }
+.sr-only,
 #mode-toggle .visually-hidden {
   position: absolute;
   width: 1px;
@@ -847,6 +848,26 @@ body {
   display: flex;
   gap: 0.6rem;
   flex-shrink: 0;
+}
+
+@media (max-width: 36rem) {
+  .password-display-box {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.35rem 1.15rem;
+    gap: 1rem;
+  }
+  .password-output {
+    text-align: center;
+    font-size: clamp(1.25rem, 5vw, 1.65rem);
+    margin: 0.25rem 0;
+  }
+  .password-actions {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    width: 100%;
+  }
 }
 
 .btn-icon {
@@ -1824,6 +1845,36 @@ input[type="range"] {
   color: #b8bcc6;
 }
 
+.btn-terminal-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #1e222d;
+  color: #d1d5db;
+  border: 1px solid #374151;
+  padding: 0.35rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  min-height: 36px;
+  transition: all var(--transition-fast);
+  margin-left: auto;
+}
+
+.btn-terminal-copy:hover {
+  background: #282f3e;
+  border-color: #4b5563;
+  color: #ffffff;
+}
+
+.btn-terminal-copy.is-copied {
+  background: #065f46;
+  border-color: #059669;
+  color: #ffffff;
+}
+
 .terminal-screen {
   padding: 1.5rem;
   font-family: var(--font-mono);
@@ -2115,28 +2166,30 @@ input[type="range"] {
   .benchmark-table {
     table-layout: fixed;
     width: 100%;
-    font-size: 0.825rem;
+    font-size: 0.875rem;
   }
 
   .benchmark-table th,
   .benchmark-table td {
-    padding: 0.75rem 0.55rem;
-    line-height: 1.35;
-    word-break: break-word;
+    padding: 0.85rem 0.65rem;
+    line-height: 1.45;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .benchmark-table thead th {
-    padding: 0.85rem 0.55rem;
-    font-size: 0.775rem;
+    padding: 0.9rem 0.65rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
     white-space: normal;
   }
 
   .benchmark-table thead th.th-feature {
-    width: 36%;
+    width: 35%;
   }
 
   .benchmark-table thead th.th-jspassgen {
-    width: 32%;
+    width: 33%;
   }
 
   .benchmark-table thead th.th-competitor {
@@ -2145,13 +2198,13 @@ input[type="range"] {
 
   .benchmark-table tbody th[scope="row"] {
     white-space: normal;
-    font-size: 0.825rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    padding: 0.75rem 0.55rem;
+    padding: 0.85rem 0.65rem;
   }
 
   .benchmark-table td {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .badge-accent {
