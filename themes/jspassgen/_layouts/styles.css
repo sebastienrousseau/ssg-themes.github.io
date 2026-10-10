@@ -764,7 +764,7 @@ body {
 
 .status-text {
   font-family: var(--font-mono);
-  font-size: 0.775rem;
+  font-size: 0.8125rem;
   color: var(--text-dim);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -772,7 +772,7 @@ body {
 
 .chrome-badge {
   font-family: var(--font-mono);
-  font-size: 0.725rem;
+  font-size: 0.75rem;
   background: var(--bg-subtle);
   color: var(--text-main);
   border: 1px solid var(--border-subtle);
@@ -787,7 +787,7 @@ body {
   background: var(--bg-subtle);
   padding: 0.35rem;
   border-radius: var(--radius-pill);
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
   overflow-x: auto;
 }
 
@@ -799,7 +799,7 @@ body {
   background: transparent;
   color: var(--text-muted);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
   white-space: nowrap;
@@ -824,7 +824,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   transition: border-color var(--transition-fast);
 }
 
@@ -901,7 +901,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
 }
 
 .strength-bar-track {
@@ -967,8 +967,8 @@ body {
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 2rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2.25rem;
   transition: border-color var(--transition-fast);
 }
 
@@ -978,7 +978,7 @@ body {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
-  padding-bottom: 0.85rem;
+  padding-bottom: 0.95rem;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -986,10 +986,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.825rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-main);
 }
 
@@ -1003,20 +1003,20 @@ body {
 
 .search-space-equation {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: 0.975rem;
   font-weight: 700;
   color: var(--accent-primary);
   letter-spacing: -0.01em;
 }
 
 .search-space-visual {
-  margin: 1rem 0;
+  margin: 1.25rem 0;
 }
 
 .scale-track {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 @media (max-width: 36rem) {
@@ -1032,21 +1032,21 @@ body {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 0.75rem 0.5rem;
+  padding: 0.85rem 0.6rem;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.825rem;
   font-weight: 700;
   color: var(--text-dim);
   transition: all var(--transition-normal);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .scale-segment small {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-muted);
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .scale-segment.is-active {
@@ -1062,10 +1062,10 @@ body {
 }
 
 .search-space-explainer {
-  font-size: 0.875rem;
+  font-size: 0.925rem;
   color: var(--text-muted);
-  line-height: 1.6;
-  padding-top: 0.85rem;
+  line-height: 1.65;
+  padding-top: 0.95rem;
   border-top: 1px dashed var(--border-subtle);
 }
 
@@ -1073,36 +1073,36 @@ body {
 .crypto-metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
 }
 
 .metric-card {
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 1rem;
+  padding: 1.15rem 1.25rem;
 }
 
 .metric-card dt {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text-dim);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .metric-card dd {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .metric-card dd small {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text-dim);
   font-weight: 500;
 }
@@ -1111,7 +1111,7 @@ body {
 .controls-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 @media (max-width: 48rem) {
@@ -1232,17 +1232,17 @@ input[type="range"] {
    CHAPTER 03: THE EDITORIAL MANIFESTO
    ========================================================================== */
 .manifesto-section {
-  padding: 4.5rem 0 3.5rem;
+  padding: 3.5rem 0 3.25rem;
   text-align: center;
 }
 
 .section-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--text-dim);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .manifesto-heading {
@@ -1688,7 +1688,7 @@ input[type="range"] {
    CHAPTER 05: CINEMATIC CONTRAST MOMENT
    ========================================================================== */
 .cinematic-section {
-  padding: 4.75rem 0;
+  padding: 4rem 0 3rem;
 }
 
 .cinematic-wrapper {
@@ -1870,7 +1870,7 @@ input[type="range"] {
    CHAPTER 06: COMPREHENSIVE MARKET EVALUATION
    ========================================================================== */
 .comparison-section {
-  padding: 4.25rem 0;
+  padding: 3.5rem 0 4rem;
 }
 
 /* Market Scope Distinction Callout */
@@ -1904,6 +1904,7 @@ input[type="range"] {
 .table-container {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xl);
   background: var(--surface);
@@ -1914,13 +1915,21 @@ input[type="range"] {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.925rem;
+  font-size: 0.95rem;
 }
 
 .benchmark-table th,
 .benchmark-table td {
-  padding: 1.15rem 1.5rem;
+  padding: 1.35rem 1.75rem;
   border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.benchmark-table tbody th[scope="row"] {
+  font-weight: 600;
+  color: var(--text-main);
+  border-right: 1px solid var(--border-subtle);
+  white-space: nowrap;
 }
 
 .benchmark-table thead th {
@@ -1930,6 +1939,7 @@ input[type="range"] {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-main);
+  white-space: nowrap;
 }
 
 .benchmark-table thead th.th-jspassgen {
@@ -1980,7 +1990,7 @@ input[type="range"] {
    CHAPTER 07: TECHNICAL QUESTIONS & ANSWERS
    ========================================================================== */
 .faq-section {
-  padding: 4.25rem 0;
+  padding: 3.75rem 0 2.75rem;
 }
 
 .faq-accordion {
@@ -2076,7 +2086,7 @@ input[type="range"] {
    CHAPTER 08: FINAL CLOSING CALL TO ACTION
    ========================================================================== */
 .closing-section {
-  padding: 4.5rem 0;
+  padding: 3.5rem 0 4rem;
   text-align: center;
 }
 
