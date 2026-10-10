@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — vingt-deux thèmes contrôlés pour Static Site Generator"
-description: "Vingt-deux thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
+title: "SSG Themes: vingt-quatre thèmes contrôlés pour Static Site Generator"
+description: "Vingt-quatre thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "fr-FR"
 eyebrow: "Thèmes pour Static Site Generator"
-headline: "Vingt-deux thèmes. Une architecture. Chaque promesse vérifiée."
-lead: "Vingt-deux thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit — aucun badge de score n’est codé en dur ici."
+headline: "Vingt-quatre thèmes. Une architecture. Chaque promesse vérifiée."
+lead: "Vingt-quatre thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
 news_publication_date: "2026-09-13"
 nav_label_home: "Accueil"
 nav_label_themes: "Thèmes"
@@ -458,7 +458,7 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
           <tbody>
             <tr>
               <th scope="row">Contraste</th>
-              <td>Paires de jetons de texte à 7:1 (WCAG 1.4.6, AAA) ; bordures et anneau de focus à 3:1 (1.4.11) — en clair comme en sombre</td>
+              <td>Paires de jetons de texte à 7:1 (WCAG 1.4.6, AAA) ; bordures et anneau de focus à 3:1 (1.4.11), en clair comme en sombre</td>
             </tr>
             <tr>
               <th scope="row">Structure</th>

@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes — twenty-two gated themes for Static Site Generator"
-description: "Twenty-two distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, kairo, kaishi, kinetic, lucid, noir, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
+title: "SSG Themes: twenty-four gated themes for Static Site Generator"
+description: "Twenty-four distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Twenty-two themes. One architecture. Every claim gated."
-lead: "Twenty-two themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit — there are no hardcoded score badges here."
+headline: "Twenty-four themes. One architecture. Every claim gated."
+lead: "Twenty-four themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit: there are no hardcoded score badges here."
 news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
@@ -458,7 +458,7 @@ stat_thirdparty: "third-party requests, on every page"
           <tbody>
             <tr>
               <th scope="row">Contrast</th>
-              <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11) — in both light and dark</td>
+              <td>Text token pairs at 7:1 (WCAG 1.4.6, AAA); borders and focus ring at 3:1 (1.4.11), in both light and dark</td>
             </tr>
             <tr>
               <th scope="row">Structure</th>
