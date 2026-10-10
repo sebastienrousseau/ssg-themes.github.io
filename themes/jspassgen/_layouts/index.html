@@ -181,7 +181,7 @@
         For three decades, software forced users into artificial composition rules: one uppercase letter, one digit, one symbol. Modern cryptanalysis and GPU clusters crack these predictable patterns in seconds.
       </p>
       <p>
-        jspassgen eliminates superstitious rules in favour of <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x" target="_blank" rel="external noopener noreferrer">Claude Shannon's information theory</a>, post-quantum KDF primitives (<a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">RFC 9106 Argon2id</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">RFC 5869 HKDF</a>), and client-side memory safety. Every secret is mathematically verified before it touches your clipboard.
+        jspassgen eliminates superstitious rules in favour of Claude Shannon's information theory, post-quantum KDF primitives (RFC 9106 Argon2id and RFC 5869 HKDF), and client-side memory safety. Every secret is mathematically verified before it touches your clipboard.
       </p>
     </div>
   </div>
@@ -220,7 +220,7 @@
           <span class="chapter-num">01 / QUANTUM HARDENING</span>
           <h3 class="bento-title">Resilient against tomorrow's compute.</h3>
           <p class="bento-text">
-            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard <a href="https://www.rfc-editor.org/rfc/rfc9106.html" target="_blank" rel="external noopener noreferrer">Argon2id (RFC 9106)</a> and <a href="https://www.rfc-editor.org/rfc/rfc5869.html" target="_blank" rel="external noopener noreferrer">HKDF expansion (RFC 5869)</a>, brute-force search remains computationally infeasible.
+            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard Argon2id (RFC 9106) and HKDF expansion (RFC 5869), brute-force search remains computationally infeasible.
           </p>
           <ul class="chapter-specs">
             <li>Argon2id memory-hardness neutralizes parallel ASIC and quantum oracle evaluations</li>
