@@ -1,40 +1,35 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{locale_path}}" aria-label="{{label_home}}">
-      <span class="brand-mark" aria-hidden="true">{{brand_mark}}</span>
-      <span>{{name}}</span>
+    <a class="brand" href="/" aria-label="jspassgen home">
+      <img src="images/logo.svg" alt="jspassgen logo" class="brand-logo" width="32" height="32" />
+      <span>jspassgen</span>
+      <span class="brand-badge">v0.0.19</span>
     </a>
+    
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
-      <span>{{label_menu}}</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      <span>Menu</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
-    <nav class="site-nav" id="navMenu" aria-label="{{label_nav}}">
-      <a href="{{locale_path}}#generator">{{nav_generator}}</a>
-      <a href="{{locale_path}}#diceware">{{nav_diceware}}</a>
-      <a href="{{locale_path}}#entropy">{{nav_entropy}}</a>
-      <a href="{{locale_path}}#audit">{{nav_audit}}</a>
-      <a href="{{locale_path}}{{slug_about}}/">{{nav_about}}</a>
-      <a href="{{locale_path}}{{slug_contact}}/">{{nav_contact}}</a>
-      <a class="nav-cta" href="{{locale_path}}#generator">{{cta_primary}}</a>
+    
+    <nav class="site-nav" id="navMenu" aria-label="Main Navigation">
+      <a href="#generator">Generator</a>
+      <a href="#comparison">Vs Competitors</a>
+      <a href="#features">Features</a>
+      <a href="#cli">CLI</a>
+      <a href="#faq">FAQ</a>
     </nav>
-    <span data-ssg-search></span>
-    <details class="ap-lang">
-      <summary class="ap-lang-toggle" title="{{label_langs}}">
-        <span class="ap-lang-globe">🌐</span>
-        <span class="ap-lang-current">{{lang_code}}</span>
-        <span class="visually-hidden">, {{lang_change}}</span>
-      </summary>
-      <div class="ap-lang-menu">
-        <div class="ap-lang-menu-grid">
-          <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
-          <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
-        </div>
-      </div>
-    </details>
-    <button class="theme-toggle" id="mode-toggle" type="button" data-label-light="{{label_theme_light}}" data-label-dark="{{label_theme_dark}}">
-      <span class="visually-hidden">{{label_theme}}</span>
-      <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
-      <span class="theme-icon" aria-hidden="true"></span>
-    </button>
+    
+    <div class="header-actions">
+      <span data-ssg-search></span>
+      <a href="https://github.com/sebastienrousseau/jspassgen" class="btn-header-cli" target="_blank" rel="noopener noreferrer" aria-label="View jspassgen on GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <button class="theme-toggle" id="mode-toggle" type="button" data-label-light="Light" data-label-dark="Dark">
+        <span class="visually-hidden">Change color theme</span>
+        <span class="visually-hidden" id="mode-state" data-label-system="System">System</span>
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
