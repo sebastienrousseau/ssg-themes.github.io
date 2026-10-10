@@ -207,12 +207,12 @@
           <span class="chapter-num">01 / QUANTUM HARDENING</span>
           <h3 class="bento-title">Resilient against tomorrow's compute.</h3>
           <p class="bento-text">
-            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Cryptographic seeds are derived with memory-hard Argon2id parameters and expanded through HKDF, rendering Grover quantum speedups computationally ineffective.
+            Protects credentials against future quantum decryptors and massively parallel ASIC cracking arrays. Under Grover's algorithm, quantum search provides quadratic speedup (O(√N)), meaning 256 bits of symmetric entropy provides 128 bits of post-quantum security. Paired with memory-hard Argon2id and HKDF expansion, brute-force search remains computationally infeasible.
           </p>
           <ul class="chapter-specs">
-            <li>Memory-hard parameters neutralize GPU cracking arrays</li>
-            <li>Grover quantum search invariance (2¹²⁸ effective search cost)</li>
-            <li>Zero-dependency browser-native key derivation</li>
+            <li>Argon2id memory-hardness neutralizes parallel ASIC and quantum oracle evaluations</li>
+            <li>Grover-resistant symmetric bounds (256-bit entropy achieves 128-bit quantum security)</li>
+            <li>Zero-dependency browser-native key derivation via WebCrypto</li>
           </ul>
         </div>
         <div class="bento-visual">
@@ -240,7 +240,7 @@
             <div class="schematic-meta">
               <span>Memory hardness: 64 MB minimum</span>
               <span>·</span>
-              <span>Quantum resistance: Grover-invariant</span>
+              <span>Quantum bound: Grover O(√N) invariant</span>
             </div>
           </div>
         </div>
@@ -397,106 +397,121 @@
       </div>
     </div>
 
+    <div class="mobile-competitor-selector" id="mobileCompetitorSelector">
+      <label for="competitorSelect" class="selector-label">Compare against:</label>
+      <div class="select-wrapper">
+        <select id="competitorSelect" class="competitor-select" aria-label="Select competitor to compare against jspassgen">
+          <option value="bitwarden" selected>Bitwarden (Vault)</option>
+          <option value="onepassword">1Password (Vault)</option>
+          <option value="lastpass">LastPass (Vault)</option>
+          <option value="keepassxc">KeePassXC (Local Vault)</option>
+        </select>
+        <div class="select-arrow" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
     <div class="table-container">
-      <table class="benchmark-table" aria-label="Feature Comparison Table">
+      <table class="benchmark-table show-bitwarden" id="benchmarkTable" aria-label="Feature Comparison Table">
         <thead>
           <tr>
             <th scope="col" class="th-feature">Capability</th>
             <th scope="col" class="th-jspassgen">jspassgen <span class="badge-accent">Offline Engine</span></th>
-            <th scope="col">Bitwarden (Vault)</th>
-            <th scope="col">1Password (Vault)</th>
-            <th scope="col">LastPass (Vault)</th>
-            <th scope="col">KeePassXC (Local Vault)</th>
+            <th scope="col" class="th-competitor col-bitwarden" data-competitor="bitwarden">Bitwarden (Vault)</th>
+            <th scope="col" class="th-competitor col-onepassword" data-competitor="onepassword">1Password (Vault)</th>
+            <th scope="col" class="th-competitor col-lastpass" data-competitor="lastpass">LastPass (Vault)</th>
+            <th scope="col" class="th-competitor col-keepassxc" data-competitor="keepassxc">KeePassXC (Local Vault)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Architecture</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Hexagonal 0-dep</td>
-            <td>Monolithic app</td>
-            <td>Proprietary SaaS</td>
-            <td>Cloud-dependent</td>
-            <td>Desktop app</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Monolithic app</td>
+            <td class="col-onepassword" data-competitor="onepassword">Proprietary SaaS</td>
+            <td class="col-lastpass" data-competitor="lastpass">Cloud-dependent</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Desktop app</td>
           </tr>
           <tr>
             <th scope="row">CSPRNG Source</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> W3C WebCrypto API</td>
-            <td>WebCrypto API</td>
-            <td>Proprietary PRNG</td>
-            <td>Cloud API / PRNG</td>
-            <td>OS Kernel Entropy</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">WebCrypto API</td>
+            <td class="col-onepassword" data-competitor="onepassword">Proprietary PRNG</td>
+            <td class="col-lastpass" data-competitor="lastpass">Cloud API / PRNG</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">OS Kernel Entropy</td>
           </tr>
           <tr>
             <th scope="row">NIST SP 800-63B Alignment</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Exceeds Guidelines</td>
-            <td>Basic Rules</td>
-            <td>Basic Rules</td>
-            <td>Legacy Rules</td>
-            <td>Compliant</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Basic Rules</td>
+            <td class="col-onepassword" data-competitor="onepassword">Basic Rules</td>
+            <td class="col-lastpass" data-competitor="lastpass">Legacy Rules</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Compliant</td>
           </tr>
           <tr>
             <th scope="row">Network Footprint</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> 0 bytes (Air-gap safe)</td>
-            <td>Syncs to Cloud</td>
-            <td>Syncs to Cloud</td>
-            <td>Syncs to Cloud</td>
-            <td><span class="check-icon" aria-hidden="true">✓</span> Offline Safe</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Syncs to Cloud</td>
+            <td class="col-onepassword" data-competitor="onepassword">Syncs to Cloud</td>
+            <td class="col-lastpass" data-competitor="lastpass">Syncs to Cloud</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Offline Safe</td>
           </tr>
           <tr>
             <th scope="row">Post-Quantum KDF</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Argon2id + HKDF</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td>Argon2id (Vault only)</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Argon2id (Vault only)</td>
           </tr>
           <tr>
             <th scope="row">EFF Diceware</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> 7,776 Wordlist</td>
-            <td><span class="warn-icon" aria-hidden="true">~</span> Custom</td>
-            <td><span class="warn-icon" aria-hidden="true">~</span> Closed</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="check-icon" aria-hidden="true">✓</span> Supported</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="warn-icon" aria-hidden="true">~</span> Custom</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="warn-icon" aria-hidden="true">~</span> Closed</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Supported</td>
           </tr>
           <tr>
             <th scope="row">Honeywords Decoys</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Built-in Canaries</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-bitwarden" data-competitor="bitwarden"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-onepassword" data-competitor="onepassword"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
           </tr>
           <tr>
             <th scope="row">Shannon Entropy H(X)</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Mathematical</td>
-            <td>Estimated</td>
-            <td>Bar only</td>
-            <td>Weak/Strong</td>
-            <td>Estimated</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Estimated</td>
+            <td class="col-onepassword" data-competitor="onepassword">Bar only</td>
+            <td class="col-lastpass" data-competitor="lastpass">Weak/Strong</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">Estimated</td>
           </tr>
           <tr>
             <th scope="row">Runtime Dependencies</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Exactly 0</td>
-            <td>50+ packages</td>
-            <td>Closed bundle</td>
-            <td>Heavy SDKs</td>
-            <td>C++ compiled</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">50+ packages</td>
+            <td class="col-onepassword" data-competitor="onepassword">Closed bundle</td>
+            <td class="col-lastpass" data-competitor="lastpass">Heavy SDKs</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">C++ compiled</td>
           </tr>
           <tr>
             <th scope="row">Analytics / Trackers</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> Absolute Zero (0)</td>
-            <td>Minimal</td>
-            <td>Telemetry</td>
-            <td>Marketo, Google</td>
-            <td><span class="check-icon" aria-hidden="true">✓</span> Zero</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Minimal</td>
+            <td class="col-onepassword" data-competitor="onepassword">Telemetry</td>
+            <td class="col-lastpass" data-competitor="lastpass">Marketo, Google</td>
+            <td class="col-keepassxc" data-competitor="keepassxc"><span class="check-icon" aria-hidden="true">✓</span> Zero</td>
           </tr>
           <tr>
             <th scope="row">CLI Tool</th>
             <td class="td-highlight"><span class="check-icon" aria-hidden="true">✓</span> npx jspassgen</td>
-            <td>Vault CLI</td>
-            <td>Paid CLI</td>
-            <td><span class="cross-icon" aria-hidden="true">✗</span> No</td>
-            <td>keepassxc-cli</td>
+            <td class="col-bitwarden" data-competitor="bitwarden">Vault CLI</td>
+            <td class="col-onepassword" data-competitor="onepassword">Paid CLI</td>
+            <td class="col-lastpass" data-competitor="lastpass"><span class="cross-icon" aria-hidden="true">✗</span> No</td>
+            <td class="col-keepassxc" data-competitor="keepassxc">keepassxc-cli</td>
           </tr>
         </tbody>
       </table>

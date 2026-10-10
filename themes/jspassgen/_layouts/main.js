@@ -256,7 +256,7 @@
       } else if (entropy < 135) {
         expEl.innerHTML = "At " + effectiveLength + (mode === "diceware" ? " words" : " characters") + " (" + entropy + " bits), the search space expands to ~" + mantissa + " × 10<sup>" + exponent + "</sup> combinations. Cracking energy exceeds the thermal output of planet Earth.";
       } else {
-        expEl.innerHTML = "At " + effectiveLength + (mode === "diceware" ? " words" : " characters") + " (" + entropy + " bits), the search space exceeds ~" + mantissa + " × 10<sup>" + exponent + "</sup> permutations. Resistant against Grover quantum search algorithms; exceeds estimated atoms in the galaxy.";
+        expEl.innerHTML = "At " + effectiveLength + (mode === "diceware" ? " words" : " characters") + " (" + entropy + " bits), the search space exceeds ~" + mantissa + " × 10<sup>" + exponent + "</sup> permutations. Under Grover's quantum search (quadratic speedup), effective search complexity remains at least 2<sup>" + Math.floor(entropy / 2) + "</sup> operations, maintaining cryptographic infeasibility.";
       }
     }
   }
@@ -407,6 +407,20 @@
     var btnCopy = document.getElementById("btnCopy");
     if (btnCopy) {
       btnCopy.addEventListener("click", copyToClipboard);
+    }
+
+    var competitorSelect = document.getElementById("competitorSelect");
+    var benchmarkTable = document.getElementById("benchmarkTable");
+    if (competitorSelect && benchmarkTable) {
+      competitorSelect.addEventListener("change", function (e) {
+        benchmarkTable.classList.remove(
+          "show-bitwarden",
+          "show-onepassword",
+          "show-lastpass",
+          "show-keepassxc"
+        );
+        benchmarkTable.classList.add("show-" + e.target.value);
+      });
     }
 
     refreshPassword();
