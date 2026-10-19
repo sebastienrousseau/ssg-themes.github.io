@@ -37,7 +37,7 @@ ATTR_RE = re.compile(r'(\s(?:' + "|".join(ATTRS) + r')=")([^"]*)"')
 URL_FN_RE = re.compile(r"url\((['\"]?)(/(?!/)[^)'\"]*)\1\)")
 # The opening tag is rewritten like any other (a `<script src="/main.js">`
 # is a reference); only the element body between the tags is kept verbatim.
-SKIP_BODY_RE = re.compile(r"(<(?:script|style)\b[^>]*>)(.*?)(</(?:script|style)>)", re.S | re.I)
+SKIP_BODY_RE = re.compile(r"(<(?:script|style)\b[^>]*>)(.*?)(</(?:script|style)\b[^>]*>)", re.DOTALL | re.IGNORECASE)
 
 
 def rebase_value(value: str, prefix: str) -> str:
