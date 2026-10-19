@@ -27,6 +27,8 @@
   command-line panel's text sits on opaque grounds over its backdrop
   photograph, and the two labelled displays carry `role="group"`.
 - In-page links clear the sticky header (`scroll-padding-top`).
+- Recaptured the gallery screenshots from the current build; the
+  committed ones showed an earlier design.
 - Packed the Diceware list: the full 7,776-word EFF list still ships
   inside `main.js`, so a passphrase needs no network request, but as a
   13 KB arithmetic-coded string instead of 62 KB of plain words. The page
