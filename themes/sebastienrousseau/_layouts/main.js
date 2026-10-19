@@ -242,20 +242,19 @@ document.addEventListener("change", function (event) {
         // (js/xss-through-dom). Either failing its check falls back to the
         // safe default listing.
         var base = target.getAttribute("data-navigate-base") || "/articles";
-        // Must be a single-slash site-relative path whose first character is
+        var v = target.value;
+        // Each DOM value is used only inside the branch where its allow-list
+        // test passed, so no unchecked text can reach the URL. The base must
+        // be a single-slash site-relative path whose first character is
         // alphanumeric: this rejects protocol-relative ("//host") and scheme
         // ("javascript:") URLs that the previous ^\/[a-z0-9/-]+$ allowed.
-        if (!/^\/[a-z0-9][a-z0-9/-]*$/.test(base)) {
-            base = "/articles";
+        var dest = "/articles/";
+        if (/^\/[a-z0-9][a-z0-9/-]*$/.test(base)) {
+            dest = base + "/";
         }
-        var v = target.value;
-        if (v && !/^[a-z0-9-]+$/.test(v)) {
-            v = "";
+        if (/^[a-z0-9-]+$/.test(v)) {
+            dest += v + "/";
         }
-        // base and v are both validated against strict allow-lists above and
-        // encodeURIComponent-clean by construction, so the assembled path is a
-        // safe same-origin relative URL (js/xss-through-dom false positive).
-        var dest = v ? base + "/" + encodeURIComponent(v) + "/" : base + "/";
         window.location.assign(dest);
         return;
     }
