@@ -5,3 +5,25 @@
 - Initial release of the jspassgen theme.
 - Added cryptographic entropy gauges, password generators, and Diceware models.
 - Added responsive layouts, dark/light theme switching, and WCAG AAA compliance.
+- Fixed the command-line panel's backdrop picture overflowing the panel's
+  clipped edge at 200% text size and with WCAG text spacing: the picture is
+  now a block box, so it has no inline line box to hang below the image.
+- Fixed light-mode accent text and buttons at 5.2-5.9:1: `--accent-primary`
+  now follows the AAA-gated `--accent` (#1e40af, 7.7:1 or better on every
+  ground it sits on). Terminal comments rise to 8.2:1, and the footer
+  credit links are underlined so colour is not their only marker.
+- Fixed the navigation labels wrapping onto several lines between 768px
+  and 990px: the menu now collapses into its disclosure below 62rem.
+- Fixed the colour-mode control to use the canonical Voxt rules every theme
+  shares: it had restyled them with its own border and background tokens,
+  so it no longer matched the control on every other theme.
+- Fixed the remaining AAA findings: comparison-table marks get their own
+  7:1 colours (`--mark-yes`, `--mark-no`, `--mark-warn`), dark accent text on
+  the accent tint rises from 6.86:1 to 7.39:1, the CLI and FAQ links, the
+  copy button, the 404 and contact buttons and the contact inputs reach
+  44px, and consecutive paragraphs on text pages are spaced for WCAG 1.4.8.
+- Made every text colour measurable by the contrast tools: the header is
+  opaque, the table marks and pipeline arrows are generated content, the
+  command-line panel's text sits on opaque grounds over its backdrop
+  photograph, and the two labelled displays carry `role="group"`.
+- In-page links clear the sticky header (`scroll-padding-top`).

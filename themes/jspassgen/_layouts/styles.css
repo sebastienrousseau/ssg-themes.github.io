@@ -47,14 +47,22 @@
   --border-strong: #c7d7f5;
   --border-interactive: var(--line);
   --border-focus: var(--focus);
-  --accent-primary: #2455e8;
-  --accent-primary-hover: #1d4ed8;
+  /* Follows the gated --accent pair rather than its own literal: #2455e8
+     sat at 5.2-5.9:1 against white, the soft tint and as a button ground,
+     under the 7:1 AAA text target, and contrast.py never saw it because it
+     was not one of the tokens it reads. */
+  --accent-primary: var(--accent);
+  --accent-primary-hover: var(--accent-hover);
   --accent-primary-subtle: var(--accent-soft);
   --accent-text: #1e40af;
 
   --strength-weak: #d70015;
   --strength-fair: #b25000;
   --strength-good: #0071e3;
+  /* Comparison-table marks, held to 7:1 on every table ground. */
+  --mark-yes: #1e40af;
+  --mark-no: #9b0010;
+  --mark-warn: #7a3d00;
   --strength-strong: #145924;
   --strength-quantum: #213bb8;
 
@@ -82,7 +90,9 @@
   --accent: #96aafa;
   --accent-hover: #adc0ff;
   --accent-ink: #0c0d11;
-  --accent-soft: #1e243d;
+  /* #1e243d held --accent text, used on this tint by the badges, the
+     segment readout and the highlighted table column, at 6.86:1. */
+  --accent-soft: #191e33;
   --on-accent-soft: #adc0ff;
   --focus: #96aafa;
   --line: #848896;
@@ -119,6 +129,12 @@
   --strength-weak: #ff453a;
   --strength-fair: #ff9f0a;
   --strength-good: #0a84ff;
+
+  --mark-yes: #b4c3ff;
+
+  --mark-no: #ff9a91;
+
+  --mark-warn: #ffc266;
   --strength-strong: #30d158;
   --strength-quantum: #96aafa;
 
@@ -146,7 +162,7 @@
     --accent: #96aafa;
     --accent-hover: #adc0ff;
     --accent-ink: #0c0d11;
-    --accent-soft: #1e243d;
+    --accent-soft: #191e33;
     --on-accent-soft: #adc0ff;
     --focus: #96aafa;
     --line: #848896;
@@ -183,6 +199,12 @@
     --strength-weak: #ff453a;
     --strength-fair: #ff9f0a;
     --strength-good: #0a84ff;
+
+    --mark-yes: #b4c3ff;
+
+    --mark-no: #ff9a91;
+
+    --mark-warn: #ffc266;
     --strength-strong: #30d158;
     --strength-quantum: #96aafa;
   }
@@ -193,31 +215,26 @@
 :where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
 .site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
 
-/* Voxt canonical 3-state mode control */
+/* Voxt is the canonical three-state mode control for every theme. */
 #mode-toggle.theme-toggle {
   appearance: none;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 44px;
+  height: 44px;
   min-width: 44px;
   min-height: 44px;
   padding: 0;
-  border: 1px solid var(--border-strong);
+  border: 1px solid #5d6375;
   border-radius: 50%;
-  background: var(--surface);
-  color: var(--ink);
+  background: #151928;
+  color: #ffffff;
   box-shadow: none;
   cursor: pointer;
-  display: inline-flex;
-  flex: 0 0 2.75rem;
+  display: flex;
+  flex: 0 0 44px;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1;
-  transition: all var(--transition-fast);
-}
-#mode-toggle.theme-toggle:hover {
-  border-color: var(--accent-primary);
-  background: var(--bg-subtle);
 }
 .sr-only,
 #mode-toggle .visually-hidden {
@@ -231,24 +248,22 @@
   white-space: nowrap;
   border: 0;
 }
-#mode-toggle .theme-icon { line-height: 1; display: flex; align-items: center; justify-content: center; }
-#mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1rem; }
-:root[data-theme="light"] #mode-toggle.theme-toggle,
-:root[data-theme-mode="light"] #mode-toggle.theme-toggle {
-  border-color: var(--border-strong);
-  background: var(--surface);
-  color: var(--ink);
+#mode-toggle .theme-icon { line-height: 1; }
+#mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1.2rem; }
+:root[data-theme="light"] #mode-toggle.theme-toggle {
+  border-color: #878d9b;
+  background: #f3f4f6;
+  color: #090a0f;
 }
 :root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
-:root[data-theme-mode="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
-:root[data-theme="dark"] #mode-toggle.theme-toggle,
-:root[data-theme-mode="dark"] #mode-toggle.theme-toggle {
-  border-color: var(--border-strong);
-  background: var(--surface);
-  color: var(--ink);
-}
 :root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
-:root[data-theme-mode="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #mode-toggle.theme-toggle {
+    border-color: #878d9b;
+    background: #f3f4f6;
+    color: #090a0f;
+  }
+}
 
 /* WCAG 2.4.13 : Focus visible */
 :focus-visible {
@@ -280,6 +295,9 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* Clears the 4.5rem sticky header, so an in-page link or a scripted
+     scrollIntoView never lands a heading underneath it. */
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -339,9 +357,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(247, 247, 244, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  /* Opaque: a translucent bar over scrolling content has no single ground,
+     so its text contrast could not be measured (htmlcs reported NaN:1). */
+  background-color: #f7f7f4;
   border-bottom: 1px solid var(--border-subtle);
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
   width: 100%;
@@ -349,12 +367,12 @@ body {
 
 :root[data-theme="dark"] .site-header,
 :root[data-theme-mode="dark"] .site-header {
-  background-color: rgba(12, 13, 17, 0.85);
+  background-color: #0c0d11;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not([data-theme-mode="light"]) .site-header {
-    background-color: rgba(12, 13, 17, 0.85);
+    background-color: #0c0d11;
   }
 }
 
@@ -418,6 +436,8 @@ body {
 }
 
 .site-nav a {
+  min-width: 44px;
+  justify-content: center;
   text-decoration: none;
   color: var(--text-muted);
   font-size: 0.925rem;
@@ -517,14 +537,11 @@ body {
   color: var(--accent-primary);
 }
 
-/* Mobile Header Layout */
-@media (max-width: 48rem) {
-  .header-inner {
-    gap: 0.5rem;
-  }
-  .brand-badge {
-    display: none;
-  }
+/* The six inline links need about 62rem beside the brand and the header
+   actions. Collapsing only at 48rem left a band from 768px to 990px where
+   each label wrapped onto two to four lines ("Co / nso / le") inside the
+   fixed-height header, so the disclosure takes over from 62rem down. */
+@media (max-width: 62rem) {
   .nav-toggle {
     display: inline-flex;
   }
@@ -543,6 +560,16 @@ body {
     padding: 1.5rem;
     gap: 0.5rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Mobile Header Layout */
+@media (max-width: 48rem) {
+  .header-inner {
+    gap: 0.5rem;
+  }
+  .brand-badge {
+    display: none;
   }
   #ssg-search-btn span,
   #ssg-search-btn kbd {
@@ -1510,6 +1537,10 @@ input[type="range"] {
   font-family: var(--font-mono);
 }
 
+/* Decorative glyphs are drawn as generated content: as text nodes they
+   were symbol characters axe cannot evaluate for contrast. */
+.pipeline-arrow::before { content: "→"; }
+
 .pipeline-arrow {
   color: var(--text-dim);
   font-weight: 800;
@@ -1819,7 +1850,17 @@ input[type="range"] {
   mix-blend-mode: screen;
 }
 
+/* <picture> is inline by default, so its line box (which grows with the
+   text size) hung below the full-height image and past the wrapper's
+   clipped edge: 200% text zoom reported 14px of clipped content. A block
+   box filling the backdrop has no line box to overflow. */
+.cinematic-backdrop picture {
+  display: block;
+  height: 100%;
+}
+
 .cinematic-backdrop-img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1842,6 +1883,7 @@ input[type="range"] {
   letter-spacing: 0.1em;
   color: #96aafa;
   margin-bottom: 1.5rem;
+  background-color: #0c0d11;
 }
 
 .cinematic-heading {
@@ -1852,6 +1894,10 @@ input[type="range"] {
   color: #f6f7fa;
   margin: 0 0 1.25rem;
   word-break: break-word;
+  background-color: #0c0d11;
+  /* At line-height 1.15 the tallest glyphs rise above the line box and
+     out of this ground; the padding keeps them on it. */
+  padding-block-start: 0.15em;
 }
 
 .cinematic-lead {
@@ -1860,6 +1906,9 @@ input[type="range"] {
   max-width: 42rem;
   margin: 0 auto 3rem;
   line-height: 1.6;
+  /* The backdrop photograph sits behind this block; an opaque ground of
+     the panel's own colour keeps every line measurable. */
+  background-color: #0c0d11;
 }
 
 .cinematic-terminal {
@@ -1918,7 +1967,7 @@ input[type="range"] {
   font-weight: 600;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  min-height: 36px;
+  min-height: 44px;
   transition: all var(--transition-fast);
   margin-left: auto;
 }
@@ -1962,7 +2011,8 @@ input[type="range"] {
   word-break: break-word;
 }
 
-.t-comment { color: #848896; word-break: break-word; }
+/* 8.2:1 on the always-dark terminal ground (#050608); #848896 was 5.7:1. */
+.t-comment { color: #a1a5b2; word-break: break-word; }
 .t-prompt { color: #96aafa; font-weight: 700; }
 .t-success { color: #30d158; word-break: break-word; }
 .t-highlight { color: #f6f7fa; font-weight: 700; word-break: break-all; }
@@ -2003,7 +2053,7 @@ input[type="range"] {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: #1f2024;
   color: #f6f7fa;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0 1.6rem;
@@ -2017,7 +2067,7 @@ input[type="range"] {
 }
 
 .btn-cinematic-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #303135;
   color: #ffffff;
 }
 
@@ -2557,7 +2607,10 @@ input[type="range"] {
 
 .footer-bottom a {
   color: var(--text-muted);
-  text-decoration: none;
+  /* Underlined: the link and the sentence around it differ by 1.19:1, so
+     colour alone cannot mark it as a link (WCAG 1.4.1). */
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .footer-bottom a:hover {
@@ -2748,3 +2801,35 @@ input[type="range"] {
     --focus: color(display-p3 0.5882 0.6667 0.9804);
   }
 }
+
+/* Shared page furniture the 404, page and contact layouts use. These
+   classes had no rules here, so the 404 link and the form's button and
+   inputs rendered 18-21px tall against the 44px target, and two
+   paragraphs in a row sat closer than WCAG 1.4.8 allows. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.6rem 1.4rem;
+  /* A real border, not none: forced-colours mode removes backgrounds, and
+     a borderless button would vanish into the page. */
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button-primary { background: var(--accent-primary); color: var(--accent-ink); }
+.button-primary:hover { background: var(--accent-primary-hover); color: var(--accent-ink); }
+.prose :where(p, ul, ol, pre, blockquote, table, dl, figure)
+  + :where(p, ul, ol, pre, blockquote, table, dl, figure) { margin-block-start: 1.6lh; }
+.contact-body { display: grid; gap: 2rem; }
+.contact-form { display: grid; gap: 1.1rem; max-width: 40rem; }
+.contact-form .field { display: grid; gap: 0.4rem; }
+.contact-form label { font-weight: 700; color: var(--ink); }
+.contact-form input, .contact-form textarea { box-sizing: border-box; width: 100%; min-height: 2.9rem; padding: 0.65rem 0.8rem; font: inherit; color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: 0.5rem; }
+.contact-form textarea { min-height: 9rem; resize: vertical; }
+.contact-form .field-hint { margin: 0; color: var(--ink-muted); font-size: 0.875rem; }
+.contact-form .button { justify-self: start; }

@@ -226,6 +226,20 @@ EXTRA_PAIRS = {
         ("--ink-soft", "--surface-soft", AAA_TEXT, "secondary text on soft surface"),
         ("--line", "--surface-soft", UI_NONTEXT, "control border against soft surface"),
     ],
+    # jspassgen's comparison-table marks (✓ ✗ ~) sit on the table surface,
+    # its soft rows and the accent-tinted jspassgen column.
+    "jspassgen": [
+        ("--mark-yes", "--surface", AAA_TEXT, "yes mark on surface"),
+        ("--mark-yes", "--surface-soft", AAA_TEXT, "yes mark on soft surface"),
+        ("--mark-yes", "--accent-soft", AAA_TEXT, "yes mark in the highlighted column"),
+        ("--mark-no", "--surface", AAA_TEXT, "no mark on surface"),
+        ("--mark-no", "--surface-soft", AAA_TEXT, "no mark on soft surface"),
+        ("--mark-warn", "--surface", AAA_TEXT, "partial mark on surface"),
+        ("--mark-warn", "--surface-soft", AAA_TEXT, "partial mark on soft surface"),
+        # Badges, the segment readout and the highlighted column put accent
+        # text on the accent tint, not the --on-accent-soft ink.
+        ("--accent", "--accent-soft", AAA_TEXT, "accent text on accent tint"),
+    ],
     "prism": [
         ("--hero-ink", "--hero-bg", AAA_TEXT, "masthead text on navy"),
         ("--hero-ink-soft", "--hero-bg", AAA_TEXT, "masthead secondary text on navy"),
