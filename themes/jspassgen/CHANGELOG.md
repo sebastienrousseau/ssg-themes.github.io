@@ -41,3 +41,7 @@
   proportion: a glass grid over the accent-to-scene gradient, built from
   the theme's tokens, so wide screens fetch no photograph at all. The
   unused 1200 px WebP rung is removed.
+- Removed the comparison section (the competitor table, its mobile
+  selector, the "Benchmark" link in the header and the section's front
+  matter) to keep the page inside the 50 KB transfer budget with the full
+  wordlist on board.

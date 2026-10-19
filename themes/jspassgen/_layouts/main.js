@@ -650,20 +650,6 @@
       });
     }
 
-    var competitorSelect = document.getElementById("competitorSelect");
-    var benchmarkTable = document.getElementById("benchmarkTable");
-    if (competitorSelect && benchmarkTable) {
-      competitorSelect.addEventListener("change", function (e) {
-        benchmarkTable.classList.remove(
-          "show-bitwarden",
-          "show-onepassword",
-          "show-lastpass",
-          "show-keepassxc"
-        );
-        benchmarkTable.classList.add("show-" + e.target.value);
-      });
-    }
-
     function selectTabByHash() {
       var hash = window.location.hash;
       if (hash && hash.indexOf("#tab-") === 0) {
