@@ -189,12 +189,16 @@
   <div class="container manifesto-media">
     <figure class="manifesto-figure">
       <picture>
-        <source media="(min-width: 48rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" type="image/webp" width="1200" height="742" />
+        <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.avif" type="image/avif" width="640" height="396" />
+        <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.avif" type="image/avif" width="320" height="198" />
         <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" type="image/webp" width="640" height="396" />
         <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.webp" type="image/webp" width="320" height="198" />
-        <img src="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-1200.webp" alt="Minimalist architectural facade with precision glass grid and concrete geometry" width="1200" height="742" loading="lazy" decoding="async" class="manifesto-img" />
+        <img src="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" alt="Minimalist architectural facade with precision glass grid and concrete geometry" width="640" height="396" loading="lazy" decoding="async" class="manifesto-img" />
       </picture>
     </figure>
+    <!-- Wide screens get a drawn panel instead of the photograph: it costs
+         no request, and the page stays inside its transfer budget. -->
+    <div class="manifesto-panel" aria-hidden="true"></div>
   </div>
 </section>
 

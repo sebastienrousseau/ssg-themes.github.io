@@ -35,3 +35,9 @@
   `make check-wordlist` fails unless the page's own decoder reproduces that
   file byte for byte, in the same order, so dice index N is still word N.
   `main.js` transfer falls from 31.3 KB to 19.7 KB.
+- The manifesto photograph is shown below 48rem only, with AVIF rungs
+  (1.3 and 2.8 KB against 3.6 and 10.3 KB of WebP) and WebP kept as the
+  fallback. From 48rem a drawn panel takes its place at the same
+  proportion: a glass grid over the accent-to-scene gradient, built from
+  the theme's tokens, so wide screens fetch no photograph at all. The
+  unused 1200 px WebP rung is removed.

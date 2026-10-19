@@ -165,10 +165,19 @@ build_theme() {
   # the site's own JavaScript that SRI did not protect.
 
   # Screenshots, referenced by the gallery landing page.
+  # AVIF rungs are optional (a theme may ship them beside its WebP ladder),
+  # so they are matched with nullglob rather than as a required pattern.
   if [[ -d "themes/${theme}/images" ]]; then
     mkdir -p "public/${theme}/images"
     cp -f "themes/${theme}/images/"*.png "themes/${theme}/images/"*.webp \
        "public/${theme}/images/"
+    local avif=()
+    shopt -s nullglob
+    avif=("themes/${theme}/images/"*.avif)
+    shopt -u nullglob
+    if (( ${#avif[@]} > 0 )); then
+      cp -f "${avif[@]}" "public/${theme}/images/"
+    fi
   fi
 
   # Static assets that are not generated: images, favicon, downloads.

@@ -1326,6 +1326,31 @@ input[type="range"] {
   transform: scale(1.015);
 }
 
+/* From 48rem the photograph gives way to a drawn panel: a glass grid over
+   the accent-to-scene gradient, at the photograph's 1200 x 742 proportion.
+   The figure is display:none there, so its lazy image is never fetched. */
+.manifesto-panel {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .manifesto-figure {
+    display: none;
+  }
+
+  .manifesto-panel {
+    display: block;
+    aspect-ratio: 1200 / 742;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 20px 45px -15px rgba(16, 24, 39, 0.08);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 3.5rem, rgb(255 255 255 / 9%) 3.5rem calc(3.5rem + 1px)),
+      repeating-linear-gradient(0deg, transparent 0 2.25rem, rgb(255 255 255 / 9%) 2.25rem calc(2.25rem + 1px)),
+      linear-gradient(160deg, var(--accent) 0%, var(--scene) 100%);
+  }
+}
+
 .section-label {
   font-size: 0.8125rem;
   font-weight: 700;
