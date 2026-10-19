@@ -75,7 +75,7 @@ export const AUDIT = () => {
     // 1.08:1 and 1.16:1 in dark mode and no gate had ever looked at them.
     if(![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>0))continue;
     const cs=getComputedStyle(e);const ground=bg(e);
-    if(!ground){unmeasured.push(`${e.tagName}.${(''+e.className).slice(0,20)}`);continue}
+    if(!ground){unmeasured.push(`${e.tagName}.${(''+e.className).slice(0,20)}`);continue;}
     const r=ratio(cs.color,ground);
     const px=parseFloat(cs.fontSize),bold=parseInt(cs.fontWeight)>=700;
     const need=(px>=24||(px>=18.66&&bold))?4.5:7;
