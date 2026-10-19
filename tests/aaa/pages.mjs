@@ -18,9 +18,12 @@ const ROOT = 'public';
 const MIN_PAGES = 90;
 
 function walk(dir, out = []) {
-  for (const entry of readdirSync(dir)) {
+  // Directory entries carry their type, so no separate stat precedes the
+  // read below (a stat-then-read pair can see two different files).
+  for (const dirent of readdirSync(dir, { withFileTypes: true })) {
+    const entry = dirent.name;
     const full = join(dir, entry);
-    if (statSync(full).isDirectory()) walk(full, out);
+    if (dirent.isDirectory()) walk(full, out);
     else if (entry === '404.html') {
       // Not reachable by walking directories: a 404 page has no index.html.
       // Written by scripts/publish_404.py after the build, one per theme and
