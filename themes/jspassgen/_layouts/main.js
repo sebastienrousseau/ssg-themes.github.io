@@ -59,20 +59,23 @@
   }
 
   /* Dock search button into header slot without inline style mutations */
-  var searchSlot = document.querySelector('[data-ssg-search]');
-  var searchButton = document.getElementById('ssg-search-btn');
-  if (searchSlot && searchButton) {
-    searchSlot.replaceWith(searchButton);
-  } else if (searchSlot && typeof MutationObserver === 'function') {
-    var searchObserver = new MutationObserver(function () {
-      var btn = document.getElementById('ssg-search-btn');
-      if (btn) {
-        searchSlot.replaceWith(btn);
-        searchObserver.disconnect();
-      }
-    });
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+  function dockSearchButton() {
+    var searchSlot = document.querySelector('[data-ssg-search]');
+    var searchButton = document.getElementById('ssg-search-btn');
+    if (searchSlot && searchButton) {
+      searchSlot.replaceWith(searchButton);
+    } else if (searchSlot && typeof MutationObserver === 'function') {
+      var searchObserver = new MutationObserver(function () {
+        var btn = document.getElementById('ssg-search-btn');
+        if (btn) {
+          searchSlot.replaceWith(btn);
+          searchObserver.disconnect();
+        }
+      });
+      searchObserver.observe(document.body, { childList: true, subtree: true });
+    }
   }
+  dockSearchButton();
 
   /* FAQ Accordion toggle */
   var faqQuestions = document.querySelectorAll('.faq-question');
@@ -360,27 +363,41 @@
     return Math.round(result.password.length * Math.log2(result.poolSize || 94));
   }
 
-  function calculateCrackTime(entropy) {
-    if (entropy < 40) return "Instant";
-    if (entropy < 60) return "Few hours";
-    if (entropy < 80) return "Centuries";
-    if (entropy < 100) return "Cosmic Age";
-    if (entropy < 120) return "Planetary Scale";
-    return "Quantum-Proof";
+  /* Each table is [lower bound in bits, ...] in ascending order; the last
+     row whose bound the entropy reaches applies. */
+  var CRACK_TIMES = [[0, "Instant"], [40, "Few hours"], [60, "Centuries"], [80, "Cosmic Age"], [100, "Planetary Scale"], [120, "Quantum-Proof"]];
+  var STRENGTHS = [[0, "weak", "Weak"], [50, "medium", "Moderate"], [80, "strong", "Strong"], [110, "quantum", "Quantum-Resistant"]];
+  var SEGMENT_BITS = [35, 65, 90, 120, 140];
+  /* {s} is the search-space size, {g} the Grover exponent. */
+  var EXPLAINERS = [
+    [0, "modern GPU cracking rigs (e.g. RTX 4090 clusters) can exhaust the {s} search space in seconds to minutes."],
+    [50, "exhausting the {s} combinations requires centuries of compute time at 100 billion guesses per second."],
+    [75, "the search space reaches {s}. Cracking requires millions of years, far outlasting recorded human civilization."],
+    [105, "the search space expands to {s} combinations. Cracking energy exceeds the thermal output of planet Earth."],
+    [135, "the search space exceeds {s} permutations. Under Grover's quantum search (quadratic speedup), effective search complexity remains at least 2<sup>{g}</sup> operations, maintaining cryptographic infeasibility."]
+  ];
+
+  function pickByEntropy(table, entropy) {
+    var pick = table[0];
+    for (var i = 1; i < table.length; i++) {
+      if (entropy >= table[i][0]) pick = table[i];
+    }
+    return pick;
+  }
+
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function setHtml(id, html) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = html;
   }
 
   function updateSearchSpaceVisualizer(mode, length, poolSize, entropy, wordCount) {
-    var eqEl = document.getElementById("searchSpaceEquation");
-    var expEl = document.getElementById("searchSpaceExplainer");
-    var s1 = document.getElementById("seg1");
-    var s2 = document.getElementById("seg2");
-    var s3 = document.getElementById("seg3");
-    var s4 = document.getElementById("seg4");
-    var s5 = document.getElementById("seg5");
-
     var effectiveLength = length;
     var effectivePool = poolSize;
-
     if (mode === "diceware") {
       effectiveLength = wordCount;
       effectivePool = WORDLIST_SIZE;
@@ -391,136 +408,98 @@
     var log10Total = effectiveLength * Math.log10(effectivePool);
     var exponent = Math.floor(log10Total);
     var mantissa = Math.pow(10, log10Total - exponent).toFixed(1);
+    var power = mantissa + " × 10<sup>" + exponent + "</sup>";
+    var poolLabel = mode === "diceware" ? "7,776" : String(effectivePool);
+    setHtml("searchSpaceEquation", poolLabel + "<sup>" + effectiveLength + "</sup> ≈ " + power + " combinations");
 
-    if (eqEl) {
-      var poolLabel = mode === "diceware" ? "7,776" : String(effectivePool);
-      eqEl.innerHTML = poolLabel + "<sup>" + effectiveLength + "</sup> ≈ " + mantissa + " × 10<sup>" + exponent + "</sup> combinations";
+    SEGMENT_BITS.forEach(function (bits, i) {
+      var segment = document.getElementById("seg" + (i + 1));
+      if (segment) segment.classList.toggle("is-active", entropy >= bits);
+    });
+
+    var unitLabel = mode === "diceware" ? " words" : " characters";
+    var sentence = pickByEntropy(EXPLAINERS, entropy)[1]
+      .replace("{s}", "~" + power)
+      .replace("{g}", String(Math.floor(entropy / 2)));
+    setHtml("searchSpaceExplainer", "At " + effectiveLength + unitLabel + " (" + entropy + " bits), " + sentence);
+  }
+
+  function readOptions() {
+    var slider = document.getElementById("lengthSlider");
+    function checked(id, fallback) {
+      var box = document.getElementById(id);
+      return box ? box.checked : fallback;
     }
+    var length = slider ? parseInt(slider.value, 10) : 24;
+    return {
+      length: length,
+      wordCount: Math.max(3, Math.min(12, Math.round(length / 4))),
+      upper: checked("chkUpper", true),
+      lower: checked("chkLower", true),
+      numbers: checked("chkNumbers", true),
+      symbols: checked("chkSymbols", true),
+      ambiguous: checked("chkAmbiguous", false)
+    };
+  }
 
-    if (s1) s1.classList.toggle("is-active", entropy >= 35);
-    if (s2) s2.classList.toggle("is-active", entropy >= 65);
-    if (s3) s3.classList.toggle("is-active", entropy >= 90);
-    if (s4) s4.classList.toggle("is-active", entropy >= 120);
-    if (s5) s5.classList.toggle("is-active", entropy >= 140);
+  function randomFor(opts, length) {
+    return generateRandomPassword(length, opts.upper, opts.lower, opts.numbers, opts.symbols, opts.ambiguous);
+  }
 
-    if (expEl) {
-      var unitLabel = mode === "diceware" ? " words" : " characters";
-      if (entropy < 50) {
-        expEl.innerHTML = "At " + effectiveLength + unitLabel + " (" + entropy + " bits), modern GPU cracking rigs (e.g. RTX 4090 clusters) can exhaust the ~" + mantissa + " × 10<sup>" + exponent + "</sup> search space in seconds to minutes.";
-      } else if (entropy < 75) {
-        expEl.innerHTML = "At " + effectiveLength + unitLabel + " (" + entropy + " bits), exhausting the ~" + mantissa + " × 10<sup>" + exponent + "</sup> combinations requires centuries of compute time at 100 billion guesses per second.";
-      } else if (entropy < 105) {
-        expEl.innerHTML = "At " + effectiveLength + unitLabel + " (" + entropy + " bits), the search space reaches ~" + mantissa + " × 10<sup>" + exponent + "</sup>. Cracking requires millions of years, far outlasting recorded human civilization.";
-      } else if (entropy < 135) {
-        expEl.innerHTML = "At " + effectiveLength + unitLabel + " (" + entropy + " bits), the search space expands to ~" + mantissa + " × 10<sup>" + exponent + "</sup> combinations. Cracking energy exceeds the thermal output of planet Earth.";
-      } else {
-        expEl.innerHTML = "At " + effectiveLength + unitLabel + " (" + entropy + " bits), the search space exceeds ~" + mantissa + " × 10<sup>" + exponent + "</sup> permutations. Under Grover's quantum search (quadratic speedup), effective search complexity remains at least 2<sup>" + Math.floor(entropy / 2) + "</sup> operations, maintaining cryptographic infeasibility.";
-      }
-    }
+  function renderHoneywords(password, opts) {
+    var box = document.getElementById("honeywordsBox");
+    var list = document.getElementById("honeywordsList");
+    if (!box) return;
+    box.classList.remove("is-hidden");
+    if (!list) return;
+    var decoys = generateHoneywords(password, 5, opts.upper, opts.lower, opts.numbers, opts.symbols, opts.ambiguous);
+    list.innerHTML = "";
+    decoys.forEach(function (hw, idx) {
+      var item = document.createElement("div");
+      item.className = "honeyword-item";
+      item.textContent = (idx + 1) + ". " + hw;
+      list.appendChild(item);
+    });
+  }
+
+  function generateForMode(opts) {
+    if (currentMode === "diceware") return generateDiceware(opts.wordCount);
+    if (currentMode === "quantum") return generateQuantumKDF(Math.max(32, opts.length));
+    if (currentMode !== "random" && currentMode !== "honeywords") return { password: "", poolSize: 94 };
+    var result = randomFor(opts, opts.length);
+    if (currentMode === "honeywords") renderHoneywords(result.password, opts);
+    return result;
+  }
+
+  function renderStrength(entropy) {
+    var fill = document.getElementById("strengthFill");
+    var label = document.getElementById("strengthLabel");
+    if (!fill || !label) return;
+    var band = pickByEntropy(STRENGTHS, entropy);
+    fill.className = "strength-bar-fill strength-" + band[1];
+    label.className = "strength-label text-" + band[1];
+    label.textContent = band[2] + " (" + entropy + " bits)";
   }
 
   function refreshPassword() {
     var passwordOutput = document.getElementById("passwordOutput");
     if (!passwordOutput) return;
+    var opts = readOptions();
+    var diceware = currentMode === "diceware";
+    setText("sliderLabel", diceware ? "Passphrase Length (Diceware Words)" : "Credential Length / Search Space");
+    setText("lengthVal", diceware ? opts.wordCount + " words" : String(opts.length));
 
-    var lengthSlider = document.getElementById("lengthSlider");
-    var sliderLabel = document.getElementById("sliderLabel");
-    var lengthVal = document.getElementById("lengthVal");
-    var length = lengthSlider ? parseInt(lengthSlider.value, 10) : 24;
-    var chkUpper = document.getElementById("chkUpper");
-    var chkLower = document.getElementById("chkLower");
-    var chkNumbers = document.getElementById("chkNumbers");
-    var chkSymbols = document.getElementById("chkSymbols");
-    var chkAmbiguous = document.getElementById("chkAmbiguous");
-
-    var useUpper = chkUpper ? chkUpper.checked : true;
-    var useLower = chkLower ? chkLower.checked : true;
-    var useNumbers = chkNumbers ? chkNumbers.checked : true;
-    var useSymbols = chkSymbols ? chkSymbols.checked : true;
-    var excludeAmbiguous = chkAmbiguous ? chkAmbiguous.checked : false;
-
-    var wordCount = Math.max(3, Math.min(12, Math.round(length / 4)));
-
-    if (currentMode === "diceware") {
-      if (sliderLabel) sliderLabel.textContent = "Passphrase Length (Diceware Words)";
-      if (lengthVal) lengthVal.textContent = wordCount + " words";
-    } else {
-      if (sliderLabel) sliderLabel.textContent = "Credential Length / Search Space";
-      if (lengthVal) lengthVal.textContent = String(length);
-    }
-
-    var result = { password: "", poolSize: 94 };
     var honeywordsBox = document.getElementById("honeywordsBox");
     if (honeywordsBox) honeywordsBox.classList.add("is-hidden");
-
-    if (currentMode === "random") {
-      result = generateRandomPassword(length, useUpper, useLower, useNumbers, useSymbols, excludeAmbiguous);
-    } else if (currentMode === "diceware") {
-      result = generateDiceware(wordCount);
-    } else if (currentMode === "quantum") {
-      result = generateQuantumKDF(Math.max(32, length));
-    } else if (currentMode === "honeywords") {
-      result = generateRandomPassword(length, useUpper, useLower, useNumbers, useSymbols, excludeAmbiguous);
-      if (honeywordsBox) {
-        honeywordsBox.classList.remove("is-hidden");
-        var decoys = generateHoneywords(result.password, 5, useUpper, useLower, useNumbers, useSymbols, excludeAmbiguous);
-        var list = document.getElementById("honeywordsList");
-        if (list) {
-          list.innerHTML = "";
-          decoys.forEach(function (hw, idx) {
-            var item = document.createElement("div");
-            item.className = "honeyword-item";
-            item.textContent = (idx + 1) + ". " + hw;
-            list.appendChild(item);
-          });
-        }
-      }
-    }
-
+    var result = generateForMode(opts);
     passwordOutput.textContent = result.password;
 
     var entropy = calculateShannonEntropy(result, currentMode);
-    var valEntropy = document.getElementById("valEntropy");
-    if (valEntropy) valEntropy.innerHTML = entropy + ' <small>bits</small>';
-
-    var valPool = document.getElementById("valPool");
-    if (valPool) {
-      if (currentMode === "diceware") {
-        valPool.textContent = "7,776 words";
-      } else {
-        valPool.textContent = result.poolSize + " chars";
-      }
-    }
-
-    var valCrackTime = document.getElementById("valCrackTime");
-    if (valCrackTime) valCrackTime.textContent = calculateCrackTime(entropy);
-
-    updateSearchSpaceVisualizer(currentMode, length, result.poolSize, entropy, wordCount);
-
-    var strengthFill = document.getElementById("strengthFill");
-    var strengthLabel = document.getElementById("strengthLabel");
-    if (strengthFill && strengthLabel) {
-      strengthFill.className = "strength-bar-fill";
-      strengthLabel.className = "strength-label";
-
-      if (entropy < 50) {
-        strengthFill.classList.add("strength-weak");
-        strengthLabel.classList.add("text-weak");
-        strengthLabel.textContent = "Weak (" + entropy + " bits)";
-      } else if (entropy < 80) {
-        strengthFill.classList.add("strength-medium");
-        strengthLabel.classList.add("text-medium");
-        strengthLabel.textContent = "Moderate (" + entropy + " bits)";
-      } else if (entropy < 110) {
-        strengthFill.classList.add("strength-strong");
-        strengthLabel.classList.add("text-strong");
-        strengthLabel.textContent = "Strong (" + entropy + " bits)";
-      } else {
-        strengthFill.classList.add("strength-quantum");
-        strengthLabel.classList.add("text-quantum");
-        strengthLabel.textContent = "Quantum-Resistant (" + entropy + " bits)";
-      }
-    }
+    setHtml("valEntropy", entropy + " <small>bits</small>");
+    setText("valPool", diceware ? "7,776 words" : result.poolSize + " chars");
+    setText("valCrackTime", pickByEntropy(CRACK_TIMES, entropy)[1]);
+    updateSearchSpaceVisualizer(currentMode, opts.length, result.poolSize, entropy, opts.wordCount);
+    renderStrength(entropy);
   }
 
   function announceLive(message) {
@@ -561,36 +540,41 @@
     }
   }
 
-  function copyToClipboard() {
-    var passwordOutput = document.getElementById("passwordOutput");
-    var btnCopy = document.getElementById("btnCopy");
-    if (!passwordOutput) return;
-
-    var pwd = passwordOutput.textContent;
-    if (!pwd || pwd === "Generating...") return;
-
+  /* Copies `text` and flashes "Copied!" on the button for two seconds. */
+  function copyWithFeedback(button, text, iconSize, messages) {
     copyTextToClipboard(
-      pwd,
+      text,
       function () {
-        if (btnCopy) {
-          var origHtml = btnCopy.innerHTML;
-          btnCopy.classList.add("is-copied");
-          btnCopy.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied!</span>';
-          announceLive("Password copied to clipboard.");
-          setTimeout(function () {
-            btnCopy.classList.remove("is-copied");
-            btnCopy.innerHTML = origHtml;
-          }, 2000);
-        }
+        var origHtml = button.innerHTML;
+        button.classList.add("is-copied");
+        button.innerHTML = '<svg width="' + iconSize + '" height="' + iconSize + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied!</span>';
+        announceLive(messages[0]);
+        setTimeout(function () {
+          button.classList.remove("is-copied");
+          button.innerHTML = origHtml;
+        }, 2000);
       },
       function () {
-        announceLive("Unable to copy password automatically.");
+        announceLive(messages[1]);
       }
     );
   }
 
-  /* DOM Init */
-  document.addEventListener("DOMContentLoaded", function () {
+  function copyToClipboard() {
+    var passwordOutput = document.getElementById("passwordOutput");
+    var btnCopy = document.getElementById("btnCopy");
+    if (!passwordOutput || !btnCopy) return;
+    var pwd = passwordOutput.textContent;
+    if (!pwd || pwd === "Generating...") return;
+    copyWithFeedback(btnCopy, pwd, 16, ["Password copied to clipboard.", "Unable to copy password automatically."]);
+  }
+
+  function on(id, type, handler) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener(type, handler);
+  }
+
+  function bindTabs() {
     var tabs = document.querySelectorAll(".generator-tabs .tab-btn");
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
@@ -604,63 +588,28 @@
         refreshPassword();
       });
     });
+  }
 
-    var lengthSlider = document.getElementById("lengthSlider");
-    if (lengthSlider) {
-      lengthSlider.addEventListener("input", function () {
-        refreshPassword();
-      });
-    }
+  function selectTabByHash() {
+    var hash = window.location.hash;
+    if (!hash || hash.indexOf("#tab-") !== 0) return;
+    var targetTab = document.querySelector(hash);
+    if (targetTab && targetTab.classList.contains("tab-btn")) targetTab.click();
+  }
 
-    var checkboxes = document.querySelectorAll('.controls-grid input[type="checkbox"]');
-    checkboxes.forEach(function (chk) {
+  /* DOM Init */
+  document.addEventListener("DOMContentLoaded", function () {
+    bindTabs();
+    on("lengthSlider", "input", refreshPassword);
+    document.querySelectorAll('.controls-grid input[type="checkbox"]').forEach(function (chk) {
       chk.addEventListener("change", refreshPassword);
     });
-
-    var btnRefresh = document.getElementById("btnRefresh");
-    if (btnRefresh) {
-      btnRefresh.addEventListener("click", refreshPassword);
-    }
-
-    var btnCopy = document.getElementById("btnCopy");
-    if (btnCopy) {
-      btnCopy.addEventListener("click", copyToClipboard);
-    }
-
-    var btnCopyCli = document.getElementById("btnCopyCli");
-    if (btnCopyCli) {
-      btnCopyCli.addEventListener("click", function () {
-        var cliCommand = "npx jspassgen --length 32 --symbols";
-        copyTextToClipboard(
-          cliCommand,
-          function () {
-            var origHtml = btnCopyCli.innerHTML;
-            btnCopyCli.classList.add("is-copied");
-            btnCopyCli.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied!</span>';
-            announceLive("Terminal command copied to clipboard.");
-            setTimeout(function () {
-              btnCopyCli.classList.remove("is-copied");
-              btnCopyCli.innerHTML = origHtml;
-            }, 2000);
-          },
-          function () {
-            announceLive("Unable to copy CLI command.");
-          }
-        );
-      });
-    }
-
-    function selectTabByHash() {
-      var hash = window.location.hash;
-      if (hash && hash.indexOf("#tab-") === 0) {
-        var targetTab = document.querySelector(hash);
-        if (targetTab && targetTab.classList.contains("tab-btn")) {
-          targetTab.click();
-        }
-      }
-    }
+    on("btnRefresh", "click", refreshPassword);
+    on("btnCopy", "click", copyToClipboard);
+    on("btnCopyCli", "click", function () {
+      copyWithFeedback(document.getElementById("btnCopyCli"), "npx jspassgen --length 32 --symbols", 13, ["Terminal command copied to clipboard.", "Unable to copy CLI command."]);
+    });
     window.addEventListener("hashchange", selectTabByHash);
-
     refreshPassword();
     selectTabByHash();
   });

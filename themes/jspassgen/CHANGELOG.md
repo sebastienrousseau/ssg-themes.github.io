@@ -45,6 +45,9 @@
   selector, the "Benchmark" link in the header and the section's front
   matter) to keep the page inside the 50 KB transfer budget with the full
   wordlist on board.
+- Split `refreshPassword`, the search-space readout and the start-up code
+  into small table-driven functions, with the same output. Every function
+  in `main.js` is now within cyclomatic 10 and 60 lines.
 - Removed the FAQPage structured data from `base.html`: it was emitted in
   English on every page, French ones included. The visible FAQ is
   unchanged.
