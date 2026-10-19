@@ -17,15 +17,14 @@
 - Fixed the colour-mode control to use the canonical Voxt rules every theme
   shares: it had restyled them with its own border and background tokens,
   so it no longer matched the control on every other theme.
-- Fixed the remaining AAA findings: comparison-table marks get their own
-  7:1 colours (`--mark-yes`, `--mark-no`, `--mark-warn`), dark accent text on
-  the accent tint rises from 6.86:1 to 7.39:1, the CLI and FAQ links, the
-  copy button, the 404 and contact buttons and the contact inputs reach
-  44px, and consecutive paragraphs on text pages are spaced for WCAG 1.4.8.
+- Fixed the remaining AAA findings: dark accent text on the accent tint
+  rises from 6.86:1 to 7.39:1, the CLI and FAQ links, the copy button, the
+  404 and contact buttons and the contact inputs reach 44px, and
+  consecutive paragraphs on text pages are spaced for WCAG 1.4.8.
 - Made every text colour measurable by the contrast tools: the header is
-  opaque, the table marks and pipeline arrows are generated content, the
-  command-line panel's text sits on opaque grounds over its backdrop
-  photograph, and the two labelled displays carry `role="group"`.
+  opaque, the pipeline arrows are generated content, the command-line
+  panel's text sits on opaque grounds over its backdrop photograph, and
+  the two labelled displays carry `role="group"`.
 - In-page links clear the sticky header (`scroll-padding-top`).
 - Recaptured the gallery screenshots from the current build; the
   committed ones showed an earlier design.

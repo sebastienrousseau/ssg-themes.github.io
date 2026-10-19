@@ -57,10 +57,6 @@
   --accent-text: #1e40af;
 
   --strength-weak: #d70015;
-  /* Comparison-table marks, held to 7:1 on every table ground. */
-  --mark-yes: #1e40af;
-  --mark-no: #9b0010;
-  --mark-warn: #7a3d00;
   --strength-strong: #145924;
   --strength-quantum: #213bb8;
 
@@ -88,8 +84,8 @@
   --accent: #96aafa;
   --accent-hover: #adc0ff;
   --accent-ink: #0c0d11;
-  /* #1e243d held --accent text, used on this tint by the badges, the
-     segment readout and the highlighted table column, at 6.86:1. */
+  /* #1e243d held --accent text, used on this tint by the badges and the
+     segment readout, at 6.86:1. */
   --accent-soft: #191e33;
   --on-accent-soft: #adc0ff;
   --focus: #96aafa;
@@ -125,12 +121,6 @@
   --accent-primary-subtle: var(--accent-soft);
 
   --strength-weak: #ff453a;
-
-  --mark-yes: #b4c3ff;
-
-  --mark-no: #ff9a91;
-
-  --mark-warn: #ffc266;
   --strength-strong: #30d158;
   --strength-quantum: #96aafa;
 
@@ -193,12 +183,6 @@
     --accent-primary-subtle: var(--accent-soft);
 
     --strength-weak: #ff453a;
-
-    --mark-yes: #b4c3ff;
-
-    --mark-no: #ff9a91;
-
-    --mark-warn: #ffc266;
     --strength-strong: #30d158;
     --strength-quantum: #96aafa;
   }
