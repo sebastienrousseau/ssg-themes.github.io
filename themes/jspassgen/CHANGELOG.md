@@ -45,3 +45,6 @@
   selector, the "Benchmark" link in the header and the section's front
   matter) to keep the page inside the 50 KB transfer budget with the full
   wordlist on board.
+- Removed the FAQPage structured data from `base.html`: it was emitted in
+  English on every page, French ones included. The visible FAQ is
+  unchanged.
