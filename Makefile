@@ -3,7 +3,7 @@
 # impossible to run locally while CI passed. Override with `make PYTHON=...`.
 PYTHON ?= python3
 
-.PHONY: help check-chrome check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links check-schema check-cloudcdn build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-chrome check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links check-schema check-cloudcdn check-wordlist build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -125,7 +125,7 @@ build-jspassgen:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
+check: check-structure check-contrast check-wordlist build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
 	@echo "All gates passed."
 
 check-links:
@@ -138,6 +138,12 @@ check-schema:
 # CloudCDN repository. Override its location with CLOUDCDN_ROOT when needed.
 check-cloudcdn:
 	@$(PYTHON) scripts/cloudcdn_images.py
+
+# jspassgen ships its Diceware list packed inside main.js; this decodes it with
+# the page's own decoder and requires a byte-identical match with the source
+# list in themes/jspassgen/wordlist/. See scripts/jspassgen-wordlist.mjs.
+check-wordlist:
+	@node scripts/jspassgen-wordlist.mjs
 
 check-structure:
 	@$(PYTHON) scripts/validate.py

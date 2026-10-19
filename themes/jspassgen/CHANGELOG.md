@@ -27,3 +27,11 @@
   command-line panel's text sits on opaque grounds over its backdrop
   photograph, and the two labelled displays carry `role="group"`.
 - In-page links clear the sticky header (`scroll-padding-top`).
+- Packed the Diceware list: the full 7,776-word EFF list still ships
+  inside `main.js`, so a passphrase needs no network request, but as a
+  13 KB arithmetic-coded string instead of 62 KB of plain words. The page
+  decodes it on first use. `wordlist/eff_large_wordlist.txt` is the
+  source, `node scripts/jspassgen-wordlist.mjs --write` re-packs it, and
+  `make check-wordlist` fails unless the page's own decoder reproduces that
+  file byte for byte, in the same order, so dice index N is still word N.
+  `main.js` transfer falls from 31.3 KB to 19.7 KB.
