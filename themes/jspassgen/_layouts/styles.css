@@ -57,8 +57,6 @@
   --accent-text: #1e40af;
 
   --strength-weak: #d70015;
-  --strength-fair: #b25000;
-  --strength-good: #0071e3;
   /* Comparison-table marks, held to 7:1 on every table ground. */
   --mark-yes: #1e40af;
   --mark-no: #9b0010;
@@ -127,8 +125,6 @@
   --accent-primary-subtle: var(--accent-soft);
 
   --strength-weak: #ff453a;
-  --strength-fair: #ff9f0a;
-  --strength-good: #0a84ff;
 
   --mark-yes: #b4c3ff;
 
@@ -197,8 +193,6 @@
     --accent-primary-subtle: var(--accent-soft);
 
     --strength-weak: #ff453a;
-    --strength-fair: #ff9f0a;
-    --strength-good: #0a84ff;
 
     --mark-yes: #b4c3ff;
 
@@ -976,16 +970,6 @@ body {
   background-color: var(--strength-weak);
 }
 
-.strength-bar-fill.strength-fair {
-  width: 50%;
-  background-color: var(--strength-fair);
-}
-
-.strength-bar-fill.strength-good {
-  width: 75%;
-  background-color: var(--strength-good);
-}
-
 .strength-bar-fill.strength-strong {
   width: 90%;
   background-color: var(--strength-strong);
@@ -1007,8 +991,6 @@ body {
 }
 
 .strength-label.text-weak { color: var(--strength-weak); }
-.strength-label.text-fair { color: var(--strength-fair); }
-.strength-label.text-good { color: var(--strength-good); }
 .strength-label.text-strong { color: var(--strength-strong); }
 .strength-label.text-quantum { color: var(--strength-quantum); }
 
@@ -1242,13 +1224,6 @@ input[type="range"] {
   margin-bottom: 0.5rem;
 }
 
-.honeywords-header h4 {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--accent-primary);
-  font-weight: 700;
-}
-
 .honeywords-intro {
   margin: 0 0 0.75rem;
   font-size: 0.85rem;
@@ -1269,16 +1244,6 @@ input[type="range"] {
   border-radius: var(--radius-sm);
   display: flex;
   justify-content: space-between;
-}
-
-.honeyword-item.real {
-  border-left: 3px solid var(--accent-primary);
-  font-weight: 700;
-}
-
-.honeyword-item.decoy {
-  border-left: 3px solid #b25000;
-  color: var(--text-dim);
 }
 
 /* ==========================================================================
@@ -2356,20 +2321,6 @@ input[type="range"] {
 
 .footer-bottom a:hover {
   color: var(--accent-primary);
-}
-
-/* Page & 404 Layouts */
-.page-container {
-  padding: 4rem 1.5rem;
-  max-width: 52rem;
-  margin: 0 auto;
-}
-
-.not-found-container {
-  padding: 6rem 1.5rem;
-  text-align: center;
-  max-width: 40rem;
-  margin: 0 auto;
 }
 
 /* State & Utility Classes */

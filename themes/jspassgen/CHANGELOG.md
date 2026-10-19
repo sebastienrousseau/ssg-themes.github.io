@@ -51,3 +51,8 @@
 - Removed the FAQPage structured data from `base.html`: it was emitted in
   English on every page, French ones included. The visible FAQ is
   unchanged.
+- The logo's path coordinates are rounded to whole units of its 3600
+  viewBox (2.2 KB to 1.3 KB, same rendering), and style rules no page or
+  script uses are gone (`strength-fair`, `strength-good`,
+  `.honeywords-header h4`, `honeyword-item.real/.decoy`, `.page-container`,
+  `.not-found-container`).
