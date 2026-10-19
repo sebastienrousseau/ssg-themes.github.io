@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes: vingt-quatre thèmes contrôlés pour Static Site Generator"
-description: "Vingt-quatre thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
+title: "SSG Themes: vingt-cinq thèmes contrôlés pour Static Site Generator"
+description: "Vingt-cinq thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, control-centre, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "fr-FR"
 eyebrow: "Thèmes pour Static Site Generator"
-headline: "Vingt-quatre thèmes. Une architecture. Chaque promesse vérifiée."
-lead: "Vingt-quatre thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
+headline: "Vingt-cinq thèmes. Une architecture. Chaque promesse vérifiée."
+lead: "Vingt-cinq thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
 news_publication_date: "2026-09-13"
 nav_label_home: "Accueil"
 nav_label_themes: "Thèmes"
@@ -423,6 +423,22 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
             <a class="btn btn-primary" href="../jspassgen/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/jspassgen.zip" download>.zip</a>
             <a class="btn btn-outline" href="../downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="../control-centre/images/card.webp" srcset="../control-centre/images/card.webp 640w, ../control-centre/images/tn.webp 900w, ../control-centre/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Control Centre." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Outils pour développeurs</p>
+          <h3>Control Centre</h3>
+          <p>Tableau de bord d’exploitation et de sécurité. Une application avec barre latérale, un anneau d’état relié par des flux aux systèmes de part et d’autre, des indicateurs et des pastilles de sévérité.</p>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Posture de sécurité, pages d’état, rapports d’exploitation</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../control-centre/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/control-centre.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/control-centre.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>

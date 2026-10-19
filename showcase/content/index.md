@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes: twenty-four gated themes for Static Site Generator"
-description: "Twenty-four distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
+title: "SSG Themes: twenty-five gated themes for Static Site Generator"
+description: "Twenty-five distinct themes for Static Site Generator, spanning publishing, portfolios, finance, commerce and developer tools, with every claim checked by a gate in CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, control-centre, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "en-GB"
 eyebrow: "Themes for Static Site Generator"
-headline: "Twenty-four themes. One architecture. Every claim gated."
-lead: "Twenty-four themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit: there are no hardcoded score badges here."
+headline: "Twenty-five themes. One architecture. Every claim gated."
+lead: "Twenty-five themes now cover publications, portfolios, products, finance, retail, health, sport and developer tools. Each has its own design system and layout set on a shared template architecture. The numbers below are produced by gates that run on every commit: there are no hardcoded score badges here."
 news_publication_date: "2026-09-13"
 nav_label_home: "Home"
 nav_label_themes: "Themes"
@@ -423,6 +423,22 @@ stat_thirdparty: "third-party requests, on every page"
             <a class="btn btn-primary" href="jspassgen/">View demo</a>
             <a class="btn btn-secondary" href="downloads/jspassgen.zip" download>.zip</a>
             <a class="btn btn-outline" href="downloads/jspassgen.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="control-centre/images/card.webp" srcset="control-centre/images/card.webp 640w, control-centre/images/tn.webp 900w, control-centre/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Preview of the Control Centre theme home page." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Developer Tools</p>
+          <h3>Control Centre</h3>
+          <p>Operations and security dashboard. A sidebar app shell, a status ring joined by flows to the systems either side, KPI tiles and severity pills.</p>
+          <ul class="sc-meta"><li>4 layouts</li><li>Security posture, status pages, operations reports</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="control-centre/">View demo</a>
+            <a class="btn btn-secondary" href="downloads/control-centre.zip" download>.zip</a>
+            <a class="btn btn-outline" href="downloads/control-centre.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>

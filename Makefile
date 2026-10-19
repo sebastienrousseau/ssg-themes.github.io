@@ -12,6 +12,7 @@ help:
 	@echo "  make build-apex       Build the Apex theme"
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-cadence    Build the Cadence theme"
+	@echo "  make build-control-centre  Build the Control Centre theme"
 	@echo "  make build-covenant   Build the Covenant theme"
 	@echo "  make build-hearth     Build the Hearth theme"
 	@echo "  make build-intent     Build the Intent theme"
@@ -55,10 +56,13 @@ build-atlas:
 
 .PHONY: build-kaishi build-prism
 
-.PHONY: build-cadence build-covenant build-hearth build-intent build-kairo build-noir build-curio build-passmcp build-jspassgen build-signal build-steward build-visage
+.PHONY: build-cadence build-control-centre build-covenant build-hearth build-intent build-kairo build-noir build-curio build-passmcp build-jspassgen build-signal build-steward build-visage
 
 build-cadence:
 	@bash scripts/build.sh cadence
+
+build-control-centre:
+	@bash scripts/build.sh control-centre
 
 build-covenant:
 	@bash scripts/build.sh covenant

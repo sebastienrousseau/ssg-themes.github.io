@@ -1,6 +1,6 @@
 # SSG Themes
 
-> Twenty-two production themes for Static Site Generator (SSG), spanning
+> Twenty-five production themes for Static Site Generator (SSG), spanning
 > publishing, portfolios, finance, commerce, health, sport and SaaS. Each has
 > its own design system and layout set, built on a shared template
 > architecture, with every accessibility and performance claim enforced by
@@ -11,6 +11,7 @@
 - [Apex](https://themes.static-site-generator.com/apex/): portfolio and consulting theme. Cool neutrals, deep blue accent, seven layouts.
 - [Atlas](https://themes.static-site-generator.com/atlas/): editorial and knowledge-hub theme. Serif reading column at a 72-character measure, forest-green accent, eight layouts.
 - [Cadence](https://themes.static-site-generator.com/cadence/): performance-cycling theme. Dark cinematic stage, rider abstraction and evidence-led specifications.
+- [Control Centre](https://themes.static-site-generator.com/control-centre/): operations and security dashboard theme. Sidebar app shell, a status ring joined by flows to the systems either side, KPI tiles, severity pills and evidence tables, English and French.
 - [Covenant](https://themes.static-site-generator.com/covenant/): private-capital theme. Black, ivory and red geometry with rigorous portfolio narratives.
 - [Curio](https://themes.static-site-generator.com/curio/): AI shopping-assistant theme. Oversized type, product cards and transparent recommendations.
 - [Hearth](https://themes.static-site-generator.com/hearth/): furniture-catalogue theme. Airy product staging, warm materials and practical ownership content.
