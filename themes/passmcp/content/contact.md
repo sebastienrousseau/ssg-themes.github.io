@@ -1,0 +1,63 @@
+---
+title: "Contact — passmcp"
+description: "How to reach the passmcp team, what to include so the answer is useful, and how long a reply takes."
+keywords: "passmcp contact, enquiries"
+layout: "contact"
+translation_key: "contact"
+name: "passmcp"
+author: "SSG Theme Suite"
+date: "2026-09-16"
+language: "en-GB"
+lang_code: "EN"
+lang_change: "Change language"
+schema: "page"
+copyright_year: "2026"
+form_origin: "https://example.com"
+theme_style: "style-passmcp"
+theme_colour: "#0a5f68"
+brand_mark: "P"
+footer_note: "A verdict is worth what its evidence is worth."
+cta_primary: "Read the findings"
+locale_path: "/passmcp/"
+base_path: "/passmcp/"
+en_current: ' aria-current="true"'
+fr_current: ""
+label_home: "passmcp home"
+label_menu: "Menu"
+label_nav: "Primary"
+label_langs: "Language"
+label_theme: "Change colour theme"
+label_theme_light: "Light"
+label_theme_dark: "Dark"
+label_theme_system: "System"
+label_explore: "Explore"
+label_start: "Start a conversation"
+label_demo_content: "Demonstration content."
+label_made_with: "Made with SSG"
+nav_services: "Services"
+nav_work: "Work"
+nav_work_long: "Selected work"
+nav_about: "About"
+nav_contact: "Contact"
+slug_about: "about"
+slug_contact: "contact"
+eyebrow: "Contact"
+headline: "Get in touch from anywhere."
+lead: "Questions about routes, equipment and field conditions reach the team that walks them, not a call centre."
+form_action: "https://example.com/your-form-endpoint"
+label_form_name: "Your name"
+label_form_email: "Email address"
+label_form_email_hint: "Used only to reply to this message."
+label_form_message: "Message"
+label_form_send: "Send message"
+---
+
+## How to reach us
+
+Write to [hello@example.com](mailto:hello@example.com) with the route or region you are asking about. Replies go out within three working days.
+
+## Before you write
+
+Route questions need the season and your experience level. Equipment questions are easier with the conditions you expect to meet.
+
+The form posts to `form_action` in this page's front matter. Replace it with your own endpoint, and set `form_origin` to that endpoint's origin, before you publish.

@@ -1,0 +1,259 @@
+{{#extends "base"}}
+{{#block "styles"}}      .contact-wrap{max-width:var(--max-wide)}
+      .contact-wrap .lede{font-size:clamp(17px,1.6vw,19px);color:var(--ink-mute);margin:0 0 36px;line-height:1.5}
+      .contact-promise{max-width:var(--max-wide);margin-block:0}
+      /* Contact rhythm (audit P1). The generic hero, the promise rail and
+         main.ap-section each carry their own block padding, which stacked
+         to ~200px of dead space above the form. Scoped to this layout:
+         the hero closes on the site's 96px section scale and the form grid
+         rides main.ap-section's padding instead of adding its own. */
+      section.ap-hero{padding-block:clamp(56px,8vw,112px) clamp(40px,6vw,72px)}
+      .contact-layout{display:grid;grid-template-columns:1fr;gap:48px;padding-block:0}
+      @media (min-width:64em){.contact-layout{grid-template-columns:minmax(0,1fr) 320px;gap:64px;align-items:start}}
+      .contact-form-col{min-width:0;max-width:680px}
+      .ap-form{display:flex;flex-direction:column;gap:20px}
+      .ap-form fieldset{border:0;margin:0;padding:0;min-inline-size:0;display:flex;flex-direction:column;gap:20px}
+      .ap-form-row{display:flex;flex-direction:column;gap:6px}
+      .ap-form-row label{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
+      .ap-form input[type=text],.ap-form input[type=email],.ap-form select,.ap-form textarea{
+        font-family:inherit;font-size:16px;line-height:1.4;color:var(--ink);
+        background:var(--paper);border:1px solid var(--border);border-radius:12px;
+        padding:14px 16px;width:100%;min-height:48px;transition:border-color .15s,box-shadow .15s;
+      }
+      .ap-form textarea{min-height:160px;resize:vertical}
+      .ap-form input:focus,.ap-form select:focus,.ap-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.15)}
+      .ap-form-actions{align-items:flex-start;margin-top:8px}
+      .ap-form button.pill{font-size:16px;padding:14px 28px;border:1px solid transparent;cursor:pointer}
+      .contact-aside{padding:28px 28px 32px;background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);position:sticky;top:calc(var(--nav-h) + 24px)}
+      .contact-aside-title{font-family:var(--type-body);font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin:0 0 18px}
+      .contact-aside-list{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:18px}
+      .contact-aside-list li{display:flex;flex-direction:column;gap:4px}
+      .contact-aside-eyebrow{font-family:var(--type-body);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+      .contact-aside-list a{font-size:15px;font-weight:500;color:var(--ink-deep);text-decoration:none;line-height:1.35;word-break:break-word}
+      .contact-aside-list a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+      .contact-aside-note{font-size:13.5px;line-height:1.5;color:var(--ink-mute);margin:0;padding-block-start:18px;border-block-start:1px solid var(--rule)}
+{{/block}}
+{{#block "main"}}
+        <section class="ap-hero">
+      <span class="eyebrow">Contact</span>
+      <h1>{{title}}</h1>
+      <p class="sub">{{subtitle}}</p>
+    </section>
+
+    <section class="proof-rail contact-promise" aria-label="What to expect" data-reveal>
+      <div class="kpi-cell"><span class="kpi-cell-value">&lt; 48 h</span><span class="kpi-cell-label">Typical first response</span></div>
+      <div class="kpi-cell"><span class="kpi-cell-value">London</span><span class="kpi-cell-label">Time zone · UK + EU + APAC overlap</span></div>
+      <div class="kpi-cell"><span class="kpi-cell-value">Tier-1</span><span class="kpi-cell-label">Banking · payments · post-quantum</span></div>
+    </section>
+
+    <main id="main" class="content ap-section prose">
+      <div class="wrap contact-wrap">
+        <div class="contact-layout" data-reveal>
+          <div class="contact-form-col">
+            <p class="lede">{{!content}}</p>
+            <form class="ap-form" action="https://formspree.io/f/{{form-id}}" method="POST">
+              <fieldset>
+              <legend class="visually-hidden">Send a message</legend>
+              <div class="ap-form-row">
+                <label for="sender">Name</label>
+                <input type="text" id="sender" name="name" autocomplete="name" required />
+              </div>
+              <div class="ap-form-row">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required />
+              </div>
+              <div class="ap-form-row">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Choose a subject</option>
+                  <option value="business">Consulting / advisory engagement</option>
+                  <option value="press">Press, podcast or speaking</option>
+                  <option value="papers">White paper / research collaboration</option>
+                  <option value="product">Open-source project question</option>
+                  <option value="feedback">Editorial feedback</option>
+                  <option value="support">Product support</option>
+                  <option value="general">Something else</option>
+                </select>
+              </div>
+              <div class="ap-form-row">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="A line about your bank, your role, and the question you're trying to answer."></textarea>
+              </div>
+              <div class="ap-form-row">
+                <label class="visually-hidden" for="g-recaptcha-response">Google reCAPTCHA</label>
+                <div class="g-recaptcha" data-sitekey="{{recaptcha}}"></div>
+              </div>
+              <div class="ap-form-row ap-form-actions">
+                <button type="submit" class="pill no-chev">Send message</button>
+              </div>
+              </fieldset>
+            </form>
+          </div>
+          <aside class="contact-aside" aria-label="Other ways to reach Sebastien">
+            <h2 class="contact-aside-title">Faster paths</h2>
+            <ul class="contact-aside-list">
+              <li>
+                <span class="contact-aside-eyebrow">Direct</span>
+                <a href="mailto:contact@sebastienrousseau.com">contact@sebastienrousseau.com</a>
+              </li>
+              <li>
+                <span class="contact-aside-eyebrow">Verified</span>
+                <a href="https://www.linkedin.com/in/sebastienrousseau/" rel="external me noopener">LinkedIn · sebastienrousseau</a>
+              </li>
+              <li>
+                <span class="contact-aside-eyebrow">Editorial</span>
+                <a href="https://news.bankingonquantum.com" rel="external noopener">Banking On Quantum · newsletter</a>
+              </li>
+            </ul>
+            <p class="contact-aside-note">If your question is already covered in the <a href="/research/index.html">research FAQ</a> or a <a href="/case-studies/index.html">case study</a>, link to it, which saves a round trip.</p>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+<!-- gen-layouts:footer-start -->
+{{/block}}
+{{#block "schema"}}
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sebastienrousseau.com/#person",
+      "name": "Sebastien Rousseau",
+      "givenName": "Sebastien",
+      "familyName": "Rousseau",
+      "url": "https://sebastienrousseau.com/",
+      "image": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
+      "jobTitle": "Senior Product Manager, Wholesale Payments & API",
+      "description": "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services.",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "0009-0005-1434-284X",
+        "url": "https://orcid.org/0009-0005-1434-284X"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://www.hsbc.com/#organization",
+        "name": "HSBC Commercial & Investment Bank",
+        "url": "https://www.hsbc.com/"
+      },
+      "alumniOf": [
+        {"@type": "Organization", "name": "PayPal", "url": "https://www.paypal.com/"},
+        {"@type": "Organization", "name": "Barclays", "url": "https://www.barclays.com/"},
+        {"@type": "Organization", "name": "Shazam Entertainment", "url": "https://www.shazam.com/"},
+        {"@type": "Organization", "name": "AKQA", "url": "https://www.akqa.com/"},
+        {"@type": "Organization", "name": "Virgin Group", "url": "https://www.virgin.com/"}
+      ],
+      "memberOf": {
+        "@type": "ProgramMembership",
+        "programName": "Quantum-Safe Cryptography Working Group",
+        "hostingOrganization": {
+          "@type": "Organization",
+          "name": "Emerging Payments Association Asia",
+          "url": "https://emergingpaymentsasia.org/"
+        }
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "professional experience",
+          "name": "Nearly two decades across Tier-1 banks and global payments infrastructure",
+          "recognizedBy": {"@type": "Organization", "name": "HSBC Commercial & Investment Bank", "url": "https://www.hsbc.com/"}
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "domain expertise",
+          "name": "ISO 20022 migration and wholesale payments architecture",
+          "recognizedBy": {"@type": "Organization", "name": "SWIFT", "url": "https://www.swift.com/"}
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "domain expertise",
+          "name": "Post-Quantum Cryptography for financial services",
+          "recognizedBy": {"@type": "Organization", "name": "NIST Post-Quantum Cryptography Project", "url": "https://csrc.nist.gov/projects/post-quantum-cryptography"}
+        }
+      ],
+      "knowsAbout": [
+        {"@type": "DefinedTerm", "name": "Post-Quantum Cryptography", "sameAs": "https://en.wikipedia.org/wiki/Post-quantum_cryptography"},
+        {"@type": "DefinedTerm", "name": "ML-KEM (FIPS 203)", "sameAs": "https://csrc.nist.gov/pubs/fips/203/final"},
+        {"@type": "DefinedTerm", "name": "ML-DSA (FIPS 204)", "sameAs": "https://csrc.nist.gov/pubs/fips/204/final"},
+        {"@type": "DefinedTerm", "name": "ISO 20022", "sameAs": "https://en.wikipedia.org/wiki/ISO_20022"},
+        {"@type": "DefinedTerm", "name": "SWIFT gpi", "sameAs": "https://www.swift.com/our-solutions/swift-gpi"},
+        {"@type": "DefinedTerm", "name": "SEPA Instant Payments", "sameAs": "https://www.ecb.europa.eu/paym/integration/retail/instant_payments/html/index.en.html"},
+        {"@type": "DefinedTerm", "name": "FedNow Service", "sameAs": "https://www.federalreserve.gov/paymentsystems/fednow_about.htm"},
+        {"@type": "DefinedTerm", "name": "Real-Time Payments (RTP)", "sameAs": "https://www.theclearinghouse.org/payment-systems/rtp"},
+        {"@type": "DefinedTerm", "name": "Cross-border payments", "sameAs": "https://en.wikipedia.org/wiki/Cross-border_payments"},
+        {"@type": "DefinedTerm", "name": "Wholesale banking", "sameAs": "https://en.wikipedia.org/wiki/Wholesale_banking"},
+        {"@type": "DefinedTerm", "name": "Applied artificial intelligence in banking", "sameAs": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence"},
+        {"@type": "DefinedTerm", "name": "Generative artificial intelligence", "sameAs": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence"}
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "United Kingdom"
+      },
+      "sameAs": [
+        "https://orcid.org/0009-0005-1434-284X",
+        "https://x.com/wwdseb",
+        "https://www.linkedin.com/in/sebastienrousseau/",
+        "https://medium.com/@BankingOnQuantum",
+        "https://www.youtube.com/@BankingOnQuantum",
+        "https://github.com/sebastienrousseau"
+      ]
+    },
+    {
+      "@type": ["Organization", "Brand"],
+      "@id": "https://sebastienrousseau.com/#organization",
+      "name": "Sebastien Rousseau",
+      "alternateName": "Banking on Quantum",
+      "url": "https://sebastienrousseau.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://sebastienrousseau.com/#logo",
+        "url": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
+        "width": "512",
+        "height": "512",
+        "caption": "Sebastien Rousseau"
+      },
+      "founder": {"@id": "https://sebastienrousseau.com/#person"},
+      "editorialPolicy": "https://sebastienrousseau.com/editorial/",
+      "correctionsPolicy": "https://sebastienrousseau.com/editorial/#corrections",
+      "ethicsPolicy": "https://sebastienrousseau.com/editorial/",
+      "diversityPolicy": "https://sebastienrousseau.com/editorial/",
+      "sameAs": [
+        "https://github.com/sebastienrousseau",
+        "https://x.com/wwdseb",
+        "https://www.linkedin.com/in/sebastienrousseau/",
+        "https://medium.com/@BankingOnQuantum"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sebastienrousseau.com/#website",
+      "url": "https://sebastienrousseau.com/",
+      "name": "Sebastien Rousseau",
+      "description": "AI, banking and financial services expert. Senior payments leader at HSBC Commercial & Investment Bank.",
+      "publisher": {"@id": "https://sebastienrousseau.com/#organization"},
+      "author": {"@id": "https://sebastienrousseau.com/#person"},
+      "inLanguage": "{{language}}"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://sebastienrousseau.com/#profile",
+      "mainEntity": {"@id": "https://sebastienrousseau.com/#person"},
+      "name": "Sebastien Rousseau: AI, Banking & Financial Services Expert",
+      "url": "https://sebastienrousseau.com/",
+      "inLanguage": "{{language}}"
+    }
+  ]
+}
+    </script>
+
+        <script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"ContactPage","name":"{{title}}","description":"{{description}}","url":"{{url}}","inLanguage":"{{hreflang}}","mainEntity":{"@id":"https://sebastienrousseau.com/#person"},"isPartOf":{"@id":"https://sebastienrousseau.com/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sebastienrousseau.com/"},{"@type":"ListItem","position":2,"name":"{{title}}","item":"{{url}}"}]}]}
+    </script>
+{{/block}}

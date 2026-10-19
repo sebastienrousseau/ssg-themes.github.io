@@ -3,7 +3,7 @@
 # impossible to run locally while CI passed. Override with `make PYTHON=...`.
 PYTHON ?= python3
 
-.PHONY: help check-chrome check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links check-schema check-cloudcdn build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
+.PHONY: help check-chrome check-aaa check-pa11y check-lighthouse check-audit check-responsive check-links check-schema check-cloudcdn check-wordlist build build-apex build-atlas build-kinetic build-lucid build-quill build-stablo build-velocity build-voxt check check-contrast check-weight check-structure clean preview
 
 help:
 	@echo "SSG theme showcase"
@@ -12,20 +12,27 @@ help:
 	@echo "  make build-apex       Build the Apex theme"
 	@echo "  make build-atlas      Build the Atlas theme"
 	@echo "  make build-cadence    Build the Cadence theme"
+	@echo "  make build-control-centre  Build the Control Centre theme"
 	@echo "  make build-covenant   Build the Covenant theme"
 	@echo "  make build-hearth     Build the Hearth theme"
 	@echo "  make build-intent     Build the Intent theme"
 	@echo "  make build-kairo      Build the Kairo theme"
+	@echo "  make build-kaishi     Build the Kaishi theme"
 	@echo "  make build-kinetic    Build the Kinetic theme"
 	@echo "  make build-lucid      Build the Lucid theme"
+	@echo "  make build-jspassgen  Build the jspassgen theme"
 	@echo "  make build-noir       Build the Noir theme"
+	@echo "  make build-passmcp    Build the passmcp theme"
 	@echo "  make build-prism      Build the Prism theme"
+	@echo "  make build-quill      Build the Quill theme"
 	@echo "  make build-curio      Build the Curio theme"
 	@echo "  make build-signal     Build the Signal theme"
+	@echo "  make build-stablo     Build the Stablo theme"
 	@echo "  make build-steward    Build the Steward theme"
 	@echo "  make build-velocity   Build the Velocity theme"
 	@echo "  make build-visage     Build the Visage theme"
 	@echo "  make build-vista      Build the Vista theme"
+	@echo "  make build-sebastienrousseau  Build the sebastienrousseau site theme"
 	@echo "  make build-voxt       Build the Voxt theme"
 	@echo "  make check            Run every gate (structure, contrast, weight, audit, responsive, aaa)"
 	@echo "  make check-cloudcdn   Verify local theme rasters against the CloudCDN checkout"
@@ -49,10 +56,13 @@ build-atlas:
 
 .PHONY: build-kaishi build-prism
 
-.PHONY: build-cadence build-covenant build-hearth build-intent build-kairo build-noir build-curio build-scout build-signal build-steward build-visage
+.PHONY: build-cadence build-control-centre build-covenant build-hearth build-intent build-kairo build-noir build-curio build-passmcp build-jspassgen build-signal build-steward build-visage
 
 build-cadence:
 	@bash scripts/build.sh cadence
+
+build-control-centre:
+	@bash scripts/build.sh control-centre
 
 build-covenant:
 	@bash scripts/build.sh covenant
@@ -99,17 +109,23 @@ build-visage:
 build-voxt:
 	@bash scripts/build.sh voxt
 
-.PHONY: build-vista
+.PHONY: build-vista build-sebastienrousseau
 
 build-vista:
 	@bash scripts/build.sh vista
 
-build-scout:
-	@bash scripts/build.sh scout
+build-sebastienrousseau:
+	@bash scripts/build.sh sebastienrousseau
+
+build-passmcp:
+	@bash scripts/build.sh passmcp
+
+build-jspassgen:
+	@bash scripts/build.sh jspassgen
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
+check: check-structure check-contrast check-wordlist build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
 	@echo "All gates passed."
 
 check-links:
@@ -122,6 +138,12 @@ check-schema:
 # CloudCDN repository. Override its location with CLOUDCDN_ROOT when needed.
 check-cloudcdn:
 	@$(PYTHON) scripts/cloudcdn_images.py
+
+# jspassgen ships its Diceware list packed inside main.js; this decodes it with
+# the page's own decoder and requires a byte-identical match with the source
+# list in themes/jspassgen/wordlist/. See scripts/jspassgen-wordlist.mjs.
+check-wordlist:
+	@node scripts/jspassgen-wordlist.mjs
 
 check-structure:
 	@$(PYTHON) scripts/validate.py

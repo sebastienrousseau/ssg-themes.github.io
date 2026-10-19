@@ -1,0 +1,66 @@
+<header class="site-header cc-top">
+  <div class="header-inner">
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      <span>{{label_menu}}</span>
+    </button>
+    <a class="brand cc-brand-top" href="{{locale_path}}" rel="home" aria-label="{{label_home}}">
+      <span class="brand-mark" aria-hidden="true">{{brand_mark}}</span>
+      <span>{{name}}</span>
+    </a>
+    <p class="cc-crumb">{{crumb_root}}</p>
+    <!-- Enhanced by main.js: typing here opens the generator's search
+         dialog with the same query. Hidden until that dialog is found, so a
+         build without search, or a browser without JavaScript, never shows
+         a field that does nothing. -->
+    <form class="cc-search" role="search" action="{{locale_path}}" method="get">
+      <label class="visually-hidden" for="cc-search-q">{{label_search}}</label>
+      <button class="cc-search-go" type="submit" aria-label="{{label_search}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg></button>
+      <input id="cc-search-q" name="q" type="search" placeholder="{{search_placeholder}}" autocomplete="off" />
+      <kbd aria-hidden="true">⌘ K</kbd>
+    </form>
+    <details class="ap-lang">
+    <summary class="ap-lang-toggle" title="{{label_langs}}">
+    <span class="ap-lang-globe">🌐</span>
+    <span class="ap-lang-current">{{lang_code}}</span>
+    <span class="visually-hidden">, {{lang_change}}</span>
+    </summary>
+    <div class="ap-lang-menu">
+    <div class="ap-lang-menu-grid">
+    <a class="ap-lang-item" href="{{base_path}}?lang=en" hreflang="en" lang="en"{{!en_current}}>English</a>
+    <a class="ap-lang-item" href="{{base_path}}fr/?lang=fr" hreflang="fr" lang="fr"{{!fr_current}}>Français</a>
+    </div>
+    </div>
+    </details>
+    <button class="theme-toggle" id="mode-toggle" type="button" data-label-light="{{label_theme_light}}" data-label-dark="{{label_theme_dark}}">
+      <span class="visually-hidden">{{label_theme}}</span>
+      <span class="visually-hidden" id="mode-state" data-label-system="{{label_theme_system}}">{{label_theme_system}}</span>
+        <span class="theme-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+<nav class="site-nav cc-side" id="navMenu" aria-label="{{label_nav}}">
+  <div class="cc-side-inner">
+  <a class="brand cc-brand-side" href="{{locale_path}}" rel="home">
+    <span class="brand-mark" aria-hidden="true">{{brand_mark}}</span>
+    <span class="cc-brand-text"><span>{{name}}</span><small>{{brand_tagline}}</small></span>
+  </a>
+  <p class="cc-side-label">{{nav_group_estate}}</p>
+  <ul class="cc-side-list">
+    <li><a href="{{locale_path}}" {{#if current_home}}aria-current="page"{{/if}}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" /></svg><span>{{nav_overview}}</span></a></li>
+    <li><a href="{{locale_path}}#findings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20zM12 10v4M12 17v.5" /></svg><span>{{nav_findings}}</span><b class="cc-count">{{nav_findings_count}}</b></a></li>
+    <li><a href="{{locale_path}}#servers"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6" rx="1.5" /><rect x="4" y="14" width="16" height="6" rx="1.5" /></svg><span>{{nav_servers}}</span><b class="cc-count">{{nav_servers_count}}</b></a></li>
+    <li><a href="{{locale_path}}#mitigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" /></svg><span>{{nav_mitigation}}</span></a></li>
+  </ul>
+  <p class="cc-side-label">{{nav_group_site}}</p>
+  <ul class="cc-side-list">
+    <li><a href="{{locale_path}}{{slug_about}}/" {{#if current_about}}aria-current="page"{{/if}}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" /><path d="M12 11v5M12 8v.5" /></svg><span>{{nav_about}}</span></a></li>
+    <li><a href="{{locale_path}}{{slug_contact}}/" {{#if current_contact}}aria-current="page"{{/if}}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg><span>{{nav_contact}}</span></a></li>
+  </ul>
+  <div class="cc-snapshot">
+    <p class="cc-snapshot-title"><span class="cc-dot sev-ok" aria-hidden="true"></span>{{snapshot_title}}</p>
+    <p class="cc-snapshot-time">{{snapshot_time}}</p>
+    <p>{{snapshot_note}}</p>
+  </div>
+  </div>
+</nav>

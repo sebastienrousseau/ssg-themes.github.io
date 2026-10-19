@@ -18,5 +18,5 @@ console.log(`a11y: ${n} page renders audited (${PAGES.length} pages x 2 colour s
 // Not a pass and not a failure: text on a background-image cannot be reduced
 // to a single ground here. contrast.py checks those stops against the tokens.
 if(unmeasured) console.log(`note: ${unmeasured} text runs sit on a background-image and were not measured here`);
-if(fails.length){console.log(`FAIL ${fails.length}:`);(process.env.AAA_ALL?fails:fails.slice(0,20)).forEach(f=>console.log('  '+f));process.exit(1)}
+if(fails.length){console.log(`FAIL ${fails.length}:`);(process.env.AAA_ALL?fails:fails.slice(0,20)).forEach(f=>console.log('  '+f));process.exit(1);}
 console.log('PASS — AAA contrast, 44px targets, heading order, landmarks, names');

@@ -136,11 +136,16 @@ PAIRS = [
 ]
 
 THEMES = (
-    "apex", "atlas", "cadence", "covenant", "hearth", "intent", "kairo",
-    "kaishi", "kinetic", "lucid", "noir", "prism", "quill", "curio", "scout",
-    "signal", "stablo", "steward", "velocity", "visage", "vista",
+    "apex", "atlas", "cadence", "control-centre", "covenant", "hearth",
+    "intent", "kairo", "kaishi", "kinetic", "lucid", "noir", "prism", "quill",
+    "curio", "passmcp", "jspassgen", "signal", "stablo", "steward", "velocity",
+    "visage", "vista",
 )
 
+# Sebastienrousseau is a site theme (theme.toml `tier = "site"`) with the
+# live site's token vocabulary (`--ink`, `--paper`, `--rule`), not the
+# gallery's pair list; its contrast is gated in its own repository by pa11y
+# WCAG2AAA over every built page. Not listed here, like Voxt below.
 # Voxt is dark-first and uses its own token vocabulary — `--fg` / `--bg-card`
 # / `--primary` / `--border` where the other eight use `--ink` / `--surface`
 # / `--accent` / `--line`. Because none of the names in PAIRS resolved, it was
@@ -187,6 +192,45 @@ VOXT_MODES = (("dark", ":root"), ("light", '[data-theme="light"]'))
 # voxt was checked under its own vocabulary rather than exempted — so these
 # are held to the same thresholds as the shared pairs.
 EXTRA_PAIRS = {
+    # Control Centre's severity palette. Each level has a solid colour for
+    # dots, ring arcs, flows and pill borders (non-text, 3:1 against every
+    # surface it is drawn on) and a tint-and-ink pair for the pill label
+    # (text, 7:1). The word is always printed beside the colour.
+    "control-centre": [
+        ("--sev-critical-ink", "--sev-critical-soft", AAA_TEXT, "critical pill text on its tint"),
+        ("--sev-critical-ink", "--surface", AAA_TEXT, "critical label on surface"),
+        ("--sev-critical", "--surface", UI_NONTEXT, "critical dot, arc and flow against surface"),
+        ("--sev-critical", "--surface-soft", UI_NONTEXT, "critical dot, arc and flow against soft surface"),
+        ("--sev-critical", "--bg", UI_NONTEXT, "critical dot, arc and flow against ground"),
+        ("--sev-high-ink", "--sev-high-soft", AAA_TEXT, "high pill text on its tint"),
+        ("--sev-high-ink", "--surface", AAA_TEXT, "high label on surface"),
+        ("--sev-high", "--surface", UI_NONTEXT, "high dot, arc and flow against surface"),
+        ("--sev-high", "--surface-soft", UI_NONTEXT, "high dot, arc and flow against soft surface"),
+        ("--sev-high", "--bg", UI_NONTEXT, "high dot, arc and flow against ground"),
+        ("--sev-medium-ink", "--sev-medium-soft", AAA_TEXT, "medium pill text on its tint"),
+        ("--sev-medium-ink", "--surface", AAA_TEXT, "medium label on surface"),
+        ("--sev-medium", "--surface", UI_NONTEXT, "medium dot, arc and flow against surface"),
+        ("--sev-medium", "--surface-soft", UI_NONTEXT, "medium dot, arc and flow against soft surface"),
+        ("--sev-medium", "--bg", UI_NONTEXT, "medium dot, arc and flow against ground"),
+        ("--sev-low-ink", "--sev-low-soft", AAA_TEXT, "low pill text on its tint"),
+        ("--sev-low-ink", "--surface", AAA_TEXT, "low label on surface"),
+        ("--sev-low", "--surface", UI_NONTEXT, "low dot, arc and flow against surface"),
+        ("--sev-low", "--surface-soft", UI_NONTEXT, "low dot, arc and flow against soft surface"),
+        ("--sev-low", "--bg", UI_NONTEXT, "low dot, arc and flow against ground"),
+        ("--sev-ok-ink", "--sev-ok-soft", AAA_TEXT, "ok pill text on its tint"),
+        ("--sev-ok-ink", "--surface", AAA_TEXT, "ok label on surface"),
+        ("--sev-ok", "--surface", UI_NONTEXT, "ok dot, arc and flow against surface"),
+        ("--sev-ok", "--surface-soft", UI_NONTEXT, "ok dot, arc and flow against soft surface"),
+        ("--sev-ok", "--bg", UI_NONTEXT, "ok dot, arc and flow against ground"),
+        ("--ink", "--surface-soft", AAA_TEXT, "body text on soft surface"),
+        ("--ink-soft", "--surface-soft", AAA_TEXT, "secondary text on soft surface"),
+        ("--line", "--surface-soft", UI_NONTEXT, "control border against soft surface"),
+    ],
+    # jspassgen's badges and segment readout put accent text on the accent
+    # tint, not the --on-accent-soft ink.
+    "jspassgen": [
+        ("--accent", "--accent-soft", AAA_TEXT, "accent text on accent tint"),
+    ],
     "prism": [
         ("--hero-ink", "--hero-bg", AAA_TEXT, "masthead text on navy"),
         ("--hero-ink-soft", "--hero-bg", AAA_TEXT, "masthead secondary text on navy"),

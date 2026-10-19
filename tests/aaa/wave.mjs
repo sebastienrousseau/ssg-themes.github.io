@@ -61,7 +61,7 @@ async function worker() {
     const path = paths[cursor++];
     await page.goto(`${base}${path}`, { waitUntil: 'networkidle' });
     const before = await page.locator(
-      'summary a,summary button,summary input,summary select,summary textarea,' +
+      'summary a, summary button, summary input, summary select, summary textarea, ' +
       'summary [tabindex]:not([tabindex="-1"])',
     ).count();
     await page.evaluate(() => {
@@ -85,7 +85,7 @@ async function worker() {
       };
     });
     const after = await page.locator(
-      'summary a,summary button,summary input,summary select,summary textarea,' +
+      'summary a, summary button, summary input, summary select, summary textarea, ' +
       'summary [tabindex]:not([tabindex="-1"])',
     ).count();
     summaryDescendants += before + after;

@@ -1,0 +1,83 @@
+{{#extends "base"}}{{#block "main"}}
+<section class="cc-intro" aria-labelledby="page-heading">
+  <p class="eyebrow">{{eyebrow}}</p>
+  <h1 id="page-heading">{{headline}}</h1>
+  <p class="lead">{{lead}}</p>
+  <p class="cc-note"><b>{{note_label}}</b> {{note_text}}</p>
+</section>
+
+<section class="cc-alert sev-critical" aria-labelledby="alert-heading">
+  <span class="cc-alert-icon" aria-hidden="true">!</span>
+  <div class="cc-alert-body">
+    <h2 id="alert-heading"><span class="cc-alert-kicker">{{alert_kicker}}</span> {{alert_title}}</h2>
+    <p>{{alert_text}}</p>
+    <div class="cc-actions">
+      <a class="button button-primary" href="#mitigation">{{alert_cta_primary}}</a>
+      <a class="button button-secondary" href="#findings">{{alert_cta_secondary}}</a>
+    </div>
+  </div>
+</section>
+
+<section class="cc-panel cc-map" aria-labelledby="map-heading">
+  <h2 class="visually-hidden" id="map-heading">{{map_title}}</h2>
+  <div class="cc-map-grid">
+    <div class="cc-list cc-list-in">
+      <h3>{{clients_title}}</h3>
+      <ul>
+        <li class="cc-node sev-{{client_1_sev}}"><span class="cc-node-icon" aria-hidden="true">{{client_1_mark}}</span><span class="cc-node-text"><b>{{client_1_name}}</b><small>{{client_1_meta}}</small></span></li>
+        <li class="cc-node sev-{{client_2_sev}}"><span class="cc-node-icon" aria-hidden="true">{{client_2_mark}}</span><span class="cc-node-text"><b>{{client_2_name}}</b><small>{{client_2_meta}}</small></span></li>
+        <li class="cc-node sev-{{client_3_sev}}"><span class="cc-node-icon" aria-hidden="true">{{client_3_mark}}</span><span class="cc-node-text"><b>{{client_3_name}}</b><small>{{client_3_meta}}</small></span></li>
+      </ul>
+    </div>
+    <svg class="cc-flows cc-flows-in" aria-hidden="true" focusable="false"></svg>
+    <figure class="cc-ring">
+      <div class="cc-ring-dial">
+        <!-- Each arc is a share of a 100-unit circumference, set by
+             ring_N_dash (length) and ring_N_offset (start) in front matter.
+             Presentation attributes, not inline style, so the page's
+             style-src 'self' policy holds. -->
+        <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+          <circle class="cc-ring-ticks" cx="100" cy="100" r="94" pathLength="100" />
+          <circle class="cc-ring-track" cx="100" cy="100" r="80" />
+          <circle class="cc-ring-arc sev-{{ring_1_sev}}" cx="100" cy="100" r="80" pathLength="100" stroke-dasharray="{{ring_1_dash}} 100" stroke-dashoffset="-{{ring_1_offset}}" transform="rotate(-90 100 100)" />
+          <circle class="cc-ring-arc sev-{{ring_2_sev}}" cx="100" cy="100" r="80" pathLength="100" stroke-dasharray="{{ring_2_dash}} 100" stroke-dashoffset="-{{ring_2_offset}}" transform="rotate(-90 100 100)" />
+          <circle class="cc-ring-arc sev-{{ring_3_sev}}" cx="100" cy="100" r="80" pathLength="100" stroke-dasharray="{{ring_3_dash}} 100" stroke-dashoffset="-{{ring_3_offset}}" transform="rotate(-90 100 100)" />
+          <circle class="cc-ring-arc sev-{{ring_4_sev}}" cx="100" cy="100" r="80" pathLength="100" stroke-dasharray="{{ring_4_dash}} 100" stroke-dashoffset="-{{ring_4_offset}}" transform="rotate(-90 100 100)" />
+        </svg>
+        <!-- An opaque HTML disc over the dial, so the value's contrast is
+             measured against a known colour rather than through the SVG. -->
+        <div class="cc-ring-core"><p class="cc-ring-value"><strong>{{ring_value}}</strong><span>{{ring_caption}}</span></p></div>
+      </div>
+      <figcaption>
+        <span>{{ring_legend}}</span>
+        <span class="cc-legend-item"><span class="cc-dot sev-{{ring_1_sev}}" aria-hidden="true"></span>{{ring_1_count}} {{ring_1_label}}</span>
+        <span class="cc-legend-item"><span class="cc-dot sev-{{ring_2_sev}}" aria-hidden="true"></span>{{ring_2_count}} {{ring_2_label}}</span>
+        <span class="cc-legend-item"><span class="cc-dot sev-{{ring_3_sev}}" aria-hidden="true"></span>{{ring_3_count}} {{ring_3_label}}</span>
+        <span class="cc-legend-item"><span class="cc-dot sev-{{ring_4_sev}}" aria-hidden="true"></span>{{ring_4_count}} {{ring_4_label}}</span>
+      </figcaption>
+    </figure>
+    <svg class="cc-flows cc-flows-out" aria-hidden="true" focusable="false"></svg>
+    <div class="cc-list cc-list-out">
+      <h3>{{servers_title}}</h3>
+      <ul>
+        <li class="cc-node sev-{{server_1_sev}}"><span class="cc-node-icon" aria-hidden="true">{{server_1_mark}}</span><span class="cc-node-text"><b>{{server_1_name}}</b><small>{{server_1_meta}}</small></span><span class="pill sev-{{server_1_sev}}">{{server_1_score}}</span></li>
+        <li class="cc-node sev-{{server_2_sev}}"><span class="cc-node-icon" aria-hidden="true">{{server_2_mark}}</span><span class="cc-node-text"><b>{{server_2_name}}</b><small>{{server_2_meta}}</small></span><span class="pill sev-{{server_2_sev}}">{{server_2_score}}</span></li>
+        <li class="cc-node sev-{{server_3_sev}}"><span class="cc-node-icon" aria-hidden="true">{{server_3_mark}}</span><span class="cc-node-text"><b>{{server_3_name}}</b><small>{{server_3_meta}}</small></span><span class="pill sev-{{server_3_sev}}">{{server_3_score}}</span></li>
+        <li class="cc-node sev-{{server_4_sev}}"><span class="cc-node-icon" aria-hidden="true">{{server_4_mark}}</span><span class="cc-node-text"><b>{{server_4_name}}</b><small>{{server_4_meta}}</small></span><span class="pill sev-{{server_4_sev}}">{{server_4_score}}</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cc-kpis" aria-labelledby="kpi-heading">
+  <h2 class="visually-hidden" id="kpi-heading">{{kpi_title}}</h2>
+  <dl class="cc-kpi-grid">
+    <div class="cc-kpi sev-{{kpi_1_sev}}"><dt>{{kpi_1_label}}</dt><dd><strong>{{kpi_1_value}}</strong><span>{{kpi_1_note}}</span></dd></div>
+    <div class="cc-kpi sev-{{kpi_2_sev}}"><dt>{{kpi_2_label}}</dt><dd><strong>{{kpi_2_value}}</strong><span>{{kpi_2_note}}</span></dd></div>
+    <div class="cc-kpi sev-{{kpi_3_sev}}"><dt>{{kpi_3_label}}</dt><dd><strong>{{kpi_3_value}}</strong><span>{{kpi_3_note}}</span></dd></div>
+    <div class="cc-kpi sev-{{kpi_4_sev}}"><dt>{{kpi_4_label}}</dt><dd><strong>{{kpi_4_value}}</strong><span>{{kpi_4_note}}</span></dd></div>
+  </dl>
+</section>
+
+<div class="cc-board">{{!content}}</div>
+{{/block}}
