@@ -62,12 +62,15 @@ const VIEWPORTS = [
 
 const SCHEMES = ['light', 'dark'];
 
-/** Runs in the page. Returns a flat list of defects. */
-function probe() {
-  const out = [];
-  const vw = document.documentElement.clientWidth;
-  const de = document.documentElement;
-
+/*
+ * The checks below run in the page, one `page.evaluate` each, so every one
+ * must be self-contained. What they share is set up once per render by
+ * `setup`, on `window.__responsive`: the viewport width, the two helpers,
+ * and the visible controls and header, taken before any check runs (the
+ * skip-link check moves focus, and the overlap check must see the same
+ * controls the target check saw).
+ */
+function setup() {
   const label = (el) => {
     const id = el.id ? `#${el.id}` : '';
     const cls = typeof el.className === 'string' && el.className
@@ -85,15 +88,30 @@ function probe() {
     return r.width > 0 && r.height > 0;
   };
 
-  // --- document-level horizontal overflow -----------------------------
-  if (de.scrollWidth > de.clientWidth + 1) {
-    out.push({
-      kind: 'overflow-x',
-      detail: `document scrollWidth ${de.scrollWidth} > clientWidth ${de.clientWidth}`,
-    });
-  }
+  const INTERACTIVE = 'a[href], button, input, select, textarea, summary, [role="button"]';
+  window.__responsive = {
+    vw: document.documentElement.clientWidth,
+    label,
+    visible,
+    controls: [...document.querySelectorAll(INTERACTIVE)].filter(visible),
+    header: document.querySelector('.site-header'),
+  };
+}
 
-  // --- elements wider than the viewport -------------------------------
+// --- document-level horizontal overflow -----------------------------
+function checkOverflow() {
+  const de = document.documentElement;
+  if (de.scrollWidth <= de.clientWidth + 1) return [];
+  return [{
+    kind: 'overflow-x',
+    detail: `document scrollWidth ${de.scrollWidth} > clientWidth ${de.clientWidth}`,
+  }];
+}
+
+// --- elements wider than the viewport -------------------------------
+function checkWidths() {
+  const { vw, label, visible } = window.__responsive;
+  const out = [];
   // A scroll container is the *fix* for wide content, so anything inside
   // one, and the container itself, is exempt.
   const scrollable = (el) => {
@@ -112,21 +130,21 @@ function probe() {
         detail: `${label(el)} is ${Math.round(r.width)}px wide in a ${vw}px viewport`,
       });
     }
-    if (r.left < -1 || r.right > vw + 1) {
-      const s = getComputedStyle(el);
-      // Skip-links and the like park themselves offscreen on purpose.
-      if (s.position === 'absolute' || s.position === 'fixed') continue;
-      out.push({
-        kind: 'element-escapes',
-        detail: `${label(el)} spans ${Math.round(r.left)}..${Math.round(r.right)} outside 0..${vw}`,
-      });
-    }
+    if (r.left >= -1 && r.right <= vw + 1) continue;
+    // Skip-links and the like park themselves offscreen on purpose.
+    if (['absolute', 'fixed'].includes(getComputedStyle(el).position)) continue;
+    out.push({
+      kind: 'element-escapes',
+      detail: `${label(el)} spans ${Math.round(r.left)}..${Math.round(r.right)} outside 0..${vw}`,
+    });
   }
+  return out;
+}
 
-  // --- interactive target sizes ---------------------------------------
-  const INTERACTIVE = 'a[href], button, input, select, textarea, summary, [role="button"]';
-  const controls = [...document.querySelectorAll(INTERACTIVE)].filter(visible);
-  const header = document.querySelector('.site-header');
+// --- interactive target sizes ---------------------------------------
+function checkTargets() {
+  const { vw, label, controls } = window.__responsive;
+  const out = [];
   // 2.5.8 is not a bare "every target is 24x24" rule — it carries two
   // exceptions that are part of the criterion, not loopholes:
   //
@@ -154,19 +172,16 @@ function probe() {
     const ny = Math.max(r.top, Math.min(c.cy, r.bottom));
     return Math.hypot(c.cx - nx, c.cy - ny) < c.rad;
   };
+  const touches = (c, other) => {
+    if (circleHitsRect(c, other)) return true;
+    if (!undersized(other)) return false;
+    const c2 = circleOf(other);
+    return Math.hypot(c.cx - c2.cx, c.cy - c2.cy) < c.rad + c2.rad;
+  };
   const hasClearSpacing = (i) => {
     const c = circleOf(boxes[i]);
-    for (let j = 0; j < controls.length; j++) {
-      if (j === i || controls[i].contains(controls[j]) || controls[j].contains(controls[i]))
-        continue;
-      const other = boxes[j];
-      if (circleHitsRect(c, other)) return false;
-      if (undersized(other)) {
-        const c2 = circleOf(other);
-        if (Math.hypot(c.cx - c2.cx, c.cy - c2.cy) < c.rad + c2.rad) return false;
-      }
-    }
-    return true;
+    return controls.every((other, j) =>
+      j === i || controls[i].contains(other) || other.contains(controls[i]) || !touches(c, boxes[j]));
   };
 
   const inlineInSentence = (el, cs) => {
@@ -177,53 +192,58 @@ function probe() {
     const around = (parent.textContent || '').trim();
     return around.length > own.length + 1;
   };
+  // A skip link parks itself outside the viewport until focused; its
+  // resting box is not a tap target, and measuring it reported a size no
+  // user can ever hit. What matters is its size *when focused*, checked
+  // separately in checkSkipLinks.
+  const parked = (cs, r) =>
+    ['absolute', 'fixed'].includes(cs.position) &&
+    (r.right < 0 || r.bottom < 0 || r.left > vw || r.top > window.innerHeight);
 
-  for (let i = 0; i < controls.length; i++) {
-    const el = controls[i], r = boxes[i];
+  controls.forEach((el, i) => {
+    const r = boxes[i];
     const cs = getComputedStyle(el);
-    if (inlineInSentence(el, cs)) continue;
-    // A skip link parks itself outside the viewport until focused; its
-    // resting box is not a tap target, and measuring it reported a size no
-    // user can ever hit. What matters is its size *when focused*, checked
-    // separately below.
-    const parked =
-      (cs.position === 'absolute' || cs.position === 'fixed') &&
-      (r.right < 0 || r.bottom < 0 || r.left > vw || r.top > window.innerHeight);
-    if (parked) continue;
+    if (inlineInSentence(el, cs) || parked(cs, r)) return;
     const w = Math.round(r.width), h = Math.round(r.height);
-    if (w >= 44 && h >= 44) continue;
-    if (hasClearSpacing(i)) continue;
-    if (w < 24 || h < 24) {
-      out.push({ kind: 'target-size-aa', detail: `${label(el)} is ${w}x${h} (WCAG 2.5.8 needs 24x24, and it is not clear of neighbours)` });
-    } else {
-      out.push({ kind: 'target-size-aaa', detail: `${label(el)} is ${w}x${h} (theme claims 44x44)` });
-    }
-  }
+    if ((w >= 44 && h >= 44) || hasClearSpacing(i)) return;
+    out.push(w < 24 || h < 24
+      ? { kind: 'target-size-aa', detail: `${label(el)} is ${w}x${h} (WCAG 2.5.8 needs 24x24, and it is not clear of neighbours)` }
+      : { kind: 'target-size-aaa', detail: `${label(el)} is ${w}x${h} (theme claims 44x44)` });
+  });
+  return out;
+}
 
-  // --- navigation clearance -------------------------------------------
-  // Reference-led hero compositions can deliberately place the header over
-  // artwork. Elements marked for clearance are the pieces of that artwork
-  // that must remain visually independent from every header control.
-  if (header) {
-    const headerControls = controls.filter((el) => header.contains(el));
-    for (const marker of document.querySelectorAll('[data-nav-clearance]')) {
-      if (!visible(marker)) continue;
-      const mr = marker.getBoundingClientRect();
-      for (const control of headerControls) {
-        const cr = control.getBoundingClientRect();
-        const ox = Math.min(mr.right, cr.right) - Math.max(mr.left, cr.left);
-        const oy = Math.min(mr.bottom, cr.bottom) - Math.max(mr.top, cr.top);
-        if (ox > 2 && oy > 2) {
-          out.push({
-            kind: 'nav-content-overlap',
-            detail: `${label(control)} overlaps protected ${label(marker)} by ${Math.round(ox)}x${Math.round(oy)}px`,
-          });
-        }
+// --- navigation clearance -------------------------------------------
+// Reference-led hero compositions can deliberately place the header over
+// artwork. Elements marked for clearance are the pieces of that artwork
+// that must remain visually independent from every header control.
+function checkNavClearance() {
+  const { label, visible, controls, header } = window.__responsive;
+  if (!header) return [];
+  const out = [];
+  const headerControls = controls.filter((el) => header.contains(el));
+  for (const marker of document.querySelectorAll('[data-nav-clearance]')) {
+    if (!visible(marker)) continue;
+    const mr = marker.getBoundingClientRect();
+    for (const control of headerControls) {
+      const cr = control.getBoundingClientRect();
+      const ox = Math.min(mr.right, cr.right) - Math.max(mr.left, cr.left);
+      const oy = Math.min(mr.bottom, cr.bottom) - Math.max(mr.top, cr.top);
+      if (ox > 2 && oy > 2) {
+        out.push({
+          kind: 'nav-content-overlap',
+          detail: `${label(control)} overlaps protected ${label(marker)} by ${Math.round(ox)}x${Math.round(oy)}px`,
+        });
       }
     }
   }
+  return out;
+}
 
-  // --- skip links, measured in the state a user actually meets them ----
+// --- skip links, measured in the state a user actually meets them ----
+function checkSkipLinks() {
+  const { label } = window.__responsive;
+  const out = [];
   for (const el of document.querySelectorAll('a.skip-link, a[href^="#"][class*="skip"]')) {
     el.focus();
     const r = el.getBoundingClientRect();
@@ -233,68 +253,85 @@ function probe() {
     }
     el.blur();
   }
+  return out;
+}
 
-  // --- overlapping interactive elements --------------------------------
+// --- overlapping interactive elements --------------------------------
+function checkOverlap() {
+  const { label, controls } = window.__responsive;
+  const out = [];
+  // A deliberately floating element (the search trigger) passing over
+  // in-flow content as the page scrolls is the pattern working, not a
+  // defect — the content scrolls clear. What is a genuine tap hazard is
+  // two *fixed* controls sharing space, since neither can be moved.
+  const floating = (el) => ['fixed', 'sticky'].includes(getComputedStyle(el).position);
+  const overlap = (a, b) => {
+    if (a.contains(b) || b.contains(a) || floating(a) !== floating(b)) return null;
+    const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+    const ox = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
+    const oy = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
+    return ox > 2 && oy > 2 ? [ox, oy] : null;
+  };
   for (let i = 0; i < controls.length; i++) {
     for (let j = i + 1; j < controls.length; j++) {
       const a = controls[i], b = controls[j];
-      if (a.contains(b) || b.contains(a)) continue;
-      // A deliberately floating element (the search trigger) passing over
-      // in-flow content as the page scrolls is the pattern working, not a
-      // defect — the content scrolls clear. What is a genuine tap hazard is
-      // two *fixed* controls sharing space, since neither can be moved.
-      const pa = getComputedStyle(a).position, pb = getComputedStyle(b).position;
-      const floating = (p) => p === 'fixed' || p === 'sticky';
-      if (floating(pa) !== floating(pb)) continue;
-      const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
-      const ox = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
-      const oy = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
-      if (ox > 2 && oy > 2) {
-        out.push({
-          kind: 'overlap',
-          detail: `${label(a)} overlaps ${label(b)} by ${Math.round(ox)}x${Math.round(oy)}px`,
-        });
-      }
+      const o = overlap(a, b);
+      if (!o) continue;
+      out.push({
+        kind: 'overlap',
+        detail: `${label(a)} overlaps ${label(b)} by ${Math.round(o[0])}x${Math.round(o[1])}px`,
+      });
     }
   }
+  return out;
+}
 
-  // --- the search trigger against whatever governs its alignment ----------
-  //
-  // The trigger shipped 4-6px low on all four themes, small enough to read as
-  // sloppiness rather than a bug, and no existing check saw it. What it must
-  // line up with depends on how the generator placed it:
-  //
-  //   in the header's flow   the theme's own flex centring governs it, so the
-  //                          thing to check is its parent. Comparing against
-  //                          the whole header is wrong the moment the header
-  //                          wraps to two rows - the trigger is then centred
-  //                          in its own row, correctly, and 25px from the
-  //                          centre of a 95px header.
-  //   a positioned overlay   it cannot inherit anything, so the header band
-  //                          is the only reference there is.
-  //
-  // Only meaningful while it is beside the header: below 48rem it deliberately
-  // moves to the bottom corner.
+// --- the search trigger against whatever governs its alignment ----------
+//
+// The trigger shipped 4-6px low on all four themes, small enough to read as
+// sloppiness rather than a bug, and no existing check saw it. What it must
+// line up with depends on how the generator placed it:
+//
+//   in the header's flow   the theme's own flex centring governs it, so the
+//                          thing to check is its parent. Comparing against
+//                          the whole header is wrong the moment the header
+//                          wraps to two rows - the trigger is then centred
+//                          in its own row, correctly, and 25px from the
+//                          centre of a 95px header.
+//   a positioned overlay   it cannot inherit anything, so the header band
+//                          is the only reference there is.
+//
+// Only meaningful while it is beside the header: below 48rem it deliberately
+// moves to the bottom corner.
+function checkSearchTrigger() {
+  const { vw, label, header } = window.__responsive;
   const trigger = document.querySelector('#ssg-search-btn');
-  if (trigger && header && vw >= 768) {
-    const tr = trigger.getBoundingClientRect();
+  if (!trigger || !header || vw < 768) return [];
+  const reference = () => {
     const positioned = ['fixed', 'absolute'].includes(getComputedStyle(trigger).position);
-    const inFlow = !positioned && header.contains(trigger);
-    const ref = inFlow ? trigger.parentElement.getBoundingClientRect() : header.getBoundingClientRect();
-    const rowAligned = !inFlow || getComputedStyle(trigger.parentElement).flexDirection.startsWith('row');
-    // Only when it is actually overlapping the band it is measured against.
-    if (rowAligned && tr.top < ref.bottom) {
-      const drift = Math.round((tr.top + tr.height / 2) - (ref.top + ref.height / 2));
-      if (Math.abs(drift) > 2) {
-        out.push({
-          kind: 'control-misaligned',
-          detail: `${label(trigger)} centre is ${drift}px off ${inFlow ? "its row's" : "the header's"}`,
-        });
-      }
+    if (positioned || !header.contains(trigger)) {
+      return { inFlow: false, rowAligned: true, ref: header.getBoundingClientRect() };
     }
-  }
+    const parent = trigger.parentElement;
+    const rowAligned = getComputedStyle(parent).flexDirection.startsWith('row');
+    return { inFlow: true, rowAligned, ref: parent.getBoundingClientRect() };
+  };
+  const tr = trigger.getBoundingClientRect();
+  const { inFlow, rowAligned, ref } = reference();
+  // Only when it is actually overlapping the band it is measured against.
+  if (!rowAligned || tr.top >= ref.bottom) return [];
+  const drift = Math.round((tr.top + tr.height / 2) - (ref.top + ref.height / 2));
+  if (Math.abs(drift) <= 2) return [];
+  return [{
+    kind: 'control-misaligned',
+    detail: `${label(trigger)} centre is ${drift}px off ${inFlow ? "its row's" : "the header's"}`,
+  }];
+}
 
-  // --- unreadably small text -------------------------------------------
+// --- unreadably small text -------------------------------------------
+function checkTinyText() {
+  const { label, visible } = window.__responsive;
+  const out = [];
   for (const el of document.querySelectorAll('p, li, td, th, dd, dt')) {
     if (!visible(el)) continue;
     const size = parseFloat(getComputedStyle(el).fontSize);
@@ -302,7 +339,19 @@ function probe() {
       out.push({ kind: 'tiny-text', detail: `${label(el)} renders at ${size.toFixed(1)}px` });
     }
   }
+  return out;
+}
 
+const CHECKS = [
+  checkOverflow, checkWidths, checkTargets, checkNavClearance,
+  checkSkipLinks, checkOverlap, checkSearchTrigger, checkTinyText,
+];
+
+/** Runs every check in the page, in order. Returns a flat list of defects. */
+async function probe(page) {
+  await page.evaluate(setup);
+  const out = [];
+  for (const check of CHECKS) out.push(...await page.evaluate(check));
   return out;
 }
 
@@ -346,7 +395,7 @@ for (const scheme of SCHEMES) {
         await document.fonts.ready;
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       });
-      const defects = await page.evaluate(probe);
+      const defects = await probe(page);
       checks++;
       for (const d of defects) failures.push({ scheme, vp: vp.name, path, ...d });
     }
