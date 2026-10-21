@@ -49,6 +49,9 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- The home page's links to ask an AI assistant are 44 px tall (were 42),
+  and card title links are at least 44 px wide: a short title such as
+  "QRC" measured 43 px in the fallback face.
 - The service worker registers only where the theme is served from the
   host root. Under a sub-path, such as the gallery demo, it requested a
   `/sw.js` the host does not have and logged an error on every page.

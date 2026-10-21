@@ -92,7 +92,10 @@ export const AUDIT = () => {
       // The two attribution links are words in one footer sentence. They
       // are the criterion's inline-text case, not standalone footer-nav
       // controls; forcing a 44px box around “SSG” visibly inserts whitespace.
-      p.classList.contains('footer-credit')
+      // The home page's credential line is the same case: three links in
+      // one sentence ("… · Author of the EPAA … Paper · Creator of …").
+      p.classList.contains('footer-credit') ||
+      p.classList.contains('feat-credentials')
     ));
   };
   /* A visually hidden input whose label is the visible control: the label is
