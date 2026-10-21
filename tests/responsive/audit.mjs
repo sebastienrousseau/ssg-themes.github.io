@@ -121,8 +121,22 @@ function checkWidths() {
     }
     return false;
   };
+  // Decoration (inside an aria-hidden subtree) that an ancestor clips, where
+  // that ancestor sits inside the viewport, cannot paint outside it, and no
+  // one reads it. Its box says nothing about the layout: an SVG's masks and
+  // clip paths, which getBoundingClientRect ignores, are the usual case.
+  // Text and controls that people read or use are still measured.
+  const clippedDecoration = (el) => {
+    if (!el.closest('[aria-hidden="true"]')) return false;
+    for (let n = el.parentElement; n && n !== document.body; n = n.parentElement) {
+      if (!/hidden|clip/.test(getComputedStyle(n).overflowX)) continue;
+      const r = n.getBoundingClientRect();
+      return r.left >= -1 && r.right <= vw + 1;
+    }
+    return false;
+  };
   for (const el of document.querySelectorAll('body *')) {
-    if (!visible(el) || scrollable(el)) continue;
+    if (!visible(el) || scrollable(el) || clippedDecoration(el)) continue;
     const r = el.getBoundingClientRect();
     if (r.width > vw + 1) {
       out.push({
