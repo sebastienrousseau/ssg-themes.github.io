@@ -39,6 +39,11 @@ class ServiceWorkerSetup {
      * Also checks for a new service worker installation and triggers an update if found.
      */
     registerServiceWorker() {
+        // Whether a worker already controlled this page before registration.
+        // A first visit has none; the worker that installs then claims the
+        // page, which fires controllerchange, and reloading for that would
+        // load every first view twice. Only a replaced worker warrants it.
+        const hadController = Boolean(navigator.serviceWorker.controller);
         navigator.serviceWorker.register("/sw.js", {scope: './'})
             .then(registration => {
                 console.log("ServiceWorker registration successful with scope: ", registration.scope);
@@ -74,7 +79,7 @@ class ServiceWorkerSetup {
         // This works around a bug in "force update on reload".
         let refreshing;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (refreshing) return;
+            if (refreshing || !hadController) return;
             window.location.reload();
             refreshing = true;
         });
@@ -980,13 +985,50 @@ function fallbackCopy(text, done) {
     if (!home) return;
 
     // Only these three lenses are honoured — everything else (including a
-    // crafted ?read= value) falls back to the authored "Everyone" order,
-    // so a hostile query string can never drive the DOM.
+    // crafted ?for= or ?read= value) falls back to the authored "Everyone"
+    // order, so a hostile query string can never drive the DOM.
     var ALLOWED = ["boards", "engineers", "regulators"];
     var STORE_KEY = "read-as";
     var buttons = Array.prototype.slice.call(root.querySelectorAll(".read-as-btn"));
     var status = root.querySelector("[data-read-status]");
+    var summaryEl = root.querySelector("[data-read-summary]");
     var announce = root.getAttribute("data-announce") || "";
+    var heroSub = document.querySelector(".feat-hero\x20.feat-sub");
+    var heroSubDefault = heroSub ? heroSub.textContent : "";
+    var defaultTitle = document.title || "";
+    var metaDesc = document.querySelector('meta[name="description"]');
+    var ogDesc = document.querySelector('meta[property="og:description"]');
+    var defaultDesc = metaDesc ? (metaDesc.getAttribute("content") || "") : "";
+    var isEn = (document.documentElement.getAttribute("lang") || "en")
+        .toLowerCase()
+        .indexOf("en") === 0;
+    var HERO_SUB_LENS = {
+        boards: "Fiduciary risk, capital resilience, and board-level governance for AI and post-quantum migration.",
+        engineers: "Zero-unsafe Rust crates, ISO 20022 message schemas, and NIST FIPS 203 ML-KEM primitives ready to ship.",
+        regulators: "Supervisory evidence, DORA and Cyber Resilience Act alignment, and quantum-safe wholesale payment rails."
+    };
+    var TITLE_LENS = {
+        boards: "Sebastien Rousseau · For Boards: AI & Post-Quantum Banking Governance",
+        engineers: "Sebastien Rousseau · For Engineers: ISO 20022 & FIPS 203 Open Source",
+        regulators: "Sebastien Rousseau · For Regulators: Quantum-Safe Payments & DORA"
+    };
+
+    function emitTrack(eventName, props) {
+        try {
+            document.dispatchEvent(
+                new CustomEvent("sr:track", {
+                    detail: { event: eventName, props: props || {} }
+                })
+            );
+        } catch (_) {}
+        try {
+            if (typeof window.plausible === "function") {
+                window.plausible(eventName, { props: props || {} });
+            } else if (window.umami && typeof window.umami.track === "function") {
+                window.umami.track(eventName, props || {});
+            }
+        } catch (_) {}
+    }
 
     // Snapshot the authored section order once so "Everyone" restores it.
     // Not `:scope >`: the build can wrap the authored sections in an extra
@@ -997,11 +1039,15 @@ function fallbackCopy(text, done) {
     );
     if (!sections.length) return;
     var container = sections[0].parentNode;
-    // One shared parent only: a split container would make appendChild
+    // One shared parent only: a split container would make insertBefore
     // teleport sections between wrappers, so bail to the authored order.
     for (var si = 1; si < sections.length; si++) {
         if (sections[si].parentNode !== container) return;
     }
+    var tailAnchor = sections[sections.length - 1].nextSibling;
+    var cards = Array.prototype.slice.call(
+        home.querySelectorAll(".offer-card[data-audience-card]")
+    );
 
     function sanitize(v) {
         return ALLOWED.indexOf(v) !== -1 ? v : "";
@@ -1022,7 +1068,7 @@ function fallbackCopy(text, done) {
             }
         });
         lead.concat(rest).forEach(function (sec) {
-            container.appendChild(sec);
+            container.insertBefore(sec, tailAnchor);
         });
     }
 
@@ -1043,6 +1089,30 @@ function fallbackCopy(text, done) {
             var on = (b.getAttribute("data-read") || "") === aud;
             b.setAttribute("aria-pressed", on ? "true" : "false");
         });
+        cards.forEach(function (c) {
+            var match = Boolean(aud && (c.getAttribute("data-audience-card") || "").split(/\s+/).indexOf(aud) !== -1);
+            c.classList.toggle("is-lens-match", match);
+        });
+        if (isEn) {
+            var nextSub = (aud && HERO_SUB_LENS[aud]) ? HERO_SUB_LENS[aud] : heroSubDefault;
+            if (heroSub && heroSubDefault) {
+                heroSub.textContent = nextSub;
+            }
+            if (defaultTitle) {
+                document.title = (aud && TITLE_LENS[aud]) ? TITLE_LENS[aud] : defaultTitle;
+            }
+            if (defaultDesc) {
+                var nextDesc = (aud && HERO_SUB_LENS[aud]) ? HERO_SUB_LENS[aud] : defaultDesc;
+                if (metaDesc) metaDesc.setAttribute("content", nextDesc);
+                if (ogDesc) ogDesc.setAttribute("content", nextDesc);
+            }
+        }
+        if (summaryEl) {
+            var customSummary = summaryEl.getAttribute("data-summary-" + (aud || "default"));
+            if (customSummary) {
+                summaryEl.textContent = customSummary;
+            }
+        }
         if (status && opts.speak) {
             status.textContent = (announce ? announce + ": " : "") + labelFor(aud);
         }
@@ -1053,26 +1123,85 @@ function fallbackCopy(text, done) {
             } catch (e) { /* private mode — non-fatal */ }
             try {
                 var url = new URL(window.location.href);
-                if (aud) url.searchParams.set("read", aud);
-                else url.searchParams.delete("read");
+                url.searchParams.delete("read");
+                if (aud) url.searchParams.set("for", aud);
+                else url.searchParams.delete("for");
                 window.history.replaceState(null, "", url.toString());
             } catch (e2) { /* older engine — non-fatal */ }
+            emitTrack("read_as_select", { lens: aud || "everyone" });
         }
     }
 
     // Reveal the control now that it's wired (was [hidden] for JS-off).
     root.removeAttribute("hidden");
 
-    buttons.forEach(function (b) {
+    buttons.forEach(function (b, idx) {
         b.addEventListener("click", function () {
             apply(b.getAttribute("data-read") || "", { persist: true, speak: true });
         });
+        b.addEventListener("keydown", function (e) {
+            var nextIdx = -1;
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                nextIdx = (idx + 1) % buttons.length;
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                nextIdx = (idx - 1 + buttons.length) % buttons.length;
+            } else if (e.key === "Home") {
+                nextIdx = 0;
+            } else if (e.key === "End") {
+                nextIdx = buttons.length - 1;
+            }
+            if (nextIdx !== -1) {
+                e.preventDefault();
+                buttons[nextIdx].focus();
+                apply(buttons[nextIdx].getAttribute("data-read") || "", { persist: true, speak: true });
+            }
+        });
     });
 
-    // Initial lens: URL param wins (shared link), else stored preference.
+    // Privacy-friendly, cookie-free interaction hooks for hero CTAs, white paper, and newsletter signup.
+    Array.prototype.slice
+        .call(document.querySelectorAll(".feat-hero\x20.feat-cta\x20a,\x20.feat-finale\x20.feat-cta\x20a,\x20.ap-cta-mini"))
+        .forEach(function (link) {
+            link.addEventListener("click", function () {
+                var href = link.getAttribute("href") || "";
+                emitTrack("cta_click", {
+                    href: href,
+                    label: (link.textContent || "").trim()
+                });
+                if (href.indexOf("contact") !== -1) {
+                    var loc = link.classList.contains("ap-cta-mini")
+                        ? "header"
+                        : link.closest(".feat-hero")
+                        ? "hero"
+                        : "band";
+                    emitTrack("cta_get_in_touch", { location: loc });
+                }
+            });
+        });
+    Array.prototype.slice
+        .call(document.querySelectorAll('a[href*="Quantum-Safe-Payments"]'))
+        .forEach(function (link) {
+            link.addEventListener("click", function () {
+                emitTrack("paper_download", {
+                    paper: "epaa-quantum-safe-payments-2025"
+                });
+            });
+        });
+    Array.prototype.slice
+        .call(document.querySelectorAll("form.ap-newsletter"))
+        .forEach(function (form) {
+            form.addEventListener("submit", function () {
+                emitTrack("newsletter_submit", {
+                    source: form.closest(".newsletter-band") ? "homepage_band" : "footer"
+                });
+            });
+        });
+
+    // Initial lens: URL param (?for= or ?read=) wins (shared link), else stored preference.
     var initial = "";
     try {
-        initial = new URL(window.location.href).searchParams.get("read") || "";
+        var sp = new URL(window.location.href).searchParams;
+        initial = sp.get("for") || sp.get("read") || "";
     } catch (e) { /* no URL support — stays "" */ }
     if (!initial) {
         try { initial = localStorage.getItem(STORE_KEY) || ""; } catch (e3) {}
@@ -1170,3 +1299,100 @@ function fallbackCopy(text, done) {
     sync();
     toggle.addEventListener("change", sync);
 })();
+
+// ---------------------------------------------------------------------------
+// Homepage hero ML-KEM lattice clock — synchronise hands and odometer drums
+// to live Europe/London wall-clock time via SVG transform attributes (no
+// inline CSS styles so strict style-src 'self' CSP is preserved).
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    var hh = document.getElementById("hero-clock-hh");
+    var hhUn = document.getElementById("hero-clock-hh-un");
+    var hhRoll = document.getElementById("hero-clock-hh-roll");
+    var mm = document.getElementById("hero-clock-mm");
+    var mmUn = document.getElementById("hero-clock-mm-un");
+    var mmRoll = document.getElementById("hero-clock-mm-roll");
+    var ss = document.getElementById("hero-clock-ss");
+    if (!hh || !hhUn || !hhRoll || !mm || !mmUn || !mmRoll || !ss) return;
+
+    var fmt = null;
+    try {
+        fmt = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Europe/London",
+            hourCycle: "h23",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+    } catch (_) {
+        fmt = null;
+    }
+
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion:\x20reduce)").matches;
+
+    function easeInOut(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function updateClock() {
+        var now = new Date();
+        var h = now.getUTCHours();
+        var m = now.getUTCMinutes();
+        var s = now.getUTCSeconds();
+        if (fmt && fmt.formatToParts) {
+            var parts = fmt.formatToParts(now);
+            for (var i = 0; i < parts.length; i++) {
+                if (parts[i].type === "hour") h = parseInt(parts[i].value, 10) || 0;
+                else if (parts[i].type === "minute") m = parseInt(parts[i].value, 10) || 0;
+                else if (parts[i].type === "second") s = parseInt(parts[i].value, 10) || 0;
+            }
+        }
+        var frac = reduced ? 0 : now.getMilliseconds() / 1000;
+        var h12 = h % 12;
+        var sub = m * 60 + s + frac;
+        var sec = h12 * 3600 + sub;
+        var hDeg = (sec / 43200) * 360;
+        var mDeg = (sub / 3600) * 360;
+        var sDeg = ((s + frac) / 60) * 360;
+
+        var mRoll = m;
+        if (!reduced && s === 59 && frac > 0.45) {
+            mRoll = m + easeInOut((frac - 0.45) / 0.55);
+        }
+        var hRoll = h12;
+        if (!reduced && m === 59 && s === 59 && frac > 0.45) {
+            hRoll = h12 + easeInOut((frac - 0.45) / 0.55);
+        }
+
+        hh.setAttribute("transform", "rotate(" + hDeg.toFixed(3) + ",1038,300)");
+        hhUn.setAttribute("transform", "rotate(" + (-hDeg).toFixed(3) + ",1038,174)");
+        hhRoll.setAttribute("transform", "translate(0," + (-hRoll * 54).toFixed(2) + ")");
+        mm.setAttribute("transform", "rotate(" + mDeg.toFixed(3) + ",1038,300)");
+        mmUn.setAttribute("transform", "rotate(" + (-mDeg).toFixed(3) + ",1038,116)");
+        mmRoll.setAttribute("transform", "translate(0," + (-mRoll * 54).toFixed(2) + ")");
+        ss.setAttribute("transform", "rotate(" + sDeg.toFixed(2) + ",1038,300)");
+    }
+
+    updateClock();
+    if (reduced) return;
+
+    var inView = true;
+    var stage = hh.closest ? hh.closest(".feat-hero-stage") : null;
+    if (stage && "IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+                inView = entries[i].isIntersecting;
+            }
+        });
+        io.observe(stage);
+    }
+
+    var boot = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
+    boot(function () {
+        setInterval(function () {
+            if (!document.hidden && inView) updateClock();
+        }, 100);
+    });
+})();
+

@@ -7,6 +7,19 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The layouts are re-extracted from sebastienrousseau.com 0.0.22, and
+  `tools/flatten.py` turns them back into the site's twelve layouts byte
+  for byte. They bring the site's work since 1.2.1: the home page's
+  career header, visual stages and links to ask an AI assistant about
+  the work, the editorial refinements, sample queries in search, and
+  0.0.22's fixes: paragraph spacing only on running text, wrapped prose
+  links aligned on their first line, card grids at full width, and a
+  first visit that loads once.
+- The fallback faces match the webfonts more closely: Georgia stands in
+  for Newsreader at 99% (was 104%, 4 to 6% too wide), and the mono
+  fallback loads (`local('Menlo')` does not resolve in Chrome).
+- In dark mode the Barclays and Virgin logos are darker, to read on the
+  light tile the logos sit on.
 - The self-hosted variable fonts carry only the weights their
   `@font-face` rules declare (400 to 700): Newsreader 132 to 95 KB,
   Inter 48 to 36 KB, and 214 KB less across all eight files.

@@ -118,8 +118,10 @@ export const AUDIT = () => {
   // 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x the
   // line spacing. Declared spacing is not enough — a wrapper element the
   // generator introduces can leave the rule matching nothing, which is
-  // exactly what happened once.
-  const paras=[...document.querySelectorAll('.prose p')];
+  // exactly what happened once. The spacing is for running text, so the
+  // rule and this check cover unclassed paragraphs: a classed one is a
+  // component's line (a card's title or summary) that the component spaces.
+  const paras=[...document.querySelectorAll('.prose p:not([class])')];
   for(const p of paras){
     const prev=p.previousElementSibling;
     if(!prev||!['P','UL','OL','PRE','TABLE','BLOCKQUOTE'].includes(prev.tagName))continue;
