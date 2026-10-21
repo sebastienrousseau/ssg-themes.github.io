@@ -12,7 +12,9 @@ shell; what differs per layout is exactly four regions:
   main        everything between ``</header>`` and ``<footer class="ap-foot">``
   schema      the per-layout JSON-LD block before ``main.js``
 
-plus one quirk: ``playlist.html`` drops the Newsreader font preload.
+plus one slot, ``font_preload``. The site used to preload the Newsreader
+font in every layout but ``playlist.html``; since the theme paints its
+first view in system faces, no layout preloads it and the slot is empty.
 
 This tool cuts the shell once into ``base.html`` + ``header.html`` +
 ``footer.html`` + ``styles.css`` and writes one small layout per kind that
@@ -26,6 +28,7 @@ Usage: extract_from_site.py <site _layouts dir> <theme dir>
 from __future__ import annotations
 
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 LAYOUTS = (
@@ -57,6 +60,7 @@ FONT_PRELOAD = (
     '    <link rel="preload" as="font" type="font/woff2" '
     'href="/fonts/newsreader-latin.woff2" crossorigin />\n'
 )
+FONTS_CSS = '    <link rel="stylesheet" href="/fonts/fonts.css" />\n'
 MAIN_SCRIPT = '<script src="/main.js" defer></script>\n'
 SCHEMA_MARK = "    <!-- Schema.org structured data -->\n"
 
@@ -94,57 +98,87 @@ def cut(text: str, start: str, end: str) -> tuple[str, str, str]:
     return text[:a], text[a:b], text[b:]
 
 
-def main(src: Path, dst: Path) -> None:
-    index = (src / "index.html").read_text(encoding="utf-8")
+@dataclass(frozen=True)
+class Shell:
+    """The regions of ``index.html`` that every layout shares."""
 
-    # --- shared shell from index.html ------------------------------------
+    head: str
+    css: str
+    before_header: str
+    header: str
+    main_region: str
+    footer: str
+    schema_region: str
+    tail: str
+
+
+def localise(schema: str) -> str:
+    """Use ``{{language}}`` for the JSON-LD graph's hard-coded en-GB."""
+    return schema.replace('"inLanguage": "en-GB"', '"inLanguage": "{{language}}"').replace(
+        '"inLanguage":"en-GB"', '"inLanguage":"{{language}}"'
+    )
+
+
+def split_shell(index: str) -> Shell:
     head, style_block, after_style = cut(index, STYLE_OPEN, STYLE_CLOSE)
-    css = style_block[len(STYLE_OPEN) : -len(STYLE_CLOSE)]
     before_header, header, after_header = cut(after_style, HEADER_START, HEADER_END)
-    mid_and_rest = after_header
-    main_region, footer, after_footer = cut(mid_and_rest, FOOTER_START, FOOTER_END)
+    main_region, footer, after_footer = cut(after_header, FOOTER_START, FOOTER_END)
     # after_footer = blank line + schema block + main.js + </body></html>
     schema_region, tail = after_footer.split(MAIN_SCRIPT, 1)
     assert schema_region.startswith("\n" + SCHEMA_MARK), schema_region[:80]
+    css = style_block[len(STYLE_OPEN) : -len(STYLE_CLOSE)]
+    return Shell(normalise_head(head), css, before_header, header, main_region, footer, schema_region, tail)
 
+
+def font_preload_slot(head: str) -> str:
+    """Put the ``font_preload`` block where the font preload is, or was.
+
+    The theme paints its first view in system faces, so the shell may
+    preload no font; the empty block then sits where the preload stood,
+    just before the font stylesheet, so a layout can still fill it.
+    """
+    if FONT_PRELOAD in head:
+        return head.replace(FONT_PRELOAD, '{{#block "font_preload"}}' + FONT_PRELOAD + "{{/block}}", 1)
+    assert head.count(FONTS_CSS) == 1, "font stylesheet line moved; update extractor"
+    return head.replace(FONTS_CSS, '{{#block "font_preload"}}{{/block}}' + FONTS_CSS, 1)
+
+
+def build_base(shell: Shell) -> str:
     # The one normalisation applied on import is `{{!content}}` for
     # `{{content}}`, the raw form the gallery mandates; it never reaches the
     # output. Nothing else changes a byte.
-    head = normalise_head(head)
-    assert FONT_PRELOAD in head, "font preload line moved; update extractor"
-    assert head.count(CANONICAL) == 1
-
-    base = (
-        head.replace(FONT_PRELOAD, '{{#block "font_preload"}}' + FONT_PRELOAD + "{{/block}}", 1)
-        .replace(CANONICAL, '{{#block "head_extra"}}{{/block}}' + CANONICAL, 1)
+    assert shell.head.count(CANONICAL) == 1
+    return (
+        font_preload_slot(shell.head).replace(CANONICAL, '{{#block "head_extra"}}{{/block}}' + CANONICAL, 1)
         + STYLE_OPEN
         + "{{> partials/styles}}"
         + '{{#block "styles"}}{{/block}}'
         + STYLE_CLOSE
-        + before_header
+        + shell.before_header
         + "{{> header}}"
         + '{{#block "main"}}'
-        + main_region.replace("{{content}}", "{{!content}}")
+        + shell.main_region.replace("{{content}}", "{{!content}}")
         + "{{/block}}"
         + "{{> footer}}"
         + '{{#block "schema"}}'
-        + schema_region.replace('"inLanguage": "en-GB"', '"inLanguage": "{{language}}"').replace('"inLanguage":"en-GB"', '"inLanguage":"{{language}}"')
+        + localise(shell.schema_region)
         + "{{/block}}"
         + MAIN_SCRIPT
-        + tail
+        + shell.tail
     )
 
-    layouts_dir = dst / "_layouts"
+
+def write_shell(layouts_dir: Path, base: str, shell: Shell) -> None:
     layouts_dir.mkdir(parents=True, exist_ok=True)
     (layouts_dir / "base.html").write_text(base, encoding="utf-8")
-    (layouts_dir / "header.html").write_text(header, encoding="utf-8")
-    (layouts_dir / "footer.html").write_text(footer, encoding="utf-8")
+    (layouts_dir / "header.html").write_text(shell.header, encoding="utf-8")
+    (layouts_dir / "footer.html").write_text(shell.footer, encoding="utf-8")
     # `styles.css` is the stylesheet's source of truth (the gallery contract
     # wants that file). StaticWeaver resolves `{{> partials/styles}}` to
     # `partials/styles.html` only, so that path is a symlink to the same
     # bytes; it sits in a subdirectory so the gallery validator does not
     # take it for a layout.
-    (layouts_dir / "styles.css").write_text(css, encoding="utf-8")
+    (layouts_dir / "styles.css").write_text(shell.css, encoding="utf-8")
     partials = layouts_dir / "partials"
     partials.mkdir(exist_ok=True)
     link = partials / "styles.html"
@@ -152,40 +186,52 @@ def main(src: Path, dst: Path) -> None:
         link.unlink()
     link.symlink_to("../styles.css")
 
+
+def split_layout(name: str, text: str, shell: Shell) -> tuple[str, str, str, str]:
+    """Return one site layout's (head, extra CSS, main, schema) regions."""
+    l_head, l_style, l_after = cut(text, STYLE_OPEN, STYLE_CLOSE)
+    l_css = l_style[len(STYLE_OPEN) : -len(STYLE_CLOSE)]
+    assert l_css.startswith(shell.css), f"{name}: shared CSS diverged from index"
+    _, _, l_after_header = cut(l_after, HEADER_START, HEADER_END)
+    l_main, _, l_after_footer = cut(l_after_header, FOOTER_START, FOOTER_END)
+    l_schema, l_tail = l_after_footer.split(MAIN_SCRIPT, 1)
+    assert l_tail == shell.tail, f"{name}: tail differs"
+    return normalise_head(l_head), l_css[len(shell.css) :], l_main, l_schema
+
+
+def layout_override(name: str, text: str, shell: Shell) -> str:
+    """Return the small ``{{#extends "base"}}`` layout for one site layout."""
+    l_head, extra_css, l_main, l_schema = split_layout(name, text, shell)
+    head_extra = BANNER_META if BANNER_META in l_head else ""
+    drop_preload = FONT_PRELOAD in shell.head and FONT_PRELOAD not in l_head
+    # Everything else in the head must match the shell exactly.
+    expected = shell.head.replace(FONT_PRELOAD, "", 1) if drop_preload else shell.head
+    assert expected == l_head.replace(BANNER_META, "", 1), f"{name}: head differs from the shell beyond the known slots"
+
+    l_schema = localise(l_schema)
+    parts = ['{{#extends "base"}}\n']
+    if drop_preload:
+        parts.append('{{#block "font_preload"}}{{/block}}\n')
+    if head_extra:
+        parts.append('{{#block "head_extra"}}' + head_extra + "{{/block}}\n")
+    if extra_css:
+        parts.append('{{#block "styles"}}' + extra_css + "{{/block}}\n")
+    parts.append('{{#block "main"}}' + l_main.replace("{{content}}", "{{!content}}") + "{{/block}}\n")
+    if l_schema != localise(shell.schema_region):
+        parts.append('{{#block "schema"}}' + l_schema + "{{/block}}\n")
+    return "".join(parts)
+
+
+def main(src: Path, dst: Path) -> None:
+    shell = split_shell((src / "index.html").read_text(encoding="utf-8"))
+    base = build_base(shell)
+    layouts_dir = dst / "_layouts"
+    write_shell(layouts_dir, base, shell)
+
     # --- per-layout overrides --------------------------------------------
     for name in LAYOUTS:
         text = (src / f"{name}.html").read_text(encoding="utf-8")
-        l_head, l_style, l_after = cut(text, STYLE_OPEN, STYLE_CLOSE)
-        l_head = normalise_head(l_head)
-        l_css = l_style[len(STYLE_OPEN) : -len(STYLE_CLOSE)]
-        assert l_css.startswith(css), f"{name}: shared CSS diverged from index"
-        extra_css = l_css[len(css) :]
-        _, _, l_after_header = cut(l_after, HEADER_START, HEADER_END)
-        l_main, _, l_after_footer = cut(l_after_header, FOOTER_START, FOOTER_END)
-        l_schema, l_tail = l_after_footer.split(MAIN_SCRIPT, 1)
-        assert l_tail == tail, f"{name}: tail differs"
-        head_extra = BANNER_META if BANNER_META in l_head else ""
-        drop_preload = FONT_PRELOAD not in l_head
-        # Everything else in the head must match the shell exactly.
-        probe = l_head.replace(BANNER_META, "", 1)
-        if drop_preload:
-            probe = head.replace(FONT_PRELOAD, "", 1) == probe
-        else:
-            probe = head == probe
-        assert probe, f"{name}: head differs from the shell beyond the known slots"
-
-        l_schema = l_schema.replace('"inLanguage": "en-GB"', '"inLanguage": "{{language}}"').replace('"inLanguage":"en-GB"', '"inLanguage":"{{language}}"')
-        parts = [f'{{{{#extends "base"}}}}\n']
-        if drop_preload:
-            parts.append('{{#block "font_preload"}}{{/block}}\n')
-        if head_extra:
-            parts.append('{{#block "head_extra"}}' + head_extra + "{{/block}}\n")
-        if extra_css:
-            parts.append('{{#block "styles"}}' + extra_css + "{{/block}}\n")
-        parts.append('{{#block "main"}}' + l_main.replace("{{content}}", "{{!content}}") + "{{/block}}\n")
-        if l_schema != schema_region.replace('"inLanguage": "en-GB"', '"inLanguage": "{{language}}"').replace('"inLanguage":"en-GB"', '"inLanguage":"{{language}}"'):
-            parts.append('{{#block "schema"}}' + l_schema + "{{/block}}\n")
-        (layouts_dir / f"{name}.html").write_text("".join(parts), encoding="utf-8")
+        (layouts_dir / f"{name}.html").write_text(layout_override(name, text, shell), encoding="utf-8")
 
     # --- alias layouts the gallery contract requires -----------------------
     # The site renders 404.md through `link`; the gallery wants a `404.html`
@@ -198,7 +244,7 @@ def main(src: Path, dst: Path) -> None:
     for asset in ("main.js", "theme-init.js", "search.js", "search.css", "sw.js"):
         (layouts_dir / asset).write_bytes((src / asset).read_bytes())
     (layouts_dir / "skeletonic.min.css").write_bytes((src / "_skeletonic.min.css").read_bytes())
-    print(f"theme written to {dst}: {len(LAYOUTS)} layouts, shell {len(base):,} B, css {len(css):,} B")
+    print(f"theme written to {dst}: {len(LAYOUTS)} layouts, shell {len(base):,} B, css {len(shell.css):,} B")
 
 
 if __name__ == "__main__":
