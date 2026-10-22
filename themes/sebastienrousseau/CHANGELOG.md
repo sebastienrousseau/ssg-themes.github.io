@@ -52,6 +52,10 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The home page's links to ask an AI assistant are 44 px tall (were 42),
   and card title links are at least 44 px wide: a short title such as
   "QRC" measured 43 px in the fallback face.
+- Revealed sections and cards end on `filter: none` and `transform: none`
+  instead of `blur(0)` and `translateY(0)`. Nothing visible changes, but
+  each no longer keeps a stacking context once the reveal is over, which
+  made axe read the offer cards as covered by their own container.
 - The service worker registers only where the theme is served from the
   host root. Under a sub-path, such as the gallery demo, it requested a
   `/sw.js` the host does not have and logged an error on every page.
