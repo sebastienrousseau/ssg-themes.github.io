@@ -52,6 +52,10 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The home page's links to ask an AI assistant are 44 px tall (were 42),
   and card title links are at least 44 px wide: a short title such as
   "QRC" measured 43 px in the fallback face.
+- The eyebrow in dark sections is #9adcff (was #5ac8fa). Over the
+  home page's closing photograph, where the darkening overlay is
+  lightest, the old colour measured 5.77:1, under AAA's 7:1 for 13 px
+  text; it is 7.33:1 now.
 - Revealed sections and cards end on `filter: none` and `transform: none`
   instead of `blur(0)` and `translateY(0)`. Nothing visible changes, but
   each no longer keeps a stacking context once the reveal is over, which
