@@ -25,6 +25,11 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Inter 48 to 36 KB, and 214 KB less across all eight files.
   `tools/limit_font_axes.py` does it from `fonts.css`; metrics are
   untouched, so every line breaks where it did.
+- The home page's hero clock draws its 123 background dots and its 74
+  odometer digits from `main.js` instead of shipping them in the page.
+  They took the home page to 15.3 KB gzipped, past the first TCP window
+  (about 14.6 KB), which cost a round trip before first paint; it is
+  13.8 KB now. The clock is the same once the script has run.
 - A first view renders in the metric-matched system faces; the webfonts
   are fetched after the page's `load` event, and later views use them
   from the start (`theme-init.js` adds `.wf` to `<html>` once `main.js`
