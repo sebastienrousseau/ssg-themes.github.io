@@ -102,6 +102,20 @@ overlay_text = [
     '.story-hero-inner h1', '.story-hero-sub',
     '.ap-menu .has-sub > a', '.rotating-title-words > span', '.rotating-title-lead',
     '.ap-hero .sub', '.pl-topper .pl-jump', '.pl-card .pl-desc',
+    # The home page's offer section and the finale's AI links sit on a
+    # gradient or the finale's pseudo-element; tests/aaa/gradient.mjs
+    # measures them from pixels. The "Learn more" links count as a gradient
+    # too: their hover underline is a background-image sized to 0%.
+    '.offer-eyebrow', '.offer-headline', '.offer-card .offer-link',
+    '.feat-finale .finale-ai-kicker', '.feat-finale .finale-ai-pill span',
+    '.feat-finale .feat-secondary-link',
+    # The hero clock is aria-hidden decoration: its numerals and caption
+    # are not content. Its rolling numbers are columns of digits shown
+    # through a mask, and their boxes reach far below the clock, so axe
+    # reports the text beside and under it as "overlapped". The hero
+    # subtitle and the audience buttons have opaque grounds and are
+    # measured by the AAA contrast audit.
+    '.feat-hero-stage', '.feat-hero .feat-sub', '.read-as-btn', '#read-as-label',
 ]
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
     '.brand-mark', '.hero h1', '.hero .lead', *overlay_text,
