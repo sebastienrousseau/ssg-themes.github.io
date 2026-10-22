@@ -82,13 +82,13 @@ publish_missing_layout_assets() {
     # can otherwise survive from an older build. Refresh only assets the new
     # HTML still references; fingerprint-only output remains untouched.
     if [[ "${output}" == "public" ]] &&
-       rg -q "(?:href|src)=\"[^\"]*/${asset}\"" "${output}" -g '*.html'; then
+       grep -rqE --include='*.html' "(href|src)=\"[^\"]*/${asset}\"" "${output}"; then
       cp -f "${layouts}/${asset}" "${output}/${asset}"
       echo "==> refreshed compatibility asset ${output}/${asset}"
       continue
     fi
     [[ -f "${output}/${asset}" ]] && continue
-    if rg -q "(?:href|src)=\"[^\"]*/${asset}\"" "${output}" -g '*.html'; then
+    if grep -rqE --include='*.html' "(href|src)=\"[^\"]*/${asset}\"" "${output}"; then
       generated=""
       if [[ "${asset}" == "main.js" ]]; then
         generated="$(find "${output}" -maxdepth 1 -type f -name 'main.*.js' -print -quit)"
