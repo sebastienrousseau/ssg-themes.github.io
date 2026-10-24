@@ -54,6 +54,11 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- The home page no longer shifts on desktop when its "Read as" control
+  appears. The control is hidden until `main.js` wires it, and showing
+  it moved the content below by 18 px inside the first view, a layout
+  shift of 0.0032 against Lighthouse's budget of 0. With scripting on,
+  its space is now held, invisible, from the first paint.
 - The home page's links to ask an AI assistant are 44 px tall (were 42),
   and card title links are at least 44 px wide: a short title such as
   "QRC" measured 43 px in the fallback face.
