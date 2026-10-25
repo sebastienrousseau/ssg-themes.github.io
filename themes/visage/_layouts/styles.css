@@ -450,6 +450,18 @@ figcaption { margin-block-start: 1.5rem; color: var(--ink-muted); }
 .brand:hover { color: var(--ink); }
 .brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 0.85rem; }
 .site-nav { display: flex; align-items: center; gap: 0.2rem; margin-inline-start: auto; }
+/* The page streams, so the first paint can come before the parser reaches
+   the language switcher and the theme toggle. Packed against them, the nav
+   moved 66 px left when they arrived, a layout shift on desktop. Fixed
+   tracks hold their space from the first paint; 5.0625rem fits the
+   switcher's widest label, "EN" at 80.7 px. Until its summary arrives the
+   switcher shows the browser's shorter default one, so it also takes its
+   final height up front. */
+@media (min-width: 64.0625rem) {
+  .header-inner { display: grid; grid-template-columns: auto 1fr minmax(5.0625rem, max-content) 2.75rem; }
+  .site-nav { justify-self: end; }
+  .ap-lang { justify-self: start; min-height: 2.75rem; }
+}
 .site-nav a, .mode-toggle, .nav-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 2.75rem; min-height: 2.75rem; padding-inline: 0.75rem; border: 0; background: transparent; color: var(--ink-soft); font-size: var(--step--1); font-weight: 740; text-decoration: none; cursor: pointer; }
 .site-nav a:hover, .mode-toggle:hover, .nav-toggle:hover { color: var(--ink); background: var(--surface-soft); }
 .site-nav .nav-cta { margin-inline-start: 0.5rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); padding-inline: 1.15rem; }
