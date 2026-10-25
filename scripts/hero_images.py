@@ -21,7 +21,6 @@ Usage:  hero_images.py [--bpp 0.05] [--apply] [theme ...]
 import argparse
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 RUNGS = (320, 480, 640, 768, 960)
@@ -29,7 +28,7 @@ RUNGS = (320, 480, 640, 768, 960)
 
 def dimensions(path: Path) -> tuple[int, int] | None:
     out = subprocess.run(["magick", "identify", "-format", "%w %h", str(path)],
-                         capture_output=True, text=True).stdout.split()
+                         capture_output=True, text=True, check=False).stdout.split()
     return (int(out[0]), int(out[1])) if len(out) == 2 else None
 
 

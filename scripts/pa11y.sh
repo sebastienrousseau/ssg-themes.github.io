@@ -84,6 +84,38 @@ overlay_text = [
     # "↓" in an aria-hidden span, which axe cannot rule on because the element
     # "contains only non-text characters". It is white on #211728 at 17.24:1.
     '.privacy-panel a span',
+    # sebastienrousseau. Text on a photograph or gradient (axe: "background
+    # gradient", "pseudo element" for the finale's darkening layer): each of
+    # these selectors is in tests/aaa/gradient.mjs and measured from rendered
+    # pixels at every animation-free frame; the tightest is the story-hero
+    # subtitle at 8.20:1. Text with its own opaque ground that axe reports as
+    # "overlapped" (the menu links beside their sub-menu toggles, and the
+    # rotating title's stacked words, of which one shows at a time) is
+    # measured by the AAA contrast audit like every other text run, as are
+    # the finale's solid pill (own accent ground), the playlists jump pill
+    # (near-black on its own white), the hero subtitle and title lead (on
+    # the hero's opaque card) and the playlist cards' descriptions (#3a3a3c
+    # on the lane's opaque #f1f1f3).
+    '.feat-finale .feat-eyebrow', '.feat-finale .feat-headline', '.feat-finale .feat-sub',
+    '.feat-finale .feat-cta .pill', '.pl-topper h1', '.pl-topper .sub',
+    '.pl-hero-kicker', '.pl-hero-title', '.pl-hero-desc', '.pl-hero-meta',
+    '.story-hero-inner h1', '.story-hero-sub',
+    '.ap-menu .has-sub > a', '.rotating-title-words > span', '.rotating-title-lead',
+    '.ap-hero .sub', '.pl-topper .pl-jump', '.pl-card .pl-desc',
+    # The home page's offer section and the finale's AI links sit on a
+    # gradient or the finale's pseudo-element; tests/aaa/gradient.mjs
+    # measures them from pixels. The "Learn more" links count as a gradient
+    # too: their hover underline is a background-image sized to 0%.
+    '.offer-eyebrow', '.offer-headline', '.offer-card .offer-link',
+    '.feat-finale .finale-ai-kicker', '.feat-finale .finale-ai-pill span',
+    '.feat-finale .feat-secondary-link',
+    # The hero clock is aria-hidden decoration: its numerals and caption
+    # are not content. Its rolling numbers are columns of digits shown
+    # through a mask, and their boxes reach far below the clock, so axe
+    # reports the text beside and under it as "overlapped". The hero
+    # subtitle and the audience buttons have opaque grounds and are
+    # measured by the AAA contrast audit.
+    '.feat-hero-stage', '.feat-hero .feat-sub', '.read-as-btn', '#read-as-label',
 ]
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
     '.brand-mark', '.hero h1', '.hero .lead', *overlay_text,

@@ -1,0 +1,50 @@
+# Typed front-matter contract for this theme.
+#
+# `ssg` validates every page carrying `schema = "page"` against this at
+# compile time. The layouts reference far more keys than this (the site's
+# pages carry about forty); these are the ones every page must have for
+# the shell, the canonical link, the hero portrait and the JSON-LD graph
+# to render at all.
+
+[[schemas]]
+name = "page"
+
+[[schemas.fields]]
+name = "title"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "description"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "layout"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "permalink"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "date"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "language"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "image"
+type = "string"
+required = true
+
+[[schemas.fields]]
+name = "translation_key"
+type = "string"
+required = true

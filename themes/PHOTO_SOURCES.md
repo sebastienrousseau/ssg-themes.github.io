@@ -23,7 +23,7 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Quill | `quill/images/journal-{320,640}.webp`, `quill/images/journal.webp` | `https://cloudcdn.pro/stocks/images/masaaki-komori-3SWDMwyBFLI-{320,640,1200}.webp` |
 | Quill | `quill/images/culture-{320,640}.webp`, `quill/images/culture.webp` | `https://cloudcdn.pro/stocks/images/lisa-fotios-7026637-{320,640,1200}.webp` |
 | Curio | `curio/images/shopper-{320,640,1200}.webp` | `https://cloudcdn.pro/stocks/images/thisisengineering-raeng-TXxiFuQLBKQ-{320,640,1200}.webp` |
-| Scout | `scout/images/diagnostic-{320,640}.webp`, `scout/images/diagnostic.webp` | `https://cloudcdn.pro/stocks/images/getty-images-dqHskSJDfe4-{320,640,1200}.webp` |
+| passmcp | `passmcp/images/diagnostic-{320,640}.webp`, `passmcp/images/diagnostic.webp` | `https://cloudcdn.pro/stocks/images/getty-images-dqHskSJDfe4-{320,640,1200}.webp` |
 | Signal | `signal/images/intelligence-{320,640}.webp`, `signal/images/intelligence.webp` | `https://cloudcdn.pro/stocks/images/ai-prompt-engineering-modern-office-{320,640,1200}.webp` |
 | Stablo | `stablo/images/city-{320,640}.webp`, `stablo/images/city.webp` | `https://cloudcdn.pro/stocks/images/alev-takil-7ojyp-IXW7w-unsplash-{320,640,1200}.webp` |
 | Stablo | `stablo/images/architecture-{320,640}.webp`, `stablo/images/architecture.webp` | `https://cloudcdn.pro/stocks/images/alan-w-ScSbXg86z2U-unsplash-{320,640,1200}.webp` |

@@ -1,0 +1,53 @@
+---
+name: "passmcp"
+title: "À propos — passmcp"
+description: "Les principes de mesure locale et de traçabilité des preuves qui sous-tendent le thème de diagnostic passmcp."
+author: "SSG Theme Suite"
+date: "2026-09-16"
+layout: "page"
+language: "fr-FR"
+lang_code: "FR"
+lang_change: "Changer de langue"
+schema: "page"
+copyright_year: "2026"
+form_origin: "https://example.com"
+theme_style: "style-passmcp"
+theme_colour: "#0a5f68"
+brand_mark: "P"
+footer_note: "Un verdict ne vaut que ce que valent ses preuves."
+cta_primary: "Lire les constats"
+eyebrow: "À propos de passmcp"
+headline: "La mesure avant le verdict."
+lead: "passmcp affiche le raisonnement d'une note plutôt que la note seule, et garde les preuves à portée de lecture."
+locale_path: "/passmcp/fr/"
+base_path: "/passmcp/"
+en_current: ""
+fr_current: ' aria-current="true"'
+label_home: "Accueil passmcp"
+label_menu: "Menu"
+label_nav: "Principale"
+label_langs: "Langue"
+label_theme: "Changer le thème de couleur"
+label_theme_light: "Clair"
+label_theme_dark: "Sombre"
+label_theme_system: "Système"
+label_explore: "Explorer"
+label_start: "Engager la conversation"
+label_demo_content: "Contenu de démonstration."
+label_made_with: "Réalisé avec SSG"
+nav_services: "Méthode"
+nav_work: "Rapport"
+nav_work_long: "Exemples de rapport"
+nav_about: "À propos"
+nav_contact: "Contact"
+slug_about: "a-propos"
+slug_contact: "contact"
+translation_key: "about"
+keywords: "à propos passmcp, design outil de diagnostic"
+---
+
+## Une mesure qui se vérifie
+
+Chaque chiffre affiché renvoie à la requête qui l'a produit. Le barème, les
+phases et les preuves occupent la même page, pour qu'un lecteur puisse remonter
+d'un verdict jusqu'aux octets échangés.

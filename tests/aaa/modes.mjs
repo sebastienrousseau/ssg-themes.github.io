@@ -131,8 +131,17 @@ for (const site of SITES) {
     }
 
     // The attribute must beat the OS preference in both directions.
+    // A theme may animate the switch (sebastienrousseau cross-fades its
+    // colours over about a second). What the mode delivers is where those
+    // transitions end, so read after them; only transitions are awaited,
+    // since an endless animation elsewhere on the page never finishes.
     const opposite = scheme === 'light' ? 'dark' : 'light';
-    await page.evaluate((v) => document.documentElement.setAttribute('data-theme', v), opposite);
+    await page.evaluate(async (v) => {
+      document.documentElement.setAttribute('data-theme', v);
+      getComputedStyle(document.body).backgroundColor;
+      const switching = document.getAnimations().filter((a) => a instanceof CSSTransition);
+      await Promise.all(switching.map((a) => a.finished.catch(() => {})));
+    }, opposite);
     seen[`${scheme}->${opposite}`] = await read(page);
     await ctx.close();
   }

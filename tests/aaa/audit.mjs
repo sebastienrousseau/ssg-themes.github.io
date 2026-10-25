@@ -71,11 +71,11 @@ export const AUDIT = () => {
   for(const e of document.querySelectorAll('body *')){
     if(skip(e)||!e.offsetParent&&getComputedStyle(e).position!=='fixed')continue;
     // `length>1` here skipped every single-character run, which is what a
-    // brand mark is. Curio's "C" and Scout's "S" were dark-on-dark at
+    // brand mark is. Curio's "C" and passmcp's "S" were dark-on-dark at
     // 1.08:1 and 1.16:1 in dark mode and no gate had ever looked at them.
     if(![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>0))continue;
     const cs=getComputedStyle(e);const ground=bg(e);
-    if(!ground){unmeasured.push(`${e.tagName}.${(''+e.className).slice(0,20)}`);continue}
+    if(!ground){unmeasured.push(`${e.tagName}.${(''+e.className).slice(0,20)}`);continue;}
     const r=ratio(cs.color,ground);
     const px=parseFloat(cs.fontSize),bold=parseInt(cs.fontWeight)>=700;
     const need=(px>=24||(px>=18.66&&bold))?4.5:7;
@@ -92,7 +92,10 @@ export const AUDIT = () => {
       // The two attribution links are words in one footer sentence. They
       // are the criterion's inline-text case, not standalone footer-nav
       // controls; forcing a 44px box around “SSG” visibly inserts whitespace.
-      p.classList.contains('footer-credit')
+      // The home page's credential line is the same case: three links in
+      // one sentence ("… · Author of the EPAA … Paper · Creator of …").
+      p.classList.contains('footer-credit') ||
+      p.classList.contains('feat-credentials')
     ));
   };
   /* A visually hidden input whose label is the visible control: the label is
@@ -118,8 +121,10 @@ export const AUDIT = () => {
   // 1.4.8 Visual Presentation (AAA): paragraph spacing at least 1.5x the
   // line spacing. Declared spacing is not enough — a wrapper element the
   // generator introduces can leave the rule matching nothing, which is
-  // exactly what happened once.
-  const paras=[...document.querySelectorAll('.prose p')];
+  // exactly what happened once. The spacing is for running text, so the
+  // rule and this check cover unclassed paragraphs: a classed one is a
+  // component's line (a card's title or summary) that the component spaces.
+  const paras=[...document.querySelectorAll('.prose p:not([class])')];
   for(const p of paras){
     const prev=p.previousElementSibling;
     if(!prev||!['P','UL','OL','PRE','TABLE','BLOCKQUOTE'].includes(prev.tagName))continue;

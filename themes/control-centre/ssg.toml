@@ -1,0 +1,28 @@
+site_name = "Control Centre"
+site_title = "Control Centre: an operations and security dashboard theme for SSG"
+site_description = "An app-shell theme for status and security reporting: a status ring with flows to the systems either side, KPI tiles, severity pills and evidence tables."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/control-centre/content"
+template_dir = "themes/control-centre/_layouts"
+output_dir = "public/control-centre"
+
+# Slugs are translated, not prefixed: `/control-centre/about/` pairs with
+# `/control-centre/fr/a-propos/`. The pairing comes from `translation_key`,
+# not from the path, and validate.py fails the build if a key does not
+# resolve in every locale listed here.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

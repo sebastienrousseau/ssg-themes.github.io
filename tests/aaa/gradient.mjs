@@ -20,8 +20,47 @@ import { PAGES } from './pages.mjs';
 import { PNG } from 'pngjs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8732';
-const SEL = ['.brand-mark', '.hero h1', '.hero .lead'];
-const HIDE = `${SEL.join(',')}{color:transparent!important}`;
+const SEL = [
+  '.brand-mark', '.hero h1', '.hero .lead',
+  // sebastienrousseau: text on a photograph or a gradient, which axe
+  // cannot rule on and scripts/pa11y.sh therefore leaves to this gate.
+  '.feat-finale .feat-eyebrow', '.feat-finale .feat-headline', '.feat-finale .feat-sub',
+  '.feat-finale .pill.ghost', '.pl-topper h1', '.pl-topper .sub',
+  '.pl-hero-kicker', '.pl-hero-title', '.pl-hero-desc', '.pl-hero-meta',
+  '.story-hero-inner h1', '.story-hero-sub',
+  '.offer-eyebrow', '.offer-headline', '.offer-card .offer-link',
+  '.feat-finale .finale-ai-kicker', '.feat-finale .finale-ai-pill span',
+  '.feat-finale .feat-secondary-link',
+];
+// A colour transition on the text would fade it out over the second capture
+// and leave half a glyph in the "ground": a white link on black read 2.7:1.
+const HIDE = `${SEL.join(',')}{color:transparent!important;transition:none!important}`;
+
+// Scroll-triggered reveals keep text below the fold at opacity 0, which draws
+// no glyph and so was skipped without a word. Scroll the page through, then
+// wait for the reveal transitions to end before anything is captured.
+async function settle(page) {
+  await page.evaluate(async () => {
+    const frame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight / 2) {
+      scrollTo({ top: y, behavior: 'instant' });
+      await frame();
+    }
+    // Instant: a theme with scroll-behavior: smooth would otherwise still
+    // be gliding back to the top during the first capture.
+    scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll handlers can start a transition a few frames after the scroll
+    // (a header that condenses, then expands again), so wait until a whole
+    // pass finds none running.
+    for (let pass = 0; pass < 20; pass++) {
+      await frame();
+      await new Promise(r => setTimeout(r, 100));
+      const running = document.getAnimations().filter(a => a instanceof CSSTransition);
+      if (!running.length) break;
+      await Promise.all(running.map(a => a.finished.catch(() => {})));
+    }
+  });
+}
 
 const lin = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
 const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
@@ -41,12 +80,13 @@ for (const scheme of ['light', 'dark']) {
 
   for (const path of PAGES) {
     await page.goto(BASE + path, { waitUntil: 'load' });
+    await settle(page);
     const runs = await page.evaluate((SEL) => {
       const out = [];
       for (const sel of SEL) {
         for (const e of document.querySelectorAll(sel)) {
           const r = e.getBoundingClientRect();
-          if (r.width < 2 || r.height < 2 || r.top >= innerHeight || r.bottom <= 0) continue;
+          if (r.width < 2 || r.height < 2) continue;
           const cs = getComputedStyle(e);
           if (cs.visibility === 'hidden' || cs.display === 'none') continue;
           if (!/^rgba?\(/.test(cs.color)) continue;
@@ -54,9 +94,11 @@ for (const scheme of ['light', 'dark']) {
           out.push({
             sel, color: cs.color,
             need: (px >= 24 || (px >= 18.66 && bold)) ? 4.5 : 7,
-            box: { x: Math.round(Math.max(0, r.x)), y: Math.round(Math.max(0, r.y)),
+            // Document coordinates, captured from a full-page screenshot, so
+            // text below the fold is measured where it is rendered.
+            box: { x: Math.round(Math.max(0, r.x + scrollX)), y: Math.round(Math.max(0, r.y + scrollY)),
                    width: Math.round(Math.min(r.width, innerWidth - Math.max(0, r.x))),
-                   height: Math.round(Math.min(r.height, innerHeight - Math.max(0, r.y))) },
+                   height: Math.round(r.height) },
             text: e.textContent.trim().slice(0, 24),
           });
         }
@@ -66,10 +108,11 @@ for (const scheme of ['light', 'dark']) {
 
     for (const run of runs) {
       if (run.box.width < 2 || run.box.height < 2) continue;
-      const shown = PNG.sync.read(await page.screenshot({ clip: run.box }));
+      const shown = PNG.sync.read(await page.screenshot({ clip: run.box, fullPage: true }));
       await page.addStyleTag({ content: HIDE });
-      const ground = PNG.sync.read(await page.screenshot({ clip: run.box }));
+      const ground = PNG.sync.read(await page.screenshot({ clip: run.box, fullPage: true }));
       await page.reload({ waitUntil: 'load' });
+      await settle(page);
 
       const m = run.color.match(/[\d.]+/g).map(Number);
       if (m.length > 3 && m[3] < 0.999) continue;   // translucent text: not this gate's call

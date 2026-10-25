@@ -1,0 +1,23 @@
+{
+  "name": "control-centre",
+  "display_name": "Control Centre",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Developer Tools",
+  "description": "Operations and security control-centre theme: an app shell with sidebar navigation, a status ring with flows to the systems either side, KPI tiles, severity pills and evidence tables.",
+  "min_ssg_version": "0.0.67",
+  "homepage": "https://themes.static-site-generator.com/control-centre/",
+  "demosite": "https://themes.static-site-generator.com/control-centre/",
+  "screenshot": "images/screenshot.png",
+  "features": [
+    "dark-mode",
+    "wcag-aaa-tokens",
+    "structured-data",
+    "agent-discovery",
+    "app-shell",
+    "status-ring",
+    "severity-pills",
+    "kpi-tiles",
+    "print-stylesheet"
+  ]
+}

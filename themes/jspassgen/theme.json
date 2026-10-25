@@ -1,0 +1,21 @@
+{
+  "name": "jspassgen",
+  "display_name": "jspassgen",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Developer Tools",
+  "description": "Cryptographic password and passphrase generator theme: quantum-resistant entropy estimators, offline Diceware tables, and interactive configuration consoles.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/jspassgen/",
+  "demosite": "https://themes.static-site-generator.com/jspassgen/",
+  "screenshot": "images/screenshot.png",
+  "features": [
+    "dark-mode",
+    "wcag-aaa-tokens",
+    "structured-data",
+    "agent-discovery",
+    "entropy-calculator",
+    "interactive-generator",
+    "print-stylesheet"
+  ]
+}
