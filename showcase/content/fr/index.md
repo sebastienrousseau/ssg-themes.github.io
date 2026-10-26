@@ -1,16 +1,16 @@
 ---
 name: "SSG Themes"
 short_name: "SSG"
-title: "SSG Themes: vingt-cinq thèmes contrôlés pour Static Site Generator"
-description: "Vingt-cinq thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
-keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, control-centre, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
+title: "SSG Themes: vingt-six thèmes contrôlés pour Static Site Generator"
+description: "Vingt-six thèmes distincts pour Static Site Generator, couvrant l’édition, les portfolios, la finance, le commerce et les outils pour développeurs, chaque promesse étant vérifiée par un contrôle en CI."
+keywords: "ssg themes, static site generator, accessible themes, apex, atlas, cadence, cipher, control-centre, covenant, hearth, intent, jspassgen, kairo, kaishi, kinetic, lucid, noir, passmcp, prism, quill, curio, signal, stablo, steward, velocity, visage, vista, voxt, sebastienrousseau"
 author: "SSG Theme Suite"
 date: "2026-09-13"
 layout: "index"
 language: "fr-FR"
 eyebrow: "Thèmes pour Static Site Generator"
-headline: "Vingt-cinq thèmes. Une architecture. Chaque promesse vérifiée."
-lead: "Vingt-cinq thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
+headline: "Vingt-six thèmes. Une architecture. Chaque promesse vérifiée."
+lead: "Vingt-six thèmes couvrent désormais l’édition, les portfolios, les produits, la finance, le commerce, la santé, le sport et les outils pour développeurs. Chacun possède son propre système de design et son jeu de gabarits, sur une architecture de templates partagée. Les chiffres ci-dessous sont produits par des contrôles exécutés à chaque commit: aucun badge de score n’est codé en dur ici."
 news_publication_date: "2026-09-13"
 nav_label_home: "Accueil"
 nav_label_themes: "Thèmes"
@@ -439,6 +439,22 @@ stat_thirdparty: "requêtes tierces, sur chaque page"
             <a class="btn btn-primary" href="../control-centre/fr/">Voir la démo</a>
             <a class="btn btn-secondary" href="../downloads/control-centre.zip" download>.zip</a>
             <a class="btn btn-outline" href="../downloads/control-centre.tar.gz" download>.tar.gz</a>
+          </div>
+        </div>
+      </article>
+      <article class="sc-slide">
+        <figure class="sc-shot">
+          <img src="../cipher/images/card.webp" srcset="../cipher/images/card.webp 640w, ../cipher/images/tn.webp 900w, ../cipher/images/screenshot.webp 1500w" sizes="(max-width: 48rem) 78vw, 30vw" alt="Aperçu de la page d’accueil du thème Cipher." width="1500" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="sc-body">
+          <p class="eyebrow">Outils pour développeurs</p>
+          <h3>Cipher</h3>
+          <p>Utilitaire de sécurité. Des tables de mots Diceware, une mesure d’entropie pour chaque réglage et une console de configuration, sans rien envoyer sur le réseau.</p>
+          <ul class="sc-meta"><li>4 gabarits</li><li>Générateurs de mots de passe, utilitaires de sécurité, outils hors ligne</li></ul>
+          <div class="sc-actions">
+            <a class="btn btn-primary" href="../cipher/fr/">Voir la démo</a>
+            <a class="btn btn-secondary" href="../downloads/cipher.zip" download>.zip</a>
+            <a class="btn btn-outline" href="../downloads/cipher.tar.gz" download>.tar.gz</a>
           </div>
         </div>
       </article>

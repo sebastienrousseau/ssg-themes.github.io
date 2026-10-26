@@ -42,7 +42,7 @@
 
 ## Themes
 
-Twenty-five themes ship in this repository. Every one is held to the same
+Twenty-six themes ship in this repository. Every one is held to the same
 gates: WCAG AAA colour, a page-weight budget, and no third-party
 requests.
 
@@ -51,6 +51,7 @@ requests.
 | [Apex](themes/apex/) | Portfolio | Executive portfolio theme: template inheritance, AAA-gated colour tokens, zero third-party requests. |
 | [Atlas](themes/atlas/) | Publication | Editorial and knowledge-hub theme: serif reading column, citation-friendly structure, AAA-gated tokens. |
 | [Cadence](themes/cadence/) | Marketing | Performance-cycling theme: cinematic dark stage, rider abstraction and evidence-led specifications. |
+| [Cipher](themes/cipher/) | Developer Tools | Security utility theme: Diceware word tables, an entropy readout for every setting and a configuration console, with nothing sent over the network. |
 | [Control Centre](themes/control-centre/) | Developer Tools | Operations and security dashboard theme: sidebar app shell, a status ring joined by flows to the systems either side, KPI tiles, severity pills and evidence tables. |
 | [Covenant](themes/covenant/) | Marketing | Private-capital theme: black, ivory and red geometry with rigorous portfolio narratives. |
 | [Hearth](themes/hearth/) | Marketing | Furniture-catalogue theme: airy product staging, warm materials and practical ownership content. |

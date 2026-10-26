@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 //
 // Packs and verifies the Diceware wordlist that the password-generator
-// themes (THEMES below) ship inside themes/<theme>/_layouts/main.js.
+// themes (jspassgen and cipher) ship inside themes/<theme>/_layouts/main.js.
 //
 //   node scripts/diceware-wordlist.mjs                  verify every theme (used by `make check`)
 //   node scripts/diceware-wordlist.mjs cipher           verify one theme
@@ -24,7 +24,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const THEMES = ["jspassgen"];
+const THEMES = ["jspassgen", "cipher"];
 const mainJs = (theme) => join(ROOT, `themes/${theme}/_layouts/main.js`);
 const sourceList = (theme) => join(ROOT, `themes/${theme}/wordlist/eff_large_wordlist.txt`);
 const START = "/* wordlist-codec:start";

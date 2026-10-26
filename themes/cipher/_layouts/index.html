@@ -1,0 +1,515 @@
+{{#extends "base"}}{{#block "main"}}
+<div id="liveAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<!-- CHAPTER 01: HERO / THE FIRST IMPRESSION -->
+<section class="hero-section" id="hero">
+  <div class="container hero-container">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">{{eyebrow}}</span>
+    </div>
+    
+    <h1 class="hero-headline">
+      {{headline}}<br />
+      <span class="hero-highlight">{{hero_highlight}}</span>
+    </h1>
+    
+    <p class="hero-lead">
+      {{lead}}
+    </p>
+
+    <div class="hero-actions">
+      <a href="#generator" class="btn-primary">
+        <span>{{cta_primary}}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a href="#manifesto" class="btn-secondary">
+        <span>{{cta_secondary}}</span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- CHAPTER 02: THE HARDWARE-GRADE SECURE CONSOLE -->
+  <div class="container showcase-container" id="generator" data-t-generating="{{js_generating}}" data-t-copied="{{js_copied}}" data-t-copy-ok="{{js_copy_ok}}" data-t-copy-fail="{{js_copy_fail}}" data-t-cli-ok="{{js_cli_ok}}" data-t-cli-fail="{{js_cli_fail}}" data-t-bits="{{js_bits}}" data-t-combinations="{{js_combinations}}" data-t-list-size="{{js_list_size}}" data-t-pool-words="{{js_pool_words}}" data-t-pool-chars="{{js_pool_chars}}" data-t-len-words="{{js_len_words}}" data-t-len-chars="{{js_len_chars}}" data-t-at="{{js_at}}" data-t-unit-words="{{js_unit_words}}" data-t-unit-chars="{{js_unit_chars}}" data-t-bands="{{js_bands}}" data-t-strengths="{{js_strengths}}" data-t-explainers="{{js_explainers}}">
+    <h2 class="sr-only">{{console_heading}}</h2>
+    <div class="console-wrapper">
+      <div class="console-chrome">
+        <div class="chrome-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">{{console_status}}</span>
+        </div>
+        <div class="chrome-badge">{{console_badge}}</div>
+      </div>
+
+      <div class="generator-tabs" role="tablist" aria-label="{{tabs_label}}">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-mode="random" id="tab-random">
+          {{tab_password}}
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="diceware" id="tab-diceware">
+          {{tab_passphrase}}
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="quantum" id="tab-quantum">
+          {{tab_long_key}}
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="honeywords" id="tab-honeywords">
+          {{tab_decoy}}
+        </button>
+      </div>
+      
+      <div class="password-display-box" role="region" aria-label="{{output_label}}">
+        <div class="password-output" id="passwordOutput" aria-live="polite">{{js_generating}}</div>
+        <div class="password-actions">
+          <button class="btn-icon" id="btnRefresh" type="button" aria-label="{{refresh_label}}" title="{{refresh_title}}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          </button>
+          <button class="btn-copy-main" id="btnCopy" type="button" aria-label="{{copy_label}}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>{{copy_text}}</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="strength-bar-container">
+        <div class="strength-bar-track">
+          <div class="strength-bar-fill strength-quantum" id="strengthFill"></div>
+        </div>
+        <div class="strength-label text-quantum" id="strengthLabel">{{strength_initial}}</div>
+      </div>
+      
+      <!-- SIGNATURE VISUAL MOMENT: COMBINATORIAL SEARCH SPACE & ATTACK RESISTANCE -->
+      <div class="search-space-showcase" id="searchSpaceShowcase" aria-live="polite">
+        <div class="search-space-header">
+          <div class="search-space-title">
+            <span class="pulse-ring" aria-hidden="true"></span>
+            <span>{{space_title}}</span>
+          </div>
+          <div class="search-space-equation" id="searchSpaceEquation">{{!space_equation}}</div>
+        </div>
+        <div class="search-space-visual">
+          <div class="scale-track" role="group" aria-label="{{scale_label}}">
+            <div class="scale-segment is-active" data-level="1" id="seg1"><span>{{!seg1_label}}</span></div>
+            <div class="scale-segment is-active" data-level="2" id="seg2"><span>{{!seg2_label}}</span></div>
+            <div class="scale-segment is-active" data-level="3" id="seg3"><span>{{!seg3_label}}</span></div>
+            <div class="scale-segment is-active" data-level="4" id="seg4"><span>{{!seg4_label}}</span></div>
+            <div class="scale-segment" data-level="5" id="seg5"><span>{{!seg5_label}}</span></div>
+          </div>
+        </div>
+        <div class="search-space-explainer" id="searchSpaceExplainer">
+          {{!space_explainer}}
+        </div>
+      </div>
+      
+      <dl class="crypto-metrics-grid">
+        <div class="metric-card">
+          <dt>{{metric_entropy}}</dt>
+          <dd id="valEntropy">{{!metric_entropy_value}}</dd>
+        </div>
+        <div class="metric-card">
+          <dt>{{metric_pool}}</dt>
+          <dd id="valPool">{{metric_pool_value}}</dd>
+        </div>
+        <div class="metric-card">
+          <dt>{{metric_band}}</dt>
+          <dd id="valCrackTime">{{metric_band_value}}</dd>
+        </div>
+        <div class="metric-card">
+          <dt>{{metric_where}}</dt>
+          <dd id="valNist">{{metric_where_value}}</dd>
+        </div>
+      </dl>
+      
+      <div class="controls-grid">
+        <div class="controls-col">
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="lengthSlider" id="sliderLabel">{{js_len_chars}}</label>
+              <span class="slider-val" id="lengthVal">24</span>
+            </div>
+            <input type="range" id="lengthSlider" min="8" max="128" value="24" aria-label="{{slider_label}}" />
+          </div>
+        </div>
+        
+        <div class="controls-col">
+          <div class="checkbox-group">
+            <label class="checkbox-item" for="chkUpper">
+              <input type="checkbox" id="chkUpper" checked aria-label="{{chk_upper}}" />
+              <span>{{chk_upper}}</span>
+            </label>
+            <label class="checkbox-item" for="chkLower">
+              <input type="checkbox" id="chkLower" checked aria-label="{{chk_lower}}" />
+              <span>{{chk_lower}}</span>
+            </label>
+            <label class="checkbox-item" for="chkNumbers">
+              <input type="checkbox" id="chkNumbers" checked aria-label="{{chk_numbers}}" />
+              <span>{{chk_numbers}}</span>
+            </label>
+            <label class="checkbox-item" for="chkSymbols">
+              <input type="checkbox" id="chkSymbols" checked aria-label="{{chk_symbols}}" />
+              <span>{{chk_symbols}}</span>
+            </label>
+            <label class="checkbox-item" for="chkAmbiguous">
+              <input type="checkbox" id="chkAmbiguous" checked aria-label="{{chk_ambiguous}}" />
+              <span>{{chk_ambiguous}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="honeywords-preview is-hidden" id="honeywordsBox">
+        <div class="honeywords-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <h3 class="honeywords-title">{{!decoy_title}}</h3>
+        </div>
+        <p class="honeywords-intro">
+          {{decoy_intro}}
+        </p>
+        <div class="honeywords-list" id="honeywordsList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 03: THE EDITORIAL MANIFESTO -->
+<section class="manifesto-section" id="manifesto">
+  <div class="container narrow">
+    <div class="section-label">{{why_label}}</div>
+    <h2 class="manifesto-heading">
+      {{why_title}}<br />
+      <span class="text-accent">{{why_accent}}</span>
+    </h2>
+    <div class="manifesto-body">
+      <p class="manifesto-lead">
+        {{why_lead}}
+      </p>
+      <p>
+        {{why_body}}
+      </p>
+    </div>
+  </div>
+
+  <div class="container manifesto-media">
+    <figure class="manifesto-figure">
+      <picture>
+        <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.avif" type="image/avif" width="640" height="396" />
+        <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.avif" type="image/avif" width="320" height="198" />
+        <source media="(min-width: 36rem)" srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" type="image/webp" width="640" height="396" />
+        <source srcset="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-320.webp" type="image/webp" width="320" height="198" />
+        <img src="{{site_path}}images/pierre-chatel-innocenti-N5RN0JE5kaY-640.webp" alt="{{why_image_alt}}" width="640" height="396" loading="lazy" decoding="async" class="manifesto-img" />
+      </picture>
+    </figure>
+    <!-- Wide screens get a drawn panel instead of the photograph: it costs
+         no request, and the page stays inside its transfer budget. -->
+    <div class="manifesto-panel" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- CHAPTER 04: ARCHITECTURE & SIGNATURE CHAPTERS -->
+<section class="chapters-section" id="architecture">
+  <div class="container">
+    <div class="chapters-header">
+      <div class="chapters-header-left">
+        <div class="section-label">{{modes_label}}</div>
+        <h2 class="section-title text-left">{{modes_title}}</h2>
+      </div>
+      <div class="chapters-header-right">
+        <p class="section-lead">
+          {{modes_lead}}
+        </p>
+      </div>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Dominant Feature 01: Long keys -->
+      <article class="bento-card bento-hero">
+        <div class="bento-content">
+          <span class="chapter-num">{{key_num}}</span>
+          <h3 class="bento-title">{{key_title}}</h3>
+          <p class="bento-text">
+            {{key_text}}
+          </p>
+          <ul class="chapter-specs">
+            <li>{{key_spec_one}}</li>
+            <li>{{key_spec_two}}</li>
+            <li>{{key_spec_three}}</li>
+          </ul>
+        </div>
+        <div class="bento-visual">
+          <div class="schematic-panel">
+            <div class="schematic-badge">{{key_badge}}</div>
+            <div class="pipeline-flow">
+              <div class="pipeline-node">
+                <span class="node-icon">⚡</span>
+                <span class="node-title">{{key_step_one}}</span>
+                <span class="node-sub">{{key_step_one_sub}}</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true"></div>
+              <div class="pipeline-node highlight">
+                <span class="node-icon">🛡️</span>
+                <span class="node-title">{{key_step_two}}</span>
+                <span class="node-sub">{{key_step_two_sub}}</span>
+              </div>
+              <div class="pipeline-arrow" aria-hidden="true"></div>
+              <div class="pipeline-node">
+                <span class="node-icon">🔑</span>
+                <span class="node-title">{{key_step_three}}</span>
+                <span class="node-sub">{{key_step_three_sub}}</span>
+              </div>
+            </div>
+            <div class="schematic-meta">
+              <span>{{key_pool}}</span>
+              <span>·</span>
+              <span>{{key_per_char}}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paired Bento Row: Features 02 & 03 -->
+      <div class="bento-pair">
+        <!-- Feature 02: Diceware passphrases -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="lexicon-display" role="group" aria-label="{{words_sample_label}}">
+              <span class="lex-tag">{{words_tag}}</span>
+              <div class="lex-words">
+                <span class="lex-w">lantern</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">opposite</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">gravel</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">humble</span>
+                <span class="lex-sep">·</span>
+                <span class="lex-w">velvet</span>
+              </div>
+              <div class="lex-entropy">
+                <span>{{words_per_word}}</span>
+                <span class="lex-total">{{words_total}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-sub-content">
+            <span class="chapter-num">{{words_num}}</span>
+            <h3 class="bento-sub-title">{{words_title}}</h3>
+            <p class="bento-sub-text">
+              {{words_text}}
+            </p>
+            <ul class="chapter-specs compact">
+              <li>{{words_spec_one}}</li>
+              <li>{{words_spec_two}}</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Feature 03: Decoy sets -->
+        <article class="bento-card bento-sub">
+          <div class="bento-sub-visual">
+            <div class="canary-display" role="group" aria-label="{{decoy_sample_label}}">
+              <span class="canary-tag">{{decoy_tag}}</span>
+              <div class="canary-list">
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">k9#vM8$wP2!zQ5@xR7</span>
+                  <span class="canary-badge">{{decoy_badge}}</span>
+                </div>
+                <div class="canary-row real">
+                  <span class="canary-dot real"></span>
+                  <span class="canary-text">xP4!tL7@wN2#yQ9$jK</span>
+                  <span class="canary-badge real">{{decoy_badge_real}}</span>
+                </div>
+                <div class="canary-row decoy">
+                  <span class="canary-dot"></span>
+                  <span class="canary-text">m3$qR8^vT1*bF6&amp;hL5</span>
+                  <span class="canary-badge">{{decoy_badge}}</span>
+                </div>
+              </div>
+              <div class="canary-meta">
+                <span>{{decoy_for}}</span>
+                <span class="canary-status">{{decoy_count}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-sub-content">
+            <span class="chapter-num">{{decoy_num}}</span>
+            <h3 class="bento-sub-title">{{decoy_card_title}}</h3>
+            <p class="bento-sub-text">
+              {{decoy_card_text}}
+            </p>
+            <ul class="chapter-specs compact">
+              <li>{{decoy_spec_one}}</li>
+              <li>{{decoy_spec_two}}</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 05: CINEMATIC CONTRAST MOMENT (DARK IMMERSIVE SHOWCASE) -->
+<section class="cinematic-section" id="cli">
+  <div class="container">
+    <div class="cinematic-wrapper">
+      <div class="cinematic-backdrop" aria-hidden="true">
+        <picture>
+          <source media="(min-width: 48rem)" srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" type="image/webp" width="1200" height="742" />
+          <source srcset="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-640.webp" type="image/webp" width="640" height="396" />
+          <img src="{{site_path}}images/pawel-czerwinski-7LoWpCOAn6k-1200.webp" alt="{{cli_image_alt}}" width="1200" height="742" loading="lazy" decoding="async" class="cinematic-backdrop-img" />
+        </picture>
+      </div>
+      <div class="cinematic-inner">
+        <div class="cinematic-badge">{{cli_badge}}</div>
+        <h2 class="cinematic-heading">
+          {{!cli_title}}
+        </h2>
+        <p class="cinematic-lead">
+          {{cli_lead}}
+        </p>
+
+        <div class="cinematic-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="terminal-label">{{cli_terminal_label}}</div>
+            <button type="button" class="btn-terminal-copy" id="btnCopyCli" aria-label="{{cli_copy_label}}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>{{cli_copy_text}}</span>
+            </button>
+          </div>
+          <div class="terminal-screen">
+            <pre><code><span class="t-comment"># {{cli_comment_key}}</span>
+<span class="t-prompt">$</span> cipher key --length 32 --symbols
+
+<span class="t-success">✓ {{cli_key_ready}}</span>
+<span class="t-highlight">k9#vM8$wP2!zQ5@xR7^yN1*tL4&amp;jF6%h</span>
+
+<span class="t-meta">{{cli_key_meta}}</span>
+
+<span class="t-comment"># {{cli_comment_words}}</span>
+<span class="t-prompt">$</span> cipher words --count 6 --separator "-"
+<span class="t-success">✓ {{cli_words_ready}}</span>
+<span class="t-highlight">lantern-opposite-gravel-humble-velvet-spoon</span></code></pre>
+          </div>
+        </div>
+
+        <div class="cinematic-actions">
+          <a href="https://example.com/cipher/download" class="btn-cinematic-primary" target="_blank" rel="noopener noreferrer">
+            <span>{{cli_download}}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <a href="https://example.com/cipher/docs/cli" class="btn-cinematic-secondary" target="_blank" rel="noopener noreferrer">
+            <span>{{cli_reference}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 07: TECHNICAL QUESTIONS & ANSWERS -->
+<section class="faq-section" id="faq">
+  <div class="container narrow">
+    <div class="section-label">{{faq_label}}</div>
+    <h2 class="section-title">{{faq_title}}</h2>
+    <p class="section-subtitle">
+      {{faq_lead}}
+    </p>
+
+    <div class="faq-accordion">
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq1_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq1_a}}
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq2_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq2_a}}
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq3_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq3_a}}
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq4_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq4_a}}
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq5_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq5_a}}
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>{{faq6_q}}</span>
+          <span class="faq-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            {{!faq6_a}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 08: FINAL CLOSING CALL TO ACTION -->
+<section class="closing-section">
+  <div class="container narrow text-center">
+    <div class="section-label">{{close_label}}</div>
+    <h2 class="closing-heading">
+      {{!close_title}}
+    </h2>
+    <p class="closing-lead">
+      {{close_lead}}
+    </p>
+    <div class="closing-actions">
+      <a href="https://example.com/cipher/source" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <span>{{close_source}}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a href="#hero" class="btn-secondary">
+        <span>{{close_top}}</span>
+      </a>
+    </div>
+  </div>
+</section>
+{{/block}}

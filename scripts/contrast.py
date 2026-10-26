@@ -136,10 +136,10 @@ PAIRS = [
 ]
 
 THEMES = (
-    "apex", "atlas", "cadence", "control-centre", "covenant", "hearth",
-    "intent", "kairo", "kaishi", "kinetic", "lucid", "noir", "prism", "quill",
-    "curio", "passmcp", "jspassgen", "signal", "stablo", "steward", "velocity",
-    "visage", "vista",
+    "apex", "atlas", "cadence", "cipher", "control-centre", "covenant",
+    "hearth", "intent", "kairo", "kaishi", "kinetic", "lucid", "noir", "prism",
+    "quill", "curio", "passmcp", "jspassgen", "signal", "stablo", "steward",
+    "velocity", "visage", "vista",
 )
 
 # Sebastienrousseau is a site theme (theme.toml `tier = "site"`) with the
@@ -226,9 +226,12 @@ EXTRA_PAIRS = {
         ("--ink-soft", "--surface-soft", AAA_TEXT, "secondary text on soft surface"),
         ("--line", "--surface-soft", UI_NONTEXT, "control border against soft surface"),
     ],
-    # jspassgen's badges and segment readout put accent text on the accent
-    # tint, not the --on-accent-soft ink.
+    # jspassgen's and cipher's badges and segment readout put accent text
+    # on the accent tint, not the --on-accent-soft ink.
     "jspassgen": [
+        ("--accent", "--accent-soft", AAA_TEXT, "accent text on accent tint"),
+    ],
+    "cipher": [
         ("--accent", "--accent-soft", AAA_TEXT, "accent text on accent tint"),
     ],
     "prism": [

@@ -36,10 +36,10 @@ from pathlib import Path
 CATEGORIES = ("Blog", "Developer Tools", "Documentation", "Marketing", "Portfolio", "Publication")
 
 THEMES = (
-    "apex", "atlas", "cadence", "control-centre", "covenant", "hearth",
-    "intent", "kairo", "kaishi", "kinetic", "lucid", "noir", "prism", "quill",
-    "curio", "passmcp", "jspassgen", "signal", "stablo", "steward", "velocity",
-    "visage", "vista", "voxt", "sebastienrousseau",
+    "apex", "atlas", "cadence", "cipher", "control-centre", "covenant",
+    "hearth", "intent", "kairo", "kaishi", "kinetic", "lucid", "noir", "prism",
+    "quill", "curio", "passmcp", "jspassgen", "signal", "stablo", "steward",
+    "velocity", "visage", "vista", "voxt", "sebastienrousseau",
 )
 
 REQUIRED_FILES = (
