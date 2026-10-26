@@ -139,11 +139,12 @@ check-schema:
 check-cloudcdn:
 	@$(PYTHON) scripts/cloudcdn_images.py
 
-# jspassgen ships its Diceware list packed inside main.js; this decodes it with
-# the page's own decoder and requires a byte-identical match with the source
-# list in themes/jspassgen/wordlist/. See scripts/jspassgen-wordlist.mjs.
+# The password-generator themes ship their Diceware list packed inside
+# main.js; this decodes each one with the page's own decoder and requires a
+# byte-identical match with the source list in themes/<theme>/wordlist/.
+# See scripts/diceware-wordlist.mjs.
 check-wordlist:
-	@node scripts/jspassgen-wordlist.mjs
+	@node scripts/diceware-wordlist.mjs
 
 check-structure:
 	@$(PYTHON) scripts/validate.py

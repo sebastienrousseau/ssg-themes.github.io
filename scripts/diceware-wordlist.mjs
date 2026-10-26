@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 //
-// Packs and verifies the Diceware wordlist that jspassgen ships inside
-// themes/jspassgen/_layouts/main.js.
+// Packs and verifies the Diceware wordlist that the password-generator
+// themes (THEMES below) ship inside themes/<theme>/_layouts/main.js.
 //
-//   node scripts/jspassgen-wordlist.mjs          verify (used by `make check`)
-//   node scripts/jspassgen-wordlist.mjs --write  re-pack from the source list
+//   node scripts/diceware-wordlist.mjs                  verify every theme (used by `make check`)
+//   node scripts/diceware-wordlist.mjs cipher           verify one theme
+//   node scripts/diceware-wordlist.mjs --write cipher   re-pack one theme from its source list
 //
-// The source of truth is themes/jspassgen/wordlist/eff_large_wordlist.txt,
+// Each theme's source of truth is themes/<theme>/wordlist/eff_large_wordlist.txt,
 // one word per line. main.js carries it as WORDS_PACKED, an arithmetic-coded
 // string its own decoder expands on first use, so the page still makes no
 // network request for the list. The model and decoder are not duplicated
@@ -23,14 +24,15 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const MAIN_JS = join(ROOT, "themes/jspassgen/_layouts/main.js");
-const SOURCE = join(ROOT, "themes/jspassgen/wordlist/eff_large_wordlist.txt");
+const THEMES = ["jspassgen"];
+const mainJs = (theme) => join(ROOT, `themes/${theme}/_layouts/main.js`);
+const sourceList = (theme) => join(ROOT, `themes/${theme}/wordlist/eff_large_wordlist.txt`);
 const START = "/* wordlist-codec:start";
 const END = "/* wordlist-codec:end */";
 const PACKED_LINE = /^( *var WORDS_PACKED = ")[A-Za-z0-9+/=]*(";)$/m;
 
 function fail(message) {
-  console.error(`jspassgen-wordlist: FAIL - ${message}`);
+  console.error(`diceware-wordlist: FAIL - ${message}`);
   process.exit(1);
 }
 
@@ -46,9 +48,10 @@ function loadCodec(source) {
   return new Function("atob", `${block}\nreturn { ${exported} };`)(atob);
 }
 
-function readSource() {
-  const text = readFileSync(SOURCE, "utf8");
-  if (!text.endsWith("\n") || text.includes("\r")) fail(`${SOURCE} must be LF-terminated lines`);
+function readSource(theme) {
+  const path = sourceList(theme);
+  const text = readFileSync(path, "utf8");
+  if (!text.endsWith("\n") || text.includes("\r")) fail(`${path} must be LF-terminated lines`);
   return { text, words: text.slice(0, -1).split("\n") };
 }
 
@@ -122,36 +125,44 @@ function createSymbolWriter(codec, symbols) {
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
 
-function write(source) {
+function write(theme) {
+  const source = readFileSync(mainJs(theme), "utf8");
   const codec = loadCodec(source);
-  const { words } = readSource();
+  const { words } = readSource(theme);
   validateSource(words, codec);
   const writer = createSymbolWriter(codec, frontCode(words, codec.WORD_ALPHABET));
   const echoed = codec.walkWordlist(words.length, writer.next);
   if (echoed.join("\n") !== words.join("\n")) fail("encoder walk did not reproduce the source list");
   const packed = writer.finish();
   if (!PACKED_LINE.test(source)) fail("main.js has no `var WORDS_PACKED = \"...\";` line");
-  writeFileSync(MAIN_JS, source.replace(PACKED_LINE, `$1${packed}$2`));
-  console.log(`jspassgen-wordlist: packed ${words.length} words into ${packed.length} base64 characters`);
+  writeFileSync(mainJs(theme), source.replace(PACKED_LINE, `$1${packed}$2`));
+  console.log(`diceware-wordlist: ${theme}: packed ${words.length} words into ${packed.length} base64 characters`);
 }
 
-function verify(source) {
-  const codec = loadCodec(source);
-  const { text, words } = readSource();
+function verify(theme) {
+  const codec = loadCodec(readFileSync(mainJs(theme), "utf8"));
+  const { text, words } = readSource(theme);
   validateSource(words, codec);
   const decoded = codec.walkWordlist(codec.WORDLIST_SIZE, codec.createSymbolReader(codec.WORDS_PACKED));
   const roundTrip = `${decoded.join("\n")}\n`;
   if (roundTrip !== text) {
     const at = decoded.findIndex((word, i) => word !== words[i]);
-    fail(`decoded list differs from ${SOURCE} at word ${at + 1} (${decoded[at]} != ${words[at]})`);
+    fail(`decoded list differs from ${sourceList(theme)} at word ${at + 1} (${decoded[at]} != ${words[at]})`);
   }
   console.log(
-    `jspassgen-wordlist: ${decoded.length} words round-trip byte-identically ` +
+    `diceware-wordlist: ${theme}: ${decoded.length} words round-trip byte-identically ` +
       `(sha256 ${sha256(roundTrip)}; ${codec.WORDS_PACKED.length} packed characters, ` +
       `${text.length} plain bytes)`,
   );
 }
 
-const source = readFileSync(MAIN_JS, "utf8");
-if (process.argv.includes("--write")) write(source);
-verify(readFileSync(MAIN_JS, "utf8"));
+const args = process.argv.slice(2);
+const writing = args.includes("--write");
+const named = args.filter((arg) => arg !== "--write");
+const unknown = named.filter((theme) => !THEMES.includes(theme));
+if (unknown.length) fail(`unknown theme ${unknown.join(", ")}; expected one of ${THEMES.join(", ")}`);
+if (writing && named.length !== 1) fail("--write takes exactly one theme");
+for (const theme of named.length ? named : THEMES) {
+  if (writing) write(theme);
+  verify(theme);
+}

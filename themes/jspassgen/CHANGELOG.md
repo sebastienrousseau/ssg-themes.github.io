@@ -32,9 +32,10 @@
   inside `main.js`, so a passphrase needs no network request, but as a
   13 KB arithmetic-coded string instead of 62 KB of plain words. The page
   decodes it on first use. `wordlist/eff_large_wordlist.txt` is the
-  source, `node scripts/jspassgen-wordlist.mjs --write` re-packs it, and
-  `make check-wordlist` fails unless the page's own decoder reproduces that
-  file byte for byte, in the same order, so dice index N is still word N.
+  source, `node scripts/diceware-wordlist.mjs --write jspassgen`
+  re-packs it, and `make check-wordlist` fails unless the page's own
+  decoder reproduces that file byte for byte, in the same order, so dice
+  index N is still word N.
   `main.js` transfer falls from 31.3 KB to 19.7 KB.
 - The manifesto photograph is shown below 48rem only, with AVIF rungs
   (1.3 and 2.8 KB against 3.6 and 10.3 KB of WebP) and WebP kept as the
