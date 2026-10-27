@@ -40,5 +40,6 @@ No inline script or inline style is permitted, so the generator extracts both to
 
 ## Licence
 
-MIT, except the brand icon, which is used under the Noun Project's
-royalty-free licence: see [LOGO.md](LOGO.md).
+MIT. The brand icon is Lucide's `lock-keyhole`, under the ISC licence in
+[LICENSES/lucide-ISC.txt](LICENSES/lucide-ISC.txt); [LOGO.md](LOGO.md) records
+its source.

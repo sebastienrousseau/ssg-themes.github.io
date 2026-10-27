@@ -19,7 +19,8 @@
   core file stays byte-identical to the published release.
 - `theme-init.js` loads without `defer`, so the saved colour scheme and
   the removal of `no-js` apply before the first paint.
-- The brand icon is inlined as SVG; `LOGO.md` records its source and
+- The brand icon is Lucide's `lock-keyhole` (ISC), inlined as SVG;
+  `LOGO.md` records its source and `LICENSES/lucide-ISC.txt` its
   licence.
 - `wordlist/eff_large_wordlist.txt` is the source of the packed list;
   `node scripts/diceware-wordlist.mjs --write cipher` re-packs it, and

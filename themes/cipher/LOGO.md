@@ -1,9 +1,19 @@
 # Logo
 
-The brand icon is "key and padlock" by Arif Arisandi from the Noun Project:
-<https://thenounproject.com/icon/key-and-padlock-7119603/>.
+The brand icon is `lock-keyhole` from Lucide (<https://lucide.dev/icons/lock-keyhole>),
+taken from the npm package `lucide-static` 1.55.0, file `icons/lock-keyhole.svg`.
 
-Licence: Noun Project Royalty-Free License (NounPro subscription), downloaded 2026-10-26. The subscription's
-royalty-free licence covers use without attribution; the credit is kept here as provenance.
-The file in the layouts is the downloaded SVG with its XML prolog and fixed size removed and
-its viewBox cropped to the drawing; the path data is unchanged.
+- Tarball: <https://registry.npmjs.org/lucide-static/-/lucide-static-1.55.0.tgz>
+- Integrity (npm registry `dist.integrity`, checked against the downloaded
+  tarball): `sha512-h18lunTFsIJWnY0FMRPjXeO9KcAtNi7fDqtqgWHOFbssfgUWsctn/pA7bpiyrd4g1DuBOJ24CsRnPfkYblwm/A==`
+- Licence: ISC, copyright Lucide Icons and Contributors. The licence text is
+  in [LICENSES/lucide-ISC.txt](LICENSES/lucide-ISC.txt). `lock-keyhole` is not
+  among the icons the package lists as derived from Feather, so the ISC
+  licence is the only one that applies to it.
+
+The icon is inlined in `_layouts/header.html` (30 px) and
+`_layouts/footer.html` (28 px). The path data is unchanged; the markup drops
+the file's `class`, `xmlns` and licence comment, keeps Lucide's stroke
+attributes (`stroke="currentColor"`, width 2, round caps and joins), and adds
+`aria-hidden` and `focusable="false"` because the brand name is printed
+beside it. The colour is the theme's accent, set on `.brand-logo`.
