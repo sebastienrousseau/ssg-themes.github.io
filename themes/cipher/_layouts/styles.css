@@ -7,10 +7,9 @@
    theme's header is built on lives here, in the core's own cascade layer
    (skeletonic > skeletonic.components, after its base and layout), so it
    keeps the precedence it had when it was appended to the core. The theme
-   paints it through the --topbar-* tokens above. The mode control's rule
-   names the shared Voxt selector, #mode-toggle.theme-toggle; the control
-   is the only one in .topbar-actions, so the two select the same element
-   with the same specificity. */
+   paints it through the --topbar-* tokens above. It sizes and paints the
+   search button only: the mode control keeps the canonical Voxt rules
+   further down, as on every other theme. */
 @layer skeletonic {
   @layer skeletonic.components {
     .topbar {
@@ -157,8 +156,7 @@
     .topbar .ap-lang-item:hover,.topbar .ap-lang-item[aria-current] {
       background: var(--topbar-control-bg, color-mix(in oklch, currentColor 10%, transparent));
     }
-    .topbar-actions>#ssg-search-btn,
-    #mode-toggle.theme-toggle {
+    .topbar-actions>#ssg-search-btn {
       background: var(--topbar-control-bg, transparent)!important;
       block-size: var(--control-height, 2.75rem)!important;
       border: 1px solid var(--topbar-control-border, transparent)!important;
@@ -265,7 +263,7 @@
       .topbar .ap-lang,.topbar-actions>:not(.ap-lang) {
         justify-self: stretch;
       }
-      .topbar-actions>#mode-toggle,.topbar-actions>#ssg-search-btn {
+      .topbar-actions>#ssg-search-btn {
         inline-size: 100%!important;
       }
       .topbar .ap-lang-toggle,.topbar-cta {
@@ -492,6 +490,27 @@
 /* SSG shared rules */
 :where(h1, h2, h3, h4, h5, h6) { padding-block-end: 0.35em; }
 .site-footer .footer-credit a { display: inline; min-width: 0; min-height: 0; padding: 0; margin: 0; white-space: nowrap; }
+/* Voxt is the canonical three-state mode control for every theme. */
+#mode-toggle.theme-toggle {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #5d6375;
+  border-radius: 50%;
+  background: #151928;
+  color: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+}
 .sr-only,
 #mode-toggle .visually-hidden {
   position: absolute;
@@ -506,8 +525,20 @@
 }
 #mode-toggle .theme-icon { line-height: 1; }
 #mode-toggle .theme-icon::before { content: "🖥️"; font-size: 1.2rem; }
+:root[data-theme="light"] #mode-toggle.theme-toggle {
+  border-color: #878d9b;
+  background: #f3f4f6;
+  color: #090a0f;
+}
 :root[data-theme="light"] #mode-toggle .theme-icon::before { content: "☀️"; }
 :root[data-theme="dark"] #mode-toggle .theme-icon::before { content: "🌙"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #mode-toggle.theme-toggle {
+    border-color: #878d9b;
+    background: #f3f4f6;
+    color: #090a0f;
+  }
+}
 
 /* WCAG 2.4.13 : Focus visible */
 :focus-visible {
