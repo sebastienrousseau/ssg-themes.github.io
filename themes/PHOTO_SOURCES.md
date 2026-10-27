@@ -24,6 +24,8 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Quill | `quill/images/culture-{320,640}.webp`, `quill/images/culture.webp` | `https://cloudcdn.pro/stocks/images/lisa-fotios-7026637-{320,640,1200}.webp` |
 | Curio | `curio/images/shopper-{320,640,1200}.webp` | `https://cloudcdn.pro/stocks/images/thisisengineering-raeng-TXxiFuQLBKQ-{320,640,1200}.webp` |
 | passmcp | `passmcp/images/diagnostic-{320,640}.webp`, `passmcp/images/diagnostic.webp` | `https://cloudcdn.pro/stocks/images/getty-images-dqHskSJDfe4-{320,640,1200}.webp` |
+| jspassgen | `jspassgen/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640,1920}.webp`, `jspassgen/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.avif` | `https://cloudcdn.pro/stocks/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640,1920}.webp` |
+| jspassgen | `jspassgen/images/pawel-czerwinski-7LoWpCOAn6k-{320,640,1200,1920}.webp` | `https://cloudcdn.pro/stocks/images/pawel-czerwinski-7LoWpCOAn6k-{320,640,1200,1920}.webp` |
 | Cipher | `cipher/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.{webp,avif}` | `https://cloudcdn.pro/stocks/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.webp` |
 | Cipher | `cipher/images/pawel-czerwinski-7LoWpCOAn6k-{640,1200}.webp` | `https://cloudcdn.pro/stocks/images/pawel-czerwinski-7LoWpCOAn6k-{640,1200}.webp` |
 | Signal | `signal/images/intelligence-{320,640}.webp`, `signal/images/intelligence.webp` | `https://cloudcdn.pro/stocks/images/ai-prompt-engineering-modern-office-{320,640,1200}.webp` |
