@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://github.com/sebastienrousseau/ssg-themes.github.io/actions"><img src="https://img.shields.io/github/actions/workflow/status/sebastienrousseau/ssg-themes.github.io/ci.yml?style=for-the-badge&logo=github" alt="Build" /></a>
   <a href="https://github.com/sebastienrousseau/ssg-themes.github.io/releases"><img src="https://img.shields.io/github/v/release/sebastienrousseau/ssg-themes.github.io?style=for-the-badge&color=fc8d62&logo=git" alt="Release" /></a>
-  <a href="https://static-site-generator.com/"><img src="https://img.shields.io/badge/SSG-0.0.56-66c2a5?style=for-the-badge&labelColor=555555&logo=rust" alt="Built with SSG" /></a>
+  <a href="https://static-site-generator.com/"><img src="https://img.shields.io/badge/SSG-0.0.69-66c2a5?style=for-the-badge&labelColor=555555&logo=rust" alt="Built with SSG" /></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/sebastienrousseau/ssg-themes.github.io"><img src="https://img.shields.io/ossf-scorecard/github.com/sebastienrousseau/ssg-themes.github.io?style=for-the-badge&label=OpenSSF%20Scorecard&logo=openssf" alt="OpenSSF Scorecard" /></a>
 </p>
 
@@ -102,11 +102,11 @@ Clone the repository and compile the static assets:
 git clone https://github.com/sebastienrousseau/ssg-themes.github.io.git
 cd ssg-themes.github.io
 
-# Compile with Static Site Generator (SSG)
-ssg build --content _posts --template _layouts --output docs
+# Build the gallery and all 26 themes into public/
+make build
 
-# Or serve locally using Makefile
-make serve
+# Serve the built site locally at http://127.0.0.1:8099/
+make preview
 ```
 
 ---

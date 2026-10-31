@@ -28,6 +28,8 @@ Usage: rebase_links.py <built theme dir> </theme-path/>
 
 from __future__ import annotations
 
+import base64
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -38,6 +40,8 @@ URL_FN_RE = re.compile(r"url\((['\"]?)(/(?!/)[^)'\"]*)\1\)")
 # The opening tag is rewritten like any other (a `<script src="/main.js">`
 # is a reference); only the element body between the tags is kept verbatim.
 SKIP_BODY_RE = re.compile(r"(<(?:script|style)\b[^>]*>)(.*?)(</(?:script|style)\b[^>]*>)", re.DOTALL | re.IGNORECASE)
+THEME_INIT_RE = re.compile(r'<script src="[^"]*theme-init[^"]*"[^>]*></script>')
+CSP_SCRIPT_RE = re.compile(r'<script src="([^"]*/_csp/[0-9a-f]+\.js)"')
 
 
 def rebase_value(value: str, prefix: str) -> str:
@@ -86,6 +90,77 @@ def rebase_markup(markup: str, prefix: str) -> str:
     return "".join(out)
 
 
+def load_fonts_css(root: Path, prefix: str) -> str:
+    """Loads and minifies fonts/fonts.css with root-rebased WOFF2 URLs."""
+    fonts_path = root / "fonts" / "fonts.css"
+    if not fonts_path.is_file():
+        return ""
+    css = fonts_path.read_text(encoding="utf-8")
+    css = re.sub(
+        r"url\((['\"]?)([a-z0-9-]+\.woff2)\1\)",
+        rf"url(\1{prefix}fonts/\2\1)",
+        css,
+    )
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    return re.sub(r"\s+", " ", css).strip()
+
+
+def write_bundled_css(csp_dir: Path, css_text: str) -> tuple[str, str]:
+    """Writes a content-addressed CSS bundle and returns (filename, sha384_sri)."""
+    data = css_text.encode("utf-8")
+    name = hashlib.sha256(data).hexdigest()[:16] + ".css"
+    sri = "sha384-" + base64.b64encode(hashlib.sha384(data).digest()).decode("ascii")
+    target = csp_dir / name
+    if not target.exists():
+        target.write_bytes(data)
+    return name, sri
+
+
+def bundle_page_styles(
+    markup: str, root: Path, prefix: str, fonts_css: str
+) -> tuple[str, str | None]:
+    """Combines fonts.css and extracted _csp/*.css into one stylesheet before theme-init.js."""
+    csp_link_re = re.compile(
+        r'<link rel="stylesheet" href="' + re.escape(prefix) + r'_csp/([0-9a-f]+\.css)"[^>]*>'
+    )
+    matches = list(csp_link_re.finditer(markup))
+    if not matches:
+        return markup, None
+    csp_dir = root / "_csp"
+    chunks = [fonts_css] if fonts_css else []
+    for match in matches:
+        css_file = csp_dir / match.group(1)
+        if css_file.is_file():
+            chunks.append(css_file.read_text(encoding="utf-8").strip())
+    bundle_name, sri = write_bundled_css(csp_dir, "".join(chunks))
+    bundle_tag = (
+        f'<link rel="stylesheet" href="{prefix}_csp/{bundle_name}" '
+        f'integrity="{sri}" crossorigin="anonymous">'
+    )
+    for match in reversed(matches):
+        markup = markup[: match.start()] + markup[match.end() :]
+    fonts_tag = f'<link rel="stylesheet" href="{prefix}fonts/fonts.css" />'
+    if fonts_tag in markup:
+        markup = markup.replace(fonts_tag, bundle_tag, 1)
+    elif "</head>" in markup:
+        markup = markup.replace("</head>", bundle_tag + "</head>", 1)
+    init_match = THEME_INIT_RE.search(markup)
+    if init_match and "</head>" in markup:
+        init_tag = init_match.group(0)
+        markup = markup.replace(init_tag, "", 1).replace("</head>", init_tag + "</head>", 1)
+    markup = CSP_SCRIPT_RE.sub(r'<script defer src="\1"', markup)
+    return markup, bundle_name
+
+
+def prune_unused_csp_css(csp_dir: Path, keep: set[str]) -> None:
+    """Removes intermediate _csp/*.css files superseded by bundled stylesheets."""
+    if not csp_dir.is_dir() or not keep:
+        return
+    for css_file in csp_dir.glob("*.css"):
+        if css_file.name not in keep:
+            css_file.unlink()
+
+
 def main(argv: list[str]) -> int:
     if len(argv) != 3:
         print(__doc__, file=sys.stderr)
@@ -94,14 +169,21 @@ def main(argv: list[str]) -> int:
     if not prefix.startswith("/") or not prefix.endswith("/"):
         print(f"error: prefix must look like /name/, got {prefix!r}", file=sys.stderr)
         return 2
+    fonts_css = load_fonts_css(root, prefix)
+    kept_css: set[str] = set()
     files = sorted(root.rglob("*.html"))
     changed = 0
     for path in files:
         before = path.read_text(encoding="utf-8")
-        after = rebase_markup(before, prefix)
+        after, bundle_name = bundle_page_styles(
+            rebase_markup(before, prefix), root, prefix, fonts_css
+        )
+        if bundle_name:
+            kept_css.add(bundle_name)
         if after != before:
             path.write_text(after, encoding="utf-8")
             changed += 1
+    prune_unused_csp_css(root / "_csp", kept_css)
     print(f"==> re-based root-absolute references onto {prefix} in {changed}/{len(files)} pages of {root}")
     return 0
 

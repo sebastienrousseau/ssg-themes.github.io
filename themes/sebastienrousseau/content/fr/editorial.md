@@ -109,7 +109,7 @@ translation_key: "editorial"
       "name": "Editorial standards · sebastienrousseau.com",
       "isPartOf": {"@id": "https://sebastienrousseau.com/#website"},
       "about": {"@id": "https://sebastienrousseau.com/editorial/#policy"},
-      "inLanguage": "en-GB",
+      "inLanguage": "fr-FR",
       "datePublished": "2026-06-02",
       "dateModified": "2026-06-02"
     },

@@ -145,15 +145,6 @@ build_theme() {
 
   python3 scripts/publish_404.py "public/${theme}"
 
-  # A site-tier theme owns its host's root, so its chrome and sample pages
-  # link to `/about/`, `/fr/`, `/main.js` with no prefix. Under the gallery
-  # path those resolve against the gallery root and 404; see the header of
-  # this script and scripts/rebase_links.py. Runs last, after every pass
-  # that writes pages, so the taxonomy listings and the 404 are covered.
-  if grep -qE '^tier = "site"' "themes/${theme}/theme.toml" 2>/dev/null; then
-    python3 scripts/rebase_links.py "public/${theme}" "/${theme}/"
-  fi
-
   # The stylesheet and scripts that live in `_layouts/` beside the templates
   # referencing them are staged and fingerprinted by the generator itself, so
   # they are not copied here.
@@ -199,6 +190,15 @@ build_theme() {
     cp -R "themes/${theme}/assets/_root/." "public/${theme}/"
     rm -rf "public/${theme}/assets/_root"
   fi
+
+  # A site-tier theme owns its host's root, so its chrome and sample pages
+  # link to `/about/`, `/fr/`, `/main.js` with no prefix. Under the gallery
+  # path those resolve against the gallery root and 404; see the header of
+  # this script and scripts/rebase_links.py. Runs last, after every pass
+  # that writes pages, so the taxonomy listings and the 404 are covered.
+  if grep -qE '^tier = "site"' "themes/${theme}/theme.toml" 2>/dev/null; then
+    python3 scripts/rebase_links.py "public/${theme}" "/${theme}/"
+  fi
 }
 
 mkdir -p public
@@ -207,13 +207,13 @@ if [[ "${TARGET}" == "all" ]]; then
   for theme in "${THEMES[@]}"; do
     build_theme "${theme}"
   done
-else
+elif [[ "${TARGET}" != "showcase" ]]; then
   build_theme "${TARGET}"
 fi
 
 # Release archives, built from the theme sources rather than the output so
 # what a visitor downloads is the theme, not a rendered copy of the demo.
-if [[ -f "scripts/package-themes.sh" ]]; then
+if [[ "${TARGET}" != "showcase" && -f "scripts/package-themes.sh" ]]; then
   bash scripts/package-themes.sh
 fi
 
