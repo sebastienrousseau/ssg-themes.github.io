@@ -68,6 +68,25 @@ def rebase_srcset(value: str, prefix: str) -> str:
     return ", ".join(parts)
 
 
+def _optimise_cloudcdn_tag(tag: str) -> str:
+    """Right-sizes CloudCDN hero/card images and defers offscreen footer icons."""
+    if tag.startswith("<link") and 'rel="preload"' in tag and 'as="image"' in tag:
+        return ""
+    if tag.startswith("<img") and 'class="hero-portrait"' in tag:
+        return tag.replace(
+            "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
+            "https://cloudcdn.pro/stocks/images/sebastienrousseau-320.webp",
+        ).replace('fetchpriority="high"', 'fetchpriority="low"')
+    if tag.startswith("<img") and "toa-heftiba-sinca-940295" in tag:
+        return tag.replace(
+            'sizes="(min-width: 64em) min(37vw, 547px), 94vw"',
+            'sizes="(min-width: 64em) min(37vw, 547px), 320px"',
+        )
+    if tag.startswith("<img") and "/buttons/" in tag and "loading=" not in tag:
+        return tag.replace("<img ", '<img loading="lazy" decoding="async" ', 1)
+    return tag
+
+
 def rebase_markup(markup: str, prefix: str) -> str:
     """Rewrites attribute values outside script and style bodies."""
 
@@ -82,8 +101,8 @@ def rebase_markup(markup: str, prefix: str) -> str:
         return f"url({quote}{rebase_value(value, prefix)}{quote})"
 
     def add_cloudcdn_cors(match: re.Match[str]) -> str:
-        tag = match.group(0)
-        if "crossorigin" in tag.lower():
+        tag = _optimise_cloudcdn_tag(match.group(0))
+        if not tag or "crossorigin" in tag.lower():
             return tag
         if tag.endswith("/>"):
             return tag[:-2].rstrip() + ' crossorigin="anonymous" />'
@@ -116,8 +135,19 @@ def load_fonts_css(root: Path, prefix: str) -> str:
         rf"url(\1{prefix}fonts/\2\1)",
         css,
     )
-    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
     return re.sub(r"\s+", " ", css).strip()
+
+
+def _defer_theme_init(markup: str) -> str:
+    """Moves theme-init script to the end of <head> with defer."""
+    init_match = THEME_INIT_RE.search(markup)
+    if not init_match or "</head>" not in markup:
+        return markup
+    init_tag = init_match.group(0)
+    if "defer" not in init_tag:
+        init_tag = init_tag.replace("<script ", "<script defer ", 1)
+    return markup.replace(init_match.group(0), "", 1).replace("</head>", init_tag + "</head>", 1)
 
 
 def write_bundled_css(csp_dir: Path, css_text: str) -> tuple[str, str]:
@@ -154,15 +184,10 @@ def bundle_page_styles(
     )
     for match in reversed(matches):
         markup = markup[: match.start()] + markup[match.end() :]
-    fonts_tag = f'<link rel="stylesheet" href="{prefix}fonts/fonts.css" />'
-    if fonts_tag in markup:
-        markup = markup.replace(fonts_tag, bundle_tag, 1)
-    elif "</head>" in markup:
-        markup = markup.replace("</head>", bundle_tag + "</head>", 1)
-    init_match = THEME_INIT_RE.search(markup)
-    if init_match and "</head>" in markup:
-        init_tag = init_match.group(0)
-        markup = markup.replace(init_tag, "", 1).replace("</head>", init_tag + "</head>", 1)
+    markup = markup.replace(f'<link rel="stylesheet" href="{prefix}fonts/fonts.css" />', "", 1)
+    anchor = "</title>" if "</title>" in markup else "</head>"
+    replacement = ("</title>\n    " + bundle_tag) if anchor == "</title>" else (bundle_tag + "</head>")
+    markup = _defer_theme_init(markup.replace(anchor, replacement, 1))
     markup = CSP_SCRIPT_RE.sub(r'<script defer src="\1"', markup)
     return markup, bundle_name
 
