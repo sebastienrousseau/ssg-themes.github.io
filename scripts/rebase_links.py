@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 import re
 import sys
 from pathlib import Path
@@ -42,6 +43,7 @@ URL_FN_RE = re.compile(r"url\((['\"]?)(/(?!/)[^)'\"]*)\1\)")
 SKIP_BODY_RE = re.compile(r"(<(?:script|style)\b[^>]*>)(.*?)(</(?:script|style)\b[^>]*>)", re.DOTALL | re.IGNORECASE)
 THEME_INIT_RE = re.compile(r'<script src="[^"]*theme-init[^"]*"[^>]*></script>')
 CSP_SCRIPT_RE = re.compile(r'<script src="([^"]*/_csp/[0-9a-f]+\.js)"')
+CLOUDCDN_TAG_RE = re.compile(r"<(?:img|link)\b[^>]*https://cloudcdn\.pro/[^>]*>", re.IGNORECASE)
 
 
 def rebase_value(value: str, prefix: str) -> str:
@@ -79,8 +81,21 @@ def rebase_markup(markup: str, prefix: str) -> str:
         quote, value = match.group(1), match.group(2)
         return f"url({quote}{rebase_value(value, prefix)}{quote})"
 
+    def add_cloudcdn_cors(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if "crossorigin" in tag.lower():
+            return tag
+        if tag.endswith("/>"):
+            return tag[:-2].rstrip() + ' crossorigin="anonymous" />'
+        return tag[:-1].rstrip() + ' crossorigin="anonymous">'
+
     def rewrite(chunk: str) -> str:
-        return URL_FN_RE.sub(url_fn, ATTR_RE.sub(attr, chunk))
+        chunk = chunk.replace(
+            "https://cloudcdn.pro/clients/sebastienrousseau/favicon.ico",
+            f"{prefix}favicon.ico",
+        )
+        chunk = URL_FN_RE.sub(url_fn, ATTR_RE.sub(attr, chunk))
+        return CLOUDCDN_TAG_RE.sub(add_cloudcdn_cors, chunk)
 
     out = []
     # split() with three groups yields: text, open tag, body, close tag, text, ...
@@ -161,6 +176,28 @@ def prune_unused_csp_css(csp_dir: Path, keep: set[str]) -> None:
             css_file.unlink()
 
 
+def rebase_manifests(root: Path, prefix: str) -> None:
+    """Replaces cross-origin CloudCDN manifest icons with the local favicon."""
+    for manifest_path in sorted(root.rglob("manifest.json")):
+        try:
+            data = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        icons = data.get("icons")
+        if not isinstance(icons, list):
+            continue
+        updated = False
+        for icon in icons:
+            if isinstance(icon, dict) and str(icon.get("src", "")).startswith("https://cloudcdn.pro/"):
+                icon["src"] = f"{prefix}favicon.ico"
+                icon["sizes"] = "32x32"
+                icon["type"] = "image/x-icon"
+                icon["purpose"] = "any"
+                updated = True
+        if updated:
+            manifest_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
 def main(argv: list[str]) -> int:
     if len(argv) != 3:
         print(__doc__, file=sys.stderr)
@@ -184,6 +221,7 @@ def main(argv: list[str]) -> int:
             path.write_text(after, encoding="utf-8")
             changed += 1
     prune_unused_csp_css(root / "_csp", kept_css)
+    rebase_manifests(root, prefix)
     print(f"==> re-based root-absolute references onto {prefix} in {changed}/{len(files)} pages of {root}")
     return 0
 
