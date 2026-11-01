@@ -4,7 +4,7 @@
   "private": true,
   "description": "Cross-viewport layout audit for the SSG themes",
   "devDependencies": {
-    "@axe-core/playwright": "4.10.2",
+    "@axe-core/playwright": "4.14.0",
     "@playwright/test": "1.62.1",
     "axe-core": "4.10.3",
     "pngjs": "7.0.0"
