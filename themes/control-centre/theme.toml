@@ -1,0 +1,13 @@
+name = "control-centre"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Operations and security control-centre theme: an app shell with sidebar navigation, a status ring with flows to the systems either side, KPI tiles, severity pills and evidence tables."
+homepage = "https://themes.static-site-generator.com/control-centre/"
+demosite = "https://themes.static-site-generator.com/control-centre/"
+tags = ["developer-tools", "security", "dashboard", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "app shell", "status ring", "severity pills", "KPI tiles", "print stylesheet"]
+min_version = "0.0.67"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

@@ -35,6 +35,20 @@ VARIANT = re.compile(r"^(?P<stem>.+?)-[a-z]?\d+$")
 REFERENCE_EXTENSIONS = {".css", ".html", ".js", ".json", ".md", ".styl", ".toml"}
 
 
+# Themes that render exclusively with inline SVG diagrams and carry no
+# raster photography.
+VECTOR_ONLY_THEMES = {"control-centre"}
+
+
+def has_client_logo_master(theme: str, stem: str) -> bool:
+    """Return True when a site theme's `logo-<client>` rung traces to CloudCDN."""
+    if not stem.startswith("logo-"):
+        return False
+    client = stem.removeprefix("logo-")
+    logos = CDN / "clients" / theme / "v1" / "logos"
+    return any((logos / f"{client}{ext}").is_file() for ext in RASTER_EXTENSIONS)
+
+
 def digest(path: Path) -> str:
     value = hashlib.sha256()
     with path.open("rb") as handle:
@@ -100,17 +114,14 @@ def main() -> int:
         families.setdefault((theme, stem), []).append(asset)
 
     for (theme, stem), members in sorted(families.items()):
-        if not any(digest(member) in cdn_hashes for member in members):
+        has_master = any(digest(member) in cdn_hashes for member in members)
+        if not has_master and not has_client_logo_master(theme, stem):
             failures.extend(members)
             print(f"NO CLOUDCDN SOURCE  {theme}/{stem} "
                   f"({len(members)} file(s))")
             continue
         photographic_themes.add(theme)
         if any(is_referenced(member, THEMES / theme) for member in members):
-            referenced_themes.add(theme)
-
-        photographic_themes.add(theme)
-        if is_referenced(asset, THEMES / theme):
             referenced_themes.add(theme)
 
     if failures:
@@ -120,8 +131,11 @@ def main() -> int:
         )
         return 1
 
-    non_photographic = [path.name for path in theme_dirs if path.name not in photographic_themes]
-    unreferenced = [path.name for path in theme_dirs if path.name not in referenced_themes]
+    expected_themes = [
+        path.name for path in theme_dirs if path.name not in VECTOR_ONLY_THEMES
+    ]
+    non_photographic = [name for name in expected_themes if name not in photographic_themes]
+    unreferenced = [name for name in expected_themes if name not in referenced_themes]
     if non_photographic:
         print(
             "cloudcdn-images: FAIL — themes without CloudCDN imagery: "

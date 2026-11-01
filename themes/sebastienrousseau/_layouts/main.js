@@ -1,0 +1,1469 @@
+// SPDX-FileCopyrightText: 2007-2026 Sebastien Rousseau
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+"use strict";
+
+/**
+ * Class to handle registration of a service worker.
+ */
+class ServiceWorkerSetup {
+    /**
+     * Constructor for the ServiceWorkerSetup class.
+     * Checks if service workers are supported and initiates registration if they are.
+     * If not, logs a warning to the console.
+     */
+    constructor() {
+        // The worker precaches host-root paths (/, /offline/index.html, the
+        // _csp/ assets), so it only works where this script is served from
+        // the host root. A copy served under a sub-path, such as the theme
+        // gallery's demo, skips registration instead of requesting a /sw.js
+        // that host does not have. Read while this script is executing:
+        // document.currentScript is null once the load event fires.
+        const script = document.currentScript;
+        this.rootServed = !script || new URL("sw.js", script.src).pathname === "/sw.js";
+        if (!this.rootServed) return;
+        if ("serviceWorker" in navigator) {
+            // Deferring service worker registration until after the page has loaded.
+            window.addEventListener('load', () => {
+                this.registerServiceWorker();
+            });
+        } else {
+            console.warn("Service workers are not supported by this browser");
+        }
+    }
+
+    /**
+     * Method to register a service worker.
+     * Logs a success message with the registration scope if registration succeeds,
+     * or an error message if registration fails.
+     * Also checks for a new service worker installation and triggers an update if found.
+     */
+    registerServiceWorker() {
+        // Whether a worker already controlled this page before registration.
+        // A first visit has none; the worker that installs then claims the
+        // page, which fires controllerchange, and reloading for that would
+        // load every first view twice. Only a replaced worker warrants it.
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        navigator.serviceWorker.register("/sw.js", {scope: './'})
+            .then(registration => {
+                console.log("ServiceWorker registration successful with scope: ", registration.scope);
+
+                // If there's no controller, this page wasn't loaded via a service worker, so they're looking at the latest version.
+                // Exit early
+                if (!navigator.serviceWorker.controller) return;
+
+                // If there's a worker waiting, that means a new version has been found and the waiting worker can be updated
+                if (registration.waiting) {
+                    this.updateServiceWorker(registration.waiting);
+                    return;
+                }
+
+                // If there's a worker installing, track its progress. If it becomes "installed", we can update the service worker.
+                if (registration.installing) {
+                    this.trackInstallingWorker(registration.installing);
+                    return;
+                }
+
+                // If none of the above, then listen for new installing workers arriving.
+                // If one arrives, track its progress.
+                // If it becomes "installed", our service worker code can be updated.
+                registration.addEventListener('updatefound', () => {
+                    this.trackInstallingWorker(registration.installing);
+                });
+            })
+            .catch(error => {
+                console.error("ServiceWorker registration failed: ", error);
+            });
+
+        // Ensure refresh is only called once.
+        // This works around a bug in "force update on reload".
+        let refreshing;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing || !hadController) return;
+            window.location.reload();
+            refreshing = true;
+        });
+    }
+
+    /**
+     * Sends a 'skipWaiting' message to a service worker indicating that it should activate immediately.
+     * @param {ServiceWorker} worker - The service worker that should be updated.
+     */
+    updateServiceWorker(worker) {
+        worker.postMessage({action: 'skipWaiting'});
+    }
+
+    /**
+     * Listens for a state change on a service worker. If the state becomes 'installed',
+     * this means the service worker is ready to take over from the current one.
+     * Call updateServiceWorker() to trigger the new service worker to become active immediately.
+     * @param {ServiceWorker} worker - The service worker that is being installed.
+     */
+    trackInstallingWorker(worker) {
+        worker.addEventListener('statechange', () => {
+            if (worker.state === 'installed') {
+                this.updateServiceWorker(worker);
+            }
+        });
+    }
+}
+
+// Create an instance of the ServiceWorkerSetup class and attach it to the global window object.
+// This makes the instance accessible from anywhere in your code that has access to the global scope.
+window.serviceWorkerSetup = new ServiceWorkerSetup();
+
+/**
+ * Fetches the webfonts once a page has loaded, for the views after it.
+ *
+ * A first view paints in the metric-matched system faces, so no font
+ * download sits between the visitor and the first paint. After `load`,
+ * this asks the browser for the three families (the latin files, the
+ * ones every page uses), and once all three are in the HTTP cache it
+ * records "wf"; theme-init.js then adds .wf to <html> before the next
+ * page paints, and the stylesheet switches to the webfonts there. The
+ * current page is never switched, so nothing reflows under the reader.
+ */
+(function warmWebfonts() {
+    var root = document.documentElement;
+    if (root.classList.contains("wf") || !document.fonts || !document.fonts.load) {
+        return;
+    }
+    function warm() {
+        Promise.all([
+            document.fonts.load('400 1em "Newsreader"'),
+            document.fonts.load('400 1em "Inter"'),
+            document.fonts.load('400 1em "JetBrains Mono"')
+        ]).then(function (sets) {
+            var all = sets.every(function (faces) { return faces.length > 0; });
+            if (!all) return;
+            try {
+                localStorage.setItem("wf", "1");
+            } catch (e) {
+                /* Storage disabled: every view stays in the system faces. */
+            }
+        }).catch(function () {
+            /* Offline or blocked: stay in the system faces. */
+        });
+    }
+    if (document.readyState === "complete") {
+        warm();
+    } else {
+        window.addEventListener("load", warm);
+    }
+})();
+
+/**
+ * On-site search bootstrap (DX plan Phase 2, ADR-0010).
+ *
+ * The search runtime (/search.js + /search.css) is LAZY-LOADED on first
+ * invocation only — Cmd/Ctrl-K, a click on the in-nav .ap-search button, or
+ * landing on the /search page — so it adds 0 to initial LCP everywhere else.
+ * Both assets are same-origin (script-src/style-src 'self'); no inline handlers,
+ * no CSP change. With JS off, the nav button is inert and /search shows its
+ * static fallback — progressive enhancement preserved.
+ */
+(function () {
+    var loading = null;
+
+    function injectOnce(tag, attrs) {
+        var el = document.createElement(tag);
+        for (var k in attrs) if (attrs.hasOwnProperty(k)) el.setAttribute(k, attrs[k]);
+        document.head.appendChild(el);
+        return el;
+    }
+
+    // Returns a promise that resolves once /search.js has booted.
+    function ensureSearch() {
+        if (window.SiteSearch) return Promise.resolve();
+        if (loading) return loading;
+        loading = new Promise(function (resolve) {
+            document.addEventListener("sitesearch:ready", function () { resolve(); }, { once: true });
+            injectOnce("link", { rel: "stylesheet", href: "/search.css" });
+            injectOnce("script", { src: "/search.js", defer: "" });
+        });
+        return loading;
+    }
+
+    function openSearch() {
+        if (window.SiteSearch) {
+            window.SiteSearch.open();
+            return;
+        }
+        // Remember the intent so /search.js opens as soon as it boots.
+        window.__ssPendingOpen = true;
+        ensureSearch().then(function () {
+            if (window.__ssPendingOpen && window.SiteSearch) {
+                window.__ssPendingOpen = false;
+                window.SiteSearch.open();
+            }
+        });
+    }
+
+    // Nav search button → open the command palette.
+    document.addEventListener("click", function (event) {
+        var trigger = event.target.closest && event.target.closest(".ap-search");
+        if (!trigger) return;
+        event.preventDefault();
+        openSearch();
+    });
+
+    // Cmd/Ctrl-K anywhere (except while typing into another field, where the OS
+    // shortcut shouldn't be hijacked mid-entry unless it's our own input).
+    document.addEventListener("keydown", function (event) {
+        var k = event.key;
+        if ((event.metaKey || event.ctrlKey) && (k === "k" || k === "K")) {
+            event.preventDefault();
+            openSearch();
+        }
+    });
+
+    // The /search page self-enhances: eagerly (but idle) load the runtime so the
+    // page turns into a live search box without a click. Still off the LCP path.
+    if (document.getElementById("search-page")) {
+        var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
+        idle(function () { ensureSearch(); });
+    }
+})();
+
+/**
+ * Listing filter — `/articles/` page <select>s update data-filter-*
+ * attributes on the .tag-landing-list container. CSS in the layout
+ * uses attribute selectors to hide non-matching cards. Empty value
+ * means "show all". Updates a counter + empty-state marker so screen
+ * readers can announce the filtered count.
+ */
+document.addEventListener("change", function (event) {
+    var target = event.target;
+    if (!target || target.tagName !== "SELECT") return;
+    var which = target.getAttribute("data-filter-target");
+    if (!which) return;
+    // Navigate-mode selects (e.g. Year on the paged listing) jump to a
+    // dedicated archive URL instead of mutating filter attributes —
+    // see _render_filter_form() for why.
+    if (target.getAttribute("data-filter-mode") === "navigate") {
+        // Both the base path and the option value are DOM-sourced, so both are
+        // validated against strict allow-lists before they reach location.href
+        // — a crafted attribute or option value can never inject a URL
+        // (js/xss-through-dom). Either failing its check falls back to the
+        // safe default listing.
+        var base = target.getAttribute("data-navigate-base") || "/articles";
+        var v = target.value;
+        // Each DOM value is used only inside the branch where its allow-list
+        // test passed, so no unchecked text can reach the URL. The base must
+        // be a single-slash site-relative path whose first character is
+        // alphanumeric: this rejects protocol-relative ("//host") and scheme
+        // ("javascript:") URLs that the previous ^\/[a-z0-9/-]+$ allowed.
+        var dest = "/articles/";
+        if (/^\/[a-z0-9][a-z0-9/-]*$/.test(base)) {
+            dest = base + "/";
+        }
+        if (/^[a-z0-9-]+$/.test(v)) {
+            dest += v + "/";
+        }
+        window.location.assign(dest);
+        return;
+    }
+    var list = document.querySelector(".tag-landing-list");
+    if (!list) return;
+    if (target.value) {
+        list.setAttribute("data-filter-" + which, target.value);
+    } else {
+        list.removeAttribute("data-filter-" + which);
+    }
+    // Empty-state: after each filter change, count VISIBLE cards via
+    // getBoundingClientRect (cheaper than getComputedStyle); flip a
+    // marker that the CSS shows in a sibling `.listing-empty` block.
+    var visible = 0;
+    Array.prototype.forEach.call(list.children, function (card) {
+        if (card.offsetParent !== null) visible++;
+    });
+    if (visible === 0) {
+        list.setAttribute("data-empty", "1");
+    } else {
+        list.removeAttribute("data-empty");
+    }
+    var counter = document.getElementById("listing-count");
+    if (counter) {
+        counter.textContent = visible;
+    }
+});
+
+/**
+ * Action-rail "Save PDF" — two handlers:
+ *
+ *   [data-print]            — button that opens the browser print
+ *                              dialog directly (no server route).
+ *   [data-print-fallback]   — anchor to /api/pdf/<slug>.pdf; we let the
+ *                              browser navigate by default, but if the
+ *                              Worker route returns a non-PDF (e.g. 503
+ *                              when the Fly.io machine is down), fall
+ *                              back to window.print() so the user still
+ *                              gets a PDF via the @media print stylesheet.
+ *
+ * Either way the PDF that drops out respects our @media print stylesheet
+ * (transparent inline code, sources-as-footnotes, links shown inline).
+ */
+document.addEventListener("click", function (event) {
+    var trigger = event.target.closest("[data-print]");
+    if (!trigger) return;
+    event.preventDefault();
+    window.print();
+});
+
+document.addEventListener("click", function (event) {
+    var trigger = event.target.closest("[data-print-fallback]");
+    if (!trigger) return;
+    var href = trigger.getAttribute("href");
+    if (!href) {
+        event.preventDefault();
+        window.print();
+        return;
+    }
+    // Probe the PDF route with HEAD; if it's a real PDF, let the
+    // browser navigate. Otherwise prevent navigation and fall back.
+    event.preventDefault();
+    fetch(href, { method: "HEAD" })
+        .then(function (res) {
+            var ct = (res.headers.get("Content-Type") || "").toLowerCase();
+            if (res.ok && ct.indexOf("application/pdf") !== -1) {
+                window.location.href = href;
+            } else {
+                window.print();
+            }
+        })
+        .catch(function () {
+            window.print();
+        });
+});
+
+/**
+ * Copy-to-clipboard handler — single delegate for every [data-copy]
+ * button inside the cite popover (BibTeX / RIS / Vancouver / Chicago /
+ * APA) and the reuse / republish panel. The target is the CSS selector
+ * in data-copy, typically "#cite-bibtex" or "#reuse-attribution". On
+ * success we flip data-copied="1" for 2s so the CSS can render a
+ * "Copied ✓" affordance; on failure (Clipboard API unavailable,
+ * insecure context) we fall back to a transient textarea + execCommand.
+ */
+document.addEventListener("click", function (event) {
+    var btn = event.target.closest("[data-copy]");
+    if (!btn) return;
+    event.preventDefault();
+    var target = document.querySelector(btn.getAttribute("data-copy"));
+    if (!target) return;
+    var text = target.innerText || target.textContent || "";
+    var done = function () {
+        btn.setAttribute("data-copied", "1");
+        setTimeout(function () { btn.removeAttribute("data-copied"); }, 2000);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {
+            fallbackCopy(text, done);
+        });
+    } else {
+        fallbackCopy(text, done);
+    }
+});
+
+/**
+ * Per-card "Copy link" — every .card-share-rail emits a
+ * <button data-copy-link="https://…/<slug>/"> so readers can paste the
+ * canonical URL anywhere. Same Clipboard API + textarea fallback as the
+ * cite popover handler above. data-copied="1" flips for 2s so CSS can
+ * render a "Copied ✓" affordance on top of the icon.
+ */
+document.addEventListener("click", function (event) {
+    var btn = event.target.closest("[data-copy-link]");
+    if (!btn) return;
+    event.preventDefault();
+    var text = btn.getAttribute("data-copy-link");
+    if (!text) return;
+    var done = function () {
+        btn.setAttribute("data-copied", "1");
+        setTimeout(function () { btn.removeAttribute("data-copied"); }, 2000);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {
+            fallbackCopy(text, done);
+        });
+    } else {
+        fallbackCopy(text, done);
+    }
+});
+
+function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:-9999px;left:-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); done(); }
+    catch (err) { console.warn("copy fallback failed", err); }
+    document.body.removeChild(ta);
+}
+
+/**
+ * Back-to-top floating button. Reveals after the user scrolls past one viewport
+ * height and scrolls smoothly to the top on click.
+ */
+(function () {
+    "use strict";
+    var btn = document.querySelector(".ap-totop");
+    if (!btn) return;
+    btn.removeAttribute("hidden");
+    var threshold = function () { return window.innerHeight; };
+    var onScroll = function () {
+        btn.classList.toggle("is-visible", window.scrollY > threshold());
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    btn.addEventListener("click", function () {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    });
+})();
+
+/**
+ * IntersectionObserver-driven fade-up on first scroll-in for any element with
+ * the .reveal class. Respects prefers-reduced-motion (the CSS handles that;
+ * we still set is-in so the element is visible).
+ */
+(function () {
+    "use strict";
+    var targets = document.querySelectorAll(".reveal");
+    if (!targets.length) return;
+    if (typeof IntersectionObserver !== "function") {
+        targets.forEach(function (el) { el.classList.add("is-in"); });
+        return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-in");
+                io.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: ["0px", "0px", "-10%", "0px"].join(String.fromCharCode(32)), threshold: 0.05 });
+    targets.forEach(function (el) { io.observe(el); });
+})();
+
+/**
+ * Scroll-reveal for [data-reveal] elements (Apple-HIG primitive).
+ * Fades + slides up on first intersection. Separate from .reveal so the
+ * existing landing-page reveal-on-scroll behaviour stays untouched.
+ */
+(function () {
+    "use strict";
+    var targets = document.querySelectorAll("[data-reveal]");
+    if (!targets.length) return;
+    if (typeof IntersectionObserver !== "function") {
+        targets.forEach(function (el) { el.classList.add("is-revealed"); });
+        return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                io.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: ["0px", "0px", "-8%", "0px"].join(String.fromCharCode(32)), threshold: 0.08 });
+    targets.forEach(function (el) { io.observe(el); });
+})();
+
+/**
+ * Colour-scheme control: three states, not two. "system" is the absence of
+ * data-theme, so a visitor can hand the choice back to the operating system;
+ * light and dark are set explicitly and persisted. theme-init.js restores a
+ * persisted choice in <head> before paint. The control is #mode-toggle with
+ * a #mode-state text that announces the current state; the icon is drawn by
+ * CSS so its box exists before this deferred script runs. The
+ * meta[name="theme-color"] tags are media-scoped, so no sync is needed.
+ */
+(function () {
+    "use strict";
+
+    var ORDER = ["system", "light", "dark"];
+
+    function announce(message) {
+        var live = document.getElementById("ap-live");
+        if (!live) {
+            live = document.createElement("div");
+            live.id = "ap-live";
+            live.setAttribute("role", "status");
+            live.setAttribute("aria-live", "polite");
+            live.setAttribute("aria-atomic", "true");
+            live.className = "visually-hidden";
+            document.body.appendChild(live);
+        }
+        // Clear then set, so the same message is re-announced on repeat toggles.
+        live.textContent = "";
+        setTimeout(function () {
+            live.textContent = message;
+        }, 16);
+    }
+
+    function currentMode() {
+        var set = document.documentElement.getAttribute("data-theme");
+        return set === "light" || set === "dark" ? set : "system";
+    }
+
+    function labelFor(mode, btn, state) {
+        if (mode === "system") {
+            return (state && state.getAttribute("data-label-system")) || "System";
+        }
+        return btn.getAttribute("data-label-" + mode) || (mode === "light" ? "Light theme" : "Dark theme");
+    }
+
+    function setMode(mode, announceIt) {
+        if (mode === "system") {
+            document.documentElement.removeAttribute("data-theme");
+            try { localStorage.removeItem("theme"); } catch (e) { /* storage disabled */ }
+        } else {
+            document.documentElement.setAttribute("data-theme", mode);
+            try { localStorage.setItem("theme", mode); } catch (e) { /* storage disabled */ }
+        }
+        var btn = document.getElementById("mode-toggle");
+        if (!btn) return;
+        var state = document.getElementById("mode-state");
+        var label = labelFor(mode, btn, state);
+        if (state) state.textContent = label;
+        btn.setAttribute("aria-label", "Colour scheme: " + label);
+        if (announceIt) announce(label + " on.");
+    }
+
+    setMode(currentMode(), false);
+
+    document.addEventListener("click", function (event) {
+        var btn = event.target.closest("#mode-toggle");
+        if (!btn) return;
+        event.preventDefault();
+        setMode(ORDER[(ORDER.indexOf(currentMode()) + 1) % ORDER.length], true);
+    });
+})();
+
+/**
+ * Spotify players load on request. The playlist layout ships a link per
+ * player (the playlist on Spotify, usable without JavaScript); a click swaps
+ * it for the embed it describes, so the page carries no third-party frame
+ * until the visitor asks for one.
+ */
+(function () {
+    "use strict";
+    // Only a Spotify playlist id is taken from the page; the embed URL is
+    // built from a fixed origin, so no attribute value ever becomes a frame
+    // source (a javascript: or foreign URL in the markup cannot load).
+    var PLAYLIST = /^https:\/\/open\.spotify\.com\/playlist\/([A-Za-z0-9]{22})$/;
+    document.addEventListener("click", function (event) {
+        var link = event.target.closest(".pl-frame-load");
+        if (!link) return;
+        var match = PLAYLIST.exec(link.getAttribute("href") || "");
+        if (!match) return;
+        event.preventDefault();
+        var frame = document.createElement("iframe");
+        frame.className = "pl-frame";
+        frame.src = "https://open.spotify.com/embed/playlist/" + match[1] + "?utm_source=generator&theme=0";
+        frame.width = "100%";
+        frame.height = link.getAttribute("data-height") || "152";
+        frame.title = link.getAttribute("data-title") || "Spotify player";
+        frame.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
+        frame.setAttribute("loading", "lazy");
+        link.replaceWith(frame);
+        frame.focus();
+    });
+})();
+
+/**
+ * Reading progress bar — sticky 2px line at the top of the viewport that
+ * fills as the user scrolls through the article body. Renders only on
+ * pages with substantive <main.content>; nav/listing pages opt out.
+ */
+(function readingProgress() {
+    "use strict";
+    var main = document.querySelector("main.content");
+    if (!main) return;
+    var minHeight = window.innerHeight * 1.5;
+    if (main.offsetHeight < minHeight) return;
+
+    var bar = document.createElement("div");
+    bar.className = "reading-progress";
+    bar.setAttribute("role", "progressbar");
+    bar.setAttribute("aria-label", "Reading progress");
+    bar.setAttribute("aria-valuemin", "0");
+    bar.setAttribute("aria-valuemax", "100");
+    bar.setAttribute("aria-valuenow", "0");
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    function update() {
+        var rect = main.getBoundingClientRect();
+        var totalScroll = rect.height - window.innerHeight;
+        var current = Math.min(Math.max(-rect.top, 0), totalScroll);
+        var pct = totalScroll > 0 ? (current / totalScroll) * 100 : 0;
+        bar.style.transform = "scaleX(" + (pct / 100) + ")";
+        bar.setAttribute("aria-valuenow", Math.round(pct));
+        ticking = false;
+    }
+    function schedule() {
+        if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+        }
+    }
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    update();
+})();
+
+/**
+ * Language selector — wires up the .ap-lang button + flag-grid menu in
+ * the nav.
+ *   - Reflects the current language on the toggle (globe + code).
+ *   - Marks the current language item with aria-current="true".
+ *   - Active live languages (those with real /{lang}/ routes) get their
+ *     hrefs rewired to the per-page hreflang alternate when one exists.
+ *   - Disabled placeholder languages stay non-clickable.
+ *   - Toggle: button click + outside-click close + Escape close.
+ */
+(function langSelector() {
+    "use strict";
+    var box = document.querySelector(".ap-lang");
+    if (!box) return;
+    var toggle = box.querySelector(".ap-lang-toggle");
+    var menu = box.querySelector(".ap-lang-menu");
+    if (!toggle || !menu) return;
+
+    var current = (document.documentElement.getAttribute("lang") || "en").slice(0, 2).toLowerCase();
+    var items = box.querySelectorAll(".ap-lang-item");
+    items.forEach(function (a) {
+        var lang = a.getAttribute("data-lang");
+        if (lang === current || lang.indexOf(current + "-") === 0) {
+            a.setAttribute("aria-current", "true");
+            a.classList.add("active");
+        }
+        // Per-page hreflang override (live links only — placeholders
+        // are <span> with no href and aria-disabled, skipped here).
+        // Extract just the pathname so the link is origin-relative —
+        // a localhost click shouldn't navigate to prod.
+        if (a.tagName !== "A") return;
+        var alt = document.querySelector(
+            'link[rel="alternate"][hreflang="' + lang + '"]'
+        );
+        if (!alt) return;
+        try {
+            var url = new URL(alt.getAttribute("href"), window.location.href);
+            a.setAttribute("href", url.pathname + url.search + url.hash);
+        } catch (err) {
+            a.setAttribute("href", alt.getAttribute("href"));
+        }
+    });
+    // Visible label + aria-label come from the SSR + chrome patches —
+    // JS leaves them alone.
+
+    function setOpen(open) {
+        if (open) {
+            menu.removeAttribute("hidden");
+            toggle.setAttribute("aria-expanded", "true");
+        } else {
+            menu.setAttribute("hidden", "");
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    }
+
+    toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+    document.addEventListener("click", function (e) {
+        if (toggle.getAttribute("aria-expanded") !== "true") return;
+        if (!box.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+})();
+
+/**
+ * Pre-fill the contact form from URL query parameters. The footer
+ * newsletter widget submits as GET to /contact/?email=…&subject=newsletter
+ * &message=…, so on arrival we pull those values into the matching
+ * form fields and focus the Name field (the only one not pre-filled).
+ * The contact form's own reCAPTCHA flow then takes over from there —
+ * no AJAX shenanigans, no formspree interstitial, no tracker-blocker
+ * conflicts. Acts only on the contact page (or any page hosting the
+ * full ap-form contact form); silently no-ops elsewhere.
+ */
+(function contactPrefill() {
+    "use strict";
+    var form = document.querySelector("form.ap-form");
+    if (!form) return;
+    var params = new URLSearchParams(window.location.search);
+    var email = params.get("email");
+    var subject = params.get("subject");
+    var message = params.get("message");
+    if (!email && !subject && !message) return;
+    if (email) {
+        var emailEl = form.querySelector('input[name="email"]');
+        if (emailEl) emailEl.value = email;
+    }
+    if (subject) {
+        var subjectEl = form.querySelector('select[name="subject"]');
+        if (subjectEl) {
+            var match = Array.prototype.find.call(
+                subjectEl.options,
+                function (opt) { return opt.value === subject; }
+            );
+            if (match) subjectEl.value = subject;
+        }
+    }
+    if (message) {
+        var messageEl = form.querySelector('textarea[name="message"]');
+        if (messageEl && !messageEl.value) messageEl.value = message;
+    }
+    var nameEl = form.querySelector('input[name="name"]');
+    if (nameEl) nameEl.focus();
+    // Strip the query string from the address bar so a refresh doesn't
+    // re-prefill and the URL stays canonical.
+    if (history && typeof history.replaceState === "function") {
+        history.replaceState({}, "", window.location.pathname + window.location.hash);
+    }
+})();
+
+/**
+ * Lazy-load Google reCAPTCHA only when the visitor engages the contact
+ * form. api.js is ~800 KB of third-party JS that otherwise loads on every
+ * /contact/ view, pushing LCP to ~2.7 s (Lighthouse 0.75). Injecting it on
+ * first focus/pointer keeps the widget ready before submit while removing it
+ * from the initial load. api.js auto-renders any .g-recaptcha element once it
+ * boots; same www.google.com script-src the eager tag used, so no CSP change.
+ */
+(function recaptchaLazy() {
+    "use strict";
+    var box = document.querySelector(".g-recaptcha");
+    if (!box) return;
+    // A site key is 40 characters starting "6L". A copy of the theme ships a
+    // placeholder, for which Google can only render an error widget.
+    if (!/^6L[0-9A-Za-z_-]{38}$/.test(box.getAttribute("data-sitekey") || "")) return;
+    // Tab moves focus into the widget's cross-origin frame, and the browser
+    // does not scroll this page for that, so a widget below the fold took
+    // focus out of sight (WCAG 2.4.11). Bring it into view on focus.
+    box.addEventListener("focusin", function () {
+        box.scrollIntoView({ block: "nearest" });
+    });
+    var form = box.closest("form") || document;
+    var loaded = false;
+    var load = function () {
+        if (loaded) return;
+        loaded = true;
+        var s = document.createElement("script");
+        s.src = "https://www.google.com/recaptcha/api.js";
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+    };
+    form.addEventListener("focusin", load, { once: true });
+    form.addEventListener("pointerdown", load, { once: true });
+})();
+
+/**
+ * Mermaid renderer — lazy-loads the Mermaid library from jsdelivr only
+ * when the page actually contains <pre class="mermaid"> blocks. Pages
+ * without Mermaid pay no JS / no network cost; pages with Mermaid widen
+ * their meta-CSP to allow the import via the postbuild patch.
+ */
+(async function mermaidInit() {
+    "use strict";
+    if (!document.querySelector("pre.mermaid")) return;
+    try {
+        var mod = await import(
+            "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"
+        );
+        var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        if (!document.documentElement.getAttribute("data-theme")) {
+            isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        }
+        mod.default.initialize({
+            startOnLoad: false,
+            securityLevel: "antiscript",
+            theme: isDark ? "dark" : "base",
+            themeVariables: isDark ? {
+                fontFamily: "var(--type-mono), ui-monospace, monospace",
+                fontSize: "14px",
+                primaryColor: "#161617",
+                primaryTextColor: "#f5f5f7",
+                primaryBorderColor: "#3a3a3c",
+                lineColor: "#b0b0b8",
+                textColor: "#f5f5f7",
+                actorBorder: "#3a3a3c",
+                actorBkg: "#161617",
+                actorTextColor: "#f5f5f7",
+                actorLineColor: "#3a3a3c",
+                labelBoxBkgColor: "#161617",
+                labelBoxBorderColor: "#3a3a3c",
+                labelTextBkgColor: "#161617",
+                labelTextColor: "#f5f5f7",
+                loopTextColor: "#f5f5f7",
+                noteBorderColor: "#3a3a3c",
+                noteBkgColor: "#1d1d1f",
+                noteTextColor: "#f5f5f7",
+                activationBorderColor: "#3a3a3c",
+                activationBkgColor: "#1d1d1f",
+                sequenceNumberColor: "#f5f5f7",
+            } : {
+                fontFamily: "var(--type-mono), ui-monospace, monospace",
+                fontSize: "14px",
+                primaryColor: "#ffffff",
+                primaryTextColor: "#111111",
+                primaryBorderColor: "#d2d2d7",
+                lineColor: "#505058",
+                textColor: "#1d1d1f",
+                actorBorder: "#d2d2d7",
+                actorBkg: "#fafafc",
+                actorTextColor: "#1d1d1f",
+                actorLineColor: "#d2d2d7",
+                labelBoxBkgColor: "#ffffff",
+                labelBoxBorderColor: "#d2d2d7",
+                labelTextBkgColor: "#ffffff",
+                labelTextColor: "#1d1d1f",
+                loopTextColor: "#1d1d1f",
+                noteBorderColor: "#d2d2d7",
+                noteBkgColor: "#f1f1f3",
+                noteTextColor: "#1d1d1f",
+                activationBorderColor: "#d2d2d7",
+                activationBkgColor: "#f1f1f3",
+                sequenceNumberColor: "#1d1d1f",
+            },
+            flowchart: { htmlLabels: true, useMaxWidth: true, curve: "basis" },
+        });
+
+        // Inject dynamic CSS overrides using variables so SVGs update cleanly on theme toggles
+        var style = document.createElement("style");
+        style.textContent = [
+            // Container — the layout's generic `main.content pre` rule paints
+            // a grey card background + padding meant for code blocks. Override
+            // for Mermaid so the SVG sits flush on the page background, and
+            // widen to the banner / page max width so the diagram is legible.
+            // Match the site's existing wide-content pattern (used by tables
+            // and .article-banner) — max-width: var(--max-wide) with auto
+            // margins. The site's <main> doesn't actually constrain to a
+            // narrow column for everything; only paragraphs have max-width:65ch.
+            // pre.mermaid as block-level can therefore go to the full
+            // --max-wide alongside tables and banner figures.
+            "pre.mermaid { background: transparent !important; border: 0 !important; padding: 0 !important; margin: 24px auto !important; width: 100% !important; max-width: var(--max-wide, 1440px) !important; overflow-x: auto; text-align: center; }",
+            "pre.mermaid svg { max-width: 100%; height: auto; }",
+            // Dark mode: Mermaid's themeVariables are baked into the SVG at
+            // render time, so toggling the site theme post-render leaves the
+            // SVG with stale colors. CSS overrides using --ink / --bg-alt /
+            // --border / --card / --accent follow the theme variable
+            // switching at paint time and stay readable in either mode.
+            "[data-theme='dark'] pre.mermaid svg .actor rect { fill: #161617 !important; stroke: #3a3a3c !important; }",
+            "[data-theme='dark'] pre.mermaid svg .actor text, [data-theme='dark'] pre.mermaid svg .actor tspan { fill: #f5f5f7 !important; }",
+            "[data-theme='dark'] pre.mermaid svg .actor-line { stroke: #3a3a3c !important; }",
+            "[data-theme='dark'] pre.mermaid svg .messageLine0, [data-theme='dark'] pre.mermaid svg .messageLine1 { stroke: #b0b0b8 !important; fill: none !important; }",
+            "[data-theme='dark'] pre.mermaid svg .messageText { fill: #f5f5f7 !important; }",
+            "[data-theme='dark'] pre.mermaid svg .labelBox { fill: #161617 !important; stroke: #3a3a3c !important; }",
+            "[data-theme='dark'] pre.mermaid svg .labelText, [data-theme='dark'] pre.mermaid svg .labelText tspan { fill: #f5f5f7 !important; }",
+            "[data-theme='dark'] pre.mermaid svg .note rect { fill: #1d1d1f !important; stroke: #3a3a3c !important; }",
+            "[data-theme='dark'] pre.mermaid svg .note text, [data-theme='dark'] pre.mermaid svg .note tspan { fill: #f5f5f7 !important; }",
+            "[data-theme='dark'] pre.mermaid svg marker path, [data-theme='dark'] pre.mermaid svg marker polygon { fill: #b0b0b8 !important; stroke: #b0b0b8 !important; }",
+            "@media (prefers-color-scheme: dark) { html:not([data-theme='light']) pre.mermaid svg .actor rect { fill: #161617 !important; stroke: #3a3a3c !important; } html:not([data-theme='light']) pre.mermaid svg .actor text, html:not([data-theme='light']) pre.mermaid svg .actor tspan { fill: #f5f5f7 !important; } html:not([data-theme='light']) pre.mermaid svg .messageText { fill: #f5f5f7 !important; } html:not([data-theme='light']) pre.mermaid svg .note rect { fill: #1d1d1f !important; stroke: #3a3a3c !important; } html:not([data-theme='light']) pre.mermaid svg .note text, html:not([data-theme='light']) pre.mermaid svg .note tspan { fill: #f5f5f7 !important; } html:not([data-theme='light']) pre.mermaid svg marker path { fill: #b0b0b8 !important; stroke: #b0b0b8 !important; } html:not([data-theme='light']) pre.mermaid svg .messageLine0, html:not([data-theme='light']) pre.mermaid svg .messageLine1 { stroke: #b0b0b8 !important; fill: none !important; } }",
+            "pre.mermaid svg .actor rect { fill: var(--bg-alt, #fafafc) !important; stroke: var(--border, #3a3a3e) !important; }",
+            "pre.mermaid svg .actor text, pre.mermaid svg .actor tspan { fill: var(--ink, #111111) !important; }",
+            "pre.mermaid svg .actor-line { stroke: var(--border, #3a3a3e) !important; }",
+            "pre.mermaid svg .messageLine0, pre.mermaid svg .messageLine1 { stroke: var(--ink-mute, #3a3a3e) !important; }",
+            "pre.mermaid svg .messageText { fill: var(--ink, #111111) !important; stroke: none !important; }",
+            "pre.mermaid svg .labelBox { fill: var(--card, #ffffff) !important; stroke: var(--border, #3a3a3e) !important; }",
+            "pre.mermaid svg .labelText, pre.mermaid svg .labelText tspan { fill: var(--ink, #111111) !important; }",
+            "pre.mermaid svg .note rect { fill: var(--bg-alt, #fafafc) !important; stroke: var(--border, #3a3a3e) !important; }",
+            "pre.mermaid svg .note text, pre.mermaid svg .note tspan { fill: var(--ink, #111111) !important; }",
+            "pre.mermaid svg .loopText, pre.mermaid svg .loopText tspan { fill: var(--ink, #111111) !important; }",
+            "pre.mermaid svg .loopLine { stroke: var(--border, #3a3a3e) !important; fill: none !important; }",
+            "pre.mermaid svg .active { fill: var(--bg-alt, #fafafc) !important; stroke: var(--border, #3a3a3e) !important; }",
+            "pre.mermaid svg circle.sequenceNumber { fill: var(--accent, #0043a5) !important; stroke: var(--accent, #0043a5) !important; }",
+            "pre.mermaid svg text.sequenceNumber { fill: #ffffff !important; stroke: none !important; font-weight: bold !important; }",
+            "pre.mermaid svg .edgePath .path { stroke: var(--ink-mute, #3a3a3e) !important; }",
+            "pre.mermaid svg .edgeLabel rect { fill: var(--card, #ffffff) !important; }",
+            "pre.mermaid svg .edgeLabel text, pre.mermaid svg .edgeLabel tspan { fill: var(--ink, #111111) !important; }",
+            // Mermaid v10 renders edge labels through <foreignObject> with
+            // HTML <span>s that inherit a default mid-gray colour (≈ 6.5:1
+            // contrast vs the white edge-label rect). Force the same dark
+            // ink as the SVG-targeted rule so the labels clear WCAG 2.2
+            // AAA on every Mermaid diagram on the site. The ``\x20`` escape
+            // preserves the descendant-combinator space through the SSG's
+            // CSS-aware string minifier, which otherwise collapses spaces
+            // between selectors and class tokens.
+            ".edgeLabel\x20span,.edgeLabel\x20div,.edgeLabel\x20p,.edgeLabel{color:var(--ink,#111111)!important;background-color:var(--card,#ffffff)!important;}",
+            "pre.mermaid svg marker { fill: var(--ink-mute, #3a3a3e) !important; stroke: none !important; }"
+        ].join("\n");
+        document.head.appendChild(style);
+
+        await mod.default.run({ querySelector: "pre.mermaid" });
+
+        // Dedupe duplicate id attributes across multiple Mermaid SVGs on
+        // the same page. Mermaid 10 emits stable IDs (`arrowhead`,
+        // `crosshead`, `filled-head`, `sequencenumber`, `computer`,
+        // `database`, `clock`, …) in each diagram's <defs>, which
+        // collide when more than one diagram lives on the page and
+        // produce a WCAG 2.2 AAA Principle 4.1.1 F77 duplicate-id
+        // failure under pa11y. Walk every rendered SVG, prefix any
+        // duplicate ID with the diagram index, and rewrite same-SVG
+        // url(#…) and href="#…" references so the renamed markers
+        // still resolve.
+        try {
+            var seen = Object.create(null);
+            var svgs = document.querySelectorAll("pre.mermaid svg");
+            svgs.forEach(function (svg, idx) {
+                var rename = Object.create(null);
+                var nodes = svg.querySelectorAll("[id]");
+                nodes.forEach(function (n) {
+                    var orig = n.getAttribute("id");
+                    if (!orig) return;
+                    if (!seen[orig]) { seen[orig] = true; return; }
+                    var fresh = "m" + idx + "-" + orig;
+                    n.setAttribute("id", fresh);
+                    rename[orig] = fresh;
+                });
+                if (Object.keys(rename).length === 0) return;
+                // Fix up url(#orig) / #orig / xlink:href="#orig" inside
+                // this SVG so renamed markers keep resolving.
+                svg.querySelectorAll("*").forEach(function (el) {
+                    for (var i = 0; i < el.attributes.length; i++) {
+                        var attr = el.attributes[i];
+                        var v = attr.value;
+                        if (!v) continue;
+                        Object.keys(rename).forEach(function (orig) {
+                            var fresh = rename[orig];
+                            if (v.indexOf("url(#" + orig + ")") !== -1) {
+                                v = v.split("url(#" + orig + ")").join("url(#" + fresh + ")");
+                            }
+                            if (v === "#" + orig) {
+                                v = "#" + fresh;
+                            }
+                        });
+                        if (v !== attr.value) attr.value = v;
+                    }
+                });
+            });
+        } catch (dedupErr) {
+            console.warn("mermaid id dedup failed", dedupErr);
+        }
+    } catch (err) {
+        console.warn("mermaid load failed", err);
+    }
+})();
+
+/**
+ * "Read as…" audience path selector (homepage, Phase 8; extended to the
+ * /iso20022-mcp/ hub, whose generator tags every section the same way).
+ *
+ * Progressive enhancement: the control ships [hidden] in static HTML,
+ * so a JS-off reader gets the full page in document order and no
+ * inert widget. On load we reveal it, then re-order the tagged sections
+ * so the ones tagged for the chosen audience (boards / engineers /
+ * regulators) lead — nothing is ever removed, so it's a lens, not a
+ * destructive filter.
+ *
+ * The preference is cookie-free: `?read=<audience>` in the URL (a
+ * shareable, bookmarkable permalink) plus `localStorage`. URL wins on
+ * load so a shared link always reflects its author's lens. Reorders
+ * announce via a polite `role="status"` live region. No inline handlers
+ * or styles — CSP-hash-clean, same-origin script only.
+ */
+(function () {
+    var root = document.querySelector(".read-as");
+    if (!root) return;
+    // The sections container: the homepage content wrap, or the ISO 20022
+    // MCP hub wrapper (the only other page whose sections carry
+    // [data-audience] tags). Any other page has neither, and bails.
+    var home =
+        document.querySelector(".home-content") ||
+        document.querySelector(".iso20022-mcp-page");
+    if (!home) return;
+
+    // Only these three lenses are honoured — everything else (including a
+    // crafted ?for= or ?read= value) falls back to the authored "Everyone"
+    // order, so a hostile query string can never drive the DOM.
+    var ALLOWED = ["boards", "engineers", "regulators"];
+    var STORE_KEY = "read-as";
+    var buttons = Array.prototype.slice.call(root.querySelectorAll(".read-as-btn"));
+    var status = root.querySelector("[data-read-status]");
+    var summaryEl = root.querySelector("[data-read-summary]");
+    var announce = root.getAttribute("data-announce") || "";
+    var heroSub = document.querySelector(".feat-hero\x20.feat-sub");
+    var heroSubDefault = heroSub ? heroSub.textContent : "";
+    var defaultTitle = document.title || "";
+    var metaDesc = document.querySelector('meta[name="description"]');
+    var ogDesc = document.querySelector('meta[property="og:description"]');
+    var defaultDesc = metaDesc ? (metaDesc.getAttribute("content") || "") : "";
+    var isEn = (document.documentElement.getAttribute("lang") || "en")
+        .toLowerCase()
+        .indexOf("en") === 0;
+    var HERO_SUB_LENS = {
+        boards: "Fiduciary risk, capital resilience, and board-level governance for AI and post-quantum migration.",
+        engineers: "Zero-unsafe Rust crates, ISO 20022 message schemas, and NIST FIPS 203 ML-KEM primitives ready to ship.",
+        regulators: "Supervisory evidence, DORA and Cyber Resilience Act alignment, and quantum-safe wholesale payment rails."
+    };
+    var TITLE_LENS = {
+        boards: "Sebastien Rousseau · For Boards: AI & Post-Quantum Banking Governance",
+        engineers: "Sebastien Rousseau · For Engineers: ISO 20022 & FIPS 203 Open Source",
+        regulators: "Sebastien Rousseau · For Regulators: Quantum-Safe Payments & DORA"
+    };
+
+    function emitTrack(eventName, props) {
+        try {
+            document.dispatchEvent(
+                new CustomEvent("sr:track", {
+                    detail: { event: eventName, props: props || {} }
+                })
+            );
+        } catch (_) {}
+        try {
+            if (typeof window.plausible === "function") {
+                window.plausible(eventName, { props: props || {} });
+            } else if (window.umami && typeof window.umami.track === "function") {
+                window.umami.track(eventName, props || {});
+            }
+        } catch (_) {}
+    }
+
+    // Snapshot the authored section order once so "Everyone" restores it.
+    // Not `:scope >`: the build can wrap the authored sections in an extra
+    // container (e.g. a lang="en" div injected on the homepage), so find
+    // them anywhere under the wrap and reorder within their real parent.
+    var sections = Array.prototype.slice.call(
+        home.querySelectorAll("section[data-audience]")
+    );
+    if (!sections.length) return;
+    var container = sections[0].parentNode;
+    // One shared parent only: a split container would make insertBefore
+    // teleport sections between wrappers, so bail to the authored order.
+    for (var si = 1; si < sections.length; si++) {
+        if (sections[si].parentNode !== container) return;
+    }
+    var tailAnchor = sections[sections.length - 1].nextSibling;
+    var cards = Array.prototype.slice.call(
+        home.querySelectorAll(".offer-card[data-audience-card]")
+    );
+
+    function sanitize(v) {
+        return ALLOWED.indexOf(v) !== -1 ? v : "";
+    }
+
+    // Stable partition: sections tagged for `aud` keep their relative
+    // order and move to the front; the rest follow in their original
+    // order. `aud === ""` leaves the authored order untouched.
+    function reorder(aud) {
+        var lead = [];
+        var rest = [];
+        sections.forEach(function (sec) {
+            var tags = (sec.getAttribute("data-audience") || "").split(/\s+/);
+            if (aud && tags.indexOf(aud) !== -1) {
+                lead.push(sec);
+            } else {
+                rest.push(sec);
+            }
+        });
+        lead.concat(rest).forEach(function (sec) {
+            container.insertBefore(sec, tailAnchor);
+        });
+    }
+
+    function labelFor(aud) {
+        for (var i = 0; i < buttons.length; i++) {
+            if ((buttons[i].getAttribute("data-read") || "") === aud) {
+                return buttons[i].textContent.trim();
+            }
+        }
+        return "";
+    }
+
+    function apply(aud, opts) {
+        aud = sanitize(aud);
+        opts = opts || {};
+        reorder(aud);
+        buttons.forEach(function (b) {
+            var on = (b.getAttribute("data-read") || "") === aud;
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        cards.forEach(function (c) {
+            var match = Boolean(aud && (c.getAttribute("data-audience-card") || "").split(/\s+/).indexOf(aud) !== -1);
+            c.classList.toggle("is-lens-match", match);
+        });
+        if (isEn) {
+            var nextSub = (aud && HERO_SUB_LENS[aud]) ? HERO_SUB_LENS[aud] : heroSubDefault;
+            if (heroSub && heroSubDefault) {
+                heroSub.textContent = nextSub;
+            }
+            if (defaultTitle) {
+                document.title = (aud && TITLE_LENS[aud]) ? TITLE_LENS[aud] : defaultTitle;
+            }
+            if (defaultDesc) {
+                var nextDesc = (aud && HERO_SUB_LENS[aud]) ? HERO_SUB_LENS[aud] : defaultDesc;
+                if (metaDesc) metaDesc.setAttribute("content", nextDesc);
+                if (ogDesc) ogDesc.setAttribute("content", nextDesc);
+            }
+        }
+        if (summaryEl) {
+            var customSummary = summaryEl.getAttribute("data-summary-" + (aud || "default"));
+            if (customSummary) {
+                summaryEl.textContent = customSummary;
+            }
+        }
+        if (status && opts.speak) {
+            status.textContent = (announce ? announce + ": " : "") + labelFor(aud);
+        }
+        if (opts.persist) {
+            try {
+                if (aud) localStorage.setItem(STORE_KEY, aud);
+                else localStorage.removeItem(STORE_KEY);
+            } catch (e) { /* private mode — non-fatal */ }
+            try {
+                var url = new URL(window.location.href);
+                url.searchParams.delete("read");
+                if (aud) url.searchParams.set("for", aud);
+                else url.searchParams.delete("for");
+                window.history.replaceState(null, "", url.toString());
+            } catch (e2) { /* older engine — non-fatal */ }
+            emitTrack("read_as_select", { lens: aud || "everyone" });
+        }
+    }
+
+    // Reveal the control now that it's wired (was [hidden] for JS-off).
+    root.removeAttribute("hidden");
+
+    buttons.forEach(function (b, idx) {
+        b.addEventListener("click", function () {
+            apply(b.getAttribute("data-read") || "", { persist: true, speak: true });
+        });
+        b.addEventListener("keydown", function (e) {
+            var nextIdx = -1;
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                nextIdx = (idx + 1) % buttons.length;
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                nextIdx = (idx - 1 + buttons.length) % buttons.length;
+            } else if (e.key === "Home") {
+                nextIdx = 0;
+            } else if (e.key === "End") {
+                nextIdx = buttons.length - 1;
+            }
+            if (nextIdx !== -1) {
+                e.preventDefault();
+                buttons[nextIdx].focus();
+                apply(buttons[nextIdx].getAttribute("data-read") || "", { persist: true, speak: true });
+            }
+        });
+    });
+
+    // Privacy-friendly, cookie-free interaction hooks for hero CTAs, white paper, and newsletter signup.
+    Array.prototype.slice
+        .call(document.querySelectorAll(".feat-hero\x20.feat-cta\x20a,\x20.feat-finale\x20.feat-cta\x20a,\x20.ap-cta-mini"))
+        .forEach(function (link) {
+            link.addEventListener("click", function () {
+                var href = link.getAttribute("href") || "";
+                emitTrack("cta_click", {
+                    href: href,
+                    label: (link.textContent || "").trim()
+                });
+                if (href.indexOf("contact") !== -1) {
+                    var loc = link.classList.contains("ap-cta-mini")
+                        ? "header"
+                        : link.closest(".feat-hero")
+                        ? "hero"
+                        : "band";
+                    emitTrack("cta_get_in_touch", { location: loc });
+                }
+            });
+        });
+    Array.prototype.slice
+        .call(document.querySelectorAll('a[href*="Quantum-Safe-Payments"]'))
+        .forEach(function (link) {
+            link.addEventListener("click", function () {
+                emitTrack("paper_download", {
+                    paper: "epaa-quantum-safe-payments-2025"
+                });
+            });
+        });
+    Array.prototype.slice
+        .call(document.querySelectorAll("form.ap-newsletter"))
+        .forEach(function (form) {
+            form.addEventListener("submit", function () {
+                emitTrack("newsletter_submit", {
+                    source: form.closest(".newsletter-band") ? "homepage_band" : "footer"
+                });
+            });
+        });
+
+    // Initial lens: URL param (?for= or ?read=) wins (shared link), else stored preference.
+    var initial = "";
+    try {
+        var sp = new URL(window.location.href).searchParams;
+        initial = sp.get("for") || sp.get("read") || "";
+    } catch (e) { /* no URL support — stays "" */ }
+    if (!initial) {
+        try { initial = localStorage.getItem(STORE_KEY) || ""; } catch (e3) {}
+    }
+    // Only announce on load when a non-default lens is actually applied,
+    // so the default homepage doesn't fire a spurious live-region update.
+    apply(initial, { persist: false, speak: sanitize(initial) !== "" });
+})();
+
+// ---------------------------------------------------------------------------
+// Primary-nav submenu disclosure — drives the per-item .ap-sub-toggle
+// buttons (About / Library / Research / Suite Overview). Progressive
+// enhancement on top of the CSS-only fallback:
+//   - With JS off, html has no .has-js class, so the stylesheet's
+//     :hover / :focus-within rules open the panels on their own.
+//   - With JS on, .has-js scopes the :focus-within fallback out and the
+//     buttons take over: click (and native Enter/Space on <button>)
+//     toggles aria-expanded, which the CSS maps to panel visibility.
+//     Escape closes the open panel and returns focus to its button;
+//     clicking or focusing outside closes everything. Hover stays as a
+//     pure-CSS enhancement for mouse users. Same-origin, CSP-safe.
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    // ``\x20`` preserves the descendant-combinator space through the SSG's
+    // CSS-aware string minifier (same workaround as the Mermaid styles).
+    var SUB_SEL = ".ap-menu\x20.has-sub";
+    var items = document.querySelectorAll(SUB_SEL);
+    if (!items.length) return;
+    document.documentElement.classList.add("has-js");
+
+    var pairs = [];
+    items.forEach(function (li) {
+        var btn = li.querySelector("button.ap-sub-toggle[aria-controls]");
+        if (!btn) return;
+        var panel = document.getElementById(btn.getAttribute("aria-controls"));
+        if (!panel) return;
+        pairs.push({ li: li, btn: btn });
+    });
+    if (!pairs.length) return;
+
+    function closeAll(except) {
+        pairs.forEach(function (p) {
+            if (p.btn !== except) p.btn.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    pairs.forEach(function (p) {
+        p.btn.addEventListener("click", function () {
+            var open = p.btn.getAttribute("aria-expanded") === "true";
+            closeAll(p.btn);
+            p.btn.setAttribute("aria-expanded", open ? "false" : "true");
+        });
+        // Escape inside the item: close the panel, hand focus back to
+        // the button so keyboard users don't lose their place.
+        p.li.addEventListener("keydown", function (e) {
+            if (e.key !== "Escape" && e.key !== "Esc") return;
+            if (p.btn.getAttribute("aria-expanded") !== "true") return;
+            e.stopPropagation();
+            p.btn.setAttribute("aria-expanded", "false");
+            p.btn.focus();
+        });
+        // Tabbing out of the item closes its panel.
+        p.li.addEventListener("focusout", function (e) {
+            if (e.relatedTarget && p.li.contains(e.relatedTarget)) return;
+            p.btn.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    // Click anywhere outside the nav items closes every open panel.
+    document.addEventListener("click", function (e) {
+        var inside = e.target.closest && e.target.closest(SUB_SEL);
+        if (!inside) closeAll(null);
+    });
+})();
+
+// ---------------------------------------------------------------------------
+// Mobile nav toggle — expose disclosure state to assistive technology.
+// The menu itself is a CSS `:has(.ap-toggle:checked)` disclosure that works
+// with JavaScript disabled; this pass only mirrors the checkbox state into
+// `aria-expanded` (valid on role=checkbox per WAI-ARIA 1.2) and wires
+// `aria-controls`, so screen readers announce expanded / collapsed without
+// changing the no-JS behaviour.
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    var toggle = document.getElementById("ap-menu-toggle");
+    if (!toggle) return;
+    var nav = document.querySelector('.ap-nav nav[aria-label="Primary navigation"]');
+    if (nav && !nav.id) nav.id = "ap-primary-nav";
+    if (nav) toggle.setAttribute("aria-controls", nav.id);
+    var sync = function () {
+        toggle.setAttribute("aria-expanded", toggle.checked ? "true" : "false");
+    };
+    sync();
+    toggle.addEventListener("change", sync);
+})();
+
+// ---------------------------------------------------------------------------
+// Homepage hero lattice clock: the background dots and the odometer digits.
+// They are 197 elements of decoration, and shipped in the page they took the
+// homepage past the first TCP window (about 14.6 KB gzipped), which costs a
+// round trip before first paint on a slow connection. Generated here instead,
+// before the clock script below first sets the time: the dots from the same
+// values, and two labels per drum that the clock script writes.
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    var SVG_NS = "http://www.w3.org/2000/svg";
+    // One dot per entry: cx,cy,opacity digits; a leading "b" marks r=2.6.
+    var DOTS = "576,596,b17 602,364,22 612,398,22 622,432,22 632,466,21 642,500,b21 652,534,2 662,568,19 672,602,18 618,98,2 628,132,21 638,166,23 648,200,25 658,234,b26 668,268,27 678,302,28 688,336,28 698,370,b29 708,404,29 718,438,29 728,472,28 738,506,b27 748,540,26 758,574,25 694,4,b2 704,38,22 714,72,25 724,106,27 734,140,b29 744,174,31 754,208,33 764,242,34 774,276,b35 784,310,36 794,344,36 804,378,36 814,412,b36 824,446,36 834,480,35 844,514,33 854,548,b32 864,582,3 800,12,27 810,46,3 820,80,32 830,114,b34 840,148,36 850,182,38 860,216,4 870,250,b42 880,284,43 890,318,44 900,352,44 910,386,b43 920,420,42 930,454,41 940,488,39 950,522,b37 960,556,35 970,590,33 906,20,b32 916,54,34 926,88,37 936,122,4 946,156,b42 956,190,45 966,224,47 976,258,49 986,292,b51 996,326,51 1006,360,5 1016,394,48 1026,428,b45 1036,462,43 1046,496,4 1056,530,38 1066,564,b35 1076,598,32 1002,-6,32 1012,28,35 1022,62,b37 1032,96,4 1042,130,42 1052,164,45 1062,198,b47 1072,232,49 1082,266,51 1092,300,51 1102,334,b5 1112,368,47 1122,402,45 1132,436,43 1142,470,b4 1152,504,38 1162,538,35 1172,572,32 1182,606,b3 1108,2,32 1118,36,34 1128,70,36 1138,104,b38 1148,138,4 1158,172,42 1168,206,43 1178,240,b44 1188,274,43 1198,308,43 1208,342,42 1218,376,b4 1228,410,39 1238,444,37 1248,478,35 1258,512,b32 1268,546,3 1278,580,28 1214,10,b29 1224,44,31 1234,78,33 1244,112,34 1254,146,b35 1264,180,36 1274,214,36 1284,248,36";
+
+    function add(parent, name, attrs) {
+        var el = document.createElementNS(SVG_NS, name);
+        for (var k in attrs) el.setAttribute(k, attrs[k]);
+        parent.appendChild(el);
+        return el;
+    }
+
+    function fillDots(group) {
+        var dots = DOTS.split(" ");
+        for (var i = 0; i < dots.length; i++) {
+            var d = dots[i].split(",");
+            var big = d[2].charAt(0) === "b";
+            add(group, "circle", {
+                cx: d[0], cy: d[1], r: big ? "2.6" : "1.5",
+                opacity: "." + (big ? d[2].slice(1) : d[2])
+            });
+        }
+    }
+
+    // Two labels, 54 units apart: the value shown and the next one. The
+    // clock script below writes them and scrolls between the two. A column
+    // of every value is clipped from view but not from layout, so it gave
+    // the rotating hand a box far beyond its badge, over the headline.
+    function fillDigits(group, y0) {
+        add(group, "text", { x: "1038", y: String(y0) });
+        add(group, "text", { x: "1038", y: String(y0 + 54) });
+    }
+
+    var dots = document.getElementById("hero-lattice-dots");
+    var hhRoll = document.getElementById("hero-clock-hh-roll");
+    var mmRoll = document.getElementById("hero-clock-mm-roll");
+    if (!dots || !hhRoll || !mmRoll) return;
+    fillDots(dots);
+    fillDigits(hhRoll, 182);
+    fillDigits(mmRoll, 124);
+})();
+
+// ---------------------------------------------------------------------------
+// Homepage hero ML-KEM lattice clock — synchronise hands and odometer drums
+// to live Europe/London wall-clock time via SVG transform attributes (no
+// inline CSS styles so strict style-src 'self' CSP is preserved).
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    var hh = document.getElementById("hero-clock-hh");
+    var hhUn = document.getElementById("hero-clock-hh-un");
+    var hhRoll = document.getElementById("hero-clock-hh-roll");
+    var mm = document.getElementById("hero-clock-mm");
+    var mmUn = document.getElementById("hero-clock-mm-un");
+    var mmRoll = document.getElementById("hero-clock-mm-roll");
+    var ss = document.getElementById("hero-clock-ss");
+    if (!hh || !hhUn || !hhRoll || !mm || !mmUn || !mmRoll || !ss) return;
+
+    var fmt = null;
+    try {
+        fmt = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Europe/London",
+            hourCycle: "h23",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+    } catch (_) {
+        fmt = null;
+    }
+
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion:\x20reduce)").matches;
+
+    function easeInOut(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function hourLabel(v) {
+        return String(v % 12 || 12);
+    }
+
+    function minuteLabel(v) {
+        return v % 60 < 10 ? "0" + (v % 60) : String(v % 60);
+    }
+
+    // Show the drum at r, which is fractional while it rolls: its two labels
+    // hold the whole part and the next value, and it scrolls by the rest.
+    function setRoll(group, r, label) {
+        var base = Math.floor(r);
+        if (group.getAttribute("data-base") !== String(base)) {
+            group.setAttribute("data-base", String(base));
+            group.childNodes[0].textContent = label(base);
+            group.childNodes[1].textContent = label(base + 1);
+        }
+        group.setAttribute("transform", "translate(0," + (-(r - base) * 54).toFixed(2) + ")");
+    }
+
+    function updateClock() {
+        var now = new Date();
+        var h = now.getUTCHours();
+        var m = now.getUTCMinutes();
+        var s = now.getUTCSeconds();
+        if (fmt && fmt.formatToParts) {
+            var parts = fmt.formatToParts(now);
+            for (var i = 0; i < parts.length; i++) {
+                if (parts[i].type === "hour") h = parseInt(parts[i].value, 10) || 0;
+                else if (parts[i].type === "minute") m = parseInt(parts[i].value, 10) || 0;
+                else if (parts[i].type === "second") s = parseInt(parts[i].value, 10) || 0;
+            }
+        }
+        var frac = reduced ? 0 : now.getMilliseconds() / 1000;
+        var h12 = h % 12;
+        var sub = m * 60 + s + frac;
+        var sec = h12 * 3600 + sub;
+        var hDeg = (sec / 43200) * 360;
+        var mDeg = (sub / 3600) * 360;
+        var sDeg = ((s + frac) / 60) * 360;
+
+        var mRoll = m;
+        if (!reduced && s === 59 && frac > 0.45) {
+            mRoll = m + easeInOut((frac - 0.45) / 0.55);
+        }
+        var hRoll = h12;
+        if (!reduced && m === 59 && s === 59 && frac > 0.45) {
+            hRoll = h12 + easeInOut((frac - 0.45) / 0.55);
+        }
+
+        hh.setAttribute("transform", "rotate(" + hDeg.toFixed(3) + ",1038,300)");
+        hhUn.setAttribute("transform", "rotate(" + (-hDeg).toFixed(3) + ",1038,174)");
+        setRoll(hhRoll, hRoll, hourLabel);
+        mm.setAttribute("transform", "rotate(" + mDeg.toFixed(3) + ",1038,300)");
+        mmUn.setAttribute("transform", "rotate(" + (-mDeg).toFixed(3) + ",1038,116)");
+        setRoll(mmRoll, mRoll, minuteLabel);
+        ss.setAttribute("transform", "rotate(" + sDeg.toFixed(2) + ",1038,300)");
+    }
+
+    updateClock();
+    if (reduced) return;
+
+    var inView = true;
+    var stage = hh.closest ? hh.closest(".feat-hero-stage") : null;
+    if (stage && "IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+                inView = entries[i].isIntersecting;
+            }
+        });
+        io.observe(stage);
+    }
+
+    var boot = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
+    boot(function () {
+        setInterval(function () {
+            if (!document.hidden && inView) updateClock();
+        }, 100);
+    });
+})();
+

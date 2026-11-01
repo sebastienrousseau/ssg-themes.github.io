@@ -19,6 +19,20 @@ for (const scheme of SCHEMES) {
       await page.goto(BASE + path, { waitUntil: 'domcontentloaded' });
       const r = await page.evaluate(() => {
         const de = document.documentElement;
+        // Decoration (inside an aria-hidden subtree) that an ancestor clips
+        // inside the viewport: no one can reach or read it, so its clipped
+        // part is not content lost to reflow. An SVG's masks and clip paths,
+        // which getBoundingClientRect ignores, are the usual case. Clipped
+        // content people read stays a fault, as below.
+        const clippedDecoration = (e) => {
+          if (!e.closest('[aria-hidden="true"]')) return false;
+          for (let a = e.parentElement; a && a !== de; a = a.parentElement) {
+            if (!/hidden|clip/.test(getComputedStyle(a).overflowX)) continue;
+            const ar = a.getBoundingClientRect();
+            return ar.left >= -1 && ar.right <= window.innerWidth + 1;
+          }
+          return false;
+        };
         // Extent, not width. An element narrower than the viewport can
         // still sit outside it: a code block 385px wide inside a 414px
         // viewport reached x=426 because white-space:pre-wrap let its
@@ -26,6 +40,7 @@ for (const scheme of SCHEMES) {
         // reported that page as passing.
         const wide = [...document.querySelectorAll('body *')]
           .filter(e => !e.closest('#ssg-search-widget'))
+          .filter(e => !clippedDecoration(e))
           .filter(e => {
             const r = e.getBoundingClientRect();
             if (!r.width && !r.height) return false;

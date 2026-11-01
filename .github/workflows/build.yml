@@ -78,6 +78,9 @@ jobs:
       - name: Contrast gate (WCAG 1.4.6 AAA text, 1.4.11 non-text)
         run: python3 scripts/contrast.py
 
+      - name: Diceware wordlist round-trip (jspassgen, cipher)
+        run: node scripts/diceware-wordlist.mjs
+
       - name: Build all themes
         run: make build
 

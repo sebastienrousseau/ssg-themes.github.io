@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+  <head>
+    <meta charset="{{charset}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta itemprop="datePublished" content="{{item_pub_date}}" id="date" />
+    <meta itemprop="dateModified" content="{{last_build_date}}" id="last-modified" />
+    <title>{{title}}</title>
+
+    {{primary}}
+    {{opengraph}}
+    <meta name="accessibility" content="ARIA, fullKeyboardControl, noFlashingHazard" />
+    {{apple}}
+
+    <!-- Strict security headers. The headers below that can be set via
+         <meta http-equiv> are emitted here; HSTS / COOP / COEP / CORP /
+         X-Frame-Options must come from the CDN (Cloudflare Transform
+         Rules — see DEPLOY.md for the canonical configuration). -->
+    <meta http-equiv="Permissions-Policy" content="accelerometer=(), ambient-light-sensor=(), attribution-reporting=(), autoplay=(self), battery=(), browsing-topics=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), identity-credentials-get=(), idle-detection=(), interest-cohort=(), join-ad-interest-group=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), publickey-credentials-create=(), publickey-credentials-get=(), run-ad-auction=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), unload=(), usb=(), web-share=(), window-management=(), xr-spatial-tracking=()" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Strict CSP. Inline JSON-LD script blocks
+         are allowed *by hash only* — scripts/postbuild.py computes the SHA-256
+         of each block at build time and injects the 'sha256-<base64>' tokens
+         into script-src below before the file is served. Browsers will then
+         allow that exact byte-for-byte content and nothing else.
+         'inline-speculation-rules' (hyphens! W3C spec) permits the
+         Speculation Rules API hover prerender script. frame-ancestors
+         is set via Cloudflare Transform Rules — meta CSP doesn't honour
+         it (see DEPLOY.md). -->
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+        base-uri 'self';
+        form-action 'self' https://formspree.io;
+        object-src 'none';
+        upgrade-insecure-requests;
+        script-src 'self' 'inline-speculation-rules' https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com https://open.spotify.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://ajax.cloudflare.com;
+        frame-src 'self' https://www.google.com https://open.spotify.com https://www.youtube.com https://www.youtube-nocookie.com;
+        connect-src 'self' https://cloudcdn.pro https://www.google.com https://open.spotify.com;
+        img-src 'self' data: blob: https://cloudcdn.pro https://pacs008.com https://i.scdn.co;
+        style-src 'self' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        media-src 'self' https://p.scdn.co https://*.scdn.co;" />
+
+    {{microsoft}}
+    {{twitter}}
+
+    <link rel="alternate" href="{{url}}" hreflang="{{hreflang}}" />
+    <!-- Banner image stays in frontmatter for og:image / Twitter Card use,
+         but no longer preloaded — report / page / link layouts never render
+         it above the fold so the preload triggered a console warning on
+         every dated article. -->
+{{#block "head_extra"}}{{/block}}    <link rel="canonical" href="{{url}}" />
+    <link rel="me" href="https://github.com/sebastienrousseau" />
+    <link rel="me" href="https://www.linkedin.com/in/sebastienrousseau/" />
+    <link rel="me" href="https://orcid.org/0009-0005-1434-284X" />
+    <link rel="icon" type="image/x-icon" href="{{cdn}}/{{short_name}}/favicon.ico" sizes="16x16 32x32" />
+    <link rel="apple-touch-icon" href="{{cdn}}/{{short_name}}/v1/icons/{{apple_touch_icon_sizes}}.png" sizes="{{apple_touch_icon_sizes}}" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+    <link rel="alternate" type="application/feed+json" href="/feed.json" title="JSON Feed" />
+    <link rel="preconnect" href="https://cloudcdn.pro" crossorigin />
+{{#block "font_preload"}}{{/block}}    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <!-- Preload the LCP hero portrait so it doesn't compete with the
+         render-blocking JS bundle on throttled mobile connections.
+         Lighthouse-simulated Slow-4G has been pinning LCP at ~5.6s; the
+         observed (real-network) LCP is 165 ms. This hint pulls the
+         synthetic LCP in line with the observed value. -->
+    <link rel="preload" as="image" href="{{image}}" fetchpriority="high">
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="asi:sampleQuery" content="ISO 20022 pacs.008 &amp; SWIFT CBPR+" />
+    <meta property="asi:sampleQuery" content="NIST FIPS 203 ML-KEM-768 &amp; FIPS 204 ML-DSA" />
+    <meta property="asi:sampleQuery" content="DORA, EU AI Act &amp; Cyber Resilience Act" />
+    <meta property="asi:sampleQuery" content="HSBC, PayPal, Barclays, Shazam, AKQA &amp; Virgin" />
+    <script src="/theme-init.js"></script>
+
+    <style>
+{{> partials/styles}}{{#block "styles"}}{{/block}}    </style>
+    <style>:root{--accent-page:rgb({{theme-color}});--accent-page-rgb:{{theme-color}}}</style>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <a class="skip skip-link" href="#main">Skip to main content</a>
+    <div class="ap-progress" aria-hidden="true"></div>
+
+{{> header}}{{#block "main"}}
+    <!-- gen-layouts:hero-start -->
+    <section class="feat feat-hero" aria-labelledby="hero-headline">
+      <div class="wrap feat-hero-grid">
+        <div class="feat-hero-copy">
+          <img class="hero-portrait" src="{{image}}" alt="{{image_alt}}" width="96" height="96" loading="eager" fetchpriority="high" decoding="async" />
+          <p class="feat-credentials"><a href="/about/index.html">Wholesale Payments &amp; AI Leader</a> · Author of the <a href="https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf">EPAA Quantum-Safe Payments Paper</a> · Creator of <a href="/projects/index.html">179 open-source packages</a></p>
+          <h1 id="hero-headline" class="feat-headline center" itemprop="headline">Securing the future of banking<br />with agentic AI<br />and post-quantum cryptography.</h1>
+          <p class="feat-sub center">Open-source payments, post-quantum security, and applied AI for financial services.</p>
+          <div class="feat-cta">
+            <a class="pill" href="/articles/index.html">Read latest research</a>
+            <a class="pill ghost" href="/contact/index.html">Get in touch</a>
+          </div>
+        </div>
+        <div class="feat-hero-stage" aria-hidden="true">
+          <svg class="hero-lattice-clock" viewBox="778 40 520 520" width="520" height="520" aria-hidden="true" focusable="false">
+            <defs>
+              <radialGradient id="hero-g0" cx="1060" cy="300" r="520" gradientUnits="userSpaceOnUse">
+                <stop offset="0" class="hero-glow-stop" stop-opacity=".28"/>
+                <stop offset="1" class="hero-glow-stop" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="hero-fade-g" x1="560" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="white" stop-opacity="0"/>
+                <stop offset=".38" stop-color="white"/>
+              </linearGradient>
+              <mask id="hero-fade" maskUnits="userSpaceOnUse" x="500" y="-60" width="840" height="720">
+                <rect x="500" y="-60" width="840" height="720" fill="url(#hero-fade-g)"/>
+              </mask>
+              <filter id="hero-bsh" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="black" flood-opacity=".18"/>
+              </filter>
+              <clipPath id="hero-hclip"><circle cx="1038" cy="174" r="25"/></clipPath>
+              <clipPath id="hero-mclip"><circle cx="1038" cy="116" r="25"/></clipPath>
+            </defs>
+            <circle cx="1060" cy="300" r="520" fill="url(#hero-g0)"/>
+            <g id="hero-lattice-dots" fill="currentColor" mask="url(#hero-fade)"></g>
+            <circle cx="1038" cy="300" r="184" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity=".18"/>
+            <circle cx="1038" cy="300" r="126" fill="none" stroke="currentColor" stroke-width="1" opacity=".1"/>
+            <g fill="currentColor">
+              <circle cx="1038.0" cy="116.0" r="3" opacity=".55"/><circle cx="1130.0" cy="140.7" r="1.8" opacity=".28"/><circle cx="1197.3" cy="208.0" r="1.8" opacity=".28"/><circle cx="1222.0" cy="300.0" r="3" opacity=".55"/><circle cx="1197.3" cy="392.0" r="1.8" opacity=".28"/><circle cx="1130.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="1038.0" cy="484.0" r="3" opacity=".55"/><circle cx="946.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="878.7" cy="392.0" r="1.8" opacity=".28"/><circle cx="854.0" cy="300.0" r="3" opacity=".55"/><circle cx="878.7" cy="208.0" r="1.8" opacity=".28"/><circle cx="946.0" cy="140.7" r="1.8" opacity=".28"/>
+            </g>
+            <g id="hero-clock-hh" transform="rotate(304.75,1038,300)">
+              <line x1="1038" y1="300" x2="1038" y2="202" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <g id="hero-clock-hh-un" transform="rotate(-304.75,1038,174)">
+                <circle cx="1038" cy="174" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
+                <g clip-path="url(#hero-hclip)">
+                  <g id="hero-clock-hh-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-540)"></g>
+                </g>
+              </g>
+            </g>
+            <g id="hero-clock-mm" transform="rotate(57,1038,300)">
+              <line x1="1038" y1="300" x2="1038" y2="144" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <g id="hero-clock-mm-un" transform="rotate(-57,1038,116)">
+                <circle cx="1038" cy="116" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
+                <g clip-path="url(#hero-mclip)">
+                  <g id="hero-clock-mm-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-486)"></g>
+                </g>
+              </g>
+            </g>
+            <g id="hero-clock-ss" transform="rotate(180,1038,300)">
+              <line x1="1038" y1="322" x2="1038" y2="132" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+              <circle cx="1038" cy="132" r="3.5" fill="currentColor" opacity=".75"/>
+            </g>
+            <circle cx="1038" cy="300" r="7" fill="currentColor"/>
+            <circle cx="1038" cy="300" r="3" class="hero-clock-pivot"/>
+          </svg>
+          <p class="hero-clock-caption">London · Live UTC/BST · NIST FIPS 203 (ML-KEM) lattice</p>
+        </div>
+      </div>
+    </section>
+
+    <main id="main" class="prose">
+      <div class="home-content">{{!content}}</div>
+    </main>
+
+    <aside class="feat dark feat-finale feat-with-bg" aria-labelledby="finale-headline">
+      <img class="feat-bg" src="{{promo_banner}}" alt="{{promo_banner_alt}}" loading="lazy" decoding="async" width="1600" height="600" />
+      <div class="wrap">
+        <p class="feat-eyebrow">Get in touch</p>
+        <h2 id="finale-headline" class="feat-headline center">{{promo_banner_title}}</h2>
+        <p class="feat-sub center">Architecture reviews, migration roadmaps, and board briefings on ISO 20022 and post-quantum security. Reply within two working days.</p>
+        <div class="feat-cta">
+          <a class="pill" href="/contact/index.html">Get in touch</a>
+          <a class="feat-secondary-link" href="https://news.bankingonquantum.com" target="_blank" rel="noopener noreferrer">Banking On Quantum ›</a>
+        </div>
+        <div class="finale-ai-verify">
+          <p class="finale-ai-kicker">AI Due Diligence · ChatGPT · Claude · Perplexity</p>
+          <div class="finale-ai-pills">
+            <a class="finale-ai-pill" href="https://chatgpt.com/?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg><span>ChatGPT</span></a>
+            <a class="finale-ai-pill" href="https://claude.ai/new?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Claude</span></a>
+            <a class="finale-ai-pill" href="https://www.perplexity.ai/search/new?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Perplexity</span></a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <button type="button" class="ap-totop" aria-label="Back to top" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <!-- gen-layouts:footer-start -->
+{{/block}}{{> footer}}{{#block "schema"}}
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sebastienrousseau.com/#person",
+      "name": "Sebastien Rousseau",
+      "givenName": "Sebastien",
+      "familyName": "Rousseau",
+      "url": "https://sebastienrousseau.com/",
+      "image": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
+      "jobTitle": "Senior Product Manager, Wholesale Payments & API",
+      "description": "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services.",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "0009-0005-1434-284X",
+        "url": "https://orcid.org/0009-0005-1434-284X"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://www.hsbc.com/#organization",
+        "name": "HSBC Commercial & Investment Bank",
+        "url": "https://www.hsbc.com/"
+      },
+      "alumniOf": [
+        {"@type": "Organization", "name": "PayPal", "url": "https://www.paypal.com/"},
+        {"@type": "Organization", "name": "Barclays", "url": "https://www.barclays.com/"},
+        {"@type": "Organization", "name": "Shazam Entertainment", "url": "https://www.shazam.com/"},
+        {"@type": "Organization", "name": "AKQA", "url": "https://www.akqa.com/"},
+        {"@type": "Organization", "name": "Virgin Group", "url": "https://www.virgin.com/"}
+      ],
+      "memberOf": {
+        "@type": "ProgramMembership",
+        "programName": "Quantum-Safe Cryptography Working Group",
+        "hostingOrganization": {
+          "@type": "Organization",
+          "name": "Emerging Payments Association Asia",
+          "url": "https://emergingpaymentsasia.org/"
+        }
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "professional experience",
+          "name": "Nearly two decades across Tier-1 banks and global payments infrastructure",
+          "recognizedBy": {"@type": "Organization", "name": "HSBC Commercial & Investment Bank", "url": "https://www.hsbc.com/"}
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "domain expertise",
+          "name": "ISO 20022 migration and wholesale payments architecture",
+          "recognizedBy": {"@type": "Organization", "name": "SWIFT", "url": "https://www.swift.com/"}
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "domain expertise",
+          "name": "Post-Quantum Cryptography for financial services",
+          "recognizedBy": {"@type": "Organization", "name": "NIST Post-Quantum Cryptography Project", "url": "https://csrc.nist.gov/projects/post-quantum-cryptography"}
+        }
+      ],
+      "subjectOf": [
+        {"@id": "https://sebastienrousseau.com/#epaa-quantum-safe-payments"}
+      ],
+      "knowsAbout": [
+        {"@type": "DefinedTerm", "name": "Post-Quantum Cryptography", "sameAs": "https://en.wikipedia.org/wiki/Post-quantum_cryptography"},
+        {"@type": "DefinedTerm", "name": "ML-KEM (FIPS 203)", "sameAs": "https://csrc.nist.gov/pubs/fips/203/final"},
+        {"@type": "DefinedTerm", "name": "ML-DSA (FIPS 204)", "sameAs": "https://csrc.nist.gov/pubs/fips/204/final"},
+        {"@type": "DefinedTerm", "name": "ISO 20022", "sameAs": "https://en.wikipedia.org/wiki/ISO_20022"},
+        {"@type": "DefinedTerm", "name": "SWIFT gpi", "sameAs": "https://www.swift.com/our-solutions/swift-gpi"},
+        {"@type": "DefinedTerm", "name": "SEPA Instant Payments", "sameAs": "https://www.ecb.europa.eu/paym/integration/retail/instant_payments/html/index.en.html"},
+        {"@type": "DefinedTerm", "name": "FedNow Service", "sameAs": "https://www.federalreserve.gov/paymentsystems/fednow_about.htm"},
+        {"@type": "DefinedTerm", "name": "Real-Time Payments (RTP)", "sameAs": "https://www.theclearinghouse.org/payment-systems/rtp"},
+        {"@type": "DefinedTerm", "name": "Cross-border payments", "sameAs": "https://en.wikipedia.org/wiki/Cross-border_payments"},
+        {"@type": "DefinedTerm", "name": "Wholesale banking", "sameAs": "https://en.wikipedia.org/wiki/Wholesale_banking"},
+        {"@type": "DefinedTerm", "name": "Applied artificial intelligence in banking", "sameAs": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence"},
+        {"@type": "DefinedTerm", "name": "Generative artificial intelligence", "sameAs": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence"}
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "United Kingdom"
+      },
+      "sameAs": [
+        "https://orcid.org/0009-0005-1434-284X",
+        "https://x.com/wwdseb",
+        "https://www.linkedin.com/in/sebastienrousseau/",
+        "https://medium.com/@BankingOnQuantum",
+        "https://www.youtube.com/@BankingOnQuantum",
+        "https://github.com/sebastienrousseau",
+        "https://crates.io/users/sebastienrousseau",
+        "https://pypi.org/user/sebastienrousseau/"
+      ]
+    },
+    {
+      "@type": ["Organization", "Brand"],
+      "@id": "https://sebastienrousseau.com/#organization",
+      "name": "Sebastien Rousseau",
+      "alternateName": "Banking on Quantum",
+      "url": "https://sebastienrousseau.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://sebastienrousseau.com/#logo",
+        "url": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
+        "width": "512",
+        "height": "512",
+        "caption": "Sebastien Rousseau"
+      },
+      "founder": {"@id": "https://sebastienrousseau.com/#person"},
+      "editorialPolicy": "https://sebastienrousseau.com/editorial/",
+      "correctionsPolicy": "https://sebastienrousseau.com/editorial/#corrections",
+      "ethicsPolicy": "https://sebastienrousseau.com/editorial/",
+      "diversityPolicy": "https://sebastienrousseau.com/editorial/",
+      "sameAs": [
+        "https://github.com/sebastienrousseau",
+        "https://x.com/wwdseb",
+        "https://www.linkedin.com/in/sebastienrousseau/",
+        "https://medium.com/@BankingOnQuantum"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sebastienrousseau.com/#website",
+      "url": "https://sebastienrousseau.com/",
+      "name": "Sebastien Rousseau",
+      "description": "AI, banking and financial services expert. Senior payments leader at HSBC Commercial & Investment Bank.",
+      "publisher": {"@id": "https://sebastienrousseau.com/#organization"},
+      "author": {"@id": "https://sebastienrousseau.com/#person"},
+      "inLanguage": "{{language}}"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://sebastienrousseau.com/#profile",
+      "mainEntity": {"@id": "https://sebastienrousseau.com/#person"},
+      "isPartOf": {"@id": "https://sebastienrousseau.com/#website"},
+      "name": "Sebastien Rousseau · Post-Quantum & ISO 20022 for Banking",
+      "url": "https://sebastienrousseau.com/",
+      "dateModified": "2026-10-15",
+      "inLanguage": "{{language}}"
+    },
+    {
+      "@type": "DigitalDocument",
+      "additionalType": "https://schema.org/ScholarlyArticle",
+      "@id": "https://sebastienrousseau.com/#epaa-quantum-safe-payments",
+      "name": "Quantum-Safe Payments: Why the Payments Industry Must Act Now",
+      "headline": "Quantum-Safe Payments: Why the Payments Industry Must Act Now",
+      "description": "Industry white paper produced for the Emerging Payments Association Asia (EPAA) setting out the harvest-now-decrypt-later threat and the migration roadmap across wholesale and real-time payment rails.",
+      "url": "https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf",
+      "encodingFormat": "application/pdf",
+      "datePublished": "2025-09-01",
+      "author": {"@id": "https://sebastienrousseau.com/#person"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "Emerging Payments Association Asia",
+        "url": "https://emergingpaymentsasia.org/"
+      },
+      "inLanguage": "{{language}}"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://sebastienrousseau.com/#latest-articles",
+      "name": "From the desk",
+      "numberOfItems": 3,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Your DORA Exit Plan Was Priced, Not Planned. The Price Disappears in January.",
+          "url": "https://sebastienrousseau.com/2026-08-04-data-act-cloud-switching-dora-exit-strategies-2026/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "DORA Spared You From NIS2. It Will Not Spare You From the CRA.",
+          "url": "https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.",
+          "url": "https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    {{/block}}<script src="/main.js" defer></script>
+  </body>
+</html>

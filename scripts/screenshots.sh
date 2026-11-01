@@ -88,7 +88,7 @@ for t in "${THEMES[@]}"; do
   # wide, so the 1500px capture was roughly three times the pixels any of
   # them displays, and the page paid for it twenty-two times over.
   magick "themes/${t}/images/screenshot.png" -strip -resize 640x \
-    -quality "${CARD_QUALITY:-76}" "themes/${t}/images/card.webp"
+    -define webp:method=6 -quality "${CARD_QUALITY:-32}" "themes/${t}/images/card.webp"
   printf '  %s: png optimised, webp and 640px card derived from it\n' "${t}"
 done
 

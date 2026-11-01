@@ -1,0 +1,103 @@
+{{#extends "base"}}
+{{#block "main"}}
+    <!-- gen-layouts:hero-start -->
+    <section class="feat feat-hero" aria-labelledby="hero-headline">
+      <div class="wrap feat-hero-grid">
+        <div class="feat-hero-copy">
+          <img class="hero-portrait" src="{{image}}" alt="{{image_alt}}" width="96" height="96" loading="eager" fetchpriority="high" decoding="async" />
+          <p class="feat-credentials"><a href="/about/index.html">Wholesale Payments &amp; AI Leader</a> · Author of the <a href="https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf">EPAA Quantum-Safe Payments Paper</a> · Creator of <a href="/projects/index.html">179 open-source packages</a></p>
+          <h1 id="hero-headline" class="feat-headline center" itemprop="headline">Securing the future of banking<br />with agentic AI<br />and post-quantum cryptography.</h1>
+          <p class="feat-sub center">Open-source payments, post-quantum security, and applied AI for financial services.</p>
+          <div class="feat-cta">
+            <a class="pill" href="/articles/index.html">Read latest research</a>
+            <a class="pill ghost" href="/contact/index.html">Get in touch</a>
+          </div>
+        </div>
+        <div class="feat-hero-stage" aria-hidden="true">
+          <svg class="hero-lattice-clock" viewBox="778 40 520 520" width="520" height="520" aria-hidden="true" focusable="false">
+            <defs>
+              <radialGradient id="hero-g0" cx="1060" cy="300" r="520" gradientUnits="userSpaceOnUse">
+                <stop offset="0" class="hero-glow-stop" stop-opacity=".28"/>
+                <stop offset="1" class="hero-glow-stop" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="hero-fade-g" x1="560" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="white" stop-opacity="0"/>
+                <stop offset=".38" stop-color="white"/>
+              </linearGradient>
+              <mask id="hero-fade" maskUnits="userSpaceOnUse" x="500" y="-60" width="840" height="720">
+                <rect x="500" y="-60" width="840" height="720" fill="url(#hero-fade-g)"/>
+              </mask>
+              <filter id="hero-bsh" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="black" flood-opacity=".18"/>
+              </filter>
+              <clipPath id="hero-hclip"><circle cx="1038" cy="174" r="25"/></clipPath>
+              <clipPath id="hero-mclip"><circle cx="1038" cy="116" r="25"/></clipPath>
+            </defs>
+            <circle cx="1060" cy="300" r="520" fill="url(#hero-g0)"/>
+            <g id="hero-lattice-dots" fill="currentColor" mask="url(#hero-fade)"></g>
+            <circle cx="1038" cy="300" r="184" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity=".18"/>
+            <circle cx="1038" cy="300" r="126" fill="none" stroke="currentColor" stroke-width="1" opacity=".1"/>
+            <g fill="currentColor">
+              <circle cx="1038.0" cy="116.0" r="3" opacity=".55"/><circle cx="1130.0" cy="140.7" r="1.8" opacity=".28"/><circle cx="1197.3" cy="208.0" r="1.8" opacity=".28"/><circle cx="1222.0" cy="300.0" r="3" opacity=".55"/><circle cx="1197.3" cy="392.0" r="1.8" opacity=".28"/><circle cx="1130.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="1038.0" cy="484.0" r="3" opacity=".55"/><circle cx="946.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="878.7" cy="392.0" r="1.8" opacity=".28"/><circle cx="854.0" cy="300.0" r="3" opacity=".55"/><circle cx="878.7" cy="208.0" r="1.8" opacity=".28"/><circle cx="946.0" cy="140.7" r="1.8" opacity=".28"/>
+            </g>
+            <g id="hero-clock-hh" transform="rotate(304.75,1038,300)">
+              <line x1="1038" y1="300" x2="1038" y2="202" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <g id="hero-clock-hh-un" transform="rotate(-304.75,1038,174)">
+                <circle cx="1038" cy="174" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
+                <g clip-path="url(#hero-hclip)">
+                  <g id="hero-clock-hh-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-540)"></g>
+                </g>
+              </g>
+            </g>
+            <g id="hero-clock-mm" transform="rotate(57,1038,300)">
+              <line x1="1038" y1="300" x2="1038" y2="144" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <g id="hero-clock-mm-un" transform="rotate(-57,1038,116)">
+                <circle cx="1038" cy="116" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
+                <g clip-path="url(#hero-mclip)">
+                  <g id="hero-clock-mm-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-486)"></g>
+                </g>
+              </g>
+            </g>
+            <g id="hero-clock-ss" transform="rotate(180,1038,300)">
+              <line x1="1038" y1="322" x2="1038" y2="132" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+              <circle cx="1038" cy="132" r="3.5" fill="currentColor" opacity=".75"/>
+            </g>
+            <circle cx="1038" cy="300" r="7" fill="currentColor"/>
+            <circle cx="1038" cy="300" r="3" class="hero-clock-pivot"/>
+          </svg>
+          <p class="hero-clock-caption">London · Live UTC/BST · NIST FIPS 203 (ML-KEM) lattice</p>
+        </div>
+      </div>
+    </section>
+
+    <main id="main" class="prose">
+      <div class="home-content">{{!content}}</div>
+    </main>
+
+    <aside class="feat dark feat-finale feat-with-bg" aria-labelledby="finale-headline">
+      <img class="feat-bg" src="{{promo_banner}}" alt="{{promo_banner_alt}}" loading="lazy" decoding="async" width="1600" height="600" />
+      <div class="wrap">
+        <p class="feat-eyebrow">Get in touch</p>
+        <h2 id="finale-headline" class="feat-headline center">{{promo_banner_title}}</h2>
+        <p class="feat-sub center">Architecture reviews, migration roadmaps, and board briefings on ISO 20022 and post-quantum security. Reply within two working days.</p>
+        <div class="feat-cta">
+          <a class="pill" href="/contact/index.html">Get in touch</a>
+          <a class="feat-secondary-link" href="https://news.bankingonquantum.com" target="_blank" rel="noopener noreferrer">Banking On Quantum ›</a>
+        </div>
+        <div class="finale-ai-verify">
+          <p class="finale-ai-kicker">AI Due Diligence · ChatGPT · Claude · Perplexity</p>
+          <div class="finale-ai-pills">
+            <a class="finale-ai-pill" href="https://chatgpt.com/?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg><span>ChatGPT</span></a>
+            <a class="finale-ai-pill" href="https://claude.ai/new?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Claude</span></a>
+            <a class="finale-ai-pill" href="https://www.perplexity.ai/search/new?q=Summarise+Sebastien+Rousseau%27s+open-source+ISO+20022+and+post-quantum+cryptography+work+at+sebastienrousseau.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Perplexity</span></a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <button type="button" class="ap-totop" aria-label="Back to top" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <!-- gen-layouts:footer-start -->
+{{/block}}

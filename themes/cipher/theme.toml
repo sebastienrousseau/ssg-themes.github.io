@@ -1,0 +1,13 @@
+name = "cipher"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit"
+description = "Password and passphrase generator theme with a live configuration console, a Diceware word list that works offline, and a plain entropy readout for every setting."
+homepage = "https://themes.static-site-generator.com/cipher/"
+demosite = "https://themes.static-site-generator.com/cipher/"
+tags = ["developer-tools", "security", "cryptography", "passwords", "accessible", "responsive"]
+features = ["dark mode", "WCAG AAA tokens", "structured data", "agent discovery", "entropy calculator", "interactive generator", "print stylesheet"]
+min_version = "0.0.56"
+
+[author]
+name = "SSG Theme Suite"
+homepage = "https://themes.static-site-generator.com/"

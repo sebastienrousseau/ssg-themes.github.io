@@ -19,8 +19,6 @@
 
   ready(function () {
     var root = document.documentElement;
-    var wide = window.matchMedia('(min-width: 64rem)');
-    var hoverable = window.matchMedia('(hover: hover)');
 
     /* ssg 0.0.62 replaces the slot in-place. The published 0.0.56 search
        plugin appends its trigger at the end of <body> instead. Normalise the

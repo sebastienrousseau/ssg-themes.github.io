@@ -23,7 +23,11 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Quill | `quill/images/journal-{320,640}.webp`, `quill/images/journal.webp` | `https://cloudcdn.pro/stocks/images/masaaki-komori-3SWDMwyBFLI-{320,640,1200}.webp` |
 | Quill | `quill/images/culture-{320,640}.webp`, `quill/images/culture.webp` | `https://cloudcdn.pro/stocks/images/lisa-fotios-7026637-{320,640,1200}.webp` |
 | Curio | `curio/images/shopper-{320,640,1200}.webp` | `https://cloudcdn.pro/stocks/images/thisisengineering-raeng-TXxiFuQLBKQ-{320,640,1200}.webp` |
-| Scout | `scout/images/diagnostic-{320,640}.webp`, `scout/images/diagnostic.webp` | `https://cloudcdn.pro/stocks/images/getty-images-dqHskSJDfe4-{320,640,1200}.webp` |
+| passmcp | `passmcp/images/diagnostic-{320,640}.webp`, `passmcp/images/diagnostic.webp` | `https://cloudcdn.pro/stocks/images/getty-images-dqHskSJDfe4-{320,640,1200}.webp` |
+| jspassgen | `jspassgen/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640,1920}.webp`, `jspassgen/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.avif` | `https://cloudcdn.pro/stocks/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640,1920}.webp` |
+| jspassgen | `jspassgen/images/pawel-czerwinski-7LoWpCOAn6k-{320,640,1200,1920}.webp` | `https://cloudcdn.pro/stocks/images/pawel-czerwinski-7LoWpCOAn6k-{320,640,1200,1920}.webp` |
+| Cipher | `cipher/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.{webp,avif}` | `https://cloudcdn.pro/stocks/images/pierre-chatel-innocenti-N5RN0JE5kaY-{320,640}.webp` |
+| Cipher | `cipher/images/pawel-czerwinski-7LoWpCOAn6k-{640,1200}.webp` | `https://cloudcdn.pro/stocks/images/pawel-czerwinski-7LoWpCOAn6k-{640,1200}.webp` |
 | Signal | `signal/images/intelligence-{320,640}.webp`, `signal/images/intelligence.webp` | `https://cloudcdn.pro/stocks/images/ai-prompt-engineering-modern-office-{320,640,1200}.webp` |
 | Stablo | `stablo/images/city-{320,640}.webp`, `stablo/images/city.webp` | `https://cloudcdn.pro/stocks/images/alev-takil-7ojyp-IXW7w-unsplash-{320,640,1200}.webp` |
 | Stablo | `stablo/images/architecture-{320,640}.webp`, `stablo/images/architecture.webp` | `https://cloudcdn.pro/stocks/images/alan-w-ScSbXg86z2U-unsplash-{320,640,1200}.webp` |
@@ -32,7 +36,12 @@ Every source photograph used by the themes is copied byte-for-byte from the loca
 | Steward | `steward/images/adviser-{320,640}.webp`, `steward/images/adviser.webp` | `https://cloudcdn.pro/stocks/images/thisisengineering-raeng-TXxiFuQLBKQ-{320,640,1200}.webp` |
 | Velocity | `velocity/images/horizon-{320,640}.webp`, `velocity/images/horizon.webp` | `https://cloudcdn.pro/stocks/images/alessio-soggetti-C4HO6MzEWrU-{320,640,1200}.webp` |
 | Visage | `visage/images/consultation-{320,640}.webp`, `visage/images/consultation.webp` | `https://cloudcdn.pro/stocks/images/getty-images-1IY3Nd85K-A-{320,640,1200}.webp` |
+| Vista | `vista/images/environment-{320,640,1200}.webp`, `vista/images/environment.webp` | `https://cloudcdn.pro/stocks/images/leo-xgc3DdeLy3A-1200.webp` |
+| Vista | `vista/images/silicon-{320,640,1200}.webp`, `vista/images/silicon.webp` | `https://cloudcdn.pro/stocks/images/getty-images-B3Dxa-OBzyk-unsplash-1200.webp` |
 | Voxt | `voxt/images/light-trace-{320,640}.webp`, `voxt/images/light-trace.webp` | `https://cloudcdn.pro/stocks/images/daniele-franchi-Vl6YuVBLEys-{320,640,1200}.webp` |
+| Sebastienrousseau | `sebastienrousseau/assets/_root/_csp/logo-{akqa,barclays,hsbc,paypal,shazam,virgin}.webp` | `https://cloudcdn.pro/clients/sebastienrousseau/v1/logos/{akqa,barclays,hsbc,paypal,shazam,virgin}.webp` |
+
+Control Centre is an all-vector operations dashboard theme (SVG status ring, flow diagrams and KPI tiles) and ships no raster photography.
 
 Responsive derivatives (`-320`, `-640`, `-960`, `-1200`) are resized from the
 1200px source listed for each theme; they are not additional photography.

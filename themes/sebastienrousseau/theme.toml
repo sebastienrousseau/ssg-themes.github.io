@@ -1,0 +1,66 @@
+# Theme manifest. `theme.toml` is the format theme registries read;
+# `theme.json` mirrors it for tooling that expects JSON.
+
+name = "Sebastienrousseau"
+license = "MIT"
+licenselink = "https://github.com/sebastienrousseau/ssg-themes.github.io/blob/main/LICENSE"
+description = "Research-publishing theme behind sebastienrousseau.com: twelve editorial layouts, a 34-locale shell, hash-strict CSP and per-page JSON-LD graphs, extracted from the live site and flattened back byte for byte."
+homepage = "https://github.com/sebastienrousseau/ssg-themes.github.io"
+demosite = "https://themes.static-site-generator.com/sebastienrousseau/"
+
+# Minimum generator version. The layouts use `{{#extends}}`, `{{#block}}`
+# and `{{> partial}}`, which the compile stage resolves from 0.0.50; the
+# locale subtrees only get their stylesheet extracted into `_csp/` from
+# 0.0.66 (earlier releases inlined 184 KB of CSS into every non-English
+# page), and the manifest names its 512 px PNG icon as image/png only
+# from 0.0.67 (earlier releases declared every icon image/svg+xml).
+min_version = "0.0.67"
+
+# A first-party site theme, not a gallery archetype: it is the production
+# theme of one site and carries that site's chrome, origins and budgets.
+#
+# `tier = "site"` is read by scripts/validate.py and scripts/pageweight.py
+# (allowed_origins, budget_kb) and by scripts/lighthouse_tiers.py
+# (transfer_budget_kb). Archetypes cannot declare these keys; every other
+# gallery gate and every Lighthouse score threshold applies unchanged.
+tier = "site"
+origin = "https://sebastienrousseau.com"
+# Gzipped page budget this theme asks to be held to (HTML plus the
+# extracted `_csp/` stylesheet and scripts it references). The shell's
+# stylesheet alone is 41.6 KB gzipped (the articles layout reaches 86 KB with
+# its page-scoped rules); the live site's own gate is
+# Lighthouse performance >= 0.94 on desktop.
+budget_kb = 96
+# Lighthouse transfer budget for the demo home page, every request counted,
+# held on both the mobile and the desktop profile (the archetype budget is
+# 50 KB). Measured on 2026-10-09 with ssg 0.0.67: 968 KB on mobile and
+# 869 KB on desktop, after the fonts were trimmed to their declared weights
+# and fetched after load, the client logos right-sized, the manifest icon
+# moved to the CDN's 20 KB 512 px PNG (0.0.67 types it image/png), and the
+# portrait-format photo given a 640 px source for desktop slots. The rest is
+# the webfonts (161 KB), the stylesheet (43 KB), the landscape photo cropped
+# into a square slot (245 KB, which needs about 1,100 px of width) and the
+# portrait (102 KB), until the CDN carries a width ladder.
+transfer_budget_kb = 1024
+# Hosts the live site's CSP, preconnects and embeds name, which the
+# gallery's no-third-party scan rejects for an archetype.
+allowed_origins = [
+  "sebastienrousseau.com",   # canonical host in JSON-LD, hreflang and samples
+  "cdn.jsdelivr.net",        # mermaid ESM bundle, lazy-imported by main.js
+  "cloudcdn.pro",            # first-party image and logo CDN
+  "fonts.googleapis.com",    # CSP style-src allowance (fonts are self-hosted)
+  "fonts.gstatic.com",       # CSP font-src allowance
+  "formspree.io",            # contact form action
+  "open.spotify.com",        # playlist embeds on the playlist layout
+  "i.scdn.co",               # Spotify playlist cover images (CSP img-src)
+  "p.scdn.co",               # Spotify previews (CSP media-src)
+  "cloudflareinsights.com",  # CSP allowance for Cloudflare Web Analytics
+  "orcid.org",               # author ORCID iD on the about page
+]
+
+tags = ["publication","research","i18n","dark-mode","json-ld","csp"]
+features = ["dark-mode","search","rss","json-ld","wcag-aaa","i18n-34","csp-hashes","sri","service-worker","contact-form"]
+
+[[authors]]
+name = "Sebastien Rousseau"
+homepage = "https://sebastienrousseau.com/"

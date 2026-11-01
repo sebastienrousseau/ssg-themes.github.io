@@ -1,0 +1,24 @@
+site_name = "Cipher"
+site_title = "Cipher: offline passphrase generator | Cipher theme for SSG"
+site_description = "Cipher rolls Diceware words and random keys on your own device and shows the entropy of each setting. Demo of Cipher, a password tool theme for SSG."
+base_url = "https://example.com"
+language = "en-GB"
+
+content_dir = "themes/cipher/content"
+template_dir = "themes/cipher/_layouts"
+output_dir = "public/cipher"
+
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

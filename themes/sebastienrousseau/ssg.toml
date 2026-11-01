@@ -1,0 +1,46 @@
+# Site-level configuration for the sebastienrousseau theme.
+#
+# Passed to the generator with `ssg build -f themes/sebastienrousseau/ssg.toml`
+# from the repository root. The path keys are relative to that directory.
+#
+# This theme is the production theme of https://sebastienrousseau.com. The
+# site itself does not consume it this way: it flattens the theme into
+# twelve standalone layouts with `tools/flatten.py` and compiles them with
+# the legacy `ssg -c -t -o` form, because its postbuild reads those flat
+# files directly. Both routes render the same HTML; `tools/README` in the
+# theme README explains the round trip.
+
+site_name = "Sebastien Rousseau"
+site_title = "Sebastien Rousseau — Securing the future of banking"
+site_description = "Research on applied AI, ISO 20022 payments and post-quantum cryptography for financial services, published in 34 languages."
+base_url = "https://example.com"
+language = "en-GB"
+
+# The live site builds with --no-tag-pages: it curates /tags/ itself (a
+# canonical vocabulary, hand-translated slugs) and ships that landing as a
+# page. The generator's per-term listings are standalone pages outside the
+# theme's shell, and the sample content carries the site's own tag landing,
+# so the demo opts out the same way.
+no_taxonomy_pages = true
+
+content_dir = "themes/sebastienrousseau/content"
+template_dir = "themes/sebastienrousseau/_layouts"
+output_dir = "public/sebastienrousseau"
+
+# The live site publishes 34 locales from generated translations. The
+# sample content ships English plus French so the pairing contract
+# (`translation_key`) is exercised without 33 further copies of every page.
+[i18n]
+default_locale = "en"
+locales = ["en", "fr"]
+url_prefix = "sub_path"
+
+[agents]
+agents_txt = true
+ai_plugin = true
+
+[agents.mcp]
+enabled = true
+
+[edge_headers]
+targets = ["netlify", "cloudflare"]

@@ -1,0 +1,21 @@
+{
+  "name": "cipher",
+  "display_name": "Cipher",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "Developer Tools",
+  "description": "Password and passphrase generator theme with a live configuration console, a Diceware word list that works offline, and a plain entropy readout for every setting.",
+  "min_ssg_version": "0.0.56",
+  "homepage": "https://themes.static-site-generator.com/cipher/",
+  "demosite": "https://themes.static-site-generator.com/cipher/",
+  "screenshot": "images/screenshot.png",
+  "features": [
+    "dark-mode",
+    "wcag-aaa-tokens",
+    "structured-data",
+    "agent-discovery",
+    "entropy-calculator",
+    "interactive-generator",
+    "print-stylesheet"
+  ]
+}

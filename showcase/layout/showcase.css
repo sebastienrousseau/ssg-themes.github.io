@@ -1,201 +1,311 @@
-
 /* ======================================================================
-   Showcase gallery components.
+   Showcase gallery components — Apple homepage architecture
    ----------------------------------------------------------------------
-   Loaded by the showcase's own base template after its design system.
-   Everything below consumes that template's gated tokens: deep charcoal
-   (#1d1d1f) on near-white and a true black canvas in dark mode.
+   Loaded by the showcase's own base template after Skeletonic CSS
+   (`skeletonic.min.css`) and its gated token system (`styles.css`).
+   Everything below consumes Skeletonic CSS primitives (`--font-system`,
+   `--radius-pill`, `--gr`, `--ease-out`) and the template's AAA-gated
+   tokens: deep charcoal (#1d1d1f) on near-white (#fbfbfd / #f5f5f7) and
+   a true black (#000000) canvas in dark mode.
    ====================================================================== */
 
-/* ---- rhythm on the golden ratio -------------------------------------- */
 .showcase {
   --s-1: 0.95rem;
   --s-2: 1.55rem;
   --s-3: 2.5rem;
   --s-4: 4.05rem;
   --s-5: 6.55rem;
+  --hero-content-height: 692px;
+  --promo-content-height: 780px;
+  max-width: 2560px;
+  margin-inline: auto;
 }
 
-/* ---- hero ------------------------------------------------------------ */
-.sc-hero {
-  padding-block: clamp(3.5rem, 3rem + 6vw, var(--s-5));
+@media (max-width: 66.75rem) {
+  .showcase {
+    --hero-content-height: 540px;
+    --promo-content-height: 520px;
+  }
+}
+
+@media (max-width: 45.875rem) {
+  .showcase {
+    --hero-content-height: 480px;
+    --promo-content-height: 480px;
+  }
+}
+
+/* ---- Apple section grid & tile-wrapper architecture ------------------ */
+.showcase > .section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding-block: 0;
+  margin-block-end: 12px;
   text-align: center;
 }
 
-.sc-hero .eyebrow {
+.tile-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--hero-content-height);
+  box-sizing: border-box;
+  background-color: var(--surface-soft);
+  color: var(--ink);
+  border: 1px solid var(--line-soft);
+  overflow: clip;
+  padding: 3.375rem 1.5rem 2.75rem;
+}
+
+/* Dark-staged Apple promo tiles (e.g. Vista, Voxt, Cadence, Noir, Covenant,
+   Kairo, passmcp, jspassgen, Control Centre, Cipher, Sebastienrousseau,
+   Velocity) use a true-black stage with AAA-verified tokens (>= 7.5:1). */
+.tile-wrapper.theme-dark {
+  --surface: #1d1d1f;
+  --surface-soft: #000000;
+  --ink: #f5f5f7;
+  --ink-soft: #e5e5ea;
+  --ink-muted: #b0b0b8;
+  --accent: #4db0ff;
+  --accent-hover: #7ac4ff;
+  --accent-ink: #000000;
+  --line: #6e6e75;
+  --line-soft: #2c2c2e;
+  --focus: #4db0ff;
+  background-color: #000000;
+  color: #f5f5f7;
+  border-color: #2c2c2e;
+}
+
+:root[data-theme="dark"] .tile-wrapper.theme-dark {
+  background-color: #0a0a0c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tile-wrapper.theme-dark {
+    background-color: #0a0a0c;
+  }
+}
+
+.tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-width: 0;
+}
+
+.tile-copy-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ---- Apple pill buttons (.button, .button-secondary, .button-elevated) */
+.tile-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem 0.875rem;
+  margin-top: 1.05rem;
+  z-index: 3;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-height, 2.75rem);
+  min-width: 2.75rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-pill, 980px);
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-system, var(--font-sans));
+  font-size: 0.875rem;
+  line-height: 1.28577;
+  font-weight: 500;
+  letter-spacing: -0.016em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 4;
+  transition:
+    background-color var(--duration-fast, 150ms) var(--ease-standard, ease),
+    color var(--duration-fast, 150ms) var(--ease-standard, ease),
+    border-color var(--duration-fast, 150ms) var(--ease-standard, ease);
+}
+
+.button:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+  text-decoration: none;
+  border-color: transparent;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.button.button-secondary {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.button.button-secondary:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.button.button-elevated {
+  padding: 0.7rem 1.45rem;
+  font-size: 1.0625rem;
+  line-height: 1.17648;
+  letter-spacing: -0.022em;
+}
+
+/* ---- section-hero (Apple flagship hero module) ----------------------- */
+.section-hero .tile-hero {
+  padding: clamp(3.5rem, 2.75rem + 4vw, 5.25rem) 1.5rem clamp(3rem, 2.25rem + 3vw, 4.25rem);
+  border-inline: none;
+  border-top: none;
+}
+
+.section-hero .tile-copy-wrapper {
+  max-width: 62rem;
+}
+
+.section-hero .eyebrow {
   display: inline-block;
-  margin-bottom: var(--s-1);
-  color: var(--ink-muted);
+  margin-bottom: 0.65rem;
+  color: var(--accent);
   font-size: var(--step--1);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.sc-hero h1 {
-  max-width: 18ch;
+.section-hero h1 {
+  max-width: 19ch;
   margin-inline: auto;
-  font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5.2rem);
-  line-height: 1.04;
-  letter-spacing: -0.035em;
+  padding-block-end: 0;
+  font-size: clamp(2.5rem, 1.65rem + 4.2vw, 4.5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.032em;
   text-wrap: balance;
 }
 
-.sc-hero .lead {
+.section-hero .lead {
   max-width: 56ch;
-  margin: var(--s-2) auto 0;
+  margin: 1rem auto 0;
   color: var(--ink-soft);
-  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
-  line-height: 1.6;
+  font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.35rem);
+  line-height: 1.48;
+  font-weight: 400;
+  letter-spacing: 0.004em;
   text-wrap: pretty;
 }
 
-/* ---- the numbers, as a quiet rule rather than four boxes ------------- */
+.section-hero .tile-ctas {
+  margin-top: 1.5rem;
+}
+
+/* ---- the numbers, as a quiet rule inside the hero stage -------------- */
 .sc-facts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--s-2) var(--s-4);
-  margin-top: var(--s-4);
-  padding-top: var(--s-3);
+  width: 100%;
+  max-width: 68rem;
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
   border-top: 1px solid var(--line-soft);
 }
 
-.sc-facts > div { max-width: 15rem; }
+.sc-facts > div {
+  max-width: 15rem;
+}
 
 .sc-facts b {
   display: block;
-  font-size: clamp(1.7rem, 1.4rem + 1.3vw, 2.6rem);
+  font-size: clamp(1.7rem, 1.4rem + 1.3vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
+  color: var(--ink);
 }
 
 .sc-facts p {
-  margin: 0.35rem 0 0;
+  margin: 0.3rem 0 0;
   color: var(--ink-muted);
   font-size: var(--step--1);
-  line-height: 1.45;
+  line-height: 1.42;
 }
 
-/* ---- carousel -------------------------------------------------------- */
-.sc-gallery { padding-block: var(--s-4); }
-
-.sc-gallery-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: var(--s-2);
-  margin-bottom: var(--s-3);
-}
-
-.sc-gallery-head h2 {
-  margin: 0;
-  font-size: clamp(1.8rem, 1.4rem + 1.7vw, 3rem);
-  letter-spacing: -0.03em;
-}
-
-.sc-controls { display: flex; gap: 0.6rem; }
-
-.sc-controls button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--ink);
-  cursor: pointer;
-}
-
-.sc-controls button:hover:not(:disabled) {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.sc-controls button:disabled { opacity: 0.35; cursor: default; }
-
-.sc-controls svg {
-  width: 18px; height: 18px;
-  fill: none; stroke: currentColor; stroke-width: 2;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-
-/* The track is a scroll region: it gets a name and a tab stop so it can be
-   reached and driven from the keyboard, which is the whole reason a
-   carousel is allowed to exist here. Nothing auto-advances — motion that
-   runs longer than five seconds would need a pause control under WCAG
-   2.2.2, and a gallery does not need to move by itself. */
-.sc-track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: clamp(17rem, 78vw, 26rem);
-  gap: var(--s-2);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scroll-padding-inline: 0.25rem;
-  padding: 0.25rem 0.25rem var(--s-2);
-  overscroll-behavior-x: contain;
+/* ---- section-promo (Apple two-column promo grid for all 26 themes) --- */
+.section-promo {
+  box-sizing: border-box;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
 }
 
 @media (min-width: 48rem) {
-  .sc-track { grid-auto-columns: clamp(20rem, 36vw, 27rem); }
+  .section-promo.section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.sc-track:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: 1.25rem;
+@media (max-width: 47.999rem) {
+  .section-promo {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sc-track { scroll-behavior: auto; }
+.section-promo .tile-wrapper {
+  min-height: var(--promo-content-height);
+  padding: 3.25rem 1.5rem 2.25rem;
 }
 
-.sc-slide {
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-  /* A continuous curve rather than a plain radius. */
-  border-radius: 1.5rem;
-  border: 1px solid var(--line-soft);
-  background: var(--surface);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 12px 28px -18px rgb(0 0 0 / 30%);
+@media (max-width: 66.75rem) {
+  .section-promo .tile-wrapper {
+    padding: 2.75rem 1.25rem 2rem;
+  }
 }
 
-.sc-shot {
-  display: block;
-  margin: 0;
-  background: var(--bg-soft);
-  border-bottom: 1px solid var(--line-soft);
+@media (max-width: 47.999rem) {
+  .section-promo .tile-wrapper {
+    padding: 2.4rem 1.15rem 1.75rem;
+    border-inline: none;
+  }
 }
 
-.sc-shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* The registry screenshots are 1500x1000; keeping that ratio means the
-     picture is never cut to fit the card. */
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+.section-promo .tile-content {
+  max-width: 34rem;
+  margin-inline: auto;
 }
 
-.sc-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  padding: var(--s-2);
-  flex: 1;
-}
-
-.sc-body .eyebrow {
-  margin: 0;
+.section-promo .tile-copy-wrapper .eyebrow {
+  margin: 0 0 0.3rem;
   color: var(--accent);
   font-size: var(--step--1);
   font-weight: 700;
@@ -203,46 +313,110 @@
   text-transform: uppercase;
 }
 
-.sc-body h3 {
-  margin: 0;
-  font-size: clamp(1.3rem, 1.2rem + 0.5vw, 1.7rem);
-  letter-spacing: -0.02em;
+.section-promo .tile-copy-wrapper h3,
+.section-promo .tile-headline {
+  margin: 0 auto;
+  padding-block-end: 0;
+  color: var(--ink);
+  font-size: clamp(1.85rem, 1.5rem + 1.1vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
-.sc-body > p {
-  margin: 0;
+.section-promo .tile-subhead {
+  margin: 0.45rem auto 0;
+  max-width: 38ch;
+  color: var(--ink-soft);
+  font-size: clamp(1.02rem, 0.96rem + 0.25vw, 1.25rem);
+  line-height: 1.34;
+  font-weight: 400;
+  letter-spacing: 0.009em;
+}
+
+.section-promo .tile-callout {
+  margin: 0.55rem auto 0;
   color: var(--ink-muted);
   font-size: var(--step--1);
-  line-height: 1.55;
+  line-height: 1.35;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-.sc-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0.2rem 0 0;
-  padding: 0;
-  list-style: none;
+.section-promo .tile-image-wrapper {
+  width: 100%;
+  max-width: 36rem;
+  margin: 1.6rem auto 0;
+  position: relative;
+  z-index: 1;
 }
 
-.sc-meta li {
-  padding: 0.3rem 0.65rem;
+.section-promo .tile-image-wrapper picture {
+  display: block;
+  width: 100%;
+}
+
+.section-promo .tile-image-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The registry screenshots are 1500x1000; keeping that 3:2 ratio means the
+     picture is never distorted or cropped inside the promo tile. */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-lg, 0.875rem);
   border: 1px solid var(--line-soft);
-  border-radius: 999px;
-  color: var(--ink-muted);
-  font-size: var(--step--1);
+  box-shadow: 0 14px 34px -16px rgb(0 0 0 / 32%);
+  transition: transform var(--duration-slow, 300ms) var(--ease-out, ease);
 }
 
-.sc-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding-top: var(--s-1);
+.section-promo .tile-wrapper:hover .tile-image-wrapper img {
+  transform: scale(1.015);
 }
 
-.sc-actions .btn { font-size: var(--step--1); }
+/* ---- gates table ----------------------------------------------------- */
+.showcase > .sc-gates {
+  display: block;
+  padding-block: var(--s-4);
+  margin-block-end: 0;
+  background: var(--bg-soft);
+  text-align: start;
+}
 
-/* ---- gates table ------------------------------------------------------ */
-.sc-gates { padding-block: var(--s-4); background: var(--bg-soft); }
-.sc-gates h2 { font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem); letter-spacing: -0.03em; }
+.sc-gates h2 {
+  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+
+/* ---- accessibility overrides for high contrast, forced colours, print - */
+@media (prefers-contrast: more) {
+  .tile-wrapper.theme-dark {
+    --ink-soft: #ffffff;
+    --ink-muted: #ffffff;
+    --line-soft: #8e8e93;
+  }
+}
+
+@media (forced-colors: active) {
+  .button,
+  .button.button-secondary {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}
+
+@media print {
+  .tile-wrapper,
+  .tile-wrapper.theme-dark {
+    min-height: 0;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-color: #999999 !important;
+    break-inside: avoid;
+  }
+  .section-promo .tile-image-wrapper img {
+    box-shadow: none;
+  }
+}
