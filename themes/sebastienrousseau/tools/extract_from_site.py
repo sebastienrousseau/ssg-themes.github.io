@@ -63,6 +63,8 @@ FONT_PRELOAD = (
 FONTS_CSS = '    <link rel="stylesheet" href="/fonts/fonts.css" />\n'
 MAIN_SCRIPT = '<script src="/main.js" defer></script>\n'
 SCHEMA_MARK = "    <!-- Schema.org structured data -->\n"
+NEWSLETTER_START = '        <form class="ap-newsletter"'
+NEWSLETTER_END = "        </form>\n"
 
 
 def normalise_head(head: str) -> str:
@@ -143,6 +145,37 @@ def font_preload_slot(head: str) -> str:
     return head.replace(FONTS_CSS, '{{#block "font_preload"}}{{/block}}' + FONTS_CSS, 1)
 
 
+def newsletter_form(footer: str) -> str:
+    """Return the footer's newsletter form, or "" when it has none."""
+    if NEWSLETTER_START not in footer:
+        return ""
+    return cut(footer, NEWSLETTER_START, NEWSLETTER_END)[1]
+
+
+def footer_with_slot(shell_footer: str, form: str) -> str:
+    """Wrap the newsletter form in a ``newsletter`` block.
+
+    The home page carries its own signup section, so its footer has no
+    form (one newsletter form per page); every other layout's footer has
+    it just before the legal line. The shared footer therefore holds the
+    form as a block's default and the home layout empties the block.
+    """
+    slot = '{{#block "newsletter"}}' + form + "{{/block}}"
+    if form in shell_footer:
+        return shell_footer.replace(form, slot, 1)
+    legal = '        <div class="legal">'
+    assert shell_footer.count(legal) == 1, "footer legal line moved; update extractor"
+    return shell_footer.replace(legal, slot + legal, 1)
+
+
+def footer_lacks_form(name: str, footer: str, shell_footer: str, form: str) -> bool:
+    """True when a layout's footer drops the newsletter form; any other difference is an error."""
+    lacks = newsletter_form(footer) == ""
+    bare = footer if lacks else footer.replace(form, "", 1)
+    assert bare == shell_footer.replace(form, "", 1), f"{name}: footer differs beyond the newsletter slot"
+    return lacks
+
+
 def build_base(shell: Shell) -> str:
     # The one normalisation applied on import is `{{!content}}` for
     # `{{content}}`, the raw form the gallery mandates; it never reaches the
@@ -168,11 +201,11 @@ def build_base(shell: Shell) -> str:
     )
 
 
-def write_shell(layouts_dir: Path, base: str, shell: Shell) -> None:
+def write_shell(layouts_dir: Path, base: str, shell: Shell, footer: str) -> None:
     layouts_dir.mkdir(parents=True, exist_ok=True)
     (layouts_dir / "base.html").write_text(base, encoding="utf-8")
     (layouts_dir / "header.html").write_text(shell.header, encoding="utf-8")
-    (layouts_dir / "footer.html").write_text(shell.footer, encoding="utf-8")
+    (layouts_dir / "footer.html").write_text(footer, encoding="utf-8")
     # `styles.css` is the stylesheet's source of truth (the gallery contract
     # wants that file). StaticWeaver resolves `{{> partials/styles}}` to
     # `partials/styles.html` only, so that path is a symlink to the same
@@ -187,21 +220,22 @@ def write_shell(layouts_dir: Path, base: str, shell: Shell) -> None:
     link.symlink_to("../styles.css")
 
 
-def split_layout(name: str, text: str, shell: Shell) -> tuple[str, str, str, str]:
-    """Return one site layout's (head, extra CSS, main, schema) regions."""
+def split_layout(name: str, text: str, shell: Shell) -> tuple[str, str, str, str, str]:
+    """Return one site layout's (head, extra CSS, main, footer, schema) regions."""
     l_head, l_style, l_after = cut(text, STYLE_OPEN, STYLE_CLOSE)
     l_css = l_style[len(STYLE_OPEN) : -len(STYLE_CLOSE)]
     assert l_css.startswith(shell.css), f"{name}: shared CSS diverged from index"
     _, _, l_after_header = cut(l_after, HEADER_START, HEADER_END)
-    l_main, _, l_after_footer = cut(l_after_header, FOOTER_START, FOOTER_END)
+    l_main, l_footer, l_after_footer = cut(l_after_header, FOOTER_START, FOOTER_END)
     l_schema, l_tail = l_after_footer.split(MAIN_SCRIPT, 1)
     assert l_tail == shell.tail, f"{name}: tail differs"
-    return normalise_head(l_head), l_css[len(shell.css) :], l_main, l_schema
+    return normalise_head(l_head), l_css[len(shell.css) :], l_main, l_footer, l_schema
 
 
-def layout_override(name: str, text: str, shell: Shell) -> str:
+def layout_override(name: str, text: str, shell: Shell, form: str) -> str:
     """Return the small ``{{#extends "base"}}`` layout for one site layout."""
-    l_head, extra_css, l_main, l_schema = split_layout(name, text, shell)
+    l_head, extra_css, l_main, l_footer, l_schema = split_layout(name, text, shell)
+    without_form = footer_lacks_form(name, l_footer, shell.footer, form)
     head_extra = BANNER_META if BANNER_META in l_head else ""
     drop_preload = FONT_PRELOAD in shell.head and FONT_PRELOAD not in l_head
     # Everything else in the head must match the shell exactly.
@@ -217,6 +251,8 @@ def layout_override(name: str, text: str, shell: Shell) -> str:
     if extra_css:
         parts.append('{{#block "styles"}}' + extra_css + "{{/block}}\n")
     parts.append('{{#block "main"}}' + l_main.replace("{{content}}", "{{!content}}") + "{{/block}}\n")
+    if without_form:
+        parts.append('{{#block "newsletter"}}{{/block}}\n')
     if l_schema != localise(shell.schema_region):
         parts.append('{{#block "schema"}}' + l_schema + "{{/block}}\n")
     return "".join(parts)
@@ -226,12 +262,16 @@ def main(src: Path, dst: Path) -> None:
     shell = split_shell((src / "index.html").read_text(encoding="utf-8"))
     base = build_base(shell)
     layouts_dir = dst / "_layouts"
-    write_shell(layouts_dir, base, shell)
+    footers = (cut((src / f"{n}.html").read_text(encoding="utf-8"), FOOTER_START, FOOTER_END)[1] for n in LAYOUTS)
+    forms = {newsletter_form(f) for f in footers} - {""}
+    assert len(forms) == 1, "expected one newsletter form shared by the layouts that have one"
+    form = forms.pop()
+    write_shell(layouts_dir, base, shell, footer_with_slot(shell.footer, form))
 
     # --- per-layout overrides --------------------------------------------
     for name in LAYOUTS:
         text = (src / f"{name}.html").read_text(encoding="utf-8")
-        (layouts_dir / f"{name}.html").write_text(layout_override(name, text, shell), encoding="utf-8")
+        (layouts_dir / f"{name}.html").write_text(layout_override(name, text, shell, form), encoding="utf-8")
 
     # --- alias layouts the gallery contract requires -----------------------
     # The site renders 404.md through `link`; the gallery wants a `404.html`

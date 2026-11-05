@@ -289,51 +289,16 @@ document.addEventListener("change", function (event) {
 });
 
 /**
- * Action-rail "Save PDF" — two handlers:
- *
- *   [data-print]            — button that opens the browser print
- *                              dialog directly (no server route).
- *   [data-print-fallback]   — anchor to /api/pdf/<slug>.pdf; we let the
- *                              browser navigate by default, but if the
- *                              Worker route returns a non-PDF (e.g. 503
- *                              when the Fly.io machine is down), fall
- *                              back to window.print() so the user still
- *                              gets a PDF via the @media print stylesheet.
- *
- * Either way the PDF that drops out respects our @media print stylesheet
- * (transparent inline code, sources-as-footnotes, links shown inline).
+ * Action-rail "Save PDF": a [data-print] button that opens the browser
+ * print dialog. The @media print stylesheet (transparent inline code,
+ * sources-as-footnotes, links shown inline) lays the article out for
+ * "Save as PDF"; no server renders PDFs.
  */
 document.addEventListener("click", function (event) {
     var trigger = event.target.closest("[data-print]");
     if (!trigger) return;
     event.preventDefault();
     window.print();
-});
-
-document.addEventListener("click", function (event) {
-    var trigger = event.target.closest("[data-print-fallback]");
-    if (!trigger) return;
-    var href = trigger.getAttribute("href");
-    if (!href) {
-        event.preventDefault();
-        window.print();
-        return;
-    }
-    // Probe the PDF route with HEAD; if it's a real PDF, let the
-    // browser navigate. Otherwise prevent navigation and fall back.
-    event.preventDefault();
-    fetch(href, { method: "HEAD" })
-        .then(function (res) {
-            var ct = (res.headers.get("Content-Type") || "").toLowerCase();
-            if (res.ok && ct.indexOf("application/pdf") !== -1) {
-                window.location.href = href;
-            } else {
-                window.print();
-            }
-        })
-        .catch(function () {
-            window.print();
-        });
 });
 
 /**
@@ -979,8 +944,9 @@ function fallbackCopy(text, done) {
     // The sections container: the homepage content wrap, or the ISO 20022
     // MCP hub wrapper (the only other page whose sections carry
     // [data-audience] tags). Any other page has neither, and bails.
+    var homeContent = document.querySelector(".home-content");
     var home =
-        document.querySelector(".home-content") ||
+        homeContent ||
         document.querySelector(".iso20022-mcp-page");
     if (!home) return;
 
@@ -1059,15 +1025,18 @@ function fallbackCopy(text, done) {
     function reorder(aud) {
         var lead = [];
         var rest = [];
+        var tail = [];
         sections.forEach(function (sec) {
             var tags = (sec.getAttribute("data-audience") || "").split(/\s+/);
-            if (aud && tags.indexOf(aud) !== -1) {
+            if (aud && sec.id === "mcp-faq") {
+                tail.push(sec);
+            } else if (aud && tags.indexOf(aud) !== -1) {
                 lead.push(sec);
             } else {
                 rest.push(sec);
             }
         });
-        lead.concat(rest).forEach(function (sec) {
+        lead.concat(rest).concat(tail).forEach(function (sec) {
             container.insertBefore(sec, tailAnchor);
         });
     }
@@ -1093,7 +1062,7 @@ function fallbackCopy(text, done) {
             var match = Boolean(aud && (c.getAttribute("data-audience-card") || "").split(/\s+/).indexOf(aud) !== -1);
             c.classList.toggle("is-lens-match", match);
         });
-        if (isEn) {
+        if (isEn && homeContent) {
             var nextSub = (aud && HERO_SUB_LENS[aud]) ? HERO_SUB_LENS[aud] : heroSubDefault;
             if (heroSub && heroSubDefault) {
                 heroSub.textContent = nextSub;
@@ -1113,6 +1082,19 @@ function fallbackCopy(text, done) {
                 summaryEl.textContent = customSummary;
             }
         }
+        Array.prototype.forEach.call(
+            document.querySelectorAll("[data-advisory-headline]"),
+            function (el) {
+                var text = el.getAttribute("data-" + (aud || "default")) || el.getAttribute("data-default");
+                if (text) el.textContent = text;
+            }
+        );
+        Array.prototype.forEach.call(
+            document.querySelectorAll("details.mcp-lens-details"),
+            function (el) {
+                el.open = !(aud === "boards" || aud === "regulators");
+            }
+        );
         if (status && opts.speak) {
             status.textContent = (announce ? announce + ": " : "") + labelFor(aud);
         }
@@ -1322,7 +1304,7 @@ function fallbackCopy(text, done) {
     }
 
     function fillDots(group) {
-        var dots = DOTS.split(" ");
+        var dots = DOTS.split(/\s+/);
         for (var i = 0; i < dots.length; i++) {
             var d = dots[i].split(",");
             var big = d[2].charAt(0) === "b";
@@ -1465,5 +1447,115 @@ function fallbackCopy(text, done) {
             if (!document.hidden && inView) updateClock();
         }, 100);
     });
+})();
+
+// ---------------------------------------------------------------------------
+// Progressive-enhancement WAI-ARIA tabs for .mcp-tabs (Fix 2.1).
+// Upgrades the CSS-only radio/label pattern into role=tablist / role=tab /
+// role=tabpanel with roving tabindex, ArrowLeft/Right/Home/End navigation,
+// and localStorage + ?client= persistence.
+// ---------------------------------------------------------------------------
+(function () {
+    "use strict";
+    var wrap = document.querySelector(".mcp-tabs");
+    if (!wrap) return;
+    var tablist = wrap.querySelector(".mcp-tab-labels");
+    if (!tablist) return;
+    var labels = Array.prototype.slice.call(tablist.querySelectorAll("label[for]"));
+    if (!labels.length) return;
+
+    var STORE_KEY = "mcp-client";
+    tablist.setAttribute("role", "tablist");
+    tablist.setAttribute("aria-label", "MCP client");
+
+    var tabs = [];
+    labels.forEach(function (lbl) {
+        var forId = lbl.getAttribute("for") || "";
+        var slug = forId.replace(/^mcp-tab-/, "");
+        var radio = document.getElementById(forId);
+        var panel = document.getElementById("mcp-panel-" + slug);
+        if (!radio || !panel) return;
+        radio.setAttribute("aria-hidden", "true");
+        radio.setAttribute("tabindex", "-1");
+        var btnId = "mcp-tab-btn-" + slug;
+        lbl.id = btnId;
+        lbl.setAttribute("role", "tab");
+        lbl.setAttribute("aria-controls", panel.id);
+        lbl.setAttribute("data-client", slug);
+        panel.setAttribute("role", "tabpanel");
+        panel.setAttribute("aria-labelledby", btnId);
+        panel.setAttribute("tabindex", "0");
+        tabs.push({ slug: slug, radio: radio, tab: lbl, panel: panel });
+    });
+    if (!tabs.length) return;
+
+    function activate(slug, opts) {
+        opts = opts || {};
+        var chosen = tabs[0];
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i].slug === slug) {
+                chosen = tabs[i];
+                break;
+            }
+        }
+        tabs.forEach(function (t) {
+            var on = t.slug === chosen.slug;
+            t.radio.checked = on;
+            t.tab.setAttribute("aria-selected", on ? "true" : "false");
+            t.tab.setAttribute("tabindex", on ? "0" : "-1");
+            if (on) {
+                t.panel.setAttribute("data-active", "1");
+                t.panel.removeAttribute("hidden");
+            } else {
+                t.panel.removeAttribute("data-active");
+                t.panel.setAttribute("hidden", "");
+            }
+        });
+        if (opts.focus) chosen.tab.focus();
+        if (opts.persist) {
+            try { localStorage.setItem(STORE_KEY, chosen.slug); } catch (e) {}
+            try {
+                var u = new URL(window.location.href);
+                u.searchParams.set("client", chosen.slug);
+                window.history.replaceState(null, "", u.toString());
+            } catch (e2) {}
+        }
+    }
+
+    tabs.forEach(function (t, idx) {
+        t.tab.addEventListener("click", function (e) {
+            e.preventDefault();
+            activate(t.slug, { persist: true, focus: false });
+        });
+        t.tab.addEventListener("keydown", function (e) {
+            var next = -1;
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                next = (idx + 1) % tabs.length;
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                next = (idx - 1 + tabs.length) % tabs.length;
+            } else if (e.key === "Home") {
+                next = 0;
+            } else if (e.key === "End") {
+                next = tabs.length - 1;
+            } else if (e.key === String.fromCharCode(32) || e.key === "Enter") {
+                e.preventDefault();
+                activate(t.slug, { persist: true, focus: false });
+                return;
+            }
+            if (next !== -1) {
+                e.preventDefault();
+                activate(tabs[next].slug, { persist: true, focus: true });
+            }
+        });
+    });
+
+    var initial = "";
+    try {
+        initial = new URL(window.location.href).searchParams.get("client") || "";
+    } catch (e) {}
+    if (!initial) {
+        try { initial = localStorage.getItem(STORE_KEY) || ""; } catch (e2) {}
+    }
+    activate(initial || tabs[0].slug, { persist: false, focus: false });
 })();
 

@@ -60,9 +60,13 @@ def flatten_one(theme: Path, child: str) -> str:
         name, default = match.group(1), match.group(2)
         return overrides.get(name, default)
 
-    out = BLOCK_RE.sub(fill, base)
-    out = PARTIAL_RE.sub(lambda p: (theme / f"{p.group(1)}.html").read_text(encoding="utf-8"), out)
-    return out
+    def include(text: str) -> str:
+        return PARTIAL_RE.sub(lambda p: (theme / f"{p.group(1)}.html").read_text(encoding="utf-8"), text)
+
+    # Partials first, so a block a partial declares (the footer's
+    # ``newsletter``) is filled like one in the base; then again for any
+    # partial an override itself includes.
+    return include(BLOCK_RE.sub(fill, include(base)))
 
 
 def main(theme: Path, dst: Path, site: bool = False) -> None:

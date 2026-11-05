@@ -7,6 +7,15 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The layouts are re-extracted from sebastienrousseau.com 0.0.32 plus
+  its type scale: one column system (`--col-wide`, `--col-read`,
+  `--col-mid`, a fluid `--gutter`) and one fluid type scale (`--fs-micro`
+  to `--fs-display`, with matching line heights) across every layout.
+  The footer's newsletter form sits in a `newsletter` block that the
+  home layout empties, so the home page keeps one form. `flatten.py`
+  inlines partials before filling blocks, so a block inside a partial
+  is filled too; `extract_from_site.py` writes the block and checks
+  every other footer difference.
 - The layouts are re-extracted from sebastienrousseau.com 0.0.22, and
   `tools/flatten.py` turns them back into the site's twelve layouts byte
   for byte. They bring the site's work since 1.2.1: the home page's
