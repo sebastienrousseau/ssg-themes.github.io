@@ -129,8 +129,14 @@ build-jspassgen:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast check-wordlist build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
+check: test check-structure check-contrast check-wordlist build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
 	@echo "All gates passed."
+
+# Unit tests for the scripts that rewrite built HTML. Standard library only
+# (unittest), so they need nothing installed and run first.
+.PHONY: test
+test:
+	@PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -m unittest discover -s tests/unit -v
 
 check-links:
 	@bash scripts/linkcheck.sh

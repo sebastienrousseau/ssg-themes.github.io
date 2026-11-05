@@ -35,7 +35,13 @@ import re
 import sys
 from pathlib import Path
 
-ATTRS = ("href", "src", "srcset", "action", "formaction", "poster", "cite", "ping", "data-src", "data-href")
+ATTRS = (
+    "href", "src", "srcset", "imagesrcset", "action", "formaction",
+    "poster", "cite", "ping", "data-src", "data-href",
+)
+# Attributes holding a comma-separated candidate list (URL + descriptor)
+# rather than one URL. `imagesrcset` is the `<link rel="preload">` form.
+SRCSET_ATTRS = ("srcset=", "imagesrcset=")
 ATTR_RE = re.compile(r'(\s(?:' + "|".join(ATTRS) + r')=")([^"]*)"')
 URL_FN_RE = re.compile(r"url\((['\"]?)(/(?!/)[^)'\"]*)\1\)")
 # The opening tag is rewritten like any other (a `<script src="/main.js">`
@@ -92,7 +98,7 @@ def rebase_markup(markup: str, prefix: str) -> str:
 
     def attr(match: re.Match[str]) -> str:
         head, value = match.group(1), match.group(2)
-        if head.lstrip().startswith("srcset="):
+        if head.lstrip().startswith(SRCSET_ATTRS):
             return f'{head}{rebase_srcset(value, prefix)}"'
         return f'{head}{rebase_value(value, prefix)}"'
 
