@@ -26,7 +26,7 @@ jobs:
       latest: ${{ steps.compare.outputs.latest }}
       newer: ${{ steps.compare.outputs.newer }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - id: compare
         name: Compare the pin against crates.io
@@ -97,7 +97,7 @@ jobs:
       LATEST: ${{ needs.check.outputs.latest }}
       GATE_RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Open the bump
         env:
