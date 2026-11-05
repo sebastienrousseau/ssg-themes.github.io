@@ -1175,12 +1175,16 @@
       }
       /* Tight phones (<=374px): the header row (brand + theme + search +
          CTA pill + burger) no longer fits at the desktop paddings. Keep
-         every control: tighten the shell gaps and the nav pill only, and
-         stop the SR brand mark from wrapping into a vertical stack. */
+         every control: tighten the shell gaps, the utility group and the
+         nav pill only, and stop the SR brand mark from wrapping into a
+         vertical stack. At 320px the row used to end 1px past the
+         viewport (the empty menu column still costs two grid gaps); these
+         values leave about 8px of slack for wider fallback fonts. */
       .ap-brand{white-space:nowrap}
       @media (max-width:374px){
-        .ap-nav .wrap{gap:10px;padding:0 14px}
-        .ap-nav .ap-cta-mini{padding:10px 10px}
+        .ap-nav .wrap{gap:6px;padding:0 12px}
+        .ap-nav-right{gap:4px}
+        .ap-nav .ap-cta-mini{padding:10px 8px}
       }
       /* Tight phones: hide the language switcher chip from the header to
          declutter the row. The 27-locale menu is large; visitors can
@@ -1872,6 +1876,10 @@
       /* projects: rotating title AS the hero H1 (project layout) — display size */
       .ap-hero h1.rotating-title{display:flex;flex-direction:column;align-items:center;gap:.04em;max-width:none;font-size:var(--fs-h1);line-height:1.07;letter-spacing:-.02em;text-transform:none}
       .ap-hero h1.rotating-title .rotating-title-words>span{color:var(--accent)}
+      /* The rotating words never wrap (each holds one 1.25em row), so the
+         longest ("financial institutions." plus its icon, ~10em) ran past
+         a 320px viewport at --fs-h1. Below 360px step down one token. */
+      @media (max-width:359px){.ap-hero h1.rotating-title{font-size:var(--fs-h2)}}
       .ap-hero-cta{max-width:none !important;width:100%;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:24px 0 0}
       /* projects: three areas as Apple-style image-top cards in a 3-up grid */
       .areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,28px);align-items:stretch}
