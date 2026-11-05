@@ -380,6 +380,16 @@ if [[ -f "llms.txt" ]]; then
   cp -f "llms.txt" "public/llms.txt"
 fi
 
+# RFC 9116 disclosure contact. The generator writes an empty security.txt
+# at the root of every output; the one a client looks for is the gallery's
+# /.well-known/security.txt, so publish the maintained file there and over
+# the empty root copy.
+if [[ -f ".well-known/security.txt" ]]; then
+  mkdir -p "public/.well-known"
+  cp -f ".well-known/security.txt" "public/.well-known/security.txt"
+  cp -f ".well-known/security.txt" "public/security.txt"
+fi
+
 # Root-level crawler discovery.
 #
 # Every theme generates its own robots.txt and sitemap.xml, and a crawler
