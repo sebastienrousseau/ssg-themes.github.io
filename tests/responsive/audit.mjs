@@ -279,12 +279,30 @@ function checkOverlap() {
   // defect — the content scrolls clear. What is a genuine tap hazard is
   // two *fixed* controls sharing space, since neither can be moved.
   const floating = (el) => ['fixed', 'sticky'].includes(getComputedStyle(el).position);
-  const overlap = (a, b) => {
-    if (a.contains(b) || b.contains(a) || floating(a) !== floating(b)) return null;
-    const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+  // Compare the boxes the element actually paints, one per line fragment.
+  // An inline link that wraps has a bounding rect spanning the full width
+  // of both lines, so measuring that rect reported every other link on
+  // those lines as "overlapping" when no two glyph boxes touched. The
+  // fragments from getClientRects() are what a tap can land on.
+  const boxes = (el) => {
+    const rects = [...el.getClientRects()].filter((r) => r.width > 0 && r.height > 0);
+    return rects.length ? rects : [el.getBoundingClientRect()];
+  };
+  const intersect = (ra, rb) => {
     const ox = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
     const oy = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
     return ox > 2 && oy > 2 ? [ox, oy] : null;
+  };
+  const overlap = (a, b) => {
+    if (a.contains(b) || b.contains(a) || floating(a) !== floating(b)) return null;
+    let worst = null;
+    for (const ra of boxes(a)) {
+      for (const rb of boxes(b)) {
+        const o = intersect(ra, rb);
+        if (o && (!worst || o[0] * o[1] > worst[0] * worst[1])) worst = o;
+      }
+    }
+    return worst;
   };
   for (let i = 0; i < controls.length; i++) {
     for (let j = i + 1; j < controls.length; j++) {
