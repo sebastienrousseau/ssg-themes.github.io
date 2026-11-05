@@ -49,21 +49,9 @@ SHOWCASE_BASE_URL="${SHOWCASE_BASE_URL:-https://themes.static-site-generator.com
 BUILD_TMP="$(mktemp -d)"
 trap 'rm -rf "${BUILD_TMP}"' EXIT
 
-# Prefer a locally built binary when present so the repo can be built
-# against an unreleased generator; otherwise use whatever is on PATH.
-if [[ -n "${SSG:-}" ]]; then
-  if [[ ! -x "${SSG}" ]]; then
-    echo "error: SSG override is not executable: ${SSG}" >&2
-    exit 1
-  fi
-elif [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
-  SSG="/tmp/builds/cargo/release/ssg"
-elif command -v ssg >/dev/null 2>&1; then
-  SSG="ssg"
-else
-  echo "error: no \`ssg\` binary found on PATH" >&2
-  exit 1
-fi
+# Resolve the generator and hold it to the CI pin; see resolve-ssg.sh.
+# shellcheck source=scripts/resolve-ssg.sh
+source "$(dirname "${BASH_SOURCE[0]}")/resolve-ssg.sh"
 
 # ssg 0.0.62 fingerprints layout-owned CSS and JavaScript and rewrites the
 # generated references. The currently published 0.0.56 binary fingerprints
