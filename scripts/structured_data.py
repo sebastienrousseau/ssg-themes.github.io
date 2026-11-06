@@ -24,7 +24,7 @@ import re
 import sys
 
 SCRIPT = re.compile(
-    r'<script type="application/ld\+json">(.*?)</script>', re.S
+    r'<script type="application/ld\+json">(.*?)</script>', re.DOTALL
 )
 
 

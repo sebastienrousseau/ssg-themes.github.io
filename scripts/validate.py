@@ -674,7 +674,7 @@ def check_registration(root: Path) -> list[str]:
         # Comments first: the layout documents the contract by quoting
         # `<b data-fact="KEY">…</b>` in prose, and scanning the raw file
         # reported that example as a typed value.
-        markup = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+        markup = re.sub(r"<!--.*?-->", "", html, flags=re.DOTALL)
         entries = re.findall(r"<b([^>]*data-fact=[^>]*)>([^<]*)</b>", markup)
         if not entries:
             errors.append(
