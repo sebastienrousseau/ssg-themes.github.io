@@ -112,6 +112,9 @@ jobs:
           name: public
           path: public/
 
+      - name: SRI gate (every integrity hash matches its file)
+        run: make check-sri
+
       - name: Page weight and third-party request gate
         run: python3 scripts/pageweight.py
 
@@ -127,33 +130,7 @@ jobs:
         run: bash scripts/audit.sh
 
       - name: Accessibility report must be clean
-        run: |
-          python3 - <<'PY'
-          import json, sys, pathlib
-          # Derived from themes/ rather than named literally. Kinetic shipped
-          # and deployed while this list still read apex/atlas/velocity, so
-          # its report was generated and never once asserted on.
-          themes = sorted(p.name for p in pathlib.Path("themes").iterdir() if p.is_dir())
-          if not themes:
-              sys.exit("no themes found under themes/")
-          print(f"asserting on: {', '.join(themes)}")
-          failed = False
-          for theme in themes:
-              p = pathlib.Path("public") / theme / "accessibility-report.json"
-              # A theme that produced no report is a hole, not a pass.
-              if not p.exists():
-                  print(f"{theme}: MISSING {p}")
-                  failed = True
-                  continue
-              data = json.loads(p.read_text())
-              issues = data.get("total_issues", -1)
-              print(f"{theme}: {issues} issue(s) across {data.get('pages_scanned')} page(s)")
-              if issues != 0:
-                  failed = True
-                  for page in data.get("pages", []):
-                      print(f"  {page}")
-          sys.exit(1 if failed else 0)
-          PY
+        run: make check-a11y-report
 
       # Four suites, all through the same pinned Chromium: layout across 13
       # viewports x 2 schemes, keyboard/zoom/reduced-motion/forced-colours,
