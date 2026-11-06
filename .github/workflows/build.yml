@@ -33,7 +33,10 @@ jobs:
   # kind behind the "100/100 Lighthouse" and "100% WCAG AAA" badges.
   gate:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # The last green gate took 2 h 8 min (browser suites over ~420 pages);
+    # 60 cancelled a healthy run midway. This only caps a hung job, well
+    # under the 6 h default.
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
