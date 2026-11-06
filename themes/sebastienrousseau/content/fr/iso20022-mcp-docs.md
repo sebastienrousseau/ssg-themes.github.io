@@ -500,7 +500,7 @@ Validate the records first, then generate. If validation fails, name the failing
 </div>
 </article>
 </div>
-<p class="story-intro"><a href="/iso20022-mcp-reference/index.html">Full tool reference for every server <span aria-hidden="true">›</span></a> · <a href="/iso20022-mcp-recipes/index.html">End-to-end recipes <span aria-hidden="true">›</span></a></p>
+<p class="story-intro link-row"><a href="/iso20022-mcp-reference/index.html">Full tool reference for every server <span aria-hidden="true">›</span></a> · <a href="/iso20022-mcp-recipes/index.html">End-to-end recipes <span aria-hidden="true">›</span></a></p>
 </section>
 
 <section class="newsroom docs-cardlist" id="safety">

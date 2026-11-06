@@ -1435,6 +1435,10 @@
       .pill.lg{padding:15px 28px;font-size:var(--fs-ui)}
       .pill::after{content:"\203A";margin-inline-start:.4em}
       .pill.no-chev::after{content:""}
+      /* WCAG 2.5.5 (AAA): a link that stands on its own, rather than in a
+         sentence, gets a 44px target. Card CTAs, link rows, identifier and
+         contact lists, and a table cell holding only a link. */
+      .newsroom-more a,.area-card-cta a,.setup-finale-cta a,.contact-aside-list a,.author-ids a,.author-card-name a,.link-row a,.table td>a:only-child{display:inline-flex;align-items:center;min-height:44px}
 
       /* ---------- Sections ---------- */
       .ap-section{padding:96px var(--pad-x)}

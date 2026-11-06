@@ -175,4 +175,4 @@ Ask it to search "cancel a payment" and it points you at camt.056; ask it to gen
 
 ## Learn more
 
-[Documentation](/iso20022-mcp-docs/index.html) · [Tool reference](/iso20022-mcp-reference/index.html) · [Recipes](/iso20022-mcp-recipes/index.html) · [GitHub](https://github.com/sebastienrousseau/iso20022-mcp)
+<p class="link-row"><a href="/iso20022-mcp-docs/index.html">Documentation</a> · <a href="/iso20022-mcp-reference/index.html">Tool reference</a> · <a href="/iso20022-mcp-recipes/index.html">Recipes</a> · <a href="https://github.com/sebastienrousseau/iso20022-mcp">GitHub</a></p>
