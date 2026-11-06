@@ -54,6 +54,24 @@ export const PAGES = (() => {
   if (missing.length) {
     throw new Error(`themes built but never visited by the gate: ${missing.join(', ')}`);
   }
+  // Optional explicit filter for targeted local runs, as a comma list of
+  // page paths (AAA_FILTER=/,/fr/,/apex/). It narrows the set before the
+  // slice below, so batches still split the filtered pages rather than
+  // each re-running all of them. It refuses to run in CI, and every entry
+  // must name a discovered page: a typo would otherwise select nothing and
+  // the suites would report a pass over zero pages.
+  let selected = pages;
+  const filter = process.env.AAA_FILTER;
+  if (filter) {
+    if (process.env.CI) throw new Error('AAA_FILTER is for local runs; CI must measure every page');
+    const wanted = filter.split(',').map((s) => s.trim()).filter(Boolean);
+    const known = new Set(pages);
+    const unknown = wanted.filter((p) => !known.has(p));
+    if (unknown.length || !wanted.length) {
+      throw new Error(`AAA_FILTER names no discovered page: ${unknown.join(', ') || '(empty)'}`);
+    }
+    selected = pages.filter((p) => wanted.includes(p));
+  }
   // Optional slice, as "index/total": the runner uses it to restart the
   // browser between groups of pages. A long-lived Chromium grows past what
   // a memory-pressured machine has free and the OS kills it, and a gate
@@ -61,11 +79,11 @@ export const PAGES = (() => {
   // check above runs against the whole discovered set first, so slicing
   // cannot weaken the floor or let an unvisited theme through.
   const slice = process.env.AAA_SLICE;
-  if (!slice) return pages;
+  if (!slice) return selected;
   const [i, n] = slice.split('/').map(Number);
   if (!Number.isInteger(i) || !Number.isInteger(n) || n < 1 || i < 0 || i >= n) {
     throw new Error(`AAA_SLICE must be "index/total" with 0 <= index < total, got "${slice}"`);
   }
-  const size = Math.ceil(pages.length / n);
-  return pages.slice(i * size, (i + 1) * size);
+  const size = Math.ceil(selected.length / n);
+  return selected.slice(i * size, (i + 1) * size);
 })();

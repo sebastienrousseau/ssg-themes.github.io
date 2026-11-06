@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { BASE, PAGES } from './pages.mjs';
 
 // 320 is the WCAG 1.4.10 reference width; 640 at 200% zoom is the same test.
@@ -8,7 +9,7 @@ const VIEWPORTS = [
 ];
 const SCHEMES = ['light','dark'];
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 let checks = 0; const fails = [];
 for (const scheme of SCHEMES) {
   const ctx = await browser.newContext({ colorScheme: scheme });

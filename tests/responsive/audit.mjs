@@ -32,6 +32,7 @@
  * Usage:  node audit.mjs [--base http://127.0.0.1:8765/ssg-themes.github.io]
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { readFileSync } from 'node:fs';
 
 const BASE =
@@ -278,7 +279,14 @@ function checkOverlap() {
   // in-flow content as the page scrolls is the pattern working, not a
   // defect — the content scrolls clear. What is a genuine tap hazard is
   // two *fixed* controls sharing space, since neither can be moved.
-  const floating = (el) => ['fixed', 'sticky'].includes(getComputedStyle(el).position);
+  // A control floats when it or any ancestor is fixed or sticky: a link
+  // inside a fixed nav moves with that nav exactly as a fixed link would.
+  const floating = (el) => {
+    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+      if (['fixed', 'sticky'].includes(getComputedStyle(n).position)) return true;
+    }
+    return false;
+  };
   // Compare the boxes the element actually paints, one per line fragment.
   // An inline link that wraps has a bounding rect spanning the full width
   // of both lines, so measuring that rect reported every other link on
@@ -390,7 +398,7 @@ async function probe(page) {
 const pages = readFileSync(new URL('./pages.txt', import.meta.url), 'utf8')
   .split('\n').map((s) => s.trim()).filter(Boolean);
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const failures = [];
 let checks = 0;
 

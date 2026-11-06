@@ -1,7 +1,8 @@
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { BASE, PAGES } from './pages.mjs';
 import { AUDIT } from './audit.mjs';
-const b=await chromium.launch(); let n=0; let unmeasured=0; const fails=[];
+const b=await chromium.launch(HERMETIC); let n=0; let unmeasured=0; const fails=[];
 for(const scheme of ['light','dark']){
   const ctx=await b.newContext({colorScheme:scheme});const p=await ctx.newPage();
   await p.setViewportSize({width:1280,height:900});

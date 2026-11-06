@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- Fixture for focus-selftest.mjs. Each case is one focusable link;
+     data-expect says whether 2.4.12 must report it as covered. Text is
+     monospace in a fixed-width box so the line breaks are the same on every
+     platform. -->
+<html lang="en">
+<head><meta charset="utf-8"><title>Focus fixture</title>
+<style>
+body{margin:16px;font:16px/24px monospace}
+.case{position:relative;width:200px;margin:0 0 48px}
+.lid{position:absolute;background:#fff}
+a{color:#1d1d1f}
+</style></head>
+<body><main><h1>Focus</h1>
+<p class="case">x <a data-expect="clear" href="#a">single</a> y</p>
+<p class="case">xxxxxxxxxxxxx <a data-expect="clear" href="#b">one two three four five six</a> <strong>bold</strong> after.</p>
+<div class="case"><a data-expect="covered" href="#c">under a lid</a><div class="lid" style="inset:0"></div></div>
+<div class="case">xxxxxxxxxxxxx <a data-expect="covered" href="#d">one two three four five six</a><div class="lid" style="top:24px;left:0;width:40px;height:24px"></div></div>
+</main></body></html>

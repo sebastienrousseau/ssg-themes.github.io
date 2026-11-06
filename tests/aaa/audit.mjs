@@ -85,6 +85,31 @@ export const AUDIT = () => {
   // sentence or block of text". A link inside a prose paragraph, list item
   // or table cell is exactly that, and enlarging it would break the line
   // box it lives in. Navigation links are not exempt and are still checked.
+  // The criterion's own test, whatever the markup calls its classes: an
+  // inline link whose block also holds words outside any control is "in a
+  // sentence or block of text", and that text's line height is what limits
+  // it. A link alone in its block, or links separated only by punctuation
+  // ("Tool reference › · The suite ›"), has no such text and is still
+  // a standalone target. targets-selftest.mjs pins both sides.
+  const CONTROL='a,button,input,select,textarea,label,[role="button"],[tabindex]';
+  const blockOf = el => {
+    while(el&&getComputedStyle(el).display==='inline')el=el.parentElement;
+    return el;
+  };
+  const inSentence = e => {
+    if(getComputedStyle(e).display!=='inline')return false;
+    const block=blockOf(e.parentElement);
+    if(!block)return false;
+    // Only text that flows in the same block shares the link's lines; a
+    // card's heading above its link is a different block and does not count.
+    const walker=document.createTreeWalker(block,NodeFilter.SHOW_TEXT);
+    for(let n=walker.nextNode();n;n=walker.nextNode()){
+      const host=n.parentElement;
+      if(host.closest(CONTROL)||blockOf(host)!==block)continue;
+      if(/[\p{L}\p{N}]/u.test(n.textContent))return true;
+    }
+    return false;
+  };
   const inlineExempt = e => {
     const p = e.parentElement;
     return !!(p && (
@@ -95,7 +120,8 @@ export const AUDIT = () => {
       // The home page's credential line is the same case: three links in
       // one sentence ("… · Author of the EPAA … Paper · Creator of …").
       p.classList.contains('footer-credit') ||
-      p.classList.contains('feat-credentials')
+      p.classList.contains('feat-credentials') ||
+      inSentence(e)
     ));
   };
   /* A visually hidden input whose label is the visible control: the label is
