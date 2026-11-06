@@ -187,6 +187,7 @@ build_theme() {
   if grep -qE '^tier = "site"' "themes/${theme}/theme.toml" 2>/dev/null; then
     python3 scripts/rebase_links.py "public/${theme}" "/${theme}/"
   fi
+  python3 scripts/inject_return_pill.py "public/${theme}"
 }
 
 mkdir -p public
