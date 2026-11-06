@@ -379,6 +379,7 @@ body {
   width: 1.875rem;
   height: 1.875rem;
   flex-shrink: 0;
+  color: var(--accent);
 }
 
 .brand-badge {
