@@ -49,21 +49,9 @@ SHOWCASE_BASE_URL="${SHOWCASE_BASE_URL:-https://themes.static-site-generator.com
 BUILD_TMP="$(mktemp -d)"
 trap 'rm -rf "${BUILD_TMP}"' EXIT
 
-# Prefer a locally built binary when present so the repo can be built
-# against an unreleased generator; otherwise use whatever is on PATH.
-if [[ -n "${SSG:-}" ]]; then
-  if [[ ! -x "${SSG}" ]]; then
-    echo "error: SSG override is not executable: ${SSG}" >&2
-    exit 1
-  fi
-elif [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
-  SSG="/tmp/builds/cargo/release/ssg"
-elif command -v ssg >/dev/null 2>&1; then
-  SSG="ssg"
-else
-  echo "error: no \`ssg\` binary found on PATH" >&2
-  exit 1
-fi
+# Resolve the generator and hold it to the CI pin; see resolve-ssg.sh.
+# shellcheck source=scripts/resolve-ssg.sh
+source "$(dirname "${BASH_SOURCE[0]}")/resolve-ssg.sh"
 
 # ssg 0.0.62 fingerprints layout-owned CSS and JavaScript and rewrites the
 # generated references. The currently published 0.0.56 binary fingerprints
@@ -199,6 +187,7 @@ build_theme() {
   if grep -qE '^tier = "site"' "themes/${theme}/theme.toml" 2>/dev/null; then
     python3 scripts/rebase_links.py "public/${theme}" "/${theme}/"
   fi
+  python3 scripts/inject_return_pill.py "public/${theme}"
 }
 
 mkdir -p public
@@ -390,6 +379,16 @@ fi
 # generated llms.txt; this one describes the collection.
 if [[ -f "llms.txt" ]]; then
   cp -f "llms.txt" "public/llms.txt"
+fi
+
+# RFC 9116 disclosure contact. The generator writes an empty security.txt
+# at the root of every output; the one a client looks for is the gallery's
+# /.well-known/security.txt, so publish the maintained file there and over
+# the empty root copy.
+if [[ -f ".well-known/security.txt" ]]; then
+  mkdir -p "public/.well-known"
+  cp -f ".well-known/security.txt" "public/.well-known/security.txt"
+  cp -f ".well-known/security.txt" "public/security.txt"
 fi
 
 # Root-level crawler discovery.

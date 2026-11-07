@@ -1,10 +1,25 @@
 version: 2
+# Pull requests target the default branch because Dependabot reads this
+# file from it: a `target-branch` naming feat/v<next> would point at a
+# branch deleted when that release merges. Updates are funnelled into the
+# open feat/v* release branch by hand and the standalone PRs closed.
+#
+# Grouped so one weekly PR per ecosystem carries every bump, and the limit
+# is above the default of five, which held back updates once already.
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      actions:
+        patterns: ["*"]
   - package-ecosystem: npm
     directory: /tests/responsive
     schedule:
       interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      npm:
+        patterns: ["*"]

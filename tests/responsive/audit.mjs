@@ -32,6 +32,7 @@
  * Usage:  node audit.mjs [--base http://127.0.0.1:8765/ssg-themes.github.io]
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { readFileSync } from 'node:fs';
 
 const BASE =
@@ -278,13 +279,38 @@ function checkOverlap() {
   // in-flow content as the page scrolls is the pattern working, not a
   // defect — the content scrolls clear. What is a genuine tap hazard is
   // two *fixed* controls sharing space, since neither can be moved.
-  const floating = (el) => ['fixed', 'sticky'].includes(getComputedStyle(el).position);
-  const overlap = (a, b) => {
-    if (a.contains(b) || b.contains(a) || floating(a) !== floating(b)) return null;
-    const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+  // A control floats when it or any ancestor is fixed or sticky: a link
+  // inside a fixed nav moves with that nav exactly as a fixed link would.
+  const floating = (el) => {
+    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+      if (['fixed', 'sticky'].includes(getComputedStyle(n).position)) return true;
+    }
+    return false;
+  };
+  // Compare the boxes the element actually paints, one per line fragment.
+  // An inline link that wraps has a bounding rect spanning the full width
+  // of both lines, so measuring that rect reported every other link on
+  // those lines as "overlapping" when no two glyph boxes touched. The
+  // fragments from getClientRects() are what a tap can land on.
+  const boxes = (el) => {
+    const rects = [...el.getClientRects()].filter((r) => r.width > 0 && r.height > 0);
+    return rects.length ? rects : [el.getBoundingClientRect()];
+  };
+  const intersect = (ra, rb) => {
     const ox = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
     const oy = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
     return ox > 2 && oy > 2 ? [ox, oy] : null;
+  };
+  const overlap = (a, b) => {
+    if (a.contains(b) || b.contains(a) || floating(a) !== floating(b)) return null;
+    let worst = null;
+    for (const ra of boxes(a)) {
+      for (const rb of boxes(b)) {
+        const o = intersect(ra, rb);
+        if (o && (!worst || o[0] * o[1] > worst[0] * worst[1])) worst = o;
+      }
+    }
+    return worst;
   };
   for (let i = 0; i < controls.length; i++) {
     for (let j = i + 1; j < controls.length; j++) {
@@ -372,7 +398,7 @@ async function probe(page) {
 const pages = readFileSync(new URL('./pages.txt', import.meta.url), 'utf8')
   .split('\n').map((s) => s.trim()).filter(Boolean);
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const failures = [];
 let checks = 0;
 

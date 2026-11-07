@@ -15,8 +15,8 @@ The site generated its layouts from one `index.html` by slicing the shell and in
 | --- | --- |
 | `_layouts/base.html` | The shell: head, CSP meta, font preload, `{{> header}}`, `{{#block "main"}}`, `{{> footer}}`, `{{#block "schema"}}`, `main.js` |
 | `_layouts/header.html` | Primary navigation with submenus, language switcher hook, theme toggle |
-| `_layouts/footer.html` | Four-column footer with social links |
-| `_layouts/styles.css` | The whole stylesheet (184 KB). `styles.html` is a symlink to it because `{{> styles}}` resolves `.html` names only |
+| `_layouts/footer.html` | Four-column footer with social links and the newsletter form, in a `newsletter` block the home layout empties (it carries its own signup section, and a page has one form) |
+| `_layouts/styles.css` | The whole stylesheet (219 KB). `styles.html` is a symlink to it because `{{> styles}}` resolves `.html` names only |
 | `_layouts/<layout>.html` | One file per layout, each `{{#extends "base"}}` and fills `main`, optionally `styles`, `schema`, `head_extra` and `font_preload` |
 | `_layouts/main.js`, `theme-init.js`, `search.js`, `search.css`, `sw.js` | Runtime, copied verbatim |
 
@@ -31,7 +31,7 @@ python3 themes/sebastienrousseau/tools/flatten.py themes/sebastienrousseau/_layo
 diff -r /tmp/flat /path/to/sebastienrousseau.github.io/_layouts   # empty
 ```
 
-The diff is 24 lines, all of them `{{!content}}` for `{{content}}` (the raw form this gallery mandates; identical output on staticdatagen 0.0.21 and later). Compiling the same content through the theme and through the flat layouts with `ssg --no-tag-pages -c -t -o` produces identical HTML (verified on 14 pages with ssg 0.0.66; only the news sitemap timestamp and the stylesheet file name differ), and a full build of the live site from the flattened layouts matched the baseline build page for page.
+The diff is empty: the site's layouts use `{{!content}}`, the raw form this gallery mandates, and the site's CI flattens this theme at a pinned commit and fails when its `_layouts/` differ. `flatten.py` inlines the partials before it fills the blocks, so a block a partial declares (the footer's `newsletter`) is filled like one in `base.html`. Compiling the same content through the theme and through the flat layouts with `ssg --no-tag-pages -c -t -o` produces identical HTML (verified on 14 pages with ssg 0.0.66; only the news sitemap timestamp and the stylesheet file name differ), and a full build of the live site from the flattened layouts matched the baseline build page for page.
 
 ## Build
 

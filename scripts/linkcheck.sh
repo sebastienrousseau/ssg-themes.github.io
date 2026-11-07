@@ -28,7 +28,9 @@ for _ in $(seq 1 40); do
   sleep 0.25
 done
 
-npx --yes linkinator "http://127.0.0.1:${PORT}/" \
+# Pinned: linkinator 8.0.3 and later depend on chalk ^6, which npm does
+# not publish (latest is 5.x), so an unpinned npx install fails.
+npx --yes linkinator@8.0.2 "http://127.0.0.1:${PORT}/" \
   --recurse --silent --concurrency 20 \
   --retry-errors --retry-errors-count 3 \
   --skip "^https?://(?!127\.0\.0\.1)"

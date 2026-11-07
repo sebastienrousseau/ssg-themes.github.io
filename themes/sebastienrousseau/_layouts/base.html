@@ -67,7 +67,7 @@
          Lighthouse-simulated Slow-4G has been pinning LCP at ~5.6s; the
          observed (real-network) LCP is 165 ms. This hint pulls the
          synthetic LCP in line with the observed value. -->
-    <link rel="preload" as="image" href="{{image}}" fetchpriority="high">
+    <link rel="preload" as="image" href="/_csp/hero-portrait-192.webp" imagesrcset="/_csp/hero-portrait-192.webp 192w, /_csp/hero-portrait-288.webp 288w" imagesizes="96px" fetchpriority="high">
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
@@ -78,7 +78,11 @@
     <script src="/theme-init.js"></script>
 
     <style>
-{{> partials/styles}}{{#block "styles"}}{{/block}}    </style>
+      @layer legacy { /* ds:legacy-start */
+{{> partials/styles}}{{#block "styles"}}{{/block}}      } /* ds:legacy-end */
+/* ds:start */
+{{> partials/ds}}/* ds:end */
+    </style>
     <style>:root{--accent-page:rgb({{theme-color}});--accent-page-rgb:{{theme-color}}}</style>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage">
@@ -90,9 +94,9 @@
     <section class="feat feat-hero" aria-labelledby="hero-headline">
       <div class="wrap feat-hero-grid">
         <div class="feat-hero-copy">
-          <img class="hero-portrait" src="{{image}}" alt="{{image_alt}}" width="96" height="96" loading="eager" fetchpriority="high" decoding="async" />
+          <img class="hero-portrait" src="/_csp/hero-portrait-192.webp" srcset="/_csp/hero-portrait-192.webp 192w, /_csp/hero-portrait-288.webp 288w" sizes="96px" alt="{{image_alt}}" width="96" height="96" loading="eager" fetchpriority="high" decoding="async" />
           <p class="feat-credentials"><a href="/about/index.html">Wholesale Payments &amp; AI Leader</a> · Author of the <a href="https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf">EPAA Quantum-Safe Payments Paper</a> · Creator of <a href="/projects/index.html">179 open-source packages</a></p>
-          <h1 id="hero-headline" class="feat-headline center" itemprop="headline">Securing the future of banking<br />with agentic AI<br />and post-quantum cryptography.</h1>
+          <h1 id="hero-headline" class="feat-headline center" itemprop="headline">Securing the future of banking with agentic AI and post-quantum cryptography.</h1>
           <p class="feat-sub center">Open-source payments, post-quantum security, and applied AI for financial services.</p>
           <div class="feat-cta">
             <a class="pill" href="/articles/index.html">Read latest research</a>
@@ -356,20 +360,20 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Your DORA Exit Plan Was Priced, Not Planned. The Price Disappears in January.",
-          "url": "https://sebastienrousseau.com/2026-08-04-data-act-cloud-switching-dora-exit-strategies-2026/"
+          "name": "Why the FCA Is Regulating AI Without an AI Rulebook",
+          "url": "https://sebastienrousseau.com/2026-10-28-why-the-fca-is-regulating-ai-without-an-ai-rulebook/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "DORA Spared You From NIS2. It Will Not Spare You From the CRA.",
-          "url": "https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/"
+          "name": "The Mystery Seeds Behind NIST's Curves Were Never Hashes, and Claude Found Out in Under Half an Hour",
+          "url": "https://sebastienrousseau.com/2026-10-26-mystery-seeds-behind-nist-curves-were-never-hashes-claude/"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.",
-          "url": "https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/"
+          "name": "Agentic AI breaks the assumption behind every task-exposure forecast",
+          "url": "https://sebastienrousseau.com/2026-10-25-agentic-ai-breaks-the-assumption-behind-every-task-exposure-forecast/"
         }
       ]
     }
@@ -378,5 +382,6 @@
     </script>
 
     {{/block}}<script src="/main.js" defer></script>
+    <script type="module" src="/_csp/web-vitals.js"></script>
   </body>
 </html>

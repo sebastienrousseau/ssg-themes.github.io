@@ -7,6 +7,30 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Design system v2 from sebastienrousseau.com 0.0.33: `base.html` wraps
+  the shell stylesheet in `@layer legacy { ... }` and appends
+  `design-system.css` unlayered through `{{> partials/ds}}`, so the design
+  system's columns and type roles win without `!important`. The
+  `--fs-*`, `--lh-*` and `--track-micro` tokens now live only in
+  `design-system.css`; `styles.css` no longer repeats them (the values
+  were identical). `flatten.py` output equals the site's
+  `design_system.apply()` byte for byte, and `extract_from_site.py`
+  unwraps the layer and writes `design-system.css` and the `ds` partial,
+  so `extract -> flatten` still round-trips.
+- Every layout loads `/_csp/web-vitals.js` (first-party Core Web Vitals)
+  after `main.js`, and `main.js` gains the cookie-free `emitTrack()`
+  event helper.
+- The home hero headline is one line of text; the forced `<br />` breaks
+  are gone.
+- The layouts are re-extracted from sebastienrousseau.com 0.0.32 plus
+  its type scale: one column system (`--col-wide`, `--col-read`,
+  `--col-mid`, a fluid `--gutter`) and one fluid type scale (`--fs-micro`
+  to `--fs-display`, with matching line heights) across every layout.
+  The footer's newsletter form sits in a `newsletter` block that the
+  home layout empties, so the home page keeps one form. `flatten.py`
+  inlines partials before filling blocks, so a block inside a partial
+  is filled too; `extract_from_site.py` writes the block and checks
+  every other footer difference.
 - The layouts are re-extracted from sebastienrousseau.com 0.0.22, and
   `tools/flatten.py` turns them back into the site's twelve layouts byte
   for byte. They bring the site's work since 1.2.1: the home page's
@@ -54,6 +78,13 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- Nothing escapes a 320 px viewport any more (back-ported from the
+  site). The header's utility group ended 1 px past the edge, so it
+  now uses tighter gaps below 375 px; the rotating hero heading on
+  `/iso20022-mcp/` and `/projects/` steps down to `--fs-h2` below
+  360 px, because its longest phrase ran 12 px past both edges; and a
+  long tool name on `/iso20022-mcp-reference/` can now wrap instead of
+  widening the page to 334 px.
 - The home page no longer shifts on desktop when its "Read as" control
   appears. The control is hidden until `main.js` wires it, and showing
   it moved the content below by 18 px inside the first view, a layout

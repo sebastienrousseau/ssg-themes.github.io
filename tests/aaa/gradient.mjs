@@ -16,6 +16,7 @@
 // through the element's rounded corners and score white-on-white as a
 // failure, which is what a first attempt at this did.
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { PAGES } from './pages.mjs';
 import { PNG } from 'pngjs';
 
@@ -66,7 +67,7 @@ const lin = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.
 const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const fails = [];
 let checked = 0;
 

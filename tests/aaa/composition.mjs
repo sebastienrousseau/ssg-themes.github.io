@@ -34,6 +34,7 @@
  * the mechanical faults a person would call broken, not taste.
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { BASE, PAGES } from './pages.mjs';
 
 /* How much of an axis a `cover` image may lose before it counts as cut away
@@ -168,7 +169,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const pages = only ? PAGES.filter((p) => p.startsWith(`/${only}/`)) : PAGES;
   if (!pages.length) throw new Error(`no pages for ONLY_THEME=${only}`);
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(HERMETIC);
   const found = new Map();
   let renders = 0;
 

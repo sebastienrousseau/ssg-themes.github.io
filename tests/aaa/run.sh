@@ -82,6 +82,8 @@ done
 
 node tests/aaa/selftest.mjs
 node tests/aaa/composition-selftest.mjs
+node tests/aaa/targets-selftest.mjs
+node tests/aaa/focus-selftest.mjs
 node tests/aaa/modes.mjs
 
 # The page-walking gates run in AAA_BATCHES groups, each in its own browser.

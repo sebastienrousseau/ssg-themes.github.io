@@ -23,6 +23,7 @@
  * Usage:  node semantics.mjs --base http://127.0.0.1:8765/ssg-themes.github.io
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { readFileSync } from 'node:fs';
 
 const BASE = process.argv.includes('--base')
@@ -35,7 +36,7 @@ const pages = readFileSync(new URL('./pages.txt', import.meta.url), 'utf8')
 const failures = [];
 const fail = (suite, path, ctx, detail) => failures.push({ suite, path, ctx, detail });
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 
 // ── 1. semantics ───────────────────────────────────────────────────────
 {

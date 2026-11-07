@@ -106,6 +106,6 @@ translation_key: "papers"
 
 <p>The publications hub has a new home. All industry white papers, research notes and technical analysis now live in <a href="/research/index.html" title="ISO 20022 Research, White Papers &amp; Technical Analysis">Research</a>.</p>
 
-<p><a href="/research/index.html">Go to Research &#8250;</a></p>
+<p class="link-row"><a href="/research/index.html">Go to Research &#8250;</a></p>
 
 </section>

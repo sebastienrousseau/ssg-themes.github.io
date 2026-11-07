@@ -4,6 +4,7 @@
 # WCAG 2.2 Level AAA Mathematical Contrast Ratio Validator
 import sys
 
+
 def hex_to_rgb(hex_str):
     hex_str = hex_str.lstrip("#")
     if len(hex_str) == 3:

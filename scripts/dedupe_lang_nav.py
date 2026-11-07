@@ -15,7 +15,7 @@ import re
 import sys
 from pathlib import Path
 
-INJECTED = re.compile(r'\s*<nav class="lang-switcher".*?</nav>', re.S)
+INJECTED = re.compile(r'\s*<nav class="lang-switcher".*?</nav>', re.DOTALL)
 
 
 def main() -> int:

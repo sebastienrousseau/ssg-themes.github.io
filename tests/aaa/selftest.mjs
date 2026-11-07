@@ -5,6 +5,7 @@
  * formula and the fixture's source colours - not copied from what the audit
  * printed - so agreement means both arrived at the same number independently. */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { AUDIT } from './audit.mjs';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
@@ -28,7 +29,7 @@ const EXPECT = {
   alphatext: ratio(over([0, 0, 0], 0.35, WHITE), WHITE),
 };
 
-const b = await chromium.launch();
+const b = await chromium.launch(HERMETIC);
 const p = await b.newPage();
 await p.goto(pathToFileURL(resolve('tests/aaa/fixtures/contrast.html')).href);
 const got = await p.evaluate(AUDIT);

@@ -8,14 +8,8 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-if [[ -x "/tmp/builds/cargo/release/ssg" ]]; then
-  SSG="/tmp/builds/cargo/release/ssg"
-elif command -v ssg >/dev/null 2>&1; then
-  SSG="ssg"
-else
-  echo "error: no \`ssg\` binary found on PATH" >&2
-  exit 1
-fi
+# shellcheck source=scripts/resolve-ssg.sh
+source scripts/resolve-ssg.sh
 
 ROOT="$(bash scripts/mirror-root.sh)"
 

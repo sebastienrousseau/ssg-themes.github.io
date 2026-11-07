@@ -129,8 +129,25 @@ build-jspassgen:
 
 # `check-weight` needs a build to inspect, so it depends on one. The other
 # two gates read source and run standalone.
-check: check-structure check-contrast check-wordlist build check-weight check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
+check: test check-structure check-contrast check-wordlist build check-weight check-sri check-a11y-report check-chrome check-audit check-responsive check-aaa check-links check-pa11y check-schema
 	@echo "All gates passed."
+
+# Unit tests for the scripts that rewrite built HTML. Standard library only
+# (unittest), so they need nothing installed and run first.
+.PHONY: test
+test:
+	@PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -m unittest discover -s tests/unit -v
+
+.PHONY: check-sri check-a11y-report
+
+# The generator's own per-theme accessibility report must list no issues.
+check-a11y-report:
+	@$(PYTHON) scripts/a11y_report.py
+
+# Every local integrity hash in public/ recomputed from the file it pins;
+# post-build passes rewrite HTML and assets after the generator signs them.
+check-sri:
+	@$(PYTHON) scripts/verify_sri.py public
 
 check-links:
 	@bash scripts/linkcheck.sh
