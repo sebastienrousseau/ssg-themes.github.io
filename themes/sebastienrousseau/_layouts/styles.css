@@ -52,31 +52,9 @@
         --pad-x:var(--gutter);
         --max:var(--col-mid);
         --max-wide:var(--col-wide);
-        /* Type scale v1: one fluid size per role, 360 px to 1440 px
-           (micro 12-13, meta 13-14, small 14-16, ui 15-17, body 16-18,
-           prose 18-20, lead 19-24, h4 18-21, h3 20-26, h2-prose 24-32,
-           h2 28-44, h1 34-56, display 40-76, stat 36-56), with a
-           large-screen step from 120em. Every heading, lead, body, card,
-           meta and eyebrow rule points at one of these. Single spaces
-           only around + inside clamp(): ssg's minify_css voids the
-           clamp() when a run of spaces precedes an operator. */
-        --fs-micro: clamp(0.75rem, 0.7292rem + 0.0926vw, 0.8125rem);
-        --fs-meta: clamp(0.8125rem, 0.7917rem + 0.0926vw, 0.875rem);
-        --fs-small: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
-        --fs-ui: clamp(0.9375rem, 0.8958rem + 0.1852vw, 1.0625rem);
-        --fs-body: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
-        --fs-prose: clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem);
-        --fs-lead: clamp(1.1875rem, 1.0833rem + 0.463vw, 1.5rem);
-        --fs-h4: clamp(1.125rem, 1.0625rem + 0.2778vw, 1.3125rem);
-        --fs-h3: clamp(1.25rem, 1.125rem + 0.5556vw, 1.625rem);
-        --fs-h2-prose: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem);
-        --fs-h2: clamp(1.75rem, 1.4167rem + 1.4815vw, 2.75rem);
-        --fs-h1: clamp(2.125rem, 1.6667rem + 2.037vw, 3.5rem);
-        --fs-display: clamp(2.5rem, 1.75rem + 3.3333vw, 4.75rem);
-        --fs-stat: clamp(2.25rem, 1.8333rem + 1.8519vw, 3.5rem);
-        --lh-display: 1.04; --lh-heading: 1.12; --lh-card: 1.25;
-        --lh-lead: 1.4; --lh-body: 1.55; --lh-prose: 1.65;
-        --track-micro: 0.08em;
+        /* Type scale: the --fs-*, --lh-* and --track-micro tokens are
+           defined once, in design-system.css (unlayered, after this
+           layer), which every role rule below resolves against. */
         --radius:18px;
         /* FT-tier editorial tokens. --paper is the warm article surface
            separate from --bg (which keeps the chrome cool-neutral);
@@ -212,12 +190,6 @@
       *{box-sizing:border-box}
       @media (min-width:120em){:root{
         --gutter:5rem;
-        --fs-body: clamp(1.125rem, 1.0446rem + 0.0893vw, 1.1875rem);
-        --fs-prose: clamp(1.25rem, 1.1696rem + 0.0893vw, 1.3125rem);
-        --fs-lead: clamp(1.5rem, 1.3393rem + 0.1786vw, 1.625rem);
-        --fs-h2: clamp(2.75rem, 2.1071rem + 0.7143vw, 3.25rem);
-        --fs-h1: clamp(3.5rem, 2.8571rem + 0.7143vw, 4rem);
-        --fs-display: clamp(4.75rem, 4.1071rem + 0.7143vw, 5.25rem);
       }}
       html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-block-start:calc(var(--nav-h, 64px) + 16px)}
       :is(a,button,input,select,textarea,summary,[tabindex]):focus{scroll-margin-block:calc(var(--nav-h, 64px) + 16px) 24px}

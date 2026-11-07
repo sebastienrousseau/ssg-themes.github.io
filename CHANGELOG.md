@@ -29,6 +29,9 @@ step by 0.0.1 per release. The full notes for each release live in
 ### Changed
 
 - The sebastienrousseau theme takes the site's column layouts and type scale.
+- The sebastienrousseau theme takes the site's design system v2: the
+  shell stylesheet in `@layer legacy`, with `design-system.css` after it
+  as the one source of the type scale.
 - The generator pin moves to ssg 0.0.72.
 - Every GitHub Action is pinned to a full commit SHA. Checkouts no longer
   keep the token, jobs have timeouts, and a deploy on `main` is never

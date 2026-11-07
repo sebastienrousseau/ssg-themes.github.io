@@ -7,6 +7,21 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Design system v2 from sebastienrousseau.com 0.0.33: `base.html` wraps
+  the shell stylesheet in `@layer legacy { ... }` and appends
+  `design-system.css` unlayered through `{{> partials/ds}}`, so the design
+  system's columns and type roles win without `!important`. The
+  `--fs-*`, `--lh-*` and `--track-micro` tokens now live only in
+  `design-system.css`; `styles.css` no longer repeats them (the values
+  were identical). `flatten.py` output equals the site's
+  `design_system.apply()` byte for byte, and `extract_from_site.py`
+  unwraps the layer and writes `design-system.css` and the `ds` partial,
+  so `extract -> flatten` still round-trips.
+- Every layout loads `/_csp/web-vitals.js` (first-party Core Web Vitals)
+  after `main.js`, and `main.js` gains the cookie-free `emitTrack()`
+  event helper.
+- The home hero headline is one line of text; the forced `<br />` breaks
+  are gone.
 - The layouts are re-extracted from sebastienrousseau.com 0.0.32 plus
   its type scale: one column system (`--col-wide`, `--col-read`,
   `--col-mid`, a fluid `--gutter`) and one fluid type scale (`--fs-micro`
