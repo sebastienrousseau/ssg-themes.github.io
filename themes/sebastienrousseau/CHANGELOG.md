@@ -7,6 +7,14 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Playlists: the topper copy sits on an opaque panel over the aurora and
+  the hero copy on an opaque card, the play buttons' icon takes the ink
+  colour, and the page's wrap takes the frame width so the full-bleed
+  hero and bands stay inside it (design system); contrast is measurable
+  and passes pa11y at WCAG 2 AAA.
+- The project hero's rotating line scales to its title on narrow
+  screens instead of overflowing them; Quill's wordmark keeps its
+  glyphs inside its line box.
 - Playlists: the 40 Spotify players load only when the reader presses
   play. Each is a button carrying the embed URL until then, so the page
   sends nothing to the Spotify player (and Spotify sets no cookie) on
