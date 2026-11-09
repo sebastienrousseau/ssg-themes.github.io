@@ -4,6 +4,7 @@
  * Taking them from the built site rather than drawing them by hand means the
  * picture cannot drift from what the theme actually renders. */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8733';
 const THEMES = (process.env.SHOT_THEMES || 'stablo,quill').split(',');
@@ -12,7 +13,7 @@ const SIZES = [
   { file: 'tn.png', width: 900, height: 600 },
 ];
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 for (const theme of THEMES) {
   for (const size of SIZES) {
     const page = await browser.newPage({

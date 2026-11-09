@@ -66,7 +66,7 @@ def main() -> int:
     for key, value in facts.items():
         html = re.sub(
             rf'(<b data-fact="{key}">)[^<]*(</b>)',
-            lambda mm: mm.group(1) + value + mm.group(2),
+            lambda mm, value=value: mm.group(1) + value + mm.group(2),
             html,
         )
 

@@ -24,6 +24,8 @@
  * Usage:  node interaction.mjs --base http://127.0.0.1:8765/ssg-themes.github.io
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
+import { clippedContent } from './clip.mjs';
 import { readFileSync } from 'node:fs';
 
 const BASE = process.argv.includes('--base')
@@ -56,7 +58,7 @@ function applyTextSpacing() {
   }
 }
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 
 // ── 1. keyboard ────────────────────────────────────────────────────────
 {
@@ -192,33 +194,7 @@ for (const mode of ['zoom-200', 'text-spacing']) {
       await page.evaluate(applyTextSpacing);
     }
     await page.waitForTimeout(80);
-    const bad = await page.evaluate(() => {
-      const out = [];
-      const de = document.documentElement;
-      if (de.scrollWidth > de.clientWidth + 1) {
-        out.push(`document overflows: ${de.scrollWidth} > ${de.clientWidth}`);
-      }
-      // Content clipped by a fixed height is the classic 1.4.4 failure.
-      for (const el of document.querySelectorAll('body *')) {
-        const s = getComputedStyle(el);
-        // Screen-reader-only text is clipped on purpose; that is the
-        // technique, not a loss of content.
-        const srOnly =
-          (parseFloat(s.width) <= 1 && parseFloat(s.height) <= 1) ||
-          s.clipPath === 'inset(50%)' ||
-          /visually-hidden|sr-only|visuallyhidden/.test(
-            typeof el.className === 'string' ? el.className : '');
-        if (srOnly) continue;
-        if (s.overflow === 'hidden' || s.overflowY === 'hidden') {
-          if (el.scrollHeight > el.clientHeight + 2 && el.clientHeight > 0) {
-            const id = `${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}` +
-              (typeof el.className === 'string' && el.className ? `.${el.className.trim().split(/\s+/)[0]}` : '');
-            out.push(`${id} clips ${el.scrollHeight - el.clientHeight}px of content`);
-          }
-        }
-      }
-      return out;
-    });
+    const bad = await page.evaluate(clippedContent);
     for (const b of [...new Set(bad)]) fail('zoom', path, mode, b);
   }
   await ctx.close();

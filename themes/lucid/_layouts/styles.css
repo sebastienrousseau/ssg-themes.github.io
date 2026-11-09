@@ -862,3 +862,9 @@ h1 {
     color: #090a0f;
   }
 }
+
+/* The generator's search trigger is labelled "Search" but also shows a
+   one-letter shortcut hint, so its visible text ("Search K") is not part of
+   its accessible name (WCAG 2.5.3, axe label-content-name-mismatch). The
+   shortcut still works; only the hint is hidden. */
+#ssg-search-btn kbd { display: none; }

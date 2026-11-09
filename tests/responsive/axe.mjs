@@ -18,6 +18,7 @@
  * Usage:  node axe.mjs [--base http://127.0.0.1:8765/ssg-themes.github.io]
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import AxeBuilder from '@axe-core/playwright';
 import { readFileSync } from 'node:fs';
 
@@ -35,7 +36,7 @@ const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'wcag2aaa'
 const pages = readFileSync(new URL('./pages.txt', import.meta.url), 'utf8')
   .split('\n').map((s) => s.trim()).filter(Boolean);
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const context = await browser.newContext();
 const page = await context.newPage();
 
@@ -46,6 +47,20 @@ for (const path of pages) {
     findings.push({ path, id: 'http', help: `status ${res?.status()}`, nodes: [] });
     continue;
   }
+  // Measure the settled page. An entrance animation (the site theme's
+  // hero subtitle fades in over 0.8 s) can still be running when the
+  // network goes idle, and axe then reads half-transparent text as low
+  // contrast on one run and not the next. Only time-driven animations
+  // are awaited: an infinite one never finishes, and a scroll-driven one
+  // (reading progress, nav elevation) finishes only when the page is
+  // scrolled. The 3 s cap keeps a new kind from hanging the suite.
+  await page.evaluate(() => Promise.race([
+    Promise.all(document.getAnimations()
+      .filter((a) => a.timeline instanceof DocumentTimeline
+        && a.effect?.getTiming().iterations !== Infinity)
+      .map((a) => a.finished.catch(() => {}))),
+    new Promise((resolve) => setTimeout(resolve, 3000)),
+  ]));
   const { violations } = await new AxeBuilder({ page }).withTags(TAGS).analyze();
   for (const v of violations) {
     findings.push({

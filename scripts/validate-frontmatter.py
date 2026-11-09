@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 # Semantic Version: v0.0.1
 # Frontmatter Schema & Structural Linter
-import os, sys
+import os
+import sys
 
 target_dirs = ["content", "_posts", "docs"]
 found_files = []
@@ -36,7 +37,7 @@ for fpath in found_files:
             fm = parts[1]
             if "title:" not in fm and "title =" not in fm:
                 errors.append(f"{fpath}: Missing mandatory `title:` frontmatter field")
-    except Exception as e:
+    except OSError as e:
         errors.append(f"{fpath}: Read error: {e}")
 
 if errors:

@@ -374,6 +374,73 @@
   transform: scale(1.015);
 }
 
+/* ---- category filter bar --------------------------------------------- */
+.sc-filter-bar {
+  position: sticky;
+  top: 4.25rem;
+  z-index: 90;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem max(12px, env(safe-area-inset-left));
+  margin-block-end: 12px;
+  background: var(--surface);
+  border-block-end: 1px solid var(--line-soft);
+  transition: opacity 150ms ease;
+}
+
+.sc-filter-bar[data-yield="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 63.99rem) {
+  .sc-filter-bar {
+    position: relative;
+    top: auto;
+  }
+}
+
+html.no-js .sc-filter-bar {
+  display: none;
+}
+
+.sc-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill, 980px);
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-family: var(--font-system, var(--font-sans));
+  font-size: 0.875rem;
+  line-height: 1.25;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sc-filter-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sc-filter-chip[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.sc-filter-chip:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
 /* ---- gates table ----------------------------------------------------- */
 .showcase > .sc-gates {
   display: block;
@@ -399,7 +466,8 @@
 
 @media (forced-colors: active) {
   .button,
-  .button.button-secondary {
+  .button.button-secondary,
+  .sc-filter-chip {
     border: 1px solid ButtonText;
     forced-color-adjust: none;
     background: ButtonFace;
@@ -408,6 +476,9 @@
 }
 
 @media print {
+  .sc-filter-bar {
+    display: none !important;
+  }
   .tile-wrapper,
   .tile-wrapper.theme-dark {
     min-height: 0;

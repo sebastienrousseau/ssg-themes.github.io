@@ -82,6 +82,8 @@ done
 
 node tests/aaa/selftest.mjs
 node tests/aaa/composition-selftest.mjs
+node tests/aaa/targets-selftest.mjs
+node tests/aaa/focus-selftest.mjs
 node tests/aaa/modes.mjs
 
 # The page-walking gates run in AAA_BATCHES groups, each in its own browser.
@@ -119,10 +121,14 @@ run_batched() {
   done
 }
 
-run_batched a11y
-run_batched reflow
-run_batched focus
 # Composition: cropped or stretched images, a photograph used twice on one
-# page, and text laid over text. None of the suites above can see any of it.
-run_batched gradient
-run_batched composition
+# page, and text laid over text. None of the other suites can see any of it.
+#
+# AAA_SUITES runs a subset. CI runs one suite per job, in parallel: run in
+# sequence in one job, the five outgrew its time limit at ~420 pages.
+for suite in ${AAA_SUITES:-a11y reflow focus gradient composition}; do
+  case "${suite}" in
+    a11y | reflow | focus | gradient | composition) run_batched "${suite}" ;;
+    *) echo "error: unknown AAA suite '${suite}'" >&2; exit 1 ;;
+  esac
+done

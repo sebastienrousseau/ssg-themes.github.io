@@ -379,6 +379,7 @@ body {
   width: 1.875rem;
   height: 1.875rem;
   flex-shrink: 0;
+  color: var(--accent);
 }
 
 .brand-badge {
@@ -2509,3 +2510,9 @@ input[type="range"] {
 .contact-form textarea { min-height: 9rem; resize: vertical; }
 .contact-form .field-hint { margin: 0; color: var(--ink-muted); font-size: 0.875rem; }
 .contact-form .button { justify-self: start; }
+
+/* The generator's search trigger is labelled "Search" but also shows a
+   one-letter shortcut hint, so its visible text ("Search K") is not part of
+   its accessible name (WCAG 2.5.3, axe label-content-name-mismatch). The
+   shortcut still works; only the hint is hidden. */
+#ssg-search-btn kbd { display: none; }

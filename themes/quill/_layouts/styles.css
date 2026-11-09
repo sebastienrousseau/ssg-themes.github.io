@@ -158,7 +158,10 @@ a:hover { color: var(--accent-hover); }
   font-size: clamp(2rem, 6vw, 3.25rem);
   font-weight: 800;
   letter-spacing: -0.055em;
-  line-height: 1;
+  /* 1.15, not 1: at 1 the bold glyphs overflow the line box, and axe
+     reports the wordmark's contrast as undeterminable (partially
+     obscured), which pa11y counts as an error. */
+  line-height: 1.15;
 }
 .brand-dot { color: var(--accent); }
 .brand-tagline {
@@ -777,3 +780,9 @@ h1 {
     color: #090a0f;
   }
 }
+
+/* The generator's search trigger is labelled "Search" but also shows a
+   one-letter shortcut hint, so its visible text ("Search K") is not part of
+   its accessible name (WCAG 2.5.3, axe label-content-name-mismatch). The
+   shortcut still works; only the hint is hidden. */
+#ssg-search-btn kbd { display: none; }

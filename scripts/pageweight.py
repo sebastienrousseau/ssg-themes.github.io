@@ -15,9 +15,9 @@ Run by `make check` after a build, and by CI.
 from __future__ import annotations
 
 import gzip
-import tomllib
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 BUDGET_KB = 20
@@ -60,16 +60,16 @@ def theme_budget_kb(root: Path, theme: str) -> int:
 SRC_FETCH = re.compile(
     r'<(?:script|img|source|iframe|embed|video|audio)\b[^>]*?'
     r'\bsrc\s*=\s*["\']([^"\']+)["\']',
-    re.I,
+    re.IGNORECASE,
 )
 
 # `<link>` only fetches for certain `rel` values. `canonical`, `alternate`
 # (hreflang and feed discovery) and `manifest` are metadata: they name a
 # URL without the browser requesting it as part of rendering the page, so
 # an absolute self-referential canonical is not a third-party request.
-LINK_TAG = re.compile(r"<link\b[^>]*>", re.I)
-LINK_REL = re.compile(r'\brel\s*=\s*["\']([^"\']+)["\']', re.I)
-LINK_HREF = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.I)
+LINK_TAG = re.compile(r"<link\b[^>]*>", re.IGNORECASE)
+LINK_REL = re.compile(r'\brel\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
+LINK_HREF = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
 FETCHING_REL = {
     "stylesheet",
     "preload",

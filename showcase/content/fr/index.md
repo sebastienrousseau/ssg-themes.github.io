@@ -42,6 +42,17 @@ stat_weight: "page la plus lourde, gzippée, CSS et JS compris"
 stat_thirdparty: "requêtes tierces, sur chaque page"
 ---
 
+<div class="sc-filter-bar" role="group" aria-label="Filtrer les thèmes par catégorie">
+  <button type="button" class="sc-filter-chip" data-filter="all" aria-pressed="true">Tous</button>
+  <button type="button" class="sc-filter-chip" data-filter="Marketing" aria-pressed="false">Marketing</button>
+  <button type="button" class="sc-filter-chip" data-filter="Outils pour développeurs" aria-pressed="false">Outils pour développeurs</button>
+  <button type="button" class="sc-filter-chip" data-filter="Portfolio" aria-pressed="false">Portfolio</button>
+  <button type="button" class="sc-filter-chip" data-filter="Publication" aria-pressed="false">Publication</button>
+  <button type="button" class="sc-filter-chip" data-filter="Blog" aria-pressed="false">Blog</button>
+  <button type="button" class="sc-filter-chip" data-filter="Documentation" aria-pressed="false">Documentation</button>
+  <span id="filterStatus" class="visually-hidden" aria-live="polite"></span>
+</div>
+
 <section class="section section-promo" aria-labelledby="themes-heading">
   <h2 id="themes-heading" class="visually-hidden">Choisir un thème</h2>
     <article class="tile-wrapper" data-tile-id="apex">

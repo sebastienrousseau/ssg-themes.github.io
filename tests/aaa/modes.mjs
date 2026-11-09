@@ -22,6 +22,7 @@
  * be dark; it is not free to be identical in both modes.
  */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -85,7 +86,7 @@ const assertVoxtControl = (site, mode, control, fails) => {
   }
 };
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const fails = [];
 let checked = 0;
 

@@ -35,15 +35,15 @@ from pathlib import Path
 ROOT = Path("public")
 THEMES = Path("themes")
 
-HEADER = re.compile(r'<header class="site-header[^"]*"[^>]*>.*?</header>', re.S)
-FOOTER = re.compile(r'<footer class="site-footer[^"]*"[^>]*>.*?</footer>', re.S)
+HEADER = re.compile(r'<header class="site-header[^"]*"[^>]*>.*?</header>', re.DOTALL)
+FOOTER = re.compile(r'<footer class="site-footer[^"]*"[^>]*>.*?</footer>', re.DOTALL)
 STYLES = re.compile(r'<link rel="stylesheet" href="([^"]+)"')
 SCRIPTS = re.compile(r'<script[^>]*\ssrc="([^"]+)"')
 FINGERPRINT = re.compile(r"\.[0-9a-f]{8}\.")
 
 
 def normalise(fragment: str) -> str:
-    fragment = re.sub(r"<!--.*?-->", "", fragment, flags=re.S)
+    fragment = re.sub(r"<!--.*?-->", "", fragment, flags=re.DOTALL)
     fragment = re.sub(r'\s+aria-current="[^"]*"', "", fragment)
     fragment = re.sub(r'(<h[1-6][^>]*?)\s+id="[^"]*"', r"\1", fragment)
     fragment = re.sub(r"\s+", " ", fragment)

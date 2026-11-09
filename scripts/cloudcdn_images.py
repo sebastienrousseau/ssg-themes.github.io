@@ -9,11 +9,10 @@ checkout outside the standard ~/Code/Public/JavaScript/cloudcdn.pro location.
 from __future__ import annotations
 
 import hashlib
-import re
 import os
-from pathlib import Path
+import re
 import sys
-
+from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 THEMES = REPO / "themes"

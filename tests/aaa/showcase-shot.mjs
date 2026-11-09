@@ -8,11 +8,12 @@
  * node_modules; a script piped in on stdin resolves from the cwd instead,
  * where there is none. */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8733';
 const OUT = process.env.SHOT_OUT || 'showcase/images/screenshot.png';
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const page = await browser.newPage({
   viewport: { width: 1500, height: 1000 },
   deviceScaleFactor: 1,

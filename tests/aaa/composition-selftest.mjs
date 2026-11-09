@@ -2,6 +2,7 @@
    a gate that has never been run against an answer you already know is not
    evidence of anything. */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { PROBE } from './composition.mjs';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
@@ -16,7 +17,7 @@ const EXPECT = [
 // A correct image must not be reported by any check.
 const MUST_NOT_FLAG = ['c-framed', 'c-clean'];
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(HERMETIC);
 const page = await browser.newPage({ viewport: { width: 1000, height: 900 } });
 await page.goto(pathToFileURL(resolve('tests/aaa/fixtures/composition.html')).href, { waitUntil: 'load' });
 const found = await page.evaluate(PROBE, { coverFloor: 0.7, photoMin: 160, overlapPx: 4 });

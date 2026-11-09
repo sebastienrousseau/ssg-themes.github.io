@@ -38,11 +38,11 @@ def listed_pages(markup: str, canonical: str) -> list[dict]:
     items = []
     # A term page lists pages; the index page lists the terms themselves.
     block = re.search(
-        r'<ul class="taxonomy-(?:page|term)-list">(.*?)</ul>', markup, re.S)
+        r'<ul class="taxonomy-(?:page|term)-list">(.*?)</ul>', markup, re.DOTALL)
     if not block:
         return items
     for n, (href, label) in enumerate(
-        re.findall(r'<a href="([^"]+)"[^>]*>(.*?)</a>', block.group(1), re.S), 1
+        re.findall(r'<a href="([^"]+)"[^>]*>(.*?)</a>', block.group(1), re.DOTALL), 1
     ):
         items.append({
             "@type": "ListItem",
@@ -71,7 +71,7 @@ def canonical_csp(root: Path) -> str | None:
     return m.group(1) if m else None
 
 
-SWITCHER = re.compile(r'<nav class="lang-switcher".*?</nav>\s*', re.S)
+SWITCHER = re.compile(r'<nav class="lang-switcher".*?</nav>\s*', re.DOTALL)
 
 LANG_STRINGS = {
     "en": ("EN", "Change language", "Language"),
@@ -110,7 +110,7 @@ def enrich(path: Path, csp: str | None = None) -> bool:
 
     canonical = re.search(r'<link rel="canonical" href="([^"]+)"', markup)
     canonical = canonical.group(1) if canonical else ""
-    title = re.search(r"<title>(.*?)</title>", markup, re.S)
+    title = re.search(r"<title>(.*?)</title>", markup, re.DOTALL)
     title = html.unescape(title.group(1)).strip() if title else ""
     # "Tags: method — Atlas — …" → term "method", site "Atlas".
     # The first segment carries the taxonomy label ("Tags", "Categories");
@@ -136,7 +136,7 @@ def enrich(path: Path, csp: str | None = None) -> bool:
 
     # 1. Robots. Absent means "index, follow" by default, but the suite states
     #    it explicitly everywhere else and auditors flag the inconsistency.
-    if not re.search(r'<meta[^>]+name="robots"', markup, re.I):
+    if not re.search(r'<meta[^>]+name="robots"', markup, re.IGNORECASE):
         markup = markup.replace(
             '<link rel="canonical"',
             '<meta name="robots" content="index, follow"> <link rel="canonical"',

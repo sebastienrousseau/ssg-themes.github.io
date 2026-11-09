@@ -6,6 +6,7 @@
  * meta refresh; auditing the destination would no longer be an audit of this
  * repository. */
 import { chromium } from '@playwright/test';
+import { HERMETIC } from '../hermetic.mjs';
 import { readdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join, relative, sep } from 'node:path';
@@ -44,7 +45,7 @@ function itemCounts(category) {
 const excluded = new Set(['/portfolio/', '/sebastienrousseau/']);
 const paths = (await htmlFiles(root.pathname)).map(pagePath)
   .filter(path => !excluded.has(path)).sort();
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ ...HERMETIC, headless: true });
 const context = await browser.newContext({
   bypassCSP: true,
   viewport: { width: 1440, height: 900 },

@@ -1,38 +1,40 @@
 {{#extends "base"}}
+{{#block "head_extra"}}    <meta name="banner-src" content="{{banner}}" />
+{{/block}}
 {{#block "styles"}}      /* --- ISO 20022 MCP reference: live-captured tool catalog. Tool rows
          ride the canonical .qa accordion (shared marker, full-width hairline
          rows, sans summary typography); the reference adds only the
          three-part summary layout and the parameter table. All text uses the
          AAA token pairs (--ink / --ink-soft / --ink-mute / --ink-faint on
          --bg or --bg-alt, each >= 7:1 in both themes). */
-      .ref-totals{font-size:15.5px;color:var(--ink-soft)}
+      .ref-totals{font-size:var(--fs-small);color:var(--ink-soft)}
       .ref-index{margin:32px 0 0}
       .ref-index-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
       .ref-index-item{margin:0}
       main.content .ref-index-link{display:flex;flex-direction:column;gap:6px;height:100%;padding:18px;border:1px solid var(--border);border-radius:12px;color:var(--ink);text-decoration:none;transition:border-color .15s ease}
       main.content .ref-index-link:hover{border-color:var(--accent)}
       .ref-index-name code{font-family:var(--type-mono,ui-monospace,monospace);font-size:14px;color:var(--ink);background:transparent;padding:0;border:0}
-      .ref-index-role{font-size:13px;line-height:1.5;color:var(--ink-soft)}
-      .ref-index-count{font-family:var(--type-mono,ui-monospace,monospace);font-size:11px;letter-spacing:.04em;color:var(--ink-mute)}
+      .ref-index-role{font-size:var(--fs-micro);line-height:1.5;color:var(--ink-soft)}
+      .ref-index-count{font-family:var(--type-mono,ui-monospace,monospace);font-size:var(--fs-micro);letter-spacing:.04em;color:var(--ink-mute)}
       @media (max-width:860px){.ref-index-list{grid-template-columns:1fr 1fr}}
       @media (max-width:560px){.ref-index-list{grid-template-columns:1fr}}
-      .ref-capture{font-family:var(--type-mono,ui-monospace,monospace);font-size:12.5px;line-height:1.7;color:var(--ink-mute);margin:8px 0 20px}
+      .ref-capture{font-family:var(--type-mono,ui-monospace,monospace);font-size:var(--fs-micro);line-height:1.7;color:var(--ink-mute);margin:8px 0 20px}
       .ref-capture code{font-family:inherit;font-size:inherit;background:transparent;padding:0;border:0}
       .ref-tools{margin:0 0 8px}
-      .ref-tool > summary .ref-tool-name{flex:0 1 auto;min-width:0;max-width:100%;overflow-wrap:anywhere}
+      .ref-tool > summary .ref-tool-name{flex:0 1 auto;min-width:0}
       .ref-tool > summary .ref-tool-name code{font-family:var(--type-mono,ui-monospace,monospace);font-size:15px;color:inherit;background:transparent;padding:0;border:0}
-      .ref-tool-brief{flex:1;min-width:0;font-size:14px;font-weight:400;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .ref-tool-brief{flex:1;min-width:0;font-size:var(--fs-meta);font-weight:400;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .ref-tool-brief code,.ref-tool-desc code{background:transparent;padding:0;border:0}
-      .ref-tool-meta{flex:none;font-family:var(--type-mono,ui-monospace,monospace);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:400;color:var(--ink-mute);white-space:nowrap}
+      .ref-tool-meta{flex:none;font-family:var(--type-mono,ui-monospace,monospace);font-size:var(--fs-micro);letter-spacing:.04em;text-transform:uppercase;font-weight:400;color:var(--ink-mute);white-space:nowrap}
       @media (max-width:720px){.ref-tool-brief,.ref-tool-meta{display:none}}
-      main.content .ref-tool-desc{margin:0 0 14px;font-size:14.5px;line-height:1.6;color:var(--ink-soft);max-width:none}
-      .ref-noparams{margin:0;font-size:14px;color:var(--ink-mute)}
+      main.content .ref-tool-desc{margin:0 0 14px;font-size:var(--fs-small);line-height:1.6;color:var(--ink-soft);max-width:none}
+      .ref-noparams{margin:0;font-size:var(--fs-meta);color:var(--ink-mute)}
       .ref-params-wrap{overflow-x:auto}
-      .ref-params{width:100%;border-collapse:collapse;font-size:14px;line-height:1.55}
-      .ref-params th{font-family:var(--type-mono,ui-monospace,monospace);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-align:start;padding:8px 16px 8px 0;border-bottom:1px solid var(--border)}
+      .ref-params{width:100%;border-collapse:collapse;font-size:var(--fs-meta);line-height:1.55}
+      .ref-params th{font-family:var(--type-mono,ui-monospace,monospace);font-size:var(--fs-micro);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);text-align:start;padding:8px 16px 8px 0;border-bottom:1px solid var(--border)}
       .ref-params td{padding:10px 16px 10px 0;border-bottom:1px solid var(--rule);color:var(--ink-soft);vertical-align:top}
       .ref-params td code{background:transparent;padding:0;border:0;font-size:13px}
-      .ref-req{font-family:var(--type-mono,ui-monospace,monospace);font-size:11px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+      .ref-req{font-family:var(--type-mono,ui-monospace,monospace);font-size:var(--fs-micro);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
       .ref-req-required{color:var(--ink);font-weight:600}
       .ref-req-optional{color:var(--ink-mute)}
       /* --- ISO 20022 MCP docs: sticky-rail tutorial layout ------------- */
@@ -45,10 +47,10 @@
          `main.content :is(p,li,...) a:not([class])` underline rule (0,2,3) */
       main.content .docs-rail .tut-path-item a{display:block;height:100%;padding:16px 18px;border:1px solid var(--rule);border-radius:14px;background:var(--card);color:var(--ink);text-decoration:none;transition:border-color .15s ease}
       main.content .docs-rail .tut-path-item a:hover{border-color:var(--accent)}
-      .tut-path-chapter{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-block-end:6px}
-      .tut-path-title{display:block;font-size:15.5px;font-weight:600;line-height:1.3;color:var(--ink);margin-block-end:4px}
-      .tut-path-sub{display:block;font-size:13px;line-height:1.5;color:var(--ink-soft);margin-block-end:10px}
-      .tut-mins{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+      .tut-path-chapter{display:block;font-size:var(--fs-micro);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-block-end:6px}
+      .tut-path-title{display:block;font-size:var(--fs-small);font-weight:600;line-height:1.3;color:var(--ink);margin-block-end:4px}
+      .tut-path-sub{display:block;font-size:var(--fs-micro);line-height:1.5;color:var(--ink-soft);margin-block-end:10px}
+      .tut-mins{display:inline-block;font-size:var(--fs-micro);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
       @media (min-width:640px) and (max-width:1099.98px){.docs-rail .tut-path{grid-template-columns:1fr 1fr}}
       @media (min-width:1100px){
         .docs-shell{display:grid;grid-template-columns:264px minmax(0,1fr);gap:clamp(36px,4vw,72px);align-items:start}
@@ -58,17 +60,17 @@
       /* chapter heads: full-width, left-aligned, hairline rhythm */
       .docs-flow .tut-chapter-head{margin:clamp(56px,7vw,88px) 0 0;padding-block-start:clamp(28px,3.4vw,44px);border-block-start:1px solid var(--border);text-align:start;scroll-margin-block-start:calc(var(--nav-h,64px) + 16px)}
       .docs-flow .tut-chapter-head:first-child{margin-block-start:0;padding-block-start:0;border-block-start:0}
-      .tut-chapter-num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;font-size:18px;font-weight:600;color:var(--ink-mute);margin-block-end:18px}
-      .docs-flow .tut-chapter-head .cat-headline{font-size:clamp(30px,3.6vw,44px)}
+      .tut-chapter-num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;font-size:var(--fs-body);font-weight:600;color:var(--ink-mute);margin-block-end:18px}
+      .docs-flow .tut-chapter-head .cat-headline{font-size:var(--fs-h2)}
       .docs-flow .tut-chapter-head .cat-lede{max-width:66ch !important}
       .docs-flow .tut-chapter-head .tut-mins{margin-block-start:12px}
       /* section heads: left-aligned within the flow column */
       .docs-flow .cat-section-head{text-align:start;margin:clamp(40px,5vw,60px) 0 22px;max-width:none}
-      .docs-flow .cat-section-head .cat-headline{font-size:clamp(24px,2.6vw,32px)}
+      .docs-flow .cat-section-head .cat-headline{font-size:var(--fs-h2-prose)}
       .docs-flow .cat-section-head .cat-lede{max-width:72ch !important}
       .docs-flow .story-why{margin-block:18px 26px}
       .docs-flow section.newsroom{margin:0;padding:0;max-width:none}
-      .docs-flow .story-intro{font-size:16.5px;margin-block:18px 0}
+      .docs-flow .story-intro{font-size:var(--fs-body);margin-block:18px 0}
       /* code: comfortable measure instead of a full-bleed strip */
       .docs-flow pre{background:var(--bg-alt);border:1px solid var(--rule);border-radius:14px;padding:18px 20px;overflow-x:auto;max-width:860px;font-size:13.5px;line-height:1.65;color:var(--ink)}
       .docs-flow pre pre{background:transparent;border:0;border-radius:0;padding:0;margin:0;max-width:none}
@@ -84,30 +86,30 @@
         .docs-split .story-why{margin-block:0}
       }
       /* informational bullet lists as card grids (2x2, or 3-across) */
-      .docs-cardlist .story-why-list{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,20px)}
+      .docs-cardlist .story-why-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,20px)}
       .docs-cards-3 .story-why-list{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .docs-cardlist .story-why-list li{background:var(--bg-alt);border-radius:16px;padding:clamp(20px,2vw,26px);padding-inline-start:clamp(20px,2vw,26px);max-width:none;font-size:15px;line-height:1.6;min-width:0}
+      .docs-cardlist .story-why-list li{background:var(--bg-alt);border-radius:16px;padding:clamp(20px,2vw,26px);padding-inline-start:clamp(20px,2vw,26px);max-width:none;font-size:var(--fs-small);line-height:1.6;min-width:0}
       .docs-cardlist .story-why-list li::before{content:none}
       @media (max-width:900px){.docs-cardlist .story-why-list,.docs-cards-3 .story-why-list{grid-template-columns:1fr}}
       /* client cards: FMP-style dataset-grid density, 3-across at wide */
       .docs-client-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,20px);margin-block-start:20px}
       .docs-client{min-width:0;background:var(--bg-alt);border-radius:16px;padding:clamp(20px,2vw,26px);display:flex;flex-direction:column;gap:10px;margin:0}
-      .docs-client h4{margin:0;font-size:17px;line-height:1.3;color:var(--ink)}
-      .docs-client p{font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:none}
+      .docs-client h4{margin:0;font-size:var(--fs-body);line-height:1.3;color:var(--ink)}
+      .docs-client p{font-size:var(--fs-small);line-height:1.55;color:var(--ink-soft);margin:0;max-width:none}
       .docs-client pre{background:var(--card);border-color:var(--rule);margin:4px 0 0;max-width:none;font-size:12.5px}
       @media (max-width:1200px){.docs-client-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
       @media (max-width:720px){.docs-client-grid{grid-template-columns:1fr}}
 {{/block}}
 {{#block "main"}}
         <section class="story-hero">
-      <img class="story-hero-img" src="{{banner}}" alt="{{banner_alt}}" width="1920" height="1200" loading="eager" fetchpriority="high" decoding="async" />
+      <img class="story-hero-img" src="{{banner}}" alt="{{banner_alt}}" width="{{banner_width}}" height="{{banner_height}}" loading="eager" fetchpriority="high" decoding="async" />
       <div class="story-hero-inner">
         <h1>{{name}}</h1>
         <p class="story-hero-sub">{{subtitle}}</p>
       </div>
     </section>
 
-    <main id="main" class="content ap-section prose">
+    <main id="main" class="content ap-section">
       <div class="wrap">{{!content}}</div>
     </main>
 
@@ -128,7 +130,7 @@
       "url": "https://sebastienrousseau.com/",
       "image": "https://cloudcdn.pro/stocks/images/sebastienrousseau.webp",
       "jobTitle": "Senior Product Manager, Wholesale Payments & API",
-      "description": "AI, banking and financial services expert. Senior payments leader with nearly two decades across Tier-1 banks. Applied AI, wholesale payments, ISO 20022 migration, and post-quantum cryptography for financial services.",
+      "description": "Sebastien Rousseau is a senior payments and financial services leader with more than 20 years in payments, banking and digital technology. He leads wholesale payments API products at HSBC and is a member of the Emerging Payments Association Asia's Quantum-Safe Cryptography Working Group.",
       "identifier": {
         "@type": "PropertyValue",
         "propertyID": "ORCID",
@@ -138,43 +140,91 @@
       "worksFor": {
         "@type": "Organization",
         "@id": "https://www.hsbc.com/#organization",
-        "name": "HSBC Commercial & Investment Bank",
+        "name": "HSBC",
+        "department": {
+          "@type": "Organization",
+          "name": "Commercial & Investment Banking"
+        },
         "url": "https://www.hsbc.com/"
       },
+      "email": "mailto:contact@sebastienrousseau.com",
       "alumniOf": [
-        {"@type": "Organization", "name": "PayPal", "url": "https://www.paypal.com/"},
-        {"@type": "Organization", "name": "Barclays", "url": "https://www.barclays.com/"},
-        {"@type": "Organization", "name": "Shazam Entertainment", "url": "https://www.shazam.com/"},
-        {"@type": "Organization", "name": "AKQA", "url": "https://www.akqa.com/"},
-        {"@type": "Organization", "name": "Virgin Group", "url": "https://www.virgin.com/"}
-      ],
-      "memberOf": {
-        "@type": "ProgramMembership",
-        "programName": "Quantum-Safe Cryptography Working Group",
-        "hostingOrganization": {
-          "@type": "Organization",
-          "name": "Emerging Payments Association Asia",
-          "url": "https://emergingpaymentsasia.org/"
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Westminster"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Institut Supérieur de Gestion"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Université Sorbonne Nouvelle (Paris III)"
         }
-      },
+      ],
+      "memberOf": [
+        {
+          "@type": "ProgramMembership",
+          "programName": "Quantum-Safe Cryptography Working Group",
+          "hostingOrganization": {
+            "@type": "Organization",
+            "name": "Emerging Payments Association Asia",
+            "url": "https://emergingpaymentsasia.org/"
+          }
+        },
+        {
+          "@type": "OrganizationRole",
+          "roleName": "Fellow",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Institution of Analysts and Programmers"
+          }
+        }
+      ],
       "hasCredential": [
         {
           "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "professional experience",
-          "name": "Nearly two decades across Tier-1 banks and global payments infrastructure",
-          "recognizedBy": {"@type": "Organization", "name": "HSBC Commercial & Investment Bank", "url": "https://www.hsbc.com/"}
+          "name": "Rust Programming: From Fundamentals to Advanced Concepts with AI-Assisted Development",
+          "credentialCategory": "certificate"
         },
         {
           "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "domain expertise",
-          "name": "ISO 20022 migration and wholesale payments architecture",
-          "recognizedBy": {"@type": "Organization", "name": "SWIFT", "url": "https://www.swift.com/"}
+          "name": "Quantum Computing Fundamentals",
+          "credentialCategory": "certificate"
         },
         {
           "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "domain expertise",
-          "name": "Post-Quantum Cryptography for financial services",
-          "recognizedBy": {"@type": "Organization", "name": "NIST Post-Quantum Cryptography Project", "url": "https://csrc.nist.gov/projects/post-quantum-cryptography"}
+          "name": "Docker Foundations Professional Certificate",
+          "credentialCategory": "certificate"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "AI Essentials for Marketers",
+          "credentialCategory": "certificate"
+        }
+      ],
+      "award": [
+        "Mobile Agency of the Year",
+        "Agency of the Year",
+        "Best Branded Social TV Award",
+        "Best 2nd Screen Experience for TV on Mobile or Tablet (Shazam for TV)"
+      ],
+      "knowsLanguage": [
+        {
+          "@type": "Language",
+          "alternateName": "en"
+        },
+        {
+          "@type": "Language",
+          "alternateName": "fr"
+        },
+        {
+          "@type": "Language",
+          "alternateName": "es"
+        },
+        {
+          "@type": "Language",
+          "alternateName": "de"
         }
       ],
       "subjectOf": [
@@ -197,7 +247,7 @@
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "London",
-        "addressCountry": "United Kingdom"
+        "addressCountry": "GB"
       },
       "sameAs": [
         "https://orcid.org/0009-0005-1434-284X",
@@ -241,7 +291,7 @@
       "@id": "https://sebastienrousseau.com/#website",
       "url": "https://sebastienrousseau.com/",
       "name": "Sebastien Rousseau",
-      "description": "AI, banking and financial services expert. Senior payments leader at HSBC Commercial & Investment Bank.",
+      "description": "Senior payments and financial services leader; leads wholesale payments API products at HSBC and works on quantum-safe payments with the EPAA.",
       "publisher": {"@id": "https://sebastienrousseau.com/#organization"},
       "author": {"@id": "https://sebastienrousseau.com/#person"},
       "inLanguage": "{{language}}"
@@ -283,20 +333,20 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Your DORA Exit Plan Was Priced, Not Planned. The Price Disappears in January.",
-          "url": "https://sebastienrousseau.com/2026-08-04-data-act-cloud-switching-dora-exit-strategies-2026/"
+          "name": "Why the FCA Is Regulating AI Without an AI Rulebook",
+          "url": "https://sebastienrousseau.com/2026-10-28-why-the-fca-is-regulating-ai-without-an-ai-rulebook/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "DORA Spared You From NIS2. It Will Not Spare You From the CRA.",
-          "url": "https://sebastienrousseau.com/2026-08-03-cyber-resilience-act-article-14-reporting-banks-2026/"
+          "name": "The Mystery Seeds Behind NIST's Curves Were Never Hashes, and Claude Found Out in Under Half an Hour",
+          "url": "https://sebastienrousseau.com/2026-10-26-mystery-seeds-behind-nist-curves-were-never-hashes-claude/"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Your High-Risk Deadline Moved to December 2027. Your Chatbot's Did Not.",
-          "url": "https://sebastienrousseau.com/2026-08-02-ai-act-article-50-transparency-banks-omnibus-2026/"
+          "name": "Agentic AI breaks the assumption behind every task-exposure forecast",
+          "url": "https://sebastienrousseau.com/2026-10-25-agentic-ai-breaks-the-assumption-behind-every-task-exposure-forecast/"
         }
       ]
     }

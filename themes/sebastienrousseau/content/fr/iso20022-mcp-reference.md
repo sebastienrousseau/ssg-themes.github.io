@@ -4,8 +4,8 @@
 
 author: "contact@sebastienrousseau.com (Sebastien Rousseau)"
 banner_alt: "Aerial view of illuminated financial district at night"
-banner_height: "100vh"
-banner_width: "100vw"
+banner_height: "1187"
+banner_width: "1920"
 banner: "https://cloudcdn.pro/stocks/images/denys-nevozhai-2vmT5_FeMck-1920.webp"
 cdn: "https://cloudcdn.pro/clients"
 changefreq: "weekly"

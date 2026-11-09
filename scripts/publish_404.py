@@ -27,7 +27,7 @@ def strip_entry(path: Path, wrapper: str) -> int:
     text = path.read_text(encoding="utf-8")
     pattern = re.compile(
         rf"\s*<{wrapper}>(?:(?!</{wrapper}>).)*?/404/?<.*?</{wrapper}>",
-        re.S | re.I,
+        re.DOTALL | re.IGNORECASE,
     )
     cleaned, n = pattern.subn("", text)
     if n:
@@ -118,9 +118,9 @@ def drop_empty_feeds(root: Path) -> None:
     feed = (r'(?:https?://[^"/]+)?' + re.escape(here)
             + r'(?:rss\.xml|atom\.xml|feed\.json)')
     pattern_item = re.compile(
-        r'\s*<li>\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>\s*</li>', re.S)
+        r'\s*<li>\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>\s*</li>', re.DOTALL)
     pattern_link = re.compile(r'\s*<link[^>]+href="' + feed + r'"[^>]*>')
-    pattern_anchor = re.compile(r'\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>', re.S)
+    pattern_anchor = re.compile(r'\s*<a[^>]+href="' + feed + r'"[^>]*>.*?</a>', re.DOTALL)
     # Pages one level down link the withdrawn feed by its absolute URL: the
     # gallery's French error page advertised `/rss.xml` after the root feed
     # had been deleted for being empty, because the sweep below only looked

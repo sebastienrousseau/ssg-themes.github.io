@@ -90,6 +90,11 @@ PAGES_BACKUP="${ALL}"
 
 total="$(wc -l < "${ALL}" | tr -d ' ')"
 per=$(( (total + BATCHES - 1) / BATCHES ))
+# The clip check's own fixtures first: a check that cannot tell clipped
+# content from a decorative layer would pass or fail the pages for the
+# wrong reason.
+node tests/responsive/clip-selftest.mjs
+
 for gate in audit interaction semantics axe; do
   for (( i = 0; i < BATCHES; i++ )); do
     # The blocked-island check looks for a pricing page and falls back to

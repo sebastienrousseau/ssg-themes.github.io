@@ -23,10 +23,10 @@ import re
 import sys
 import unicodedata
 
-HEADING = re.compile(r"<(h[2-4])([^>]*)>(.*?)</\1>", re.S)
+HEADING = re.compile(r"<(h[2-4])([^>]*)>(.*?)</\1>", re.DOTALL)
 TAG = re.compile(r"<[^>]+>")
 ID_ATTR = re.compile(r'\bid\s*=\s*"([^"]*)"')
-PROSE = re.compile(r'<div class="prose">(.*?)</div>\s*<nav class="pager"', re.S)
+PROSE = re.compile(r'<div class="prose">(.*?)</div>\s*<nav class="pager"', re.DOTALL)
 
 
 def slug(text: str) -> str:
