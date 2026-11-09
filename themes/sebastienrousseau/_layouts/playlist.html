@@ -23,10 +23,15 @@
           radial-gradient(64% 88% at 88% 78%, rgba(150,60,255,.44), transparent 62%),
           radial-gradient(70% 96% at 34% 96%, rgba(255,26,92,.38), transparent 64%),
           linear-gradient(148deg, var(--pl-night-1) 0%, var(--pl-night-2) 46%, var(--pl-night-3) 100%);
+        background-color:var(--pl-night-2);
         color:var(--pl-white)}
       .pl-hero .pl-hero-title,.pl-hero .pl-everywhere h2{color:var(--pl-white)}
-      .pl-hero .pl-hero-desc{color:rgba(255,255,255,.86)}
-      .pl-hero .pl-hero-meta{color:rgba(255,255,255,.66)}
+      /* Opaque equivalents of white at 86% and 66% over --pl-night-2:
+         contrast checkers (HTML_CodeSniffer) cannot score translucent text. */
+      .pl-hero .pl-hero-desc{color:rgb(222 220 221)}
+      .pl-hero .pl-hero-meta{color:rgb(176 170 173)}
+      .pl-hero .pl-hero-note,.pl-hero .pl-hero-note a{color:rgb(222 220 221)}
+      .pl-hero .pl-hero-note a{text-decoration:underline}
       .pl-hero .pl-hero-kicker{color:var(--pl-rose)}
       .pl-hero-inner{max-width:var(--max-wide);margin-inline:auto;display:grid;
         grid-template-columns:1fr 1fr;gap:clamp(28px,4.5vw,72px);align-items:center}
@@ -56,7 +61,7 @@
         padding:clamp(88px,11vw,160px) var(--gutter) clamp(72px,9vw,120px)!important;
         text-align:center;color:var(--pl-white)!important;
         overflow:hidden;isolation:isolate;
-        background:linear-gradient(150deg,var(--pl-dusk-1) 0%,var(--pl-dusk-2) 48%,var(--pl-au-bg) 100%)!important}
+        background:linear-gradient(150deg,var(--pl-dusk-1) 0%,var(--pl-dusk-2) 48%,var(--pl-au-bg) 100%) var(--pl-dusk-2)!important}
       .pl-topper>*:not(.pl-aurora){position:relative;z-index:1}
       .pl-topper a.pl-jump{display:inline-flex;align-items:center;gap:11px;
         margin-block-start:clamp(34px,5vw,62px);padding:14px 28px;border-radius:999px;
@@ -138,7 +143,7 @@
       .pl-topper h1{font-family:var(--type-body);font-size:var(--fs-display)!important;
         line-height:var(--lh-display);letter-spacing:-0.022em;font-weight:700;color:var(--pl-white)!important;
         margin:10px auto 16px}
-      .pl-topper .sub{color:rgba(255,255,255,.84)!important;max-width:56ch;
+      .pl-topper .sub{color:rgb(218 215 217)!important;max-width:56ch;
         margin-inline:auto;font-size:var(--fs-lead);line-height:var(--lh-lead)}
       .pl-faq{margin-inline:calc(50% - 50vw);width:100vw;
         padding:clamp(56px,8vw,116px) var(--gutter);background:var(--bg)}
@@ -191,7 +196,7 @@
       .pl-load{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:152px;border:1px solid var(--rule);border-radius:12px;background:var(--card);color:var(--ink-deep);font:600 var(--fs-small)/1.2 var(--type-body);cursor:pointer}
       .pl-hero-player .pl-load{height:352px;border-radius:22px}
       .pl-load:hover,.pl-load:focus-visible{border-color:var(--pl-spotify)}
-      .pl-load-icon{color:var(--pl-spotify)}
+      .pl-load-icon{color:var(--ink-deep)}
       .pl-hero-note{font-size:var(--fs-micro);color:var(--ink-mute);margin:12px 0 0}
 
       /* Apple fills its buttons. One solid accent, white text, full pill. */
