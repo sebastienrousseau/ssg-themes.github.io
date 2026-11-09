@@ -7,6 +7,10 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Playlists: the 40 Spotify players load only when the reader presses
+  play. Each is a button carrying the embed URL until then, so the page
+  sends nothing to the Spotify player (and Spotify sets no cookie) on
+  load; a note under the hero links the privacy notice.
 - The footer carries a views disclosure on every page ("Personal site.
   Views are my own and do not represent HSBC.", linking the
   conflict-of-interest section of the editorial policy) and an
