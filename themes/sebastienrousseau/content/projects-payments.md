@@ -4,8 +4,8 @@
 
 author: "contact@sebastienrousseau.com (Sebastien Rousseau)"
 banner_alt: "Aerial view of city interchanges at night, representing cross-border payment rails."
-banner_height: "1000"
-banner_width: "1600"
+banner_height: "1187"
+banner_width: "1920"
 banner: "https://cloudcdn.pro/stocks/images/denys-nevozhai-2vmT5_FeMck-1920.webp"
 cdn: "https://cloudcdn.pro/clients"
 changefreq: "monthly"
