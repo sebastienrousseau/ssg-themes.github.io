@@ -31,12 +31,12 @@ jobs:
   # Every claim the themes make on their own pages is checked here. The
   # previous workflow ran `make build-all` and deployed, with no gate of any
   # kind behind the "100/100 Lighthouse" and "100% WCAG AAA" badges.
-  gate:
+  # Builds every theme and runs the static gates. The browser suites run
+  # in parallel jobs below, each on this job's `public` artifact: in one
+  # job, in sequence, they outgrew the 180-minute limit at ~420 pages.
+  build:
     runs-on: ubuntu-latest
-    # The last green gate took 2 h 8 min (browser suites over ~420 pages);
-    # 60 cancelled a healthy run midway. This only caps a hung job, well
-    # under the 6 h default.
-    timeout-minutes: 180
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -135,73 +135,184 @@ jobs:
       - name: Accessibility report must be clean
         run: make check-a11y-report
 
-      # Four suites, all through the same pinned Chromium: layout across 13
-      # viewports x 2 schemes, keyboard/zoom/reduced-motion/forced-colours,
-      # screen-reader + print + degraded delivery, and axe-core WCAG 2.2 AA.
-      # axe runs here rather than via @axe-core/cli because the CLI drives
-      # the runner's system Chrome through ChromeDriver, and the two drift:
-      # it failed all 25 pages with "This version of ChromeDriver only
-      # supports Chrome version 151".
+  # Four suites, all through the same pinned Chromium: layout across 13
+  # viewports x 2 schemes, keyboard/zoom/reduced-motion/forced-colours,
+  # screen-reader + print + degraded delivery, and axe-core WCAG 2.2 AA.
+  # axe runs here rather than via @axe-core/cli because the CLI drives the
+  # runner's system Chrome through ChromeDriver, and the two drift: it
+  # failed all 25 pages with "This version of ChromeDriver only supports
+  # Chrome version 151".
+  browser:
+    name: Browser gates (layout, interaction, semantics, axe)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Download the build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: public
+          path: public/
       - name: Install browser test dependencies
         # `npm ci` installs exactly what package-lock.json records, with
         # integrity hashes; `npm install` could rewrite the lockfile.
         run: |
           npm --prefix tests/responsive ci --no-audit --no-fund
           npx --prefix tests/responsive playwright install --with-deps chromium
-
-      - name: Browser gates (layout, interaction, semantics, axe)
-        # Single pass, for the reason given on the AAA step below.
+      - name: Browser gates
         env:
           RESPONSIVE_BATCHES: "1"
-        run: |
-          bash tests/responsive/run.sh
+        run: bash tests/responsive/run.sh
 
-      # The AAA suites measure what the browser paints, which the stylesheet
-      # gates above cannot: a token can pass in isolation and still be
-      # rendered on a ground it was never paired with. Reuses the Chromium
-      # installed by the step above.
-      - name: AAA gates (rendered contrast, target size, reflow, focus)
-        # Keep the runner's default bounded batches. A single Chromium over
-        # all 264 pages accumulates enough renderer state to exit 1 late in
-        # the focus suite; restarting between groups is part of the gate's
-        # memory-safety contract, not merely a developer-machine workaround.
+  # The AAA suites measure what the browser paints, which the stylesheet
+  # gates cannot: a token can pass in isolation and still be rendered on a
+  # ground it was never paired with. One suite per job; each keeps the
+  # runner's bounded batches (a single Chromium over every page
+  # accumulates enough renderer state to exit 1 late in the focus suite).
+  aaa:
+    name: AAA gate (${{ matrix.suite }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [a11y, reflow, focus, gradient, composition]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Download the build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: public
+          path: public/
+      - name: Install browser test dependencies
+        # `npm ci` installs exactly what package-lock.json records, with
+        # integrity hashes; `npm install` could rewrite the lockfile.
+        run: |
+          npm --prefix tests/responsive ci --no-audit --no-fund
+          npx --prefix tests/responsive playwright install --with-deps chromium
+      - name: AAA suite
+        env:
+          AAA_SUITES: ${{ matrix.suite }}
         run: bash tests/aaa/run.sh
 
+  links:
+    name: Broken link check
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Download the build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: public
+          path: public/
       - name: Install link checker
         run: npm install --no-save linkinator
-
       # The site is served from the root of its own host, so `public/` is
-      # the document root. When it lived at a path, this had to serve a
-      # mirrored tree or every root-absolute URL 404'd and linkinator
-      # reported 57 phantom broken links.
+      # the document root.
       - name: Serve the site
         run: |
           npx --yes http-server public -p 8080 --silent &
           npx --yes wait-on http://127.0.0.1:8080/ -t 60000
-
       - name: Broken link check
         run: |
           npx linkinator "http://127.0.0.1:8080/" \
             --recurse --silent --skip "^https?://(?!127\.0\.0\.1)"
 
-      # Informational only, and deliberately so: README.md states this
-      # project ships no Lighthouse score badge, so there is no claim here
-      # for a gate to defend. The report is uploaded for humans to read.
-      - name: pa11y (axe + htmlcs, WCAG2AAA, every built page)
+  pa11y:
+    name: pa11y (axe + htmlcs, WCAG2AAA, every built page)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Download the build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: public
+          path: public/
+      - name: pa11y
         run: |
-          # The install used to sit in quality-gate.yml, which never ran the
-          # tool it installed. It belongs next to the step that uses it.
           npm install -g pa11y-ci
           bash scripts/pa11y.sh
 
+  lighthouse:
+    name: Lighthouse CI
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Download the build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: public
+          path: public/
       - name: Lighthouse CI
         run: |
           npm install --no-save @lhci/cli
           # The thresholds live in .lighthouserc.json so a local
-          # `make check-lighthouse` and CI assert exactly the same thing —
+          # `make check-lighthouse` and CI assert exactly the same thing:
           # both mobile and desktop run three times and hard-gate all four
           # categories at 1.0, with the transfer and raw-metric budgets too.
           bash scripts/lighthouse.sh
+
+  # The required status check. It passes only when the build and every
+  # browser gate pass, so branch protection keeps meaning "all gates".
+  gate:
+    needs: [build, browser, aaa, links, pa11y, lighthouse]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Every gate passed
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          echo "${RESULTS}" | python3 -c "import json,sys; r={k: v['result'] for k, v in json.load(sys.stdin).items()}; print(r); sys.exit(0 if set(r.values()) == {'success'} else 1)"
 
   deploy:
     needs: gate
