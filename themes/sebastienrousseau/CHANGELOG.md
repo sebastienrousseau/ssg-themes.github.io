@@ -7,6 +7,10 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The footer carries a views disclosure on every page ("Personal site.
+  Views are my own and do not represent HSBC.", linking the
+  conflict-of-interest section of the editorial policy) and an
+  "Editorial policy" link at the head of the policies row.
 - Profile facts from sebastienrousseau.com 0.0.35 (`_data/profile.yml`).
   The Person JSON-LD drops the three credentials it said HSBC, SWIFT and
   NIST had recognised, lists schools rather than past employers under
