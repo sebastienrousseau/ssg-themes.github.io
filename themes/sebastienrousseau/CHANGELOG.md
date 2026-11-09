@@ -7,6 +7,14 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Profile facts from sebastienrousseau.com 0.0.35 (`_data/profile.yml`).
+  The Person JSON-LD drops the three credentials it said HSBC, SWIFT and
+  NIST had recognised, lists schools rather than past employers under
+  `alumniOf`, says "more than 20 years" instead of "nearly two decades",
+  and adds the FIAP fellowship, LinkedIn certificates, awards and
+  languages. The home credentials line reads "Senior Product Manager,
+  Wholesale Payments & API · HSBC" and "EPAA Quantum-Safe Working Group
+  member" in place of "AI Leader" and "Author of the EPAA paper".
 - Design system v2 from sebastienrousseau.com 0.0.33: `base.html` wraps
   the shell stylesheet in `@layer legacy { ... }` and appends
   `design-system.css` unlayered through `{{> partials/ds}}`, so the design
