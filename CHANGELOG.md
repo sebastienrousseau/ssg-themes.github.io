@@ -7,6 +7,24 @@ All notable changes to this project are recorded here. The format follows
 step by 0.0.1 per release. The full notes for each release live in
 [`releases/`](releases/).
 
+## [0.0.8] - Unreleased
+
+### Added
+
+- sebastienrousseau: design system v3 (spacing, rhythm, radii, surfaces,
+  shadows, motion) and Inter on the first view (preloaded, `swap` over
+  the metric-matched fallback, Inter 4.1 variable with `opsz`).
+- sebastienrousseau: a seven-section home with one primary action, a
+  "Work with me" nav item, a footer Contact column, Media kit and
+  Changelog links, and a search box on the 404 page.
+
+### Changed
+
+- sebastienrousseau: the footer newsletter form, which put the reader's
+  address in the URL, is a link to the newsletter; the contact form
+  names its processors, redirects to `/thanks/` and pre-fills only the
+  subject; the live clock moves from the home hero to Contact.
+
 ## [0.0.7] - Unreleased
 
 ### Added
