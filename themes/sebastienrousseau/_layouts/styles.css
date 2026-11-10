@@ -80,12 +80,13 @@
         color-scheme: light dark;
         /* Named typography abstraction: every font-family in the
            stylesheet reads from these three vars. A first view renders
-           in the metric-matched system faces (fonts.css), so no webfont
-           sits on the path to first paint; main.js fetches the webfonts
-           after load, and theme-init.js adds .wf to <html> on later
-           views, which switches the stacks below to them before paint. */
+           in Inter (preloaded, font-display: swap over the metric-matched
+           Inter Fallback) and in the metric-matched serif and mono
+           fallbacks (fonts.css); main.js fetches Newsreader and JetBrains
+           Mono after load, and theme-init.js adds .wf to <html> on later
+           views, which switches those stacks to them before paint. */
         --type-display: "Newsreader Fallback", Georgia, Cambria, "Times New Roman", Times, serif;
-        --type-body: "Inter Fallback", "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --type-body: "Inter", "Inter Fallback", "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
         --type-mono: "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, Menlo, monospace;
       }
       :root.wf{
