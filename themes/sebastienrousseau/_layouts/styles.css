@@ -1111,7 +1111,7 @@
       @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) #mode-toggle.theme-toggle{border-color:var(--mode-ctl-border);background:var(--mode-ctl-bg);color:var(--mode-ctl-ink)}}
       #mode-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       .ap-toggle,.ap-burger{display:none}
-      @media (max-width:980px){
+      @media (max-width:1199px){
         .ap-nav .wrap{grid-template-columns:auto 1fr auto}
         .ap-menu{display:none}
         .ap-burger{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--ink);width:44px;height:44px;user-select:none}
