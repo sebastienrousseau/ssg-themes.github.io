@@ -689,3 +689,27 @@ body:has(.report-article) .ap-hero h1, aside.pull-quote { font-family: var(--typ
 .tool-form label { display: block; margin-top: var(--space-4); font-weight: 600; }
 .tool-form output { display: block; margin-top: var(--space-4); }
 .tool-note { font-size: var(--fs-meta); color: var(--ink-mute); }
+/* Article "Share · Cite" menu (plan C-4): one native disclosure under the
+   title in place of the share and action rails. */
+.article-tools {
+  border-block: 1px solid var(--hairline);
+  padding-block: var(--space-3);
+  margin-block: var(--space-6);
+}
+.article-tools summary { cursor: pointer; font-weight: 600; font-size: var(--fs-ui); min-height: 44px; display: flex; align-items: center; }
+.article-tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.article-tools-list :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--fs-small);
+}
+.article-tools-list svg { width: 16px; height: 16px; }
