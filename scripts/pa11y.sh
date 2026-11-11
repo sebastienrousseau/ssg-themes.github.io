@@ -120,9 +120,10 @@ overlay_text = [
     # text as indeterminate; tests/aaa/gradient.mjs measures it from pixels.
     '.feat-hero .feat-headline', '.feat-hero .feat-credentials a',
     '.feat-hero .feat-cta .pill.ghost', '.feat-hero .hero-creds',
-    # The same clock, moved to Contact: aria-hidden decoration whose glow
-    # reaches under the note above it. The note and its links have the
-    # card's opaque ground and are measured by the AAA contrast audit.
+    # The same clock, moved to Contact: aria-hidden decoration. pa11y does
+    # not hide these elements, it drops issues inside them, so this covers
+    # the clock's own SVG text only. The note above it sits over the glow
+    # and is measured from pixels by tests/aaa/gradient.mjs.
     '.contact-clock',
 ]
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
