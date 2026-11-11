@@ -11,6 +11,8 @@
   #fail       { color: rgb(160,160,160); background: rgb(255,255,255); }
   #borderline { color: rgb(88,88,88);  background: rgb(255,255,255); }
   #alphatext  { color: rgba(0,0,0,0.35); background: rgb(255,255,255); }
+  #oklchnone  { color: rgb(29,29,31);  background: oklch(1 0 none / 0.78); }
+  #oklchtint  { color: rgb(29,29,31);  background: oklch(0.97 0.02 260); }
   #gradient   { color: rgb(29,29,31);  background: linear-gradient(#fff,#eee); }
 </style>
 <main>
@@ -21,5 +23,7 @@
   <p id="fail">too light to read</p>
   <p id="borderline">just under seven to one</p>
   <p id="alphatext">translucent text</p>
+  <p id="oklchnone">oklch no-hue ground</p>
+  <p id="oklchtint">oklch tinted ground</p>
   <p id="gradient">text on a gradient</p>
 </main>

@@ -116,6 +116,14 @@ overlay_text = [
     # subtitle and the audience buttons have opaque grounds and are
     # measured by the AAA contrast audit.
     '.feat-hero-stage', '.feat-hero .feat-sub', '.read-as-btn', '#read-as-label',
+    # The v3 home hero sits on the --signature gradient, so axe reports its
+    # text as indeterminate; tests/aaa/gradient.mjs measures it from pixels.
+    '.feat-hero .feat-headline', '.feat-hero .feat-credentials a',
+    '.feat-hero .feat-cta .pill.ghost', '.feat-hero .hero-creds',
+    # The same clock, moved to Contact: aria-hidden decoration whose glow
+    # reaches under the note above it. The note and its links have the
+    # card's opaque ground and are measured by the AAA contrast audit.
+    '.contact-clock',
 ]
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
     '.brand-mark', '.hero h1', '.hero .lead', *overlay_text,
