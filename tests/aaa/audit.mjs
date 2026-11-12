@@ -42,7 +42,9 @@ export const AUDIT = () => {
     // serialises as `oklch(L C none / a)`, which the 0-255 read below took
     // as opaque black and reported a white header at 1.25:1.
     if(!/^rgba?\(/.test(c)){
-      px.clearRect(0,0,1,1);px.fillStyle='#000';px.fillStyle=c;px.fillRect(0,0,1,1);
+      // save/restore puts fillStyle back to its default, black, after each
+      // colour, so one the browser rejects paints black, not the last one.
+      px.clearRect(0,0,1,1);px.save();px.fillStyle=c;px.fillRect(0,0,1,1);px.restore();
       const d=px.getImageData(0,0,1,1).data;
       return{r:d[0]/255,g:d[1]/255,b:d[2]/255,a:d[3]/255};
     }
