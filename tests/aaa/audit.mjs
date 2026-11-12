@@ -20,6 +20,8 @@ export const AUDIT = () => {
   const toLin=v=>v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);
   const toGam=v=>v<=0.0031308?v*12.92:1.055*Math.pow(v,1/2.4)-0.055;
   const clamp=v=>Math.min(1,Math.max(0,v));
+  const cv=document.createElement('canvas');cv.width=cv.height=1;
+  const px=cv.getContext('2d',{willReadFrequently:true});
   const parse=c=>{
     if(!c||c==='transparent')return{r:0,g:0,b:0,a:0};
     const fn=c.match(/^color\(\s*([\w-]+)\s+([^)]*)\)/);
@@ -34,6 +36,17 @@ export const AUDIT = () => {
                b:toGam(clamp(-0.0196376*R-0.0786361*G+1.0982736*B)),a};
       }
       return{r:clamp(v[0]),g:clamp(v[1]),b:clamp(v[2]),a};
+    }
+    // oklch(), oklab(), lab(), hwb() and the rest: let the browser convert
+    // to sRGB rather than read the numbers. A neutral color-mix in oklch
+    // serialises as `oklch(L C none / a)`, which the 0-255 read below took
+    // as opaque black and reported a white header at 1.25:1.
+    if(!/^rgba?\(/.test(c)){
+      // save/restore puts fillStyle back to its default, black, after each
+      // colour, so one the browser rejects paints black, not the last one.
+      px.clearRect(0,0,1,1);px.save();px.fillStyle=c;px.fillRect(0,0,1,1);px.restore();
+      const d=px.getImageData(0,0,1,1).data;
+      return{r:d[0]/255,g:d[1]/255,b:d[2]/255,a:d[3]/255};
     }
     const v=(c.match(/-?[\d.]+/g)||[]).map(Number);
     return{r:clamp(v[0]/255),g:clamp(v[1]/255),b:clamp(v[2]/255),a:v.length>3?v[3]:1};

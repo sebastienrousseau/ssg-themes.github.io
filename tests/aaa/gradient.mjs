@@ -32,6 +32,11 @@ const SEL = [
   '.offer-eyebrow', '.offer-headline', '.offer-card .offer-link',
   '.feat-finale .finale-ai-kicker', '.feat-finale .finale-ai-pill span',
   '.feat-finale .feat-secondary-link',
+  // The v3 home hero (site v0.0.36) sits on the --signature gradient.
+  '.feat-hero .feat-headline', '.feat-hero .feat-sub', '.feat-hero .feat-credentials a',
+  '.feat-hero .feat-cta .pill.ghost', '.feat-hero .hero-creds',
+  // The Contact note sits over the clock's glow.
+  '.contact-aside-note', '.contact-aside-note a',
 ];
 // A colour transition on the text would fade it out over the second capture
 // and leave half a glyph in the "ground": a white link on black read 2.7:1.

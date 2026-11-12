@@ -27,6 +27,11 @@ const EXPECT = {
   fail: ratio([160, 160, 160], WHITE),
   borderline: ratio([88, 88, 88], WHITE),
   alphatext: ratio(over([0, 0, 0], 0.35, WHITE), WHITE),
+  // oklch(1 0 none / 0.78) is white at 78% over white: plain white.
+  oklchnone: ratio(INK, WHITE),
+  // oklch(0.97 0.02 260) is a pale blue, about rgb(236,244,255); any
+  // ground that light keeps the ink well above 7:1.
+  oklchtint: ratio(INK, [236, 244, 255]),
 };
 
 const b = await chromium.launch(HERMETIC);
@@ -45,6 +50,7 @@ const byText = {
   translucent: 'translucent srgb ground', rgba: 'translucent rgba ground',
   fail: 'too light to read', borderline: 'just under seven to one',
   alphatext: 'translucent text',
+  oklchnone: 'oklch no-hue ground', oklchtint: 'oklch tinted ground',
 };
 
 const problems = [];

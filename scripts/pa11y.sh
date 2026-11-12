@@ -116,6 +116,15 @@ overlay_text = [
     # subtitle and the audience buttons have opaque grounds and are
     # measured by the AAA contrast audit.
     '.feat-hero-stage', '.feat-hero .feat-sub', '.read-as-btn', '#read-as-label',
+    # The v3 home hero sits on the --signature gradient, so axe reports its
+    # text as indeterminate; tests/aaa/gradient.mjs measures it from pixels.
+    '.feat-hero .feat-headline', '.feat-hero .feat-credentials a',
+    '.feat-hero .feat-cta .pill.ghost', '.feat-hero .hero-creds',
+    # The same clock, moved to Contact: aria-hidden decoration. pa11y does
+    # not hide these elements, it drops issues inside them, so this covers
+    # the clock's own SVG text only. The note above it sits over the glow
+    # and is measured from pixels by tests/aaa/gradient.mjs.
+    '.contact-clock',
 ]
 cfg.setdefault('defaults', {})['hideElements'] = ', '.join([
     '.brand-mark', '.hero h1', '.hero .lead', *overlay_text,
