@@ -7,6 +7,13 @@ All notable changes to this project are recorded here. The format follows
 step by 0.0.1 per release. The full notes for each release live in
 [`releases/`](releases/).
 
+## [0.0.9] - Unreleased
+
+### Changed
+
+- CI builds the themes against ssg 0.0.76 (was 0.0.72), whose code
+  highlighting uses its own AAA token palette.
+
 ## [0.0.8] - Unreleased
 
 ### Added
@@ -129,6 +136,8 @@ See [releases/v0.0.2.md](releases/v0.0.2.md).
 
 See [releases/v0.0.1.md](releases/v0.0.1.md).
 
+[0.0.9]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.8...feat/v0.0.9
+[0.0.8]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.6...feat/v0.0.7
 [0.0.6]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.4...v0.0.5
