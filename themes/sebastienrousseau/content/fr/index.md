@@ -195,7 +195,7 @@ translation_key: "index"
 <p class="feat-eyebrow">EPAA · September 2025</p>
 <h3 id="paper">Why the payments industry must act now.</h3>
 <p>Regulators are treating harvest-now-decrypt-later as a credible present risk. This paper, produced for the Emerging Payments Association Asia, sets out the structural threat and the case for coordinated action across wholesale payment rails.</p>
-<p><a class="pill" href="https://emergingpaymentsasia.org/wp-content/uploads/2025/09/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now.pdf" title="EPAA Quantum-Safe Payments White Paper">Read the white paper</a></p>
+<p><a class="pill" href="https://emergingpaymentsasia.org/wp-content/uploads/2026/11/Quantum-Safe-Payments-Why-the-Payments-Industry-Must-Act-Now-updated.pdf" title="EPAA Quantum-Safe Payments White Paper">Read the white paper</a></p>
 </div>
 </article>
 </section>
