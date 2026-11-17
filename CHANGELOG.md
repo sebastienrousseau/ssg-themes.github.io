@@ -19,6 +19,8 @@ step by 0.0.1 per release. The full notes for each release live in
 - sebastienrousseau: the EPAA white paper links (13 layouts and the demo
   research pages) point at EPAA's new address; the old 2025/09 file
   returns 404. The papers page states the new file's size, 18.7 MB.
+- sebastienrousseau: two or more buttons in a feature card wrap as a row
+  with a 12px gap; on a phone they stacked with no space between them.
 
 ## [0.0.8] - Unreleased
 
