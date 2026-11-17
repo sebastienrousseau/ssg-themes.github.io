@@ -14,6 +14,12 @@ step by 0.0.1 per release. The full notes for each release live in
 - CI builds the themes against ssg 0.0.76 (was 0.0.72), whose code
   highlighting uses its own AAA token palette.
 
+### Fixed
+
+- sebastienrousseau: the EPAA white paper links (13 layouts and the demo
+  research pages) point at EPAA's new address; the old 2025/09 file
+  returns 404. The papers page states the new file's size, 18.7 MB.
+
 ## [0.0.8] - Unreleased
 
 ### Added
