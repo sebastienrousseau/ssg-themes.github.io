@@ -7,6 +7,21 @@ All notable changes to this project are recorded here. The format follows
 step by 0.0.1 per release. The full notes for each release live in
 [`releases/`](releases/).
 
+## [0.0.9] - Unreleased
+
+### Changed
+
+- CI builds the themes against ssg 0.0.76 (was 0.0.72), whose code
+  highlighting uses its own AAA token palette.
+
+### Fixed
+
+- sebastienrousseau: the EPAA white paper links (13 layouts and the demo
+  research pages) point at EPAA's new address; the old 2025/09 file
+  returns 404. The papers page states the new file's size, 18.7 MB.
+- sebastienrousseau: two or more buttons in a feature card wrap as a row
+  with a 12px gap; on a phone they stacked with no space between them.
+
 ## [0.0.8] - Unreleased
 
 ### Added
@@ -129,6 +144,8 @@ See [releases/v0.0.2.md](releases/v0.0.2.md).
 
 See [releases/v0.0.1.md](releases/v0.0.1.md).
 
+[0.0.9]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.8...feat/v0.0.9
+[0.0.8]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.6...feat/v0.0.7
 [0.0.6]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/sebastienrousseau/ssg-themes.github.io/compare/v0.0.4...v0.0.5
