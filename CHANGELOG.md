@@ -13,9 +13,16 @@ step by 0.0.1 per release. The full notes for each release live in
 
 - CI builds the themes against ssg 0.0.76 (was 0.0.72), whose code
   highlighting uses its own AAA token palette.
+- Dependencies: cargo-binstall 1.27.0 in the build workflow, and
+  @playwright/test 1.65.1 and axe-core 4.14.1 in `tests/responsive`
+  (Dependabot #60 and #61).
 
 ### Fixed
 
+- sebastienrousseau: the home credentials line counts packages with a
+  `packages_published` KPI span, filled at build time like the numbers
+  rail; it said "179 open-source packages" as plain text while the rail
+  read 199.
 - sebastienrousseau: the EPAA white paper links (13 layouts and the demo
   research pages) point at EPAA's new address; the old 2025/09 file
   returns 404. The papers page states the new file's size, 18.7 MB.
