@@ -7,6 +7,12 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The home hero shows the GitHub profile's live clock: two lazy images,
+  `/api/clock/clock-dark.svg` and `/api/clock/clock-light.svg`, one shown
+  per theme, replace the inline lattice clock, its JavaScript (the dots,
+  hands and odometer drums in `main.js`) and its styles. The site's
+  Worker serves them from the profile's clock panels, so the hero and
+  the profile show the same art, holiday variations and London time.
 - Playlists: the topper copy sits on an opaque panel over the aurora and
   the hero copy on an opaque card, the play buttons' icon takes the ink
   colour, and the page's wrap takes the frame width so the full-bleed

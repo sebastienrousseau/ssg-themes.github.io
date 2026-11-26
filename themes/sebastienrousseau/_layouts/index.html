@@ -14,57 +14,12 @@
           </div>
         </div>
         <div class="feat-hero-stage" aria-hidden="true">
-          <svg class="hero-lattice-clock" viewBox="778 40 520 520" width="520" height="520" aria-hidden="true" focusable="false">
-            <defs>
-              <radialGradient id="hero-g0" cx="1060" cy="300" r="520" gradientUnits="userSpaceOnUse">
-                <stop offset="0" class="hero-glow-stop" stop-opacity=".28"/>
-                <stop offset="1" class="hero-glow-stop" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="hero-fade-g" x1="560" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="white" stop-opacity="0"/>
-                <stop offset=".38" stop-color="white"/>
-              </linearGradient>
-              <mask id="hero-fade" maskUnits="userSpaceOnUse" x="500" y="-60" width="840" height="720">
-                <rect x="500" y="-60" width="840" height="720" fill="url(#hero-fade-g)"/>
-              </mask>
-              <filter id="hero-bsh" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="black" flood-opacity=".18"/>
-              </filter>
-              <clipPath id="hero-hclip"><circle cx="1038" cy="174" r="25"/></clipPath>
-              <clipPath id="hero-mclip"><circle cx="1038" cy="116" r="25"/></clipPath>
-            </defs>
-            <circle cx="1060" cy="300" r="520" fill="url(#hero-g0)"/>
-            <g id="hero-lattice-dots" fill="currentColor" mask="url(#hero-fade)"></g>
-            <circle cx="1038" cy="300" r="184" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity=".18"/>
-            <circle cx="1038" cy="300" r="126" fill="none" stroke="currentColor" stroke-width="1" opacity=".1"/>
-            <g fill="currentColor">
-              <circle cx="1038.0" cy="116.0" r="3" opacity=".55"/><circle cx="1130.0" cy="140.7" r="1.8" opacity=".28"/><circle cx="1197.3" cy="208.0" r="1.8" opacity=".28"/><circle cx="1222.0" cy="300.0" r="3" opacity=".55"/><circle cx="1197.3" cy="392.0" r="1.8" opacity=".28"/><circle cx="1130.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="1038.0" cy="484.0" r="3" opacity=".55"/><circle cx="946.0" cy="459.3" r="1.8" opacity=".28"/><circle cx="878.7" cy="392.0" r="1.8" opacity=".28"/><circle cx="854.0" cy="300.0" r="3" opacity=".55"/><circle cx="878.7" cy="208.0" r="1.8" opacity=".28"/><circle cx="946.0" cy="140.7" r="1.8" opacity=".28"/>
-            </g>
-            <g id="hero-clock-hh" transform="rotate(304.75,1038,300)">
-              <line x1="1038" y1="300" x2="1038" y2="202" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <g id="hero-clock-hh-un" transform="rotate(-304.75,1038,174)">
-                <circle cx="1038" cy="174" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
-                <g clip-path="url(#hero-hclip)">
-                  <g id="hero-clock-hh-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-540)"></g>
-                </g>
-              </g>
-            </g>
-            <g id="hero-clock-mm" transform="rotate(57,1038,300)">
-              <line x1="1038" y1="300" x2="1038" y2="144" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <g id="hero-clock-mm-un" transform="rotate(-57,1038,116)">
-                <circle cx="1038" cy="116" r="28" class="hero-clock-badge" filter="url(#hero-bsh)"/>
-                <g clip-path="url(#hero-mclip)">
-                  <g id="hero-clock-mm-roll" class="hero-clock-num" text-anchor="middle" transform="translate(0,-486)"></g>
-                </g>
-              </g>
-            </g>
-            <g id="hero-clock-ss" transform="rotate(180,1038,300)">
-              <line x1="1038" y1="322" x2="1038" y2="132" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
-              <circle cx="1038" cy="132" r="3.5" fill="currentColor" opacity=".75"/>
-            </g>
-            <circle cx="1038" cy="300" r="7" fill="currentColor"/>
-            <circle cx="1038" cy="300" r="3" class="hero-clock-pivot"/>
-          </svg>
+          <!-- The live clock of the GitHub profile (github.com/sebastienrousseau):
+               the same art, holiday variations and London time, served by the
+               lang-router Worker from the profile's clock panels. Both images are
+               lazy, so only the one the theme shows is fetched. -->
+          <img class="hero-lattice-clock hero-clock-dark" src="/api/clock/clock-dark.svg" width="640" height="600" alt="" loading="lazy" decoding="async"/>
+          <img class="hero-lattice-clock hero-clock-light" src="/api/clock/clock-light.svg" width="640" height="600" alt="" loading="lazy" decoding="async"/>
           <p class="hero-clock-caption">London · Live UTC/BST · NIST FIPS 203 (ML-KEM) lattice</p>
         </div>
       </div>
